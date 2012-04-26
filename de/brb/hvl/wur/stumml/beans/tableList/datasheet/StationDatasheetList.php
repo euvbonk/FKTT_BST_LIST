@@ -42,7 +42,8 @@ class StationDatasheetList
     {
         if (!empty($array))
         {
-            foreach($array as $key => $value)
+            $key = 0;
+            foreach($array as $value)
             {
                 // Die Datei ist mit Sicherheit vom Typ XML!
                 $xml = new SimpleXMLElement($value, null, true);
@@ -56,6 +57,7 @@ class StationDatasheetList
                         date("D, d. M Y H:i", filemtime($value))
                     )
                 );
+                $key++;
             }
         }
     }
