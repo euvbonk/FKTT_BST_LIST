@@ -133,7 +133,7 @@ class GoodsTrafficBasics extends Frame implements FrameForm, GoodsTrafficPageCon
      */
     public function getFormActionUri()
     {
-        return common::GetUrl(common::WhichPage());
+        return common::AbsoluteUrl(common::WhichPage());
     }
 
     /**

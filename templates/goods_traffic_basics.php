@@ -1,5 +1,6 @@
 
     <h2>Frachtverkehr (grundlegende Berechnungen)</h2>
+    <!-- BSTLIST_ENTRY_FOR_FKTT_PORTAL -->
     <form action="<?php echo $this->getFormActionUri(); ?>" method="post">
     <table border="0">
         <tr>
@@ -21,8 +22,8 @@
         <tr>
             <td>Filter f&uuml;r Betriebsstellen:</td>
             <td colspan="5"><input type="text" name="filterCSV" size="30" maxlength="40" value="<?php echo $this->getFilterCSV(); ?>"/></td>
-            <td><input type="submit" value="Filter löschen" name="reset" /></td>
             <td><input type="submit" value="Start" name="calculate" /></td>
+            <td><input type="submit" value="Filter l&ouml;schen" name="reset" /></td>
         </tr>
     </table>
     <table cellspacing="1">
@@ -54,6 +55,7 @@
     </table>
     <p>Minimale Zuganzahl zum Abfahren aller Frachten in diesem Abschnitt: <?php echo $this->getMinTrainCount(); ?></p>
     </form>
+    <!-- BSTLIST_FLUSH_FOR_FKTT_PORTAL -->
     <p class="klein" style="position: relative; bottom: 1.5%; border-top: 1px solid gray; width: 97%; padding-top: 10px;">
        zuletzt ge&auml;ndert: <?php echo $this->getLastChangeTimestamp(); ?>
        <br/>

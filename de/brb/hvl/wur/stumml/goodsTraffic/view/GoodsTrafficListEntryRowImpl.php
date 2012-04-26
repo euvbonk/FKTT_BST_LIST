@@ -5,6 +5,7 @@ import('de_brb_hvl_wur_stumml_goodsTraffic_view_GoodsTrafficListEntryRow');
 
 import('de_brb_hvl_wur_stumml_html_table_TableRow');
 import('de_brb_hvl_wur_stumml_html_table_TableCell');
+import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
 
 class GoodsTrafficListEntryRowImpl implements GoodsTrafficList, GoodsTrafficListEntryRow
 {
@@ -36,8 +37,8 @@ class GoodsTrafficListEntryRowImpl implements GoodsTrafficList, GoodsTrafficList
         $ret = "";
         $ret .= "\n<tr bgcolor=\"".$this->color."\">";
         $ret .= "<td><input type=\"checkbox\" name=\"check[]\" value=\"".$this->short."\"".(($this->checkBox) ? " checked=\"checked\" " : "")."/></td>";
-        $ret .= "<td style=\"text-align:center;\">".$this->short."</td>";
-        $ret .= "<td>".$this->name."</td>";
+        $ret .= "<td style=\"text-align:center;\">".HtmlUtil::toUtf8($this->short)."</td>";
+        $ret .= "<td>".HtmlUtil::toUtf8($this->name)."</td>";
         $ret .= "<td style=\"text-align:center;\">".sprintf(GoodsTrafficList::FORMAT, $this->input)."</td>";
         $ret .= "<td style=\"text-align:center;\">".sprintf(GoodsTrafficList::FORMAT, $this->output)."</td>";
         $ret .= "<td style=\"text-align:center;\">".sprintf(GoodsTrafficList::FORMAT, $this->maxInputOutput)."</td>";
