@@ -74,7 +74,7 @@ class ZipTest extends ZipArchive
         //foreach ($allFiles as $node)
         {
             $node = $key;
-            if (is_file($node))
+            if (is_file($node) && is_readable($node))
             {
                 $node_new = str_replace($baseDir."/", "", $node);
                 $this->printDebug("adding ".$node." as ".$node_new);

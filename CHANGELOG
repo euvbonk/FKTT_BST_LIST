@@ -4,6 +4,9 @@
     * gesichert als 0.5RC6
     * Fehler in im Transformer Command
     * gesichert als 0.5RC7
+    * Nochmaliger Fehler beim erstellen der Zip Datei und Probleme mit
+      den Dateirechten nach CMS Upgrade auf Version 2.4
+    * gesichert als 0.5RC8
     * Future Request: Gesamtes fktt Verzeichnis in einem ZipFile sichern
                       als Backup eventuell per Mail zuschicken
                       Import-Funktion

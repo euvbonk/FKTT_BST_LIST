@@ -25,6 +25,7 @@ abstract class OpenDocument
         $zip->deleteName('content.xml');
         $zip->addFromString('content.xml', $this->oDocumentContent->asXML());
         $zip->close();
+        chmod($file, 0666);
     	ini_set('default_charset',$charset);
     }
 

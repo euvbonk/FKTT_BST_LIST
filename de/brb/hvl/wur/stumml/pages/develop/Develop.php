@@ -24,7 +24,8 @@ class Develop extends Frame implements DevelopPageContent
     {
         ob_start();
         //$this->doRun();
-        $this->doBuildZipBundle();
+        //$this->doBuildZipBundle();
+        echo "No Testing!";
         $str = ob_get_contents();
         ob_end_clean();
         return $str;

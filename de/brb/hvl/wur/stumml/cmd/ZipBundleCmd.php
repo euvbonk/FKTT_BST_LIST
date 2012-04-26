@@ -42,18 +42,18 @@ final class ZipBundleCmd
                 unlink($this->oTargetFile);
             }
 
-            $zip = new ZipArchive();
-            $zip->open($this->oTargetFile, ZipArchive::CREATE);
-
             // parent full directory path of $dirToArchive, to generate the
             // local path in the archive
             $baseDir = Settings::uploadBaseDir();
             
             $iterator  = new RecursiveIteratorIterator(new ZipBundleFileFilter(new RecursiveDirectoryIterator($dirToArchive)));
+
+            $zip = new ZipArchive();
+            $zip->open($this->oTargetFile, ZipArchive::CREATE);
             foreach ($iterator as $key => $value)
             {
                 $node = $key;
-                if (is_file($node))
+                if (is_file($node) && is_readable($node))
                 {
                     $node_new = str_replace($baseDir."/", "", $node);
                     if ($this->oTransform->doCommand($node))
@@ -64,6 +64,7 @@ final class ZipBundleCmd
                 }
             }
             $zip->close();
+            chmod($this->oTargetFile, 0666);
 			return true;
 		}
 		return false;

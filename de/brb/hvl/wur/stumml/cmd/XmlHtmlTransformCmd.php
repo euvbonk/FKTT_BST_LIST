@@ -27,6 +27,7 @@ final class XmlHtmlTransformCmd
             $proc = new XSLTProcessor();
             $proc->importStylesheet(DOMDocument::load(dirname($xmlFile).DIRECTORY_SEPARATOR.self::$XSL_FILE));
             $proc->transformToURI(DOMDocument::load($xmlFile), 'file://'.$htmlFile);
+            chmod($htmlFile, 0666);
             return true;
         }
         return false;
