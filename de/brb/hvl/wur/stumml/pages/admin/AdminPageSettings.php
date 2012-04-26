@@ -2,7 +2,7 @@
 
 import('de_brb_hvl_wur_stumml_Settings');
 
-class ModuleListSettings extends Settings
+class AdminPageSettings extends Settings
 {
     private static $INSTANCE = null;
     
@@ -23,7 +23,7 @@ class ModuleListSettings extends Settings
     
     public final function getTemplateFile()
     {
-        return $this->addonTemplateBaseDir().'/module_list.php';
+        return $this->addonTemplateBaseDir().'/admin.php';
     }
 
     private function __construct(){}

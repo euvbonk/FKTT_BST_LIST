@@ -5,6 +5,7 @@ import('de_brb_hvl_wur_stumml_pages_datasheet_DatasheetsList');
 import('de_brb_hvl_wur_stumml_pages_develop_Develop');
 import('de_brb_hvl_wur_stumml_pages_goodsTraffic_GoodsTrafficBasics');
 import('de_brb_hvl_wur_stumml_pages_moduleList_ModuleList');
+import('de_brb_hvl_wur_stumml_pages_admin_AdminPage');
 
 class Main
 {
@@ -26,6 +27,9 @@ class Main
                     break;
                 case "special_develop" :
                     $sheet = new Develop();
+                    break;
+                case "admin_export_data" :
+                    $sheet = new AdminPage();
                     break;
                 default :
                     // Never reached by gpEasy!

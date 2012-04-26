@@ -28,13 +28,12 @@ final class ZipBundleCmd
 		if ((!file_exists($this->oTargetFile) ||
 			filemtime($this->oTargetFile) < filemtime($this->oReferenceFile)))
 		{
-            // check if every xml file has a html file
-            //$this->checkFiles();
-
             $dirToArchive = Settings::uploadDir();
             if (!is_writable($dirToArchive))
             {
-                throw new Exception("Directory -".$dirToArchive."- has no write permission for php script!");
+                $message = "Directory -".$dirToArchive."- has no write ";
+                $message .= "permission for php script!";
+                throw new Exception($message);
             }
 
             if (file_exists($this->oTargetFile))
@@ -46,7 +45,9 @@ final class ZipBundleCmd
             // local path in the archive
             $baseDir = Settings::uploadBaseDir();
             
-            $iterator  = new RecursiveIteratorIterator(new ZipBundleFileFilter(new RecursiveDirectoryIterator($dirToArchive)));
+            $iterator  = new RecursiveIteratorIterator(
+                    new ZipBundleFileFilter(
+                        new RecursiveDirectoryIterator($dirToArchive)));
 
             $zip = new ZipArchive();
             $zip->open($this->oTargetFile, ZipArchive::CREATE);
