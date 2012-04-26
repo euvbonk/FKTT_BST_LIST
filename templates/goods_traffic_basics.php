@@ -21,8 +21,8 @@
         <tr>
             <td>Filter f&uuml;r Betriebsstellen:</td>
             <td colspan="5"><input type="text" name="filterCSV" size="30" maxlength="40" value="<?php echo $this->getFilterCSV(); ?>"/></td>
-            <td><input type="reset" value="Filter löschen" /></td>
-            <td><input type="submit" value="Start" /></td>
+            <td><input type="submit" value="Filter löschen" name="reset" /></td>
+            <td><input type="submit" value="Start" name="calculate" /></td>
         </tr>
     </table>
     <table cellspacing="1">

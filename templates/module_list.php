@@ -35,7 +35,7 @@
             ein wenig Anh&auml;ngsel.
         </p>
     </div>
-    <div style="position:absolute; bottom:2%; width:97%;">
+    <div style="position:relative; bottom:-10%; width:97%;">
       <hr />
       <p class="klein">
          zuletzt ge&auml;ndert: <?php echo $this->getLastChangeTimestamp(); ?><br/>

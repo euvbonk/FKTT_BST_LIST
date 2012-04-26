@@ -50,21 +50,29 @@ class GoodsTrafficBasics extends Frame implements FrameForm, GoodsTrafficPageCon
 
     protected function doCommand($cmd, $DATA = array())
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && $cmd == 'calculate')
+        if ($_SERVER['REQUEST_METHOD'] == 'POST')
         {
-            if (isset($DATA['filterCSV']) && strlen($DATA['filterCSV']) > 0)
+            if (isset($DATA['calculate']))
             {
-                $this->stationFilter = array_map('strtoupper', array_map('trim',explode(",", $DATA['filterCSV'])));
+                if (isset($DATA['filterCSV']) && strlen($DATA['filterCSV']) > 0)
+                {
+                    $this->stationFilter = array_map('strtoupper', array_map('trim',explode(",", $DATA['filterCSV'])));
+                }
+                if (isset($DATA['check']))
+                {
+                    $this->stationFilter = array_merge($this->stationFilter, $DATA['check']);
+                    // Falls jemand doch tatsächlich anhakt UND einträgt!
+                    $this->stationFilter = array_unique($this->stationFilter);
+                }
+                $this->allDatasheets = $this->getFilteredDatasheets($this->stationFilter, $this->allDatasheets);
+                $this->daysAWeek = $DATA['daysOfWeek'];
+                $this->lengthPerCar = $DATA['lengthPerCar'];
             }
-            if (isset($DATA['check']))
+            else if (isset($DATA['reset']))
             {
-                $this->stationFilter = array_merge($this->stationFilter, $DATA['check']);
-                // Falls jemand doch tatsächlich anhakt UND einträgt!
-                $this->stationFilter = array_unique($this->stationFilter);
+                unset($DATA['check']);
+                unset($DATA['filterCSV']);
             }
-            $this->allDatasheets = $this->getFilteredDatasheets($this->stationFilter, $this->allDatasheets);
-            $this->daysAWeek = $DATA['daysOfWeek'];
-            $this->lengthPerCar = $DATA['lengthPerCar'];
         }
     }
 
