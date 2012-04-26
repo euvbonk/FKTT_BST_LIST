@@ -29,6 +29,13 @@ function Install_Check()
              'nicht muss aber zwingend vorhanden sein!</p>';
         return false;
     }
+    if (!is_writable($dir))
+    {
+        echo '<p style="color:red">Addon kann nicht installiert werden, '.
+             'der Ordner "'.substr($dir, strrpos($dir, '/')+1).'" besitzt '.
+             'keine Schreibrechte, die aber zwingend vorhanden sein m&uuml;ssen!</p>';
+        return false;
+    }
     else
     {
         /* Eventuell den Ordner anlegen? */

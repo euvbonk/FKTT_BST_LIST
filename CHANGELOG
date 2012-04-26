@@ -1,6 +1,13 @@
 2011-10-19 euvbonk
     * Einbau des Verweises auf die Automatisch generierten Gelben Seiten
     * gesichert als 0.5RC2
+    * Das Verzeichnis "db" des Addon wird nun auf Schreibbarkeit waehrend
+      des Installationsvorgangs ueberprueft
+    * die Templates fuer die Gelben Seiten sind ins Addon-Template Verzeichnis
+      gewandert
+    * im Ordner db werden dann wirklich nur die automatisch generierten
+      Seiten fuer die jeweiligen Epochen abgelegt.
+    * gesichert als 0.5RC3
 2011-10-17 euvbonk
     * Weitere Vorbereitung fuer die Generierung der Gelben Seiten
     * gesichert als 0.5RC1 und upload auf den Server

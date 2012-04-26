@@ -9,6 +9,7 @@ import('de_brb_hvl_wur_stumml_beans_yellowPage_FkttYellowPage');
 
 final class YellowPageCmd
 {
+    private static $FILE_NAMES = array("I" => "YellowPage-I.ods", "II" => "YellowPage-II.ods", "III" => "YellowPage-III.ods", "IV" => "YellowPage.ods", "V" => "YellowPage-V.ods", "VI" => "YellowPage-VI.ods");
 	private $oFileList;
 	private $oTemplateFile;
     private $oTargetFile;
@@ -16,8 +17,8 @@ final class YellowPageCmd
 	public function __construct(FileManager $fm)
 	{
 		$this->oFileManager = $fm;
-		$this->oTemplateFile = Settings::uploadDir()."/yellow-page.ots";
-        $this->oTargetFile = Settings::uploadDir()."/YellowPage.ods";
+		$this->oTemplateFile = Settings::addonTemplateBaseDir()."/yellow-page.ots";
+        $this->renameFile("IV");
 	}
 
 	public function doCommand($epoch)
@@ -58,8 +59,7 @@ final class YellowPageCmd
 
     protected function renameFile($epoch)
     {
-        if ($epoch == "IV") return;
-        $this->oTargetFile = substr_replace($this->oTargetFile, "-".$epoch, strrpos($this->oTargetFile, "."), 0);
+        $this->oTargetFile = Settings::uploadDir()."/".self::$FILE_NAMES[$epoch];
     }
 }
 ?>
