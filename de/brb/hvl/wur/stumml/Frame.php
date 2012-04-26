@@ -2,7 +2,12 @@
 class Frame
 {
     private $templateFileName;
-    
+
+    public function __construct($fileName)
+    {
+        $this->setTemplateFile($fileName);
+    }    
+
     public function setTemplateFile($file)
     {
         $this->templateFileName = $file;

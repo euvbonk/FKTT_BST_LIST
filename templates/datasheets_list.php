@@ -1,5 +1,6 @@
 
       <h1>Die Betriebstellen des FKTT und ihre Daten</h1>
+      <p><?php echo $this->getFilterUI(); ?></p>
         <!-- BSTLIST_ENTRY_FOR_FKTT_PORTAL -->
         <style type="text/css">
         /* <![CDATA[ */
@@ -9,14 +10,7 @@
         /* ]]> */
         </style>
       <table>
-         <tr>
-            <td>Lfd. Nr.</td>
-            <td>Betriebsstellenname</td>
-            <td>K&uuml;rzel</td>
-            <td>Kategorie</td>
-            <td>Letzte &Auml;nderung</td>
-         </tr>
-         <?php $this->getTableEntries(); ?>
+         <?php echo $this->getTable(); ?>
       </table>
         <!-- BSTLIST_FLUSH_FOR_FKTT_PORTAL -->
       <p>

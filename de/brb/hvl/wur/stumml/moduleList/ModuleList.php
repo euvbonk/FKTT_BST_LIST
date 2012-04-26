@@ -10,7 +10,7 @@ class ModuleList extends Frame
     
     public function __construct()
     {
-        $this->setTemplateFile(ModuleListSettings::getInstance()->templateFile());
+        parent::__construct(ModuleListSettings::getInstance()->templateFile());
         $this->content = (!empty($_POST['content'])) ? $_POST['content'] : "";
         
         if (!empty($this->content))

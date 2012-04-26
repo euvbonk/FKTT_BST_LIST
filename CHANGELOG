@@ -1,3 +1,11 @@
+2011-09-16 - 2011-09-20 euvbonk
+    * Interne Umstrukturierung fuer eine erweiterte Listenansicht
+    * html Kram in eigenes Unterverzeichnis
+    * Anpassung der speziellen Umlaute nicht nur fuer deutschen Zeichen-
+      satz
+2011-09-15  euvbonk
+    * in Datei TableContentEntries.php die Funktion convert um polnische
+      Spezialbuchstaben erweitert, Datei wurde gleich aktualisiert
 2010-05-23	euvbonk
 	* Addon.ini: increase version counter to v0.2
 	change label name for create_modul_list to "Modulreihungsliste"

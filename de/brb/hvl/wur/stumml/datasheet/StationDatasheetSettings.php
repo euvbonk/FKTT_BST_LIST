@@ -15,9 +15,10 @@ class StationDatasheetSettings extends Settings
         return self::$INSTANCE;
     }
 
+    /*@Override*/
     public function lastAddonChange()
     {
-        return '23. Mai 2010 09:56:00';
+        return '20. September 2011 15:30:00';
     }
     
     public final function newSheet()
