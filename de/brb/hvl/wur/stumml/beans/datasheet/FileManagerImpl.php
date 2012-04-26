@@ -20,6 +20,16 @@ class FileManagerImpl implements FileManager
         //print "<pre>".print_r($this->allDatasheets, true)."</pre>";
     }
 
+	public function getLatestFileFromEpoch($epoch)
+	{
+		// sollte die uebergebene Epoche nicht existieren
+		if (!in_array($epoch, self::$EPOCHS)) return null;
+		$t = $this->getFilesFromEpochWithOrder($epoch, "ORDER_LAST");
+		// im Array steht dann an nullter Position die Datei in der die
+		// letzte Aenderung stattgefunden hat
+		return (!empty($t)) ? $t[0] : null;
+	}
+
     public function getFilesFromEpoch($in, $epoch = "IV")
     {
         $ret = array();

@@ -1,7 +1,7 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_beans_tableList_AbstractListRowEntries');
-import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
+import('de_brb_hvl_wur_stumml_Settings');
 
 abstract class AbstractListRowEntriesImpl implements AbstractListRowEntries
 {
@@ -36,12 +36,6 @@ abstract class AbstractListRowEntriesImpl implements AbstractListRowEntries
         $this->short = $s;
     }
 
-    protected function buildRelativePath($path)
-    {
-        global $rootDir;
-        return substr($path, strlen($rootDir)+1);
-    }
-
     public function setSheetUrl($u)
     {
         $this->url = $u;
@@ -52,19 +46,14 @@ abstract class AbstractListRowEntriesImpl implements AbstractListRowEntries
         return $this->url;
     }
 
-    protected function getAbsoluteLink($url, $label)
-    {
-        return str_replace('index.php/', '', HtmlUtil::toUtf8(common::AbsoluteLink($url, $label)));
-    }
-
     public function getNameWithReference()
     {
-        return $this->getAbsoluteLink($this->buildRelativePath($this->getSheetUrl()), $this->getName());
+        return Settings::buildDownloadPath($this->getSheetUrl(), $this->getName());
     }
 
     public function getShortWithReference()
     {
-        return $this->getAbsoluteLink($this->buildRelativePath($this->getSheetUrl()), $this->getShort());
+        return Settings::buildDownloadPath($this->getSheetUrl(), $this->getShort());
     }
 }
 ?>

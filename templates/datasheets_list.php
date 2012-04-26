@@ -28,6 +28,7 @@
         <!-- BSTLIST_FLUSH_FOR_FKTT_PORTAL -->
 <!--      </table>-->
       </form>
+      <p><?php echo $this->getYellowPageLink(); ?></p>
       <p>
          Achtung! Die Betriebsstellendateien sind XML-Dateien<br/>
          und nur mit folgenden Browsern ansehbar:<br />

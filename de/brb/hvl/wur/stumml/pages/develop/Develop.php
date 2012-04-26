@@ -41,7 +41,7 @@ class Develop extends Frame implements DevelopPageContent
         $f->saveFileTo(Settings::uploadDir()."/test.ods");
         $f->closeFile();*/
         
-        $this->doBuildYellowPages();
+        //$this->doBuildYellowPages();
     }
 
     protected function doBuildZipBundle()

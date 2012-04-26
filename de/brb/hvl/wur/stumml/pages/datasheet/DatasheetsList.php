@@ -6,6 +6,7 @@ import('de_brb_hvl_wur_stumml_pages_datasheet_DatasheetsPageContent');
 import('de_brb_hvl_wur_stumml_pages_datasheet_StationDatasheetSettings');
 
 import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_StationDatasheetList');
+import('de_brb_hvl_wur_stumml_cmd_YellowPageCmd');
 
 class DatasheetsList extends AbstractList implements DatasheetsPageContent
 {
@@ -64,6 +65,18 @@ class DatasheetsList extends AbstractList implements DatasheetsPageContent
             $str .= "<option value=\"".$key."\"".(($this->order == $key) ? " selected=\"selected\"" : "").">".$value."</option>";
         }
         return $str;
+    }
+
+    /**
+     * @see Interface DatasheetsPageContent
+     */
+    public final function getYellowPageLink()
+    {
+        $t = new YellowPageCmd($this->getFileManager());
+        $t->doCommand($this->getEpoch());
+        $l = StationDatasheetSettings::buildDownloadPath($t->getFileName(), "Gelbe Seiten für die Epoche ".$this->getEpoch());
+        $l .= "&nbsp;(".date("D, d. M Y H:i", filemtime($t->getFileName())).")";
+        return $l;
     }
 }
 ?>

@@ -1,5 +1,7 @@
 <?php
 
+import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
+
 abstract class Settings
 {
     private static $INSTANCE = null;
@@ -15,7 +17,7 @@ abstract class Settings
 
     public function lastAddonChange()
     {
-        return '23. Mai 2010 21:32:45';
+        return '19. Okotber 2011 09:30:00';
     }
 
     public final static function uploadBaseDir()
@@ -39,7 +41,14 @@ abstract class Settings
     {
         return self::uploadBaseDir().'/db';
     }
-    
+
+    public final static function buildDownloadPath($filePath, $label)
+    {
+        global $rootDir;
+        $filePath = substr($filePath, strlen($rootDir)+1);
+        return str_replace('index.php/', '', HtmlUtil::toUtf8(common::AbsoluteLink($filePath, $label)));
+    }    
+
     public abstract function getTemplateFile();
 
     private function __construct(){}
