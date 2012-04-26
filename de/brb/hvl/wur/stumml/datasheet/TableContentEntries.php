@@ -31,7 +31,7 @@ class TableContentEntries extends BasicDirectory
             {
                 // Die Datei ist mit Sicherheit vom Typ XML!
                 $xml = simplexml_load_file($value);
-                $this->entries->addEntry(
+                $this->addEntry(
                     new EntryRowImpl(
                         (string)$xml->name,
                         $this->buildRelativePath($value),
@@ -65,9 +65,27 @@ class TableContentEntries extends BasicDirectory
 
     private function getAbsoluteLink($url, $label)
     {
-        return str_replace('index.php/', '', common::AbsoluteLink($url, $label));
+        return str_replace('index.php/', '', $this->convert(common::AbsoluteLink($url, $label), 1));
     }
     
+	private function convert($str, $way)
+	{
+		$umlaute = array("ä", "ö", "ü", "Ä", "Ö", "Ü", "ß");
+		$ersetzt = array("&auml;", "&ouml;", "&uuml;", "&Auml;", "&Ouml;", "&Uuml;", "&szlig;");
+		if ($way == 1)
+        {
+			return str_replace($umlaute, $ersetzt, $str);
+		}
+        elseif ($way == 2)
+        {
+			return str_replace($ersetzt, $umlaute, $str);
+		}
+        else
+        {
+            return FALSE;
+        }
+	}
+
     private function addRow(Html $row)
     {
         $this->tableEntries .= $row->getHtml();

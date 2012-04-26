@@ -1,0 +1,18 @@
+2010-05-23	euvbonk
+	* Addon.ini: increase version counter to v0.2
+	change label name for create_modul_list to "Modulreihungsliste"
+	* add package moduleList
+	* add class ModuleList.php to package moduleList
+	* add class ModuleListSettings.php to package moduleList
+	* ModuleListSettings.php: as Singleton
+	add functions lastChange, templateFile
+	* add template file module_list.php and adapting
+	* ModuleList.php: add function showPostContent
+	* add class ListBuilder.php to package moduleList
+    * TableContentEntries.php [bugfix function buildTableEntries]: Referenz
+    * template file module_list.php adapted
+    * Install_Check.php: use CheckDir from gpFiles
+    * Settings.php: use $addonPathCode from gpEasy
+2010-05-29  euvbonk
+    * TableContentEntries.php class: convert german umlaut to html value
+      in hyper references

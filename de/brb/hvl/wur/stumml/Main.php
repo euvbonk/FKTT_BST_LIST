@@ -1,7 +1,7 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_datasheet_StationDatasheetList');
-//import();
+import('de_brb_hvl_wur_stumml_moduleList_ModuleList');
 
 class Main
 {
@@ -14,6 +14,8 @@ class Main
                 $sheet->showContent();
                 break;
             case "special_create_module_list" :
+                $sheet = new ModuleList();
+                $sheet->showContent();
                 break;
             default :
                 echo "<p>No Module specified!</p>";

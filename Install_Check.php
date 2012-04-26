@@ -22,7 +22,7 @@ function Install_Check()
     {
         $dir = realpath($dir);
     }
-    if (!file_exists($dir))
+    if (!gpFiles::CheckDir($dir))
     {
         echo '<p style="color:red">Addon kann nicht installiert werden, '.
              'der Ordner "'.substr($dir, strrpos($dir, '/')+1).'" existiert '.

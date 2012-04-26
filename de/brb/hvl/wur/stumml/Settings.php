@@ -15,7 +15,7 @@ class Settings
 
     public function lastAddonChange()
     {
-        return '21. Mai 2010 22:52:45';
+        return '23. Mai 2010 21:32:45';
     }
 
     public final function uploadBaseDir()
@@ -26,8 +26,8 @@ class Settings
     
     public final function addonBaseDir()
     {
-        global $dataDir;
-        return $dataDir.'/data/_addoncode/FKTT_BST_LIST';
+        global $addonPathCode;
+        return $addonPathCode;
     }
     
     public final function addonTemplateBaseDir()
