@@ -1,46 +1,31 @@
 <?php
 
-import('de_brb_hvl_wur_stumml_pages_Frame');
-import('de_brb_hvl_wur_stumml_pages_FrameForm');
+import('de_brb_hvl_wur_stumml_pages_AbstractList');
 
 import('de_brb_hvl_wur_stumml_pages_datasheet_DatasheetsPageContent');
 import('de_brb_hvl_wur_stumml_pages_datasheet_StationDatasheetSettings');
 
-import('de_brb_hvl_wur_stumml_beans_datasheet_FileManager');
-
 import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_StationDatasheetList');
 
-import('de_brb_hvl_wur_stumml_util_BasicDirectory');
-import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableList');
-
-class DatasheetsList extends Frame implements FrameForm, DatasheetsPageContent
+class DatasheetsList extends AbstractList implements DatasheetsPageContent
 {
-    private static $EPOCHS = array('I', 'II', 'III', 'IV', 'V', 'VI');
-    private $epoch = "IV";
-
     private static $ORDERS = array("ORDER_SHORT" => "K&uuml;rzel (aufsteigend)",  "ORDER_LAST" => "letzte &Auml;nderung (absteigend)");
     private $order = "ORDER_SHORT";
 
-    private $oFileManager = null;
     private $oList = null;
-    private $oReportTable = null;
     
     public function __construct()
     {
         parent::__construct(StationDatasheetSettings::getInstance()->getTemplateFile());
-        $this->epoch = self::$EPOCHS[3];
         //$this->order = array_keys(self::$ORDERS){0};
-
-        $fileManager = new FileManagerImpl();
 
         $this->doCommand(common::GetCommand(), $_POST);
 
         $this->oList = new StationDatasheetList(
-            $fileManager->getFilesFromEpochWithOrder($this->epoch, $this->order), $this->order);
+            $this->getFileManager()->getFilesFromEpochWithOrder($this->getEpoch(), $this->order), $this->order);
 
-        $this->oReportTable = new ReportTableListImpl();
-        $this->oReportTable->setTableHead($this->oList->getTableHeader());
-        $this->oReportTable->setTableBody($this->oList->getTableEntries());
+        $this->getReportTable()->setTableHead($this->oList->getTableHeader());
+        $this->getReportTable()->setTableBody($this->oList->getTableEntries());
     }
 
     protected function doCommand($cmd, $DATA = array())
@@ -49,7 +34,7 @@ class DatasheetsList extends Frame implements FrameForm, DatasheetsPageContent
         {
             if (array_key_exists('startFilter', $DATA) && !array_key_exists('reset', $DATA))
             {
-                $this->epoch = $DATA['epoch'];
+                $this->setEpoch($DATA['epoch']);
                 $this->order = $DATA['order'];
             }
             else if (!array_key_exists('startFilter', $DATA) && array_key_exists('reset', $DATA))
@@ -69,14 +54,6 @@ class DatasheetsList extends Frame implements FrameForm, DatasheetsPageContent
     }
     
     /**
-     * @see Interface FrameForm
-     */
-    public final function getFormActionUri()
-    {
-        return common::AbsoluteUrl(common::WhichPage());
-    }
-
-    /**
      * @see Interface DatasheetsPageContent
      */
     public final function getOrderOptionsUI()
@@ -87,27 +64,6 @@ class DatasheetsList extends Frame implements FrameForm, DatasheetsPageContent
             $str .= "<option value=\"".$key."\"".(($this->order == $key) ? " selected=\"selected\"" : "").">".$value."</option>";
         }
         return $str;
-    }
-
-    /**
-     * @see Interface DatasheetsPageContent
-     */
-    public final function getEpochOptionsUI()
-    {
-        $str = "";
-        foreach (self::$EPOCHS as $value)
-        {
-            $str .= "<option".(($this->epoch == $value) ? " selected=\"selected\"" : "").">".$value."</option>";
-        }
-        return $str;
-    }
-    
-    /**
-     * @see Interface DatasheetsPageContent
-     */
-    public final function getTable()
-    {
-        return $this->oReportTable->getHtml();
     }
 }
 ?>

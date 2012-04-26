@@ -18,7 +18,7 @@ class GoodsTrafficSettings extends Settings
     /*@Override*/
     public function lastAddonChange()
     {
-        return '08. Oktober 2011 23:15:00';
+        return '14. Oktober 2011 22:30:00';
     }
     
     public final function getTemplateFile()

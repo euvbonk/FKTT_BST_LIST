@@ -1,3 +1,7 @@
+2011-10-14 euvbonk
+    * FileManager filtert nun auch bei den Berechnungen zum Frachtverkehr
+    * aufraeumen des Quelltextes
+    * gesichert als 0.5beta1
 2011-10-13 euvbonk
     * FileManager fuer alles rund um die Filterung der XML-Dateien
     * Einbau der Epochen Filterung fuer die Liste

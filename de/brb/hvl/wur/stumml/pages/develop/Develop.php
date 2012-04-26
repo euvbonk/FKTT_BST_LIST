@@ -6,7 +6,6 @@ import('de_brb_hvl_wur_stumml_util_BasicDirectory');
 
 import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageSpreadsheetGenerator');
 import('de_brb_hvl_wur_stumml_beans_yellowPage_FkttYellowPage');
-import('de_brb_hvl_wur_stumml_beans_datasheet_FileManager');
 
 import('de_brb_hvl_wur_stumml_util_ZipTest');
 
@@ -43,15 +42,6 @@ class Develop extends Frame implements DevelopPageContent
         $f->closeFile();*/
         
         //$this->doBuildYellowPages();
-        
-        $this->doCheckFileManager();
-    }
-
-    protected function doCheckFileManager()
-    {
-        $fm = new FileManagerImpl();
-        print "<pre>".print_r($fm->getFilesFromEpochOrderShort("III"), true)."</pre>";
-        print "<pre>".print_r($fm->getFilesFromEpochOrderLastChange("IV"), true)."</pre>";
     }
 
     protected function doBuildZipBundle()
