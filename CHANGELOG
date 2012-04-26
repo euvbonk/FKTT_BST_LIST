@@ -2,6 +2,8 @@
     * Erstellung eines Zip-Archives mit allen Datenblaettern und den
     * Gelben Seiten benutzt guenstigerweise PHP Bibliotheken
     * gesichert als 0.5RC6
+    * Fehler in im Transformer Command
+    * gesichert als 0.5RC7
     * Future Request: Gesamtes fktt Verzeichnis in einem ZipFile sichern
                       als Backup eventuell per Mail zuschicken
                       Import-Funktion
