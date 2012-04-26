@@ -1,3 +1,11 @@
+2011-10-13 euvbonk
+    * FileManager fuer alles rund um die Filterung der XML-Dateien
+    * Einbau der Epochen Filterung fuer die Liste
+    * gesichert als 0.5alpha3
+2011-09-27 - 2011-10-08 euvbonk
+    * Interne Umstellung des Addon, neue Package Struktur
+    * Die Listen entsprechen dem FreDL Layout
+    * Basisklasse für die Darstellung von Tabellen (ReportTable)
 2011-09-27 euvbonk (v0.4)
     * Marker fuer das Portal entfernt, Uebertragung der POST-Daten klappt
       nicht

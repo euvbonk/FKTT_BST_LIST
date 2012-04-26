@@ -3,55 +3,26 @@
     <form action="<?php echo $this->getFormActionUri(); ?>" method="post">
     <table border="0">
         <tr>
-            <td style="text-align: right;" rowspan="3">Tage pro Woche:&nbsp;</td>
-            <td style="text-align: right;">5</td>
-            <td><input type="radio" name="daysOfWeek" value="5.0" <?php echo ($this->getDaysOfWeek()==5.0) ? "checked=\"checked\"" : ""; ?>/></td>
-            <td rowspan="3"><input type="hidden" name="cmd" value="calculate" /></td>
-            <td rowspan="3" colspan="2">Mittlere L&auml;nge pro Wagen in cm:</td>
-            <td rowspan="3" colspan="2"><input type="text" name="lengthPerCar" size="4" maxlength="4" value="<?php echo $this->getLengthPerCar(); ?>"/></td>
+            <td style="text-align: right;">Tage pro Woche:&nbsp;</td>
+            <td colspan="2"><select name="daysOfWeek" size="1"><?php echo $this->getDaysOfWeekOptionsUI(); ?></select></td>
+            <td style="text-align: right;"><input type="submit" value="Start" name="calculate" /></td>
         </tr>
         <tr>
-            <td style="text-align: right;">5,5</td>
-            <td><input type="radio" name="daysOfWeek" value="5.5" <?php echo ($this->getDaysOfWeek()==5.5) ? "checked=\"checked\"" : ""; ?>/></td>
+            <td style="text-align: right;">Mittlere L&auml;nge pro Wagen in cm:&nbsp;</td>
+            <td colspan="2"><input type="text" name="lengthPerCar" size="4" maxlength="4" value="<?php echo $this->getLengthPerCar(); ?>"/></td>
+            <td style="text-align: right;"><input type="submit" value="Filter l&ouml;schen" name="reset" /></td>
         </tr>
         <tr>
-            <td style="text-align: right;">7</td>
-            <td><input type="radio" name="daysOfWeek" value="7.0" <?php echo ($this->getDaysOfWeek()==7.0) ? "checked=\"checked\"" : ""; ?>/></td>
+            <td style="text-align:right;">Epoche:&nbsp;</td>
+            <td colspan="2"><select name="epoch" size="1" style="width:45px;"><?php echo $this->getEpochOptionsUI(); ?></select></td>
+            <td rowspan="1"><input type="hidden" name="cmd" value="calculate" /></td>
         </tr>
         <tr>
-            <td>Filter f&uuml;r Betriebsstellen:</td>
-            <td colspan="5"><input type="text" name="filterCSV" size="30" maxlength="40" value="<?php echo $this->getFilterCSV(); ?>"/></td>
-            <td><input type="submit" value="Start" name="calculate" /></td>
-            <td><input type="submit" value="Filter l&ouml;schen" name="reset" /></td>
+            <td style="text-align:right;">Filter f&uuml;r Betriebsstellen:&nbsp;</td>
+            <td colspan="3"><input type="text" name="filterCSV" size="45" maxlength="50" value="<?php echo $this->getFilterCSV(); ?>"/></td>
         </tr>
     </table>
-    <table cellspacing="1">
-        <thead>
-        <tr bgcolor="#C0C0C0">
-            <th rowspan="2">X</th>
-            <th rowspan="2">K&uuml;rzel</th>
-            <th rowspan="2">Name</th>
-            <th colspan="3">Wagen pro Tag</th>
-            <th colspan="2">Hauptgleisl&auml;nge in cm</th>
-        </tr>
-        <tr bgcolor="#C0C0C0" >
-            <th>Eingang</th>
-            <th>Ausgang</th>
-            <th>Max</th>
-            <th>k&uuml;rzestes</th>
-            <th>l&auml;ngstes</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php echo $this->getTableEntries(); ?>
-        </tbody>
-        <tfoot>
-        <tr bgcolor="#eeeeee">
-            <td colspan="3" style="text-align:right;">&#8721;:&nbsp;</td>
-            <?php echo $this->getTableFooter(); ?>
-        </tr>
-        </tfoot>
-    </table>
+    <?php echo $this->getTable(); ?>
     <p>Minimale Zuganzahl zum Abfahren aller Frachten in diesem Abschnitt: <?php echo $this->getMinTrainCount(); ?></p>
     </form>
     <p class="klein" style="position: relative; bottom: 1.5%; border-top: 1px solid gray; width: 97%; padding-top: 10px;">

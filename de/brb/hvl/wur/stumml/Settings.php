@@ -30,9 +30,9 @@ abstract class Settings
         return $addonPathCode;
     }
     
-    public final function addonTemplateBaseDir()
+    public final static function addonTemplateBaseDir()
     {
-        return $this->addonBaseDir().'/templates';
+        return self::addonBaseDir().'/templates';
     }
 
     public final static function uploadDir()
