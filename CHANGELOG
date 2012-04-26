@@ -1,4 +1,11 @@
-2011-09-16 - 2011-09-20 euvbonk
+2011-09-20 - 2011-09-23 euvbonk (v0.4alpha)
+    * Bugfix in DatasheetElement: Aufgrund unterschiedlicher php Versionen
+      mag foreach keine leeren arrays (0.4RC1)
+    * Bugfixes in der Listenansicht
+    * Neue Seitenansicht fuer den Frachtverkehr und dessen Berechnungen
+      Grundlage dafuer sind die Datenblaetter. Es koennen beliebig 
+      Betriebsstellen gefiltert werden.
+2011-09-16 - 2011-09-20 euvbonk (v0.3)
     * Interne Umstrukturierung fuer eine erweiterte Listenansicht
     * html Kram in eigenes Unterverzeichnis
     * Anpassung der speziellen Umlaute nicht nur fuer deutschen Zeichen-

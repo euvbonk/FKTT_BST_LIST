@@ -15,12 +15,13 @@ class ModuleListSettings extends Settings
         return self::$INSTANCE;
     }
 
+    /*@Override*/
     public function lastAddonChange()
     {
-        return '23. Mai 2010 10:56:00';
+        return '22. September 2011 07:30:00';
     }
     
-    public final function templateFile()
+    public final function getTemplateFile()
     {
         return $this->addonTemplateBaseDir().'/module_list.php';
     }

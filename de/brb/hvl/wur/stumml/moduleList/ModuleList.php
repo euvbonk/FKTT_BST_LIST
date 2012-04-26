@@ -1,16 +1,17 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_Frame');
+import('de_brb_hvl_wur_stumml_FrameForm');
 import('de_brb_hvl_wur_stumml_moduleList_ListBuilder');
 import('de_brb_hvl_wur_stumml_moduleList_ModuleListSettings');
 
-class ModuleList extends Frame
+class ModuleList extends Frame implements FrameForm
 {
     private $content;
     
     public function __construct()
     {
-        parent::__construct(ModuleListSettings::getInstance()->templateFile());
+        parent::__construct(ModuleListSettings::getInstance()->getTemplateFile());
         $this->content = (!empty($_POST['content'])) ? $_POST['content'] : "";
         
         if (!empty($this->content))
@@ -27,9 +28,22 @@ class ModuleList extends Frame
         }
     }
     
-    public function showPostContent()
+    public function getPostContent()
     {
-        echo $this->content;
+        return $this->content;
+    }
+
+    public function getLastChangeTimestamp()
+    {
+        return ModuleListSettings::getInstance()->lastAddonChange();
+    }
+
+    /**
+     * @see Interface FrameForm
+     */
+    public function getFormActionUri()
+    {
+        return common::GetUrl(common::WhichPage());
     }
 
 	private function echoContentForDownload($data, $fileName='foo.csv')

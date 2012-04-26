@@ -17,7 +17,7 @@ function Install_Check()
 	}*/
 
     import('de_brb_hvl_wur_stumml_Settings');
-    $dir = Settings::getInstance()->uploadBaseDir();
+    $dir = Settings::uploadBaseDir(); /*getInstance()->*/
     if (is_link($dir))
     {
         $dir = realpath($dir);

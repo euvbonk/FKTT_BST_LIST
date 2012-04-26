@@ -1,5 +1,5 @@
 <?php
-class Frame
+abstract class Frame
 {
     private $templateFileName;
 
@@ -21,5 +21,7 @@ class Frame
             require_once($f);
         }
     }
+
+    public abstract function getLastChangeTimestamp();
 }
 ?>

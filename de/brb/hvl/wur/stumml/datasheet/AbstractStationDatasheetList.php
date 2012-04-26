@@ -7,6 +7,7 @@ import('de_brb_hvl_wur_stumml_datasheet_EntryRow');
 import('de_brb_hvl_wur_stumml_datasheet_EntryRowImpl');
 
 import('de_brb_hvl_wur_stumml_util_BasicDirectory');
+import('de_brb_hvl_wur_stumml_util_ZipTest');
 
 import('de_brb_hvl_wur_stumml_html_Html');
 import('de_brb_hvl_wur_stumml_html_table_TableRow');
@@ -23,7 +24,16 @@ abstract class AbstractStationDatasheetList extends Frame
 
     public function __construct($command)
     {
-        parent::__construct(StationDatasheetSettings::getInstance()->templateFile());
+        parent::__construct(StationDatasheetSettings::getInstance()->getTemplateFile());
+        /*try
+        {
+            new ZipTest();
+        }
+        catch (Exception $e)
+        {
+            print $e->getMessage();
+            //print "<pre>".print_r($e, true)."</pre>";
+        }*/
         $this->tableEntries = "";
         $this->entryCount = 1;
         if (in_array($command, array_keys(self::$commands)))
@@ -65,6 +75,11 @@ abstract class AbstractStationDatasheetList extends Frame
             $ret .= common::Link(common::WhichPage(),'letzte &Auml;nderung (absteigend)','cmd='.self::$commands['ORDER_LAST'],'title="Ordnen nach letzter &Auml;nderung (absteigend)"');
         }
         return $ret;
+    }
+
+    public function getLastChangeTimestamp()
+    {
+        return StationDatasheetSettings::getInstance()->lastAddonChange();
     }
 
     private function getXmlFilesAsArray()

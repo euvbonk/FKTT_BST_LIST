@@ -2,8 +2,9 @@
     <h2>Modulreihungsliste erstellen</h2>
     <div style="position: absolute;">
         Daten hier einf&uuml;gen:
-        <form action="<?php echo common::GetUrl(common::WhichPage()); ?>" method="post">
-            <textarea name="content" cols="40" rows="20"><?php $this->showPostContent(); ?></textarea><br/>
+        <form action="<?php echo $this->getFormActionUri(); ?>" method="post">
+            <textarea name="content" cols="40" rows="20"><?php echo $this->getPostContent(); ?></textarea>
+            <br/>
             <input type="hidden" name="cmd" value="create" />
             <input type="reset" value="Textfeld leeren" />
             <input type="submit" value="Astliste erstellen" />
@@ -33,4 +34,12 @@
             Das Logfile besteht aus dem Namen der gerade ge&ouml;ffneten Datei mit
             ein wenig Anh&auml;ngsel.
         </p>
+    </div>
+    <div style="position:absolute; bottom:2%; width:97%;">
+      <hr />
+      <p class="klein">
+         zuletzt ge&auml;ndert: <?php echo $this->getLastChangeTimestamp(); ?><br/>
+        <a href="&#109;&#97;&#105;&#108;&#116;&#111;:seiste&#064;yahoo.de">
+        Fragen und Klagen an Stefan Seibt</a>
+      </p>
     </div>

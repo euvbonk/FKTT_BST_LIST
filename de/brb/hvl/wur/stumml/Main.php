@@ -4,6 +4,7 @@ import('de_brb_hvl_wur_stumml_datasheet_AbstractStationDatasheetList');
 import('de_brb_hvl_wur_stumml_datasheet_StationDatasheetListOrderShort');
 import('de_brb_hvl_wur_stumml_datasheet_StationDatasheetListOrderLast');
 import('de_brb_hvl_wur_stumml_moduleList_ModuleList');
+import('de_brb_hvl_wur_stumml_goodsTraffic_GoodsTrafficBasics');
 
 class Main
 {
@@ -29,6 +30,10 @@ class Main
                 break;
             case "special_create_module_list" :
                 $sheet = new ModuleList();
+                $sheet->showContent();
+                break;
+            case "special_goods_traffic_basics" :
+                $sheet = new GoodsTrafficBasics();
                 $sheet->showContent();
                 break;
             default :

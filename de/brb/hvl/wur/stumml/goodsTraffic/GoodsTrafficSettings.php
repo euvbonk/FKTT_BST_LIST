@@ -2,7 +2,7 @@
 
 import('de_brb_hvl_wur_stumml_Settings');
 
-class StationDatasheetSettings extends Settings
+class GoodsTrafficSettings extends Settings
 {
     private static $INSTANCE = null;
     
@@ -18,20 +18,14 @@ class StationDatasheetSettings extends Settings
     /*@Override*/
     public function lastAddonChange()
     {
-        return '20. September 2011 15:30:00';
-    }
-    
-    public final function newSheet()
-    {
-        return array('link' => 'Special_Add_Sheet', 'label' => 'Neue Betriebsstellendaten hinzufügen');
+        return '23. September 2011 12:45:00';
     }
     
     public final function getTemplateFile()
     {
-        return $this->addonTemplateBaseDir().'/datasheets_list.php';
+        return $this->addonTemplateBaseDir().'/goods_traffic_basics.php';
     }
-    
+
     private function __construct(){}
-    private function __clone(){}
-}
+    private function __clone(){}}
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-class Settings
+abstract class Settings
 {
     private static $INSTANCE = null;
     
@@ -18,7 +18,7 @@ class Settings
         return '23. Mai 2010 21:32:45';
     }
 
-    public final function uploadBaseDir()
+    public final static function uploadBaseDir()
     {
         global $dataDir;
         return $dataDir.'/data/_uploaded/file/fktt';
@@ -34,6 +34,13 @@ class Settings
     {
         return $this->addonBaseDir().'/templates';
     }
+
+    public final static function uploadDir()
+    {
+        return self::uploadBaseDir().'/db';
+    }
+    
+    public abstract function getTemplateFile();
 
     private function __construct(){}
     private function __clone(){}

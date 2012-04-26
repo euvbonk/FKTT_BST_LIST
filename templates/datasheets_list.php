@@ -28,7 +28,7 @@
       </p>
       <hr />
       <p class="klein">
-         zuletzt ge&auml;ndert: <?php echo StationDatasheetSettings::getInstance()->lastAddonChange(); ?><br/>
+         zuletzt ge&auml;ndert: <?php echo $this->getLastChangeTimestamp(); ?><br/>
         <a href="&#109;&#97;&#105;&#108;&#116;&#111;:seiste&#064;yahoo.de">
         Fragen und Klagen an Stefan Seibt</a></p>
       <?php gpOutput::Get('Extra','Test'); ?>
