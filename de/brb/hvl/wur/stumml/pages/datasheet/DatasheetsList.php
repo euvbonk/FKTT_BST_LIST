@@ -20,6 +20,7 @@ class DatasheetsList extends AbstractList implements DatasheetsPageContent
     {
         parent::__construct(StationDatasheetSettings::getInstance()->getTemplateFile());
         //$this->order = array_keys(self::$ORDERS){0};
+        setlocale(LC_TIME, "de_DE.utf8");
 
         $this->doCommand(common::GetCommand(), $_POST);
 
@@ -76,7 +77,7 @@ class DatasheetsList extends AbstractList implements DatasheetsPageContent
         $t = new YellowPageCmd($this->getFileManager());
         $t->doCommand($this->getEpoch());
         $l = StationDatasheetSettings::buildDownloadPath($t->getFileName(), "Gelbe Seiten für die Epoche ".$this->getEpoch());
-        $l .= "&nbsp;(".date("D, d. M Y H:i", filemtime($t->getFileName())).")";
+        $l .= "&nbsp;(".strftime("%a, %d. %b %Y %H:%M", filemtime($t->getFileName())).")";
         return $l;
     }
 
@@ -90,7 +91,7 @@ class DatasheetsList extends AbstractList implements DatasheetsPageContent
         if (file_exists($t->getFileName()))
         {
             $l = StationDatasheetSettings::buildDownloadPath($t->getFileName(), "Liste mit Namen und Kürzel als CSV");
-            $l .= "&nbsp;(".date("D, d. M Y H:i", filemtime($t->getFileName())).")";
+            $l .= "&nbsp;(".strftime("%a, %d. %b %Y %H:%M", filemtime($t->getFileName())).")";
             return $l;
         }
         else

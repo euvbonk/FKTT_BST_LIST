@@ -46,6 +46,7 @@ class StationDatasheetList
             foreach($array as $value)
             {
                 // Die Datei ist mit Sicherheit vom Typ XML!
+                //        date("D, d. M Y H:i", filemtime($value))
                 $xml = new SimpleXMLElement($value, null, true);
                 $this->tableEntries->append(
                     new DatasheetListRowEntriesImpl(
@@ -54,7 +55,7 @@ class StationDatasheetList
                         ($key+1),
                         $value,
                         (string)$xml->typ,
-                        date("D, d. M Y H:i", filemtime($value))
+                        strftime("%a, %d. %b %Y %H:%M", filemtime($value))
                     )
                 );
                 $key++;
