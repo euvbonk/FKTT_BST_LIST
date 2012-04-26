@@ -8,6 +8,7 @@ import('de_brb_hvl_wur_stumml_pages_datasheet_StationDatasheetSettings');
 import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_StationDatasheetList');
 import('de_brb_hvl_wur_stumml_cmd_YellowPageCmd');
 import('de_brb_hvl_wur_stumml_cmd_CSVListCmd');
+import('de_brb_hvl_wur_stumml_cmd_ZipBundleCmd');
 
 class DatasheetsList extends AbstractList implements DatasheetsPageContent
 {
@@ -91,6 +92,25 @@ class DatasheetsList extends AbstractList implements DatasheetsPageContent
         if (file_exists($t->getFileName()))
         {
             $l = StationDatasheetSettings::buildDownloadPath($t->getFileName(), "Liste mit Namen und Kürzel als CSV");
+            $l .= "&nbsp;(".strftime("%a, %d. %b %Y %H:%M", filemtime($t->getFileName())).")";
+            return $l;
+        }
+        else
+        {
+            return "";
+        }
+    }
+    
+    /**
+     * @see Interface DatasheetsPageContent
+     */
+    public final function getZipBundleLink()
+    {
+        $t = new ZipBundleCmd($this->getFileManager());
+        $t->doCommand();
+        if (file_exists($t->getFileName()))
+        {
+            $l = StationDatasheetSettings::buildDownloadPath($t->getFileName(), "Archiv mit allen Datenblättern und Gelben Seiten");
             $l .= "&nbsp;(".strftime("%a, %d. %b %Y %H:%M", filemtime($t->getFileName())).")";
             return $l;
         }

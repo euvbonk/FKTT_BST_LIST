@@ -8,7 +8,7 @@ import('de_brb_hvl_wur_stumml_beans_datasheet_xml_StationElement');
 
 final class CSVListCmd
 {
-    private static $FILE_NAME = "bst_list.csv";
+    public static $FILE_NAME = "bst_list.csv";
     private static $EPOCH = "IV";
     private $oTargetFile;
 

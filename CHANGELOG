@@ -1,3 +1,10 @@
+2012-04-18 - 2012-04-19 euvbonk
+    * Erstellung eines Zip-Archives mit allen Datenblaettern und den
+    * Gelben Seiten benutzt guenstigerweise PHP Bibliotheken
+    * gesichert als 0.5RC6
+    * Future Request: Gesamtes fktt Verzeichnis in einem ZipFile sichern
+                      als Backup eventuell per Mail zuschicken
+                      Import-Funktion
 2012-03-02 euvbonk
     * Locale auf de_DE.utf8 gesetzt und in den Listen das Datum auf die
       deutsche Schreibweise angepasst

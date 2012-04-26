@@ -3,6 +3,8 @@
 //import('');
 import('de_brb_hvl_wur_stumml_Settings');
 import('de_brb_hvl_wur_stumml_util_BasicDirectory');
+import('de_brb_hvl_wur_stumml_util_ZipBundleFileFilter');
+import('de_brb_hvl_wur_stumml_cmd_XmlHtmlTransformCmd');
 
 class ZipTest extends ZipArchive
 {
@@ -53,8 +55,8 @@ class ZipTest extends ZipArchive
         }
 
         // grap all files
-        $allFiles = BasicDirectory::scanDirectories($this->dirToArchive, array("dtd", "xsl", "css", "xml", "png", "gif", "jpg", "txt", "html"));
-        $this->printDebug($allFiles);
+        //$allFiles = BasicDirectory::scanDirectories($this->dirToArchive, array("dtd", "xsl", "css", "xml", "png", "gif", "jpg", "txt", "html", "csv", "ods"));
+        //$this->printDebug($allFiles);
         
         $t = $this->open($this->archiveFileName, ZipArchive::CREATE);
         $this->printDebug("open for creation: ".(($t === true) ? "success" : "failure"));
@@ -62,12 +64,25 @@ class ZipTest extends ZipArchive
         // parent full directory path of $dirToArchive, to generate the
         // local path in the archive
         $baseDir = Settings::uploadBaseDir();
-        foreach ($allFiles as $node)
+        
+        $transform = new XmlHtmlTransformCmd();
+        //$dirIt = new RecursiveDirectoryIterator(Settings::uploadDir());
+        //$filterIt = new ZipBundleFileFilter($dirIt);
+        //$iterator  = new RecursiveIteratorIterator($filterIt, RecursiveIteratorIterator::SELF_FIRST);
+        $iterator  = new RecursiveIteratorIterator(new ZipBundleFileFilter(new RecursiveDirectoryIterator(Settings::uploadDir())));
+        foreach ($iterator as $key=>$value)
+        //foreach ($allFiles as $node)
         {
+            $node = $key;
             if (is_file($node))
             {
                 $node_new = str_replace($baseDir."/", "", $node);
                 $this->printDebug("adding ".$node." as ".$node_new);
+                if ($transform->doCommand($node))
+                {
+                    $this->printDebug("Html-Datei angelegt; wird hinzugefuegt!".$transform->getHtmlFile());
+                    $this->addFile($transform->getHtmlFile(), $node_new);
+                }
                 $this->addFile($node, $node_new);
             }
         }
