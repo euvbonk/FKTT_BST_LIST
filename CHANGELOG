@@ -3,6 +3,8 @@
     * html Kram in eigenes Unterverzeichnis
     * Anpassung der speziellen Umlaute nicht nur fuer deutschen Zeichen-
       satz
+    * bei Listenausgabe, ist nun auch ueber das Kuerzel das Datenblatt
+      zu erreichen
 2011-09-15  euvbonk
     * in Datei TableContentEntries.php die Funktion convert um polnische
       Spezialbuchstaben erweitert, Datei wurde gleich aktualisiert

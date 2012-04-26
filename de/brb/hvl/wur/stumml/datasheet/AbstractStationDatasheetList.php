@@ -120,7 +120,7 @@ abstract class AbstractStationDatasheetList extends Frame
         $j = ($this->entryCount > 9) ? $this->entryCount : "0".$this->entryCount;
         $trow->addCell(new TableCell($j.".", 'class="mittig"'));
         $trow->addCell(new TableCell($this->getAbsoluteLink($row->getSheetUrl(), $row->getName())));
-        $trow->addCell(new TableCell(HtmlUtil::toUtf8($row->getShort())));
+        $trow->addCell(new TableCell($this->getAbsoluteLink($row->getSheetUrl(), $row->getShort())));
         $trow->addCell(new TableCell(HtmlUtil::toUtf8($row->getType())));
         $trow->addCell(new TableCell($row->getLastChange()));
         $this->addRow($trow);
