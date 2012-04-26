@@ -1,7 +1,7 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_beans_yellowPage_AbstractYellowPage');
-import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageTableRow');
+import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageTableRowCellList');
 import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageTableRowCell');
 
 class FkttYellowPage extends AbstractYellowPage
@@ -35,7 +35,7 @@ class FkttYellowPage extends AbstractYellowPage
                         foreach ($shipper->getDistributedCargos() as $cargo)
                         {
                             //print "<tr><td>&nbsp;</td><td>".$cargo->getName()."</td><td>".$shipper->getName()."</td><td>".$cargo->getClassOfCar()."</td><td>".$station->getName()."</td><td>".$freight->getLoadingPlaceNameById($cargo->getLoadingPlaceIdentifier())."</td><td>&nbsp;</td></tr>\n";
-                            $drow = new YellowPageTableRow();
+                            $drow = new YellowPageTableRowCellList();
                             $drow->addCell(new YellowPageTableRowCell(""));
                             $drow->addCell(new YellowPageTableRowCell($cargo->getName()));
                             $drow->addCell(new YellowPageTableRowCell($shipper->getName()));
@@ -43,7 +43,7 @@ class FkttYellowPage extends AbstractYellowPage
                             $drow->addCell(new YellowPageTableRowCell($station->getName()));
                             $drow->addCell(new YellowPageTableRowCell($freight->getLoadingPlaceNameById($cargo->getLoadingPlaceIdentifier())));
                             $drow->addCell(new YellowPageTableRowCell(""));
-                            $this->add($drow);
+                            $this->addRow($drow);
                         }
                     }
                     /*if (count($shipper->getReceivedCargos())>0)

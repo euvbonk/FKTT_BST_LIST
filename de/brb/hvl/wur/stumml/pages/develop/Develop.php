@@ -41,7 +41,7 @@ class Develop extends Frame implements DevelopPageContent
         $f->saveFileTo(Settings::uploadDir()."/test.ods");
         $f->closeFile();*/
         
-        //$this->doBuildYellowPages();
+        $this->doBuildYellowPages();
     }
 
     protected function doBuildZipBundle()
@@ -71,8 +71,8 @@ class Develop extends Frame implements DevelopPageContent
         $calc = new YellowPageSpreadsheetGenerator();
         $calc->openDocumentFromFile(Settings::uploadDir()."/yellow-page.ots");
         //print "<pre>".print_r($page->getYellowPage(), true)."</pre>";
-        //print "<br/>\n".$page->getAsOpenOfficeFormat()."\n<br/>";
-        $calc->setYellowPage($page->getAsOpenOfficeFormat());
+        //print "<br/>\n".$page->getAsSpreadsheetXml()."\n<br/>";
+        $calc->setYellowPage($page->getAsSpreadsheetXml());
         $calc->generate();
         //$calc->setTextAtCellPositionByIndex("Foo", 3, 2);
         $calc->saveDocumentToFile(Settings::uploadDir()."/test.ods");

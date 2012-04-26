@@ -1,10 +1,11 @@
 <?php
 
-import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageTableRow');
-/* contains StationElement */
-import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageElement');
+import('de_brb_hvl_wur_stumml_beans_datasheet_xml_StationElement');
+import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageTableRowList');
+import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageTableRowCellList');
+import('de_brb_hvl_wur_stumml_util_openOffice_SpreadsheetXml');
 
-abstract class AbstractYellowPage implements OpenOfficeTableXml
+abstract class AbstractYellowPage implements SpreadsheetXml
 {
     private $oYellowPageList = null;
     private $oFileList = null;
@@ -19,7 +20,7 @@ abstract class AbstractYellowPage implements OpenOfficeTableXml
         {
             $this->oFileList = array();
         }
-        $this->oYellowPageList = array();
+        $this->oYellowPageList = new YellowPageTableRowList();
     }
     
     public function setDatasheetFileList($list)
@@ -32,20 +33,9 @@ abstract class AbstractYellowPage implements OpenOfficeTableXml
         return $this->oYellowPageList;
     }
 
-    public function getAsOpenOfficeFormat()
+    public function getAsSpreadsheetXml()
     {
-        $str = "";
-        if (count($this->getYellowPage())>0)
-        {
-            $index = 0;
-            foreach ($this->getYellowPage() as $row)
-            {
-                $str .= $row->getAsOpenOfficeFormat();
-                $index++;
-            }
-            $str .= '<table:table-row table:style-name="ro1" table:number-rows-repeated="'.(65534-$index);
-        }
-        return $str;
+        return $this->oYellowPageList->getAsSpreadsheetXml();
     }
 
     protected function getDatasheets()
@@ -53,9 +43,9 @@ abstract class AbstractYellowPage implements OpenOfficeTableXml
         return $this->oFileList;
     }
     
-    protected function add(YellowPageTableRow $list)
+    protected function addRow(YellowPageTableRowCellList $list)
     {
-        $this->oYellowPageList[] = $list;
+        $this->oYellowPageList->addRow($list);
     }
     
     private function loadDatasheets($list)

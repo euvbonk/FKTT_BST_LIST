@@ -1,34 +1,28 @@
 <?php
 
+import('de_brb_hvl_wur_stumml_util_openOffice_SpreadsheetXml');
 import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageTableRowCell');
 
-class YellowPageTableRow implements OpenOfficeTableXml
+class YellowPageTableRowCellList extends ArrayObject implements SpreadsheetXml
 {
-    private $oList = null;
-    
-    public function __construct()
+    public function append(YellowPageTableRowCell $cell)
     {
-        $this->oList = array();
+        parent::append($cell);
     }
 
     public function addCell(YellowPageTableRowCell $cell)
     {
-        $this->oList[] = $cell;
-    }
-    
-    public function getYellowPageTableRowCells()
-    {
-        return $this->oList;
+        $this->append($cell);
     }
 
-    public function getAsOpenOfficeFormat()
+    public function getAsSpreadsheetXml()
     {
         $str = "<table:table-row table:style-name=\"ro1\">";
-        if (count($this->getYellowPageTableRowCells()) > 0)
+        if ($this->count() > 0)
         {
-            foreach ($this->getYellowPageTableRowCells() as $cell)
+            foreach ($this->getIterator() as $cell)
             {
-                $str .= $cell->getAsOpenOfficeFormat();
+                $str .= $cell->getAsSpreadsheetXml();
             }
             $str .= "<table:table-cell table:number-columns-repeated=\"1017\"/>";
         }
