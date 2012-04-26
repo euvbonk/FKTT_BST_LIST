@@ -1,6 +1,5 @@
 
     <h2>Frachtverkehr (grundlegende Berechnungen)</h2>
-    <!-- BSTLIST_ENTRY_FOR_FKTT_PORTAL -->
     <form action="<?php echo $this->getFormActionUri(); ?>" method="post">
     <table border="0">
         <tr>
@@ -9,7 +8,7 @@
             <td><input type="radio" name="daysOfWeek" value="5.0" <?php echo ($this->getDaysOfWeek()==5.0) ? "checked=\"checked\"" : ""; ?>/></td>
             <td rowspan="3"><input type="hidden" name="cmd" value="calculate" /></td>
             <td rowspan="3" colspan="2">Mittlere L&auml;nge pro Wagen in cm:</td>
-            <td rowspan="3"><input type="text" name="lengthPerCar" size="4" maxlength="4" value="<?php echo $this->getLengthPerCar(); ?>"/></td>
+            <td rowspan="3" colspan="2"><input type="text" name="lengthPerCar" size="4" maxlength="4" value="<?php echo $this->getLengthPerCar(); ?>"/></td>
         </tr>
         <tr>
             <td style="text-align: right;">5,5</td>
@@ -55,7 +54,6 @@
     </table>
     <p>Minimale Zuganzahl zum Abfahren aller Frachten in diesem Abschnitt: <?php echo $this->getMinTrainCount(); ?></p>
     </form>
-    <!-- BSTLIST_FLUSH_FOR_FKTT_PORTAL -->
     <p class="klein" style="position: relative; bottom: 1.5%; border-top: 1px solid gray; width: 97%; padding-top: 10px;">
        zuletzt ge&auml;ndert: <?php echo $this->getLastChangeTimestamp(); ?>
        <br/>

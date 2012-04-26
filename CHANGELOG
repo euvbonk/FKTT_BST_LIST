@@ -1,6 +1,15 @@
+2011-09-27 euvbonk (v0.4)
+    * Marker fuer das Portal entfernt, Uebertragung der POST-Daten klappt
+      nicht
+    * Beans-Klasse bekommt nun direkt das SimpleXMLElement im Konstruktor
+      uebergeben
+    * Der Test, zur Pruefung welcher Command ausgefuehrt werden soll ist
+      umgestellt
+    * Nice to have fuer die Version 0.5 waere in der Tabellenansicht noch
+      anklickbare Verweise zum schnellen Ansehen der Datenblaetter
 2011-09-26 euvbonk (v0.4RC3/RC2)
-    * Bugfix in der Darstellung: Keine Nullwerte, falls keine Längen für
-      die Gleise angegeben wurde, des weiteren kann der Filter nun zurück-
+    * Bugfix in der Darstellung: Keine Nullwerte, falls keine Laengen fuer
+      die Gleise angegeben wurde, des weiteren kann der Filter nun zurueck-
       gesetzt werden.
     * RC4: Marker fuer die Einbettung ins Portal gesetzt, Umwandlung der
       HTML Sonderzeichen

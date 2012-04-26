@@ -17,6 +17,7 @@ import('de_brb_hvl_wur_stumml_goodsTraffic_view_GoodsTrafficListEntryFooterImpl'
 
 class GoodsTrafficBasics extends Frame implements FrameForm, GoodsTrafficPageContent, GoodsTrafficList
 {
+    private static $availCommands = array('calculate', 'reset');
     private $allDatasheets = array();   // contains all available datasheets
 
     // form default values
@@ -50,9 +51,9 @@ class GoodsTrafficBasics extends Frame implements FrameForm, GoodsTrafficPageCon
 
     protected function doCommand($cmd, $DATA = array())
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && in_array($cmd, self::$availCommands))
         {
-            if (isset($DATA['calculate']))
+            if (array_key_exists('calculate', $DATA) && !array_key_exists('reset', $DATA))
             {
                 if (isset($DATA['filterCSV']) && strlen($DATA['filterCSV']) > 0)
                 {
@@ -68,7 +69,7 @@ class GoodsTrafficBasics extends Frame implements FrameForm, GoodsTrafficPageCon
                 $this->daysAWeek = $DATA['daysOfWeek'];
                 $this->lengthPerCar = $DATA['lengthPerCar'];
             }
-            else if (isset($DATA['reset']))
+            else if (!array_key_exists('calculate', $DATA) && array_key_exists('reset', $DATA))
             {
                 unset($DATA['check']);
                 unset($DATA['filterCSV']);
@@ -81,7 +82,7 @@ class GoodsTrafficBasics extends Frame implements FrameForm, GoodsTrafficPageCon
         $flag = false;
         foreach ($this->allDatasheets as $value)
         {
-            $xml = new DatasheetElement($value, $this->daysAWeek);
+            $xml = new DatasheetElement(simplexml_load_file($value), $this->daysAWeek);
             $this->oListTableEntries->addTableRow(
                 new GoodsTrafficListEntryRowImpl((!$flag) ? GoodsTrafficList::ODD : GoodsTrafficList::EVEN,
                                                 (in_array($xml->getShort(), $this->stationFilter)) ? true : false,

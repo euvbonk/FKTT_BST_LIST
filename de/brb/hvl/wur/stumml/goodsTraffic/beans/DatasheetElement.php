@@ -5,9 +5,9 @@ class DatasheetElement
     private $daysAWeek = 7;
     private $oMainTracks = array();
 
-    public function __construct($filename, $days = 7)
+    public function __construct(SimpleXMLElement $xml, $days = 7)
     {
-        $this->oXml = simplexml_load_file($filename);
+        $this->oXml = $xml;
         $this->daysAWeek = $days;
         $this->oMainTracks = $this->getAllLengthInCm($this->oXml->xpath("gleise/hgleise/gleis/laenge"));
     }
