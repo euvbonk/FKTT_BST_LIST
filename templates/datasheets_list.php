@@ -42,6 +42,7 @@
          bzw. XHTML abzulegen und die Fahrplaner und BFO<br/> 
          Ersteller werden das ganze auch noch im pdf Format<br/> bekommen.
       </p>
+      <p><?php echo $this->getCSVListLink(); ?></p>
       <hr />
       <p class="klein">
          zuletzt ge&auml;ndert: <?php echo $this->getLastChangeTimestamp(); ?><br/>

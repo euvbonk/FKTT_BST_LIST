@@ -7,6 +7,7 @@ import('de_brb_hvl_wur_stumml_pages_datasheet_StationDatasheetSettings');
 
 import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_StationDatasheetList');
 import('de_brb_hvl_wur_stumml_cmd_YellowPageCmd');
+import('de_brb_hvl_wur_stumml_cmd_CSVListCmd');
 
 class DatasheetsList extends AbstractList implements DatasheetsPageContent
 {
@@ -77,6 +78,25 @@ class DatasheetsList extends AbstractList implements DatasheetsPageContent
         $l = StationDatasheetSettings::buildDownloadPath($t->getFileName(), "Gelbe Seiten für die Epoche ".$this->getEpoch());
         $l .= "&nbsp;(".date("D, d. M Y H:i", filemtime($t->getFileName())).")";
         return $l;
+    }
+
+    /**
+     * @see Interface DatasheetsPageContent
+     */
+    public final function getCSVListLink()
+    {
+        $t = new CSVListCmd($this->getFileManager());
+        $t->doCommand();
+        if (file_exists($t->getFileName()))
+        {
+            $l = StationDatasheetSettings::buildDownloadPath($t->getFileName(), "Liste mit Namen und Kürzel als CSV");
+            $l .= "&nbsp;(".date("D, d. M Y H:i", filemtime($t->getFileName())).")";
+            return $l;
+        }
+        else
+        {
+            return "";
+        }
     }
 }
 ?>

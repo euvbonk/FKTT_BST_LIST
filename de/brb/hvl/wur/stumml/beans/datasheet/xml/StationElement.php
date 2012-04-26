@@ -15,6 +15,11 @@ class StationElement
         return $this->oXml->name;
     }
 
+    public function getShort()
+    {
+        return $this->oXml->kuerzel;
+    }
+
     public function hasFreightTraffic()
     {
         return (count($this->oXml->xpath("//bahnhof/gv")) > 0) ? true : false;
