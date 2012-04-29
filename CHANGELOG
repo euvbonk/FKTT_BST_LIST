@@ -1,5 +1,8 @@
-2012-04-26 - 2012-04-27 euvbonk
+2012-04-26 - 2012-04-29 euvbonk
     * Beginn neuer Spezialseite fuer Deployment des Datenblatt-Editors
+    * Einbau eines rudimentaeren Loggers
+    * Neues Command zur Setzung der jeweiligen neuesten Editorversion
+    *
 2012-04-18 - 2012-04-20 euvbonk
     * Erstellung eines Zip-Archives mit allen Datenblaettern und den
     * Gelben Seiten benutzt guenstigerweise PHP Bibliotheken

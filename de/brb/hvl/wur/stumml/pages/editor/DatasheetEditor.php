@@ -2,13 +2,15 @@
 
 import('de_brb_hvl_wur_stumml_pages_Frame');
 import('de_brb_hvl_wur_stumml_pages_editor_DatasheetEditorSettings');
+import('de_brb_hvl_wur_stumml_cmd_CheckOnEditorVersionCmd');
 
 class DatasheetEditor extends Frame
 {
     public function __construct()
     {
         parent::__construct(DatasheetEditorSettings::getInstance()->getTemplateFile());
-        $this->checkOnNewVersion();
+        $cmd = new CheckOnEditorVersionCmd();
+        $cmd->doCommand();
     }
 
     public function getLastChangeTimestamp()
@@ -25,10 +27,6 @@ class DatasheetEditor extends Frame
     {
         /* Not used regularly */
         return "";
-    }
-    
-    private function checkOnNewVersion()
-    {
     }
 }
 ?>

@@ -29,7 +29,7 @@
         dann die ersten Programmteile entstanden.
       </p>
       <p>
-        Jetzt im April 2012 steht erstmals eine Beta-Version dieser
+        Jetzt, Ende April/Anfang Mai 2012, steht erstmals eine Beta-Version dieser
         Neuentwicklung zum Testen zur Verf&uuml;gung. Es ist sicherlich noch
         nicht alles perfekt, aber es k&ouml;nnen g&uuml;ltige Datenbl&auml;tter
         erzeugt und bearbeitet werden.
