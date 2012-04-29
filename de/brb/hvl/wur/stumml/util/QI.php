@@ -12,7 +12,7 @@ final class QI
     
     public static function isGpeasyDebugEnabled()
     {
-        return (defined('gpdebug') ? true : false);
+        return (defined('gpdebug') ? constant('gpdebug') : false);
     }
 
     public static function getPageName()
