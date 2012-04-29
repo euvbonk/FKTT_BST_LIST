@@ -14,5 +14,33 @@ final class QI
     {
         return (defined('gpdebug') ? true : false);
     }
+
+    public static function getPageName()
+    {
+        return common::WhichPage();
+    }
+    
+    public static function getDataDir()
+    {
+        global $dataDir;
+        return $dataDir.'/data/_uploaded/file/fktt';
+    }
+
+    public static function getAddonPathCode()
+    {
+        global $addonPathCode;
+        return $addonPathCode;
+    }
+    
+    public static function getRootDir()
+    {
+        global $rootDir;
+        return $rootDir;
+    }
+
+    public static function buildAbsoluteLink($path, $label)
+    {
+        return common::AbsoluteLink($path, $label);
+    }
 }
 ?>

@@ -1,5 +1,6 @@
 <?php
 
+import('de_brb_hvl_wur_stumml_util_QI');
 import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
 
 abstract class Settings
@@ -22,14 +23,12 @@ abstract class Settings
 
     public final static function uploadBaseDir()
     {
-        global $dataDir;
-        return $dataDir.'/data/_uploaded/file/fktt';
+        return QI::getDataDir();
     }
     
     public final function addonBaseDir()
     {
-        global $addonPathCode;
-        return $addonPathCode;
+        return QI::getAddonPathCode();
     }
     
     public final static function addonTemplateBaseDir()
@@ -44,9 +43,8 @@ abstract class Settings
 
     public final static function buildDownloadPath($filePath, $label)
     {
-        global $rootDir;
-        $filePath = substr($filePath, strlen($rootDir)+1);
-        return str_replace('index.php/', '', HtmlUtil::toUtf8(common::AbsoluteLink($filePath, $label)));
+        $filePath = substr($filePath, strlen(QI::getRootDir())+1);
+        return str_replace('index.php/', '', HtmlUtil::toUtf8(QI::buildAbsoluteLink($filePath, $label)));
     }    
 
     public abstract function getTemplateFile();

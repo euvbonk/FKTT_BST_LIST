@@ -2,7 +2,8 @@
     * Beginn neuer Spezialseite fuer Deployment des Datenblatt-Editors
     * Einbau eines rudimentaeren Loggers
     * Neues Command zur Setzung der jeweiligen neuesten Editorversion
-    *
+    * Alle Funktionen, die von gpEasy stammen, werden in eigenem QueryInterface
+      gesammelt
 2012-04-18 - 2012-04-20 euvbonk
     * Erstellung eines Zip-Archives mit allen Datenblaettern und den
     * Gelben Seiten benutzt guenstigerweise PHP Bibliotheken

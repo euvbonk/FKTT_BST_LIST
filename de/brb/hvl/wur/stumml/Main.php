@@ -1,6 +1,7 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_pages_AddonErrorPage');
+import('de_brb_hvl_wur_stumml_util_QI');
 import('de_brb_hvl_wur_stumml_pages_datasheet_DatasheetsList');
 import('de_brb_hvl_wur_stumml_pages_develop_Develop');
 import('de_brb_hvl_wur_stumml_pages_goodsTraffic_GoodsTrafficBasics');
@@ -15,7 +16,7 @@ class Main
         $sheet = new AddonErrorPage("No Module specified!");
         try
         {
-            switch (strtolower(common::WhichPage()))
+            switch (strtolower(QI::getPageName()))
             {
                 case "special_datasheets_list" :
                     $sheet = new DatasheetsList();
