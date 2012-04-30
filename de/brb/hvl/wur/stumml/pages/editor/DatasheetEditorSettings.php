@@ -28,9 +28,8 @@ class DatasheetEditorSettings extends Settings
 
     public final function getUrl()
     {
-        global $rootDir;
-        $filepath = substr(parent::uploadBaseDir().DIRECTORY_SEPARATOR."rgzm".DIRECTORY_SEPARATOR."rgzm.jnlp", strlen($rootDir)+1);
-        return str_replace('index.php/', '', common::AbsoluteUrl($filepath));
+        $filepath = substr(parent::uploadBaseDir().DIRECTORY_SEPARATOR."rgzm".DIRECTORY_SEPARATOR."rgzm.jnlp", strlen(QI::getRootDir())+1);
+        return str_replace('index.php/', '', QI::getUriFrom($filepath));
     }
 
     private function __construct(){}

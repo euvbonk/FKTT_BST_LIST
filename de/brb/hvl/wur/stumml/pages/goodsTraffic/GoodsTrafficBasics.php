@@ -7,6 +7,8 @@ import('de_brb_hvl_wur_stumml_pages_goodsTraffic_GoodsTrafficSettings');
 
 import('de_brb_hvl_wur_stumml_beans_tableList_goodsTraffic_GoodsTrafficList');
 
+import('de_brb_hvl_wur_stumml_util_QI');
+
 class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
 {
     private static $DAYS_OF_WEEK = array(5, 5.5, 7);
@@ -27,7 +29,7 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
         parent::__construct(GoodsTrafficSettings::getInstance()->getTemplateFile());
         $this->daysAWeek = self::$DAYS_OF_WEEK[2];
 
-        $this->doCommand(common::GetCommand(), $_POST);
+        $this->doCommand(QI::getCommand(), $_POST);
 
         $this->oListTable = new GoodsTrafficList(
             $this->getFileManager()->getFilesFromEpochWithFilter($this->getEpoch(), $this->stationFilter),

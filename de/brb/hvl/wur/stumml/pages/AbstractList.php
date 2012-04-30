@@ -5,6 +5,7 @@ import('de_brb_hvl_wur_stumml_pages_FrameForm');
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_FileManagerImpl');
 
+import('de_brb_hvl_wur_stumml_util_QI');
 import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableListImpl');
 
 abstract class AbstractList extends Frame implements FrameForm
@@ -47,7 +48,7 @@ abstract class AbstractList extends Frame implements FrameForm
      */
     public final function getFormActionUri()
     {
-        return common::AbsoluteUrl(common::WhichPage());
+        return QI::getPageUri();
     }
 
     /**

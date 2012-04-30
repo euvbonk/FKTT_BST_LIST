@@ -9,7 +9,7 @@ final class QI
 {
     // private access for outside, all methods are static 
     protected function __construct() {}
-    
+
     public static function isGpeasyDebugEnabled()
     {
         return (defined('gpdebug') ? constant('gpdebug') : false);
@@ -41,6 +41,21 @@ final class QI
     public static function buildAbsoluteLink($path, $label)
     {
         return common::AbsoluteLink($path, $label);
+    }
+    
+    public static function getPageUri()
+    {
+        return common::AbsoluteUrl(common::WhichPage());
+    }
+
+    public static function getCommand()
+    {
+        return common::GetCommand();
+    }
+
+    public static function getUriFrom($path)
+    {
+        return common::AbsoluteUrl($path);
     }
 }
 ?>

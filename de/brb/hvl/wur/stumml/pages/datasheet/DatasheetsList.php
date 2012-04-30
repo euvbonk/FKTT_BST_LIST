@@ -10,6 +10,8 @@ import('de_brb_hvl_wur_stumml_cmd_YellowPageCmd');
 import('de_brb_hvl_wur_stumml_cmd_CSVListCmd');
 import('de_brb_hvl_wur_stumml_cmd_ZipBundleCmd');
 
+import('de_brb_hvl_wur_stumml_util_QI');
+
 class DatasheetsList extends AbstractList implements DatasheetsPageContent
 {
     private static $ORDERS = array("ORDER_SHORT" => "K&uuml;rzel (aufsteigend)",  "ORDER_LAST" => "letzte &Auml;nderung (absteigend)");
@@ -23,7 +25,7 @@ class DatasheetsList extends AbstractList implements DatasheetsPageContent
         //$this->order = array_keys(self::$ORDERS){0};
         setlocale(LC_TIME, "de_DE.utf8");
 
-        $this->doCommand(common::GetCommand(), $_POST);
+        $this->doCommand(QI::getCommand(), $_POST);
 
         $this->oList = new StationDatasheetList(
             $this->getFileManager()->getFilesFromEpochWithOrder($this->getEpoch(), $this->order), $this->order);

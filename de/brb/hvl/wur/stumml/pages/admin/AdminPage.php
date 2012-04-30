@@ -7,12 +7,14 @@ import('de_brb_hvl_wur_stumml_pages_admin_AdminPageSettings');
 import('de_brb_hvl_wur_stumml_cmd_BackupZipBundleCmd');
 import('de_brb_hvl_wur_stumml_cmd_SendFileForDownloadCmd');
 
+import('de_brb_hvl_wur_stumml_util_QI');
+
 class AdminPage extends Frame implements FrameForm
 {
     public function __construct()
     {
         parent::__construct(AdminPageSettings::getInstance()->getTemplateFile());
-        $cmd = common::GetCommand();
+        $cmd = QI::getCommand();
         switch ($cmd)
         {
             case 'export' : $b = new BackupZipBundleCmd();
@@ -31,7 +33,7 @@ class AdminPage extends Frame implements FrameForm
      */
     public function getFormActionUri()
     {
-        return common::GetUrl(common::WhichPage());
+        return QI::getPageUri();
     }
 
     public function getLastChangeTimestamp()

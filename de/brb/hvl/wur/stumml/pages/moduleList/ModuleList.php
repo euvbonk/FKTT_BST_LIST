@@ -7,6 +7,8 @@ import('de_brb_hvl_wur_stumml_pages_moduleList_ModuleListSettings');
 import('de_brb_hvl_wur_stumml_cmd_ListBuilderCmd');
 import('de_brb_hvl_wur_stumml_cmd_SendFileForDownloadCmd');
 
+import('de_brb_hvl_wur_stumml_util_QI');
+
 class ModuleList extends Frame implements FrameForm
 {
     private $content;
@@ -18,7 +20,7 @@ class ModuleList extends Frame implements FrameForm
         
         if (!empty($this->content))
         {
-            $cmd = common::GetCommand();
+            $cmd = QI::getCommand();
             switch ($cmd)
             {
                 case 'create' : $b = new ListBuilderCmd($this->content);
@@ -48,7 +50,7 @@ class ModuleList extends Frame implements FrameForm
      */
     public function getFormActionUri()
     {
-        return common::GetUrl(common::WhichPage());
+        return QI::getPageUri();
     }
 }
 ?>
