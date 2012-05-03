@@ -2,9 +2,10 @@
 
 import('de_brb_hvl_wur_stumml_pages_Frame');
 import('de_brb_hvl_wur_stumml_pages_editor_DatasheetEditorSettings');
+import('de_brb_hvl_wur_stumml_pages_editor_DatasheetEditorPageContent');
 import('de_brb_hvl_wur_stumml_cmd_CheckOnEditorVersionCmd');
 
-class DatasheetEditor extends Frame
+final class DatasheetEditor extends Frame implements DatasheetEditorPageContent
 {
     public function __construct()
     {
@@ -13,20 +14,38 @@ class DatasheetEditor extends Frame
         $cmd->doCommand();
     }
 
-    public function getLastChangeTimestamp()
+    /**
+     * @see abstract class Frame
+     */    
+    public final function getLastChangeTimestamp()
     {
         return DatasheetEditorSettings::getInstance()->lastAddonChange();
     }
 
-    public function url()
+    /**
+     * @see Interface DatasheetEditorPageContent
+     */
+    public final function getJNLPFileUrl()
     {
         return DatasheetEditorSettings::getInstance()->getUrl();
     }
 
-    public function content()
+    /**
+     * @see Interface DatasheetEditorPageContent
+     */
+    public final function getCertificateFileUrl($label)
     {
-        /* Not used regularly */
-        return "";
+        $f = DatasheetEditorSettings::getInstance()->getCertificateUrl();
+        if (file_exists($f))
+        {
+            $l = DatasheetEditorSettings::buildDownloadPath($f, $label);
+            $l .= "&nbsp;(".strftime("%a, %d. %b %Y", filemtime($f)).")";//%H:%M
+            return $l;
+        }
+        else
+        {
+            return "";
+        }
     }
 }
 ?>

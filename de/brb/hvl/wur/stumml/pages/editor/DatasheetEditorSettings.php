@@ -1,6 +1,7 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_Settings');
+import('de_brb_hvl_wur_stumml_util_QI');
 
 class DatasheetEditorSettings extends Settings
 {
@@ -18,7 +19,7 @@ class DatasheetEditorSettings extends Settings
     /*@Override*/
     public function lastAddonChange()
     {
-        return '29. April 2012 21:00:00';
+        return '03. Mai 2012 09:00:00';
     }
     
     public final function getTemplateFile()
@@ -28,7 +29,17 @@ class DatasheetEditorSettings extends Settings
 
     public final function getUrl()
     {
-        $filepath = substr(parent::uploadBaseDir().DIRECTORY_SEPARATOR."rgzm".DIRECTORY_SEPARATOR."rgzm.jnlp", strlen(QI::getRootDir())+1);
+        return self::getUrlForFile("rgzm.jnlp");
+    }
+
+    public final function getCertificateUrl()
+    {
+        return parent::uploadBaseDir().DIRECTORY_SEPARATOR."rgzm".DIRECTORY_SEPARATOR."rgzm.cert";
+    }
+
+    protected static function getUrlForFile($fileName)
+    {
+        $filepath = substr(parent::uploadBaseDir().DIRECTORY_SEPARATOR."rgzm".DIRECTORY_SEPARATOR.$fileName, strlen(QI::getRootDir())+1);
         return str_replace('index.php/', '', QI::getUriFrom($filepath));
     }
 

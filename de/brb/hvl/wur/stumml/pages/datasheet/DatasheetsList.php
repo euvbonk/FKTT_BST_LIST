@@ -12,7 +12,7 @@ import('de_brb_hvl_wur_stumml_cmd_ZipBundleCmd');
 
 import('de_brb_hvl_wur_stumml_util_QI');
 
-class DatasheetsList extends AbstractList implements DatasheetsPageContent
+final class DatasheetsList extends AbstractList implements DatasheetsPageContent
 {
     private static $ORDERS = array("ORDER_SHORT" => "K&uuml;rzel (aufsteigend)",  "ORDER_LAST" => "letzte &Auml;nderung (absteigend)");
     private $order = "ORDER_SHORT";
@@ -23,7 +23,6 @@ class DatasheetsList extends AbstractList implements DatasheetsPageContent
     {
         parent::__construct(StationDatasheetSettings::getInstance()->getTemplateFile());
         //$this->order = array_keys(self::$ORDERS){0};
-        setlocale(LC_TIME, "de_DE.utf8");
 
         $this->doCommand(QI::getCommand(), $_POST);
 

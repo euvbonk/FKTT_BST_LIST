@@ -6,7 +6,6 @@
             <input type="submit" value="Export starten" />
         </form>
       </p>
-      <p><?php echo $this->content(); ?></p>
       <hr />
       <p class="klein">
          zuletzt ge&auml;ndert: <?php echo $this->getLastChangeTimestamp(); ?><br/>

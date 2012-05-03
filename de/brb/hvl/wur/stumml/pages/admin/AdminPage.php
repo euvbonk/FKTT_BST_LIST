@@ -9,7 +9,7 @@ import('de_brb_hvl_wur_stumml_cmd_SendFileForDownloadCmd');
 
 import('de_brb_hvl_wur_stumml_util_QI');
 
-class AdminPage extends Frame implements FrameForm
+final class AdminPage extends Frame implements FrameForm
 {
     public function __construct()
     {
@@ -36,15 +36,12 @@ class AdminPage extends Frame implements FrameForm
         return QI::getPageUri();
     }
 
+    /**
+     * @see abstract class Frame
+     */    
     public function getLastChangeTimestamp()
     {
         return AdminPageSettings::getInstance()->lastAddonChange();
-    }
-
-    public function content()
-    {
-        /* Not used regularly */
-        return "";
     }
 }
 ?>

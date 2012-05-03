@@ -16,6 +16,7 @@ class Main
         $sheet = new AddonErrorPage("No Module specified!");
         try
         {
+            setlocale(LC_TIME, "de_DE.utf8");
             switch (strtolower(QI::getPageName()))
             {
                 case "special_datasheets_list" :

@@ -39,13 +39,17 @@
         <!-- following script shows javaws launch application button -->
         <script type="text/javascript">
            /* <![CDATA[ */
-              deployJava.createWebStartLaunchButton('<?php echo $this->url(); ?>', '1.5.0');
+              deployJava.createWebStartLaunchButton('<?php echo $this->getJNLPFileUrl(); ?>', '1.5.0');
               /* alternatively launch application if page is loaded
-               deployJava.launch('<?php echo $this->url(); ?>');*/
+               deployJava.launch('<?php echo $this->getJNLPFileUrl(); ?>');*/
            /* ]]> */
         </script></span> um die Anwendung direkt zu starten.
       </p>
-      <!--<p><?php echo $this->content(); ?></p>-->
+      <p>
+        Alle Pakete sind mit einem 
+        <?php echo $this->getCertificateFileUrl("öffentlichen Zertifikat"); ?>
+        signiert, was bei Bedarf installiert werden kann.
+      </p>
       <hr />
       <p class="klein">
          zuletzt ge&auml;ndert: <?php echo $this->getLastChangeTimestamp(); ?><br/>
