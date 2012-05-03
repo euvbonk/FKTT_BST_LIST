@@ -19,7 +19,7 @@ class DatasheetEditorSettings extends Settings
     /*@Override*/
     public function lastAddonChange()
     {
-        return '03. Mai 2012 09:00:00';
+        return '03. Mai 2012 21:00:00';
     }
     
     public final function getTemplateFile()
