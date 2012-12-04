@@ -53,5 +53,6 @@ function import($className)
  */
 
 import('de_brb_hvl_wur_stumml_Main');
+import('gadgets_EditorLaunchButton');
 
 ?>

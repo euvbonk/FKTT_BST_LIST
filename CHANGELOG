@@ -1,3 +1,10 @@
+2012-12-04 euvbonk
+    * BasicDirectory so erweitert, dass der Ordner "unsorted" nicht mit in die
+      Betrachtung der Liste aufgenommen wird, fuer bessere Entwicklung
+    * Im Datenblatt-Editor Template den Abschnitt zur Einbindung der Java SUN
+      deploy.js herausgenommen
+    * Die Einbindung erfolgt nun ueber die Addon.ini und damit direkt im <head>
+    * Anzeige des LaunchButtons im Menue mit Hilfe der gpEasy Gadget-Funktion
 2012-05-03 euvbonk
     * Code aufraeumen und Dokumentation
     * Erweiterung der Editor-Seite um Zertifikat

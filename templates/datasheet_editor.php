@@ -1,12 +1,6 @@
 
-      <!--
-         Load deploying script recommended by Sun/Oracle
-         see also following references:
-         http://www.ureader.de/msg/123016154.aspx
-         http://docs.oracle.com/javase/6/docs/technotes/guides/jweb/deployment_advice.html
-         http://www.java.com/js/deployJava.txt
-      -->
-      <script src="http://www.java.com/js/deployJava.js"></script>
+      <?php gpOutput::Area('Datasheet_Html_Area','<div class="datasheet_html_area">%s</div>'); ?>
+      <?php gpOutput::GetArea('Datasheet_Html_Area',"
       <h3>Betriebsstellen-Datenblatt-Editor</h3>
       <p>
         Einige werden sich sicher noch an die erste M&ouml;glichkeit zur
@@ -34,6 +28,7 @@
         nicht alles perfekt, aber es k&ouml;nnen g&uuml;ltige Datenbl&auml;tter
         erzeugt und bearbeitet werden.
       </p>
+      "); ?>
       <p>
         Dr&uuml;cke <span style="position:relative;top:6px;"> 
         <!-- following script shows javaws launch application button -->

@@ -35,7 +35,7 @@ class BasicDirectory
 		{ /* loop through the array at the level of the supplied $base */
 
 			$ext = substr($value, strrpos($value, '.') + 1);
-			if (is_dir($base."/".$value))
+			if (is_dir($base."/".$value) && $value != "unsorted")
 			{ /* if this is a directory */
 				#$data[] = $base."/".$value.'/'; /* add it to the $data array */
 				$data = self::scanDirectories($base."/".$value.'/', $allowext, $data); /* then make a recursive call with the
