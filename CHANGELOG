@@ -2,6 +2,8 @@
     * Code aufraeumen und Dokumentation
     * Erweiterung der Editor-Seite um Zertifikat
     * Fuer alle Plugin Seiten wird setLocale gesetzt
+    * Leider funktioniert die Erstellung des Symlinks auf dem Produktivsystem
+      nicht
 2012-04-30 euvbonk
     * weitere Sammlung der gpEasy Funktionen im Query Interface
 2012-04-26 - 2012-04-29 euvbonk
