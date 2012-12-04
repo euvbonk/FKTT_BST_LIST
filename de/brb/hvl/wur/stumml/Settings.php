@@ -18,7 +18,7 @@ abstract class Settings
 
     public function lastAddonChange()
     {
-        return '04. Dezember 2012 14:00:00';
+        return '04. Dezember 2012 20:00:00';
     }
 
     public final static function uploadBaseDir()

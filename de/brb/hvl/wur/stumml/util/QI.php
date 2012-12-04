@@ -38,9 +38,9 @@ final class QI
         return $rootDir;
     }
 
-    public static function buildAbsoluteLink($path, $label)
+    public static function buildAbsoluteLink($path, $label, $query = '')
     {
-        return common::AbsoluteLink($path, $label);
+        return common::AbsoluteLink($path, $label, $query);
     }
     
     public static function getPageUri()

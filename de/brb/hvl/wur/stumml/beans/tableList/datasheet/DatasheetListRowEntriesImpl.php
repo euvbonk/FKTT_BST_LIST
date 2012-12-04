@@ -3,6 +3,7 @@
 import('de_brb_hvl_wur_stumml_beans_tableList_AbstractListRowEntriesImpl');
 import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_DatasheetListRowEntries');
 import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
+import('de_brb_hvl_wur_stumml_util_QI');
 
 class DatasheetListRowEntriesImpl extends AbstractListRowEntriesImpl implements DatasheetListRowEntries
 {
@@ -54,13 +55,14 @@ class DatasheetListRowEntriesImpl extends AbstractListRowEntriesImpl implements 
                      $this->getNameWithReference(),
                      $this->getShortWithReference(),
                      HtmlUtil::toUtf8($this->getType()),
-                     $this->getLastChange()
+                     $this->getLastChange(),
+                     QI::buildAbsoluteLink("Fpl_View", $this->getShort(), "cmd=".$this->getShort())
                     );
     }
 
     public function getCellsStyle()
     {
-        return array("style=\"text-align:center;\"");
+        return array("style=\"text-align:center;\"", "", "style=\"text-align:center;\"", "style=\"text-align:center;\"", "", "style=\"text-align:center;\"");
     }
 }
 ?>

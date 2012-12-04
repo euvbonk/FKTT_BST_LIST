@@ -8,8 +8,8 @@ import('de_brb_hvl_wur_stumml_util_reportTable_ListRowCellsImpl');
 class StationDatasheetList
 {
     private $tableEntries;
-    private static $HEAD_ENTRIES = array("Lfd. Nr.", "Betriebsstellenname", "K&uuml;rzel", "Kategorie", "Letzte &Auml;nderung");
-    private $headOrder = array("", "", "", "", "");
+    private static $HEAD_ENTRIES = array("Lfd. Nr.", "Betriebsstellenname", "K&uuml;rzel", "Kategorie", "Letzte &Auml;nderung", "Spezial Ansicht");
+    private $headOrder = array("", "", "", "", "", "");
 
     public function __construct(array $fileList, $order = "ORDER_SHORT")
     {
