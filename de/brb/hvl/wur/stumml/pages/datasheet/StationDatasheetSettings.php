@@ -18,7 +18,7 @@ class StationDatasheetSettings extends Settings
     /*@Override*/
     public function lastAddonChange()
     {
-        return '08. M&auml;rz 2013 10:00:00';
+        return '08. M&auml;rz 2013 18:00:00';
     }
     
     public final function newSheet()

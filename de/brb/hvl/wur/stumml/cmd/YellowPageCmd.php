@@ -49,6 +49,10 @@ final class YellowPageCmd
             $calc->closeDocument();
 			return true;
 		}
+		elseif (strlen($latest) > 0 && file_exists($this->oTargetFile))
+		{
+			return true;
+		}
 		return false;
 	}
 

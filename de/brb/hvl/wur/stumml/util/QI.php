@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Class holds all function as interface for gpEasy
- * whenever a function of gpeasy framework is used, this QI interface has to be
- * called for delegating
+ * Class holds all functions as interface for gpEasy.
+ * Whenever a function of the gpeasy framework should be used,
+ * this QI interface should handle this call for delegating
+ * because it is easier to change framework function at one point
  */
 final class QI
 {
-    // private access for outside, all methods are static 
+    // private access from outside, all methods are static
     protected function __construct() {}
 
     public static function isGpeasyDebugEnabled()
@@ -19,11 +20,16 @@ final class QI
     {
         return common::WhichPage();
     }
-    
+
+    public static function getRelativeDataDir()
+    {
+        return 'data/_uploaded/file/fktt';
+    }
+
     public static function getDataDir()
     {
         global $dataDir;
-        return $dataDir.'/data/_uploaded/file/fktt';
+        return $dataDir.'/'.self::getRelativeDataDir();
     }
 
     public static function getAddonPathCode()

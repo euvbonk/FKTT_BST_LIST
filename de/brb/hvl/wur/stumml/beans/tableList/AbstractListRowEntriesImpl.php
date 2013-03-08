@@ -48,12 +48,12 @@ abstract class AbstractListRowEntriesImpl implements AbstractListRowEntries
 
     public function getNameWithReference()
     {
-        return Settings::buildDownloadPath($this->getSheetUrl(), $this->getName());
+        return Settings::getDownloadLinkForFile($this->getSheetUrl(), $this->getName(), false);
     }
 
     public function getShortWithReference()
     {
-        return Settings::buildDownloadPath($this->getSheetUrl(), $this->getShort());
+        return Settings::getDownloadLinkForFile($this->getSheetUrl(), $this->getShort(), false);
     }
 }
 ?>

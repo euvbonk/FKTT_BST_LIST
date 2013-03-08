@@ -18,7 +18,7 @@ abstract class Settings
 
     public function lastAddonChange()
     {
-        return '08. M&auml;rz 2013 10:00:00';
+        return '08. M&auml;rz 2013 18:00:00';
     }
 
     public final static function uploadBaseDir()
@@ -41,11 +41,39 @@ abstract class Settings
         return self::uploadBaseDir().'/db';
     }
 
-    public final static function buildDownloadPath($filePath, $label)
+    public final static function getHttpUriForFile($filePath)
+    {
+        $path = QI::getRelativeDataDir().'/'.$filePath;
+        if (!file_exists($path))
+        {
+            $path = substr($filePath, strlen(QI::getRootDir())+1);
+        }
+        return str_replace('index.php/', '', QI::getUriFrom($path));
+    }
+
+    public final static function getDownloadLinkForFile($file, $label, $addLastChange = true)
+    {
+        $uri = self::getHttpUriForFile($file);
+        if (strlen($uri) > 0)
+        {
+            $ret = HtmlUtil::toUtf8("<a href=\"".$uri."\" title=\"".$label."\">".$label."</a>");
+            if ($addLastChange)
+            {
+                $ret .= "&nbsp;(" . strftime("%a, %d. %b %Y %H:%M", filemtime($file)) . ")";
+            }
+            return $ret;
+        }
+        else
+        {
+            return "File does not exist!";
+        }
+    }
+
+    /*public final static function buildDownloadPath($filePath, $label)
     {
         $filePath = substr($filePath, strlen(QI::getRootDir())+1);
         return str_replace('index.php/', '', HtmlUtil::toUtf8(QI::buildAbsoluteLink($filePath, $label)));
-    }    
+    }*/
 
     public abstract function getTemplateFile();
 

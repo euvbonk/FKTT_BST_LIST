@@ -36,16 +36,7 @@ final class DatasheetEditor extends Frame implements DatasheetEditorPageContent
     public final function getCertificateFileUrl($label)
     {
         $f = DatasheetEditorSettings::getInstance()->getCertificateUrl();
-        if (file_exists($f))
-        {
-            $l = DatasheetEditorSettings::buildDownloadPath($f, $label);
-            $l .= "&nbsp;(".strftime("%a, %d. %b %Y", filemtime($f)).")";//%H:%M
-            return $l;
-        }
-        else
-        {
-            return "";
-        }
+        return DatasheetEditorSettings::getDownloadLinkForFile($f, $label);
     }
 }
 ?>

@@ -2,6 +2,8 @@
     * Entities in der XML Datei sind beim Einlesen ins SimpleXMLElement nicht
       richtig behandelt worden
     * Bugfix fuer die import-Funktion: gpEasy meckerte ueber redeclaration
+    * Vereinfachung und Verallgemeinerung der Download-Links bzw. des URL
+      Zusammenbaus
 2012-12-09 euvbonk
     * Umbenennung der Datei im Launch Button
     * Neue Ansicht speziell fuer Fahrplaner in der Liste

@@ -19,7 +19,7 @@ class DatasheetEditorSettings extends Settings
     /*@Override*/
     public function lastAddonChange()
     {
-        return '04. Dezember 2012 14:00:00';
+        return '08. M&auml;rz 2013 18:00:00';
     }
     
     public final function getTemplateFile()
@@ -29,19 +29,19 @@ class DatasheetEditorSettings extends Settings
 
     public final function getUrl()
     {
-        return self::getUrlForFile("rgzm.jnlp");
+        return self::getHttpUriForFile('rgzm/rgzm.jnlp');
     }
 
     public final function getCertificateUrl()
     {
-        return parent::uploadBaseDir().DIRECTORY_SEPARATOR."rgzm".DIRECTORY_SEPARATOR."rgzm.cert";
+        return QI::getDataDir()."/rgzm/rgzm.cert";
     }
 
-    protected static function getUrlForFile($fileName)
+    /*protected static function getUrlForFile($fileName)
     {
         $filepath = substr(parent::uploadBaseDir().DIRECTORY_SEPARATOR."rgzm".DIRECTORY_SEPARATOR.$fileName, strlen(QI::getRootDir())+1);
         return str_replace('index.php/', '', QI::getUriFrom($filepath));
-    }
+    }*/
 
     private function __construct(){}
     private function __clone(){}}
