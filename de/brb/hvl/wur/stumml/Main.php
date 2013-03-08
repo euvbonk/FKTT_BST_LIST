@@ -44,15 +44,19 @@ class Main
                     }
                     else
                     {
+                        import('de_brb_hvl_wur_stumml_beans_datasheet_FileManagerImpl');
+                        $fm = new FileManagerImpl();
+                        $allFiles = $fm->getFilesFromEpochWithOrder();
+                        //print "<pre>".print_r($allFiles, true)."</pre>";
                         import('de_brb_hvl_wur_stumml_Settings');
-                        $short = strtolower(QI::getCommand());
-                        $xmlFile = Settings::uploadDir().DIRECTORY_SEPARATOR.$short.DIRECTORY_SEPARATOR.$short.".xml";
-                        if (!file_exists($xmlFile))
+                        $short = QI::getCommand();//strtolower(QI::getCommand());
+                        if (!array_key_exists($short, $allFiles))
                         {
                             $sheet = new AddonErrorPage("Angegebenes Datenblatt existiert nicht!");
                         }
                         else
                         {
+                            $xmlFile = $allFiles[$short];
                             $xslFile = Settings::uploadDir().DIRECTORY_SEPARATOR."fpl.xsl";
                             $proc = new XSLTProcessor();
                             $proc->importStylesheet(DOMDocument::load($xslFile));

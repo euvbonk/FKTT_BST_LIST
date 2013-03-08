@@ -48,7 +48,7 @@ class YellowPageSpreadsheetGenerator extends SpreadsheetDocument implements Yell
         $posOfLastTableRow = strpos($currentString, "</table:table-row>")+strlen("</table:table-row>");
         $posUntil = strpos($currentString, 'number-rows-repeated="')+strlen('number-rows-repeated="');
         $newString = substr_replace($currentString, $this->getYellowPage(), $posOfLastTableRow, $posUntil-$posOfLastTableRow);
-        $this->setDocument(new SimpleXMLElement($newString));
+        $this->setDocument(new SimpleXMLElement(preg_replace('/&[^; ]{0,6}.?/e', "((substr('\\0',-1) == ';') ? '\\0' : '&amp;'.substr('\\0',1))", $newString)));
         //print $posOfLastTableRow." + ".strlen("</table:table-row>")." (".$posUntil.") <br/>";
     }
 }

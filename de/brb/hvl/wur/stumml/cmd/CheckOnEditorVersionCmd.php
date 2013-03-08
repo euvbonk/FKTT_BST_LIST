@@ -31,6 +31,7 @@ class CheckOnEditorVersionCmd
         self::$log->debug("Cwd: ".$bp);
         // current file
         $cf = $this->oCurrent.self::$DS.self::$oFile;
+        if (count($this->oAllDirs) == 0) return FALSE;
         // new current file
         $ncf = $this->oAllDirs[count($this->oAllDirs)-1].self::$DS.self::$oFile;         
         if (!file_exists($cf) && count($this->oAllDirs) > 0)

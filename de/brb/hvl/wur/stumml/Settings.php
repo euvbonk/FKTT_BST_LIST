@@ -18,7 +18,7 @@ abstract class Settings
 
     public function lastAddonChange()
     {
-        return '04. Dezember 2012 20:00:00';
+        return '08. M&auml;rz 2013 10:00:00';
     }
 
     public final static function uploadBaseDir()
@@ -26,7 +26,7 @@ abstract class Settings
         return QI::getDataDir();
     }
     
-    public final function addonBaseDir()
+    public final static function addonBaseDir()
     {
         return QI::getAddonPathCode();
     }

@@ -27,7 +27,7 @@ class BasicDirectory
  	public static function scanDirectories($base='', $allowext, $data=array())
 	{
 
-		if (!file_exists($base) || !is_dir($base)) return FALSE;
+		if (!file_exists($base) || !is_dir($base)) return array();
 
 		$array = array_diff(scandir($base), array('.', '..')); # remove . and .. from the array
 

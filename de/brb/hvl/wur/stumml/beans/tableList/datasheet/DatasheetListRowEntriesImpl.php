@@ -56,7 +56,7 @@ class DatasheetListRowEntriesImpl extends AbstractListRowEntriesImpl implements 
                      $this->getShortWithReference(),
                      HtmlUtil::toUtf8($this->getType()),
                      $this->getLastChange(),
-                     QI::buildAbsoluteLink("Fpl_View", $this->getShort(), "cmd=".$this->getShort())
+                     HtmlUtil::toUtf8(QI::buildAbsoluteLink("Fpl_View", $this->getShort(), "cmd=".str_replace(".xml", "", basename($this->getSheetUrl()))))
                     );
     }
 

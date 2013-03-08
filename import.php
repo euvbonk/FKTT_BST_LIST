@@ -5,7 +5,7 @@ defined('is_running') or die('Not an entry point...');
  * gesamte Addon, da mittels dieser Funktion alle notwendigen Klassen
  * importiert werden, um aufgerufen werden zu können.
  */ 
-
+if (!function_exists('import')) {
 function import($className)
 {
 //Directories added here must be
@@ -45,7 +45,7 @@ function import($className)
         }
     }
 }
-
+}
 /*
  * Dies ist der Startpunkt
  * Die Hauptklasse wird importiert. 

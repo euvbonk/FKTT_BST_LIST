@@ -6,6 +6,8 @@ class EditorLaunchButton
 {
     public function __construct()
     {
+            // extend allowed upload file extensions used in this plugin
+            $GLOBALS['upload_extensions_allow'] = array_merge($GLOBALS['upload_extensions_allow'], array('jar','jnlp','dtd','css','xsl'));
         echo '<div style="padding:5px 0 5px 0;">';
         echo '   <!-- following script shows javaws launch application button -->';
         echo '   <script type="text/javascript">';

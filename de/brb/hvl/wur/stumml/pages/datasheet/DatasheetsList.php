@@ -77,10 +77,16 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
     public final function getYellowPageLink()
     {
         $t = new YellowPageCmd($this->getFileManager());
-        $t->doCommand($this->getEpoch());
-        $l = StationDatasheetSettings::buildDownloadPath($t->getFileName(), "Gelbe Seiten für die Epoche ".$this->getEpoch());
-        $l .= "&nbsp;(".strftime("%a, %d. %b %Y %H:%M", filemtime($t->getFileName())).")";
-        return $l;
+        if ($t->doCommand($this->getEpoch()))
+        {
+            $l = StationDatasheetSettings::buildDownloadPath($t->getFileName(), "Gelbe Seiten für die Epoche ".$this->getEpoch());
+            $l .= "&nbsp;(".strftime("%a, %d. %b %Y %H:%M", filemtime($t->getFileName())).")";
+            return $l;
+        }
+        else
+        {
+            return "";
+        }
     }
 
     /**
@@ -108,14 +114,21 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
     public final function getZipBundleLink()
     {
         $t = new ZipBundleCmd($this->getFileManager());
-        $t->doCommand();
-        if (file_exists($t->getFileName()))
+        try
         {
-            $l = StationDatasheetSettings::buildDownloadPath($t->getFileName(), "Archiv mit allen Datenblättern und Gelben Seiten");
-            $l .= "&nbsp;(".strftime("%a, %d. %b %Y %H:%M", filemtime($t->getFileName())).")";
-            return $l;
+            $t->doCommand();
+            if (file_exists($t->getFileName()))
+            {
+                $l = StationDatasheetSettings::buildDownloadPath($t->getFileName(), "Archiv mit allen Datenblättern und Gelben Seiten");
+                $l .= "&nbsp;(".strftime("%a, %d. %b %Y %H:%M", filemtime($t->getFileName())).")";
+                return $l;
+            }
+            else
+            {
+                return "";
+            }
         }
-        else
+        catch (Exception $e)
         {
             return "";
         }
