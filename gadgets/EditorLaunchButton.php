@@ -2,13 +2,18 @@
 
 defined('is_running') or die('Not an entry point...');
 
-import('de_brb_hvl_wur_stumml_Settings');
+//import('de_brb_hvl_wur_stumml_Settings');
+import('de_brb_hvl_wur_stumml_cmd_CheckJNLPVersionCmd');
 
 class EditorLaunchButton
 {
     public function __construct()
     {
-        $URL = Settings::getHttpUriForFile('rgzm/editor.jnlp');
+        // check and repair jnlp file if necessary
+        $cmd = new CheckJNLPVersionCmd("editor");
+        $URL = $cmd->doCommand();
+        //
+        //$URL = Settings::getHttpUriForFile('rgzm/editor.jnlp');
         // extend allowed upload file extensions used in this plugin
         $GLOBALS['upload_extensions_allow'] = array_merge($GLOBALS['upload_extensions_allow'], array('jar','jnlp','dtd','css','xsl'));
         echo '<div style="padding:5px 0 5px 0;">';

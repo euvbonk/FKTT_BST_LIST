@@ -1,3 +1,9 @@
+2013-03-11 euvbonk
+    * Verzeichnisstruktur fuer die editor/rgzm Jar Archive umgebaut und ent-
+      sprechende Anpassungen beim CheckCommand vorgenommen. Weil das mit dem
+      Symlink nicht funktioniert hat, jetzt auf andere Weise
+    * Check Funktion auf das Gadget ausgeweitet, so dass in der jnlp-Datei
+      immer das neueste Jar-Archiv UND die richtige Basis-URL verwendet wird
 2013-03-08 euvbonk
     * Entities in der XML Datei sind beim Einlesen ins SimpleXMLElement nicht
       richtig behandelt worden

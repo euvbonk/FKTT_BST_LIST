@@ -19,17 +19,12 @@ class DatasheetEditorSettings extends Settings
     /*@Override*/
     public function lastAddonChange()
     {
-        return '08. M&auml;rz 2013 18:00:00';
+        return '11. M&auml;rz 2013 10:00:00';
     }
     
     public final function getTemplateFile()
     {
         return $this->addonTemplateBaseDir().'/datasheet_editor.php';
-    }
-
-    public final function getUrl()
-    {
-        return self::getHttpUriForFile('rgzm/rgzm.jnlp');
     }
 
     public final function getCertificateUrl()

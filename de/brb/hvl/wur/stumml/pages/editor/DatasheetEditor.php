@@ -1,17 +1,19 @@
 <?php
 
+import('de_brb_hvl_wur_stumml_cmd_CheckJNLPVersionCmd');
 import('de_brb_hvl_wur_stumml_pages_Frame');
 import('de_brb_hvl_wur_stumml_pages_editor_DatasheetEditorSettings');
 import('de_brb_hvl_wur_stumml_pages_editor_DatasheetEditorPageContent');
-import('de_brb_hvl_wur_stumml_cmd_CheckOnEditorVersionCmd');
 
 final class DatasheetEditor extends Frame implements DatasheetEditorPageContent
 {
+    private static $JNLP_HTTP_URI;
+
     public function __construct()
     {
         parent::__construct(DatasheetEditorSettings::getInstance()->getTemplateFile());
-        $cmd = new CheckOnEditorVersionCmd();
-        $cmd->doCommand();
+        $cmd = new CheckJNLPVersionCmd("editor");
+        self::$JNLP_HTTP_URI = $cmd->doCommand();
     }
 
     /**
@@ -27,7 +29,7 @@ final class DatasheetEditor extends Frame implements DatasheetEditorPageContent
      */
     public final function getJNLPFileUrl()
     {
-        return DatasheetEditorSettings::getInstance()->getUrl();
+        return self::$JNLP_HTTP_URI;
     }
 
     /**
