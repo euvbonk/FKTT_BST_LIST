@@ -1,4 +1,10 @@
-2013-03-11 euvbonk
+2013-03-13 euvbonk v0.7RC1
+    * Die DTD Dokumentation, die ebenfalls auf Frames zur Anzeige setzt, wird
+      mittels eines Gadgets, innerhalb eines iframe in gpeasy als Seite
+      angezeigt, wobei die Hoehe des Frames Fix auf 550px festgelegt ist.
+    * die import Funktion kann auf pear basierende Klassennamen durch * im
+      Pfad einbinden
+2013-03-11 euvbonk v0.7beta3
     * Verzeichnisstruktur fuer die editor/rgzm Jar Archive umgebaut und ent-
       sprechende Anpassungen beim CheckCommand vorgenommen. Weil das mit dem
       Symlink nicht funktioniert hat, jetzt auf andere Weise
