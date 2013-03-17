@@ -8,26 +8,26 @@ final class BackupZipBundleCmd
     private $oTargetFile;
     private $oDir;
 
-	public function __construct()
-	{
+    public function __construct()
+    {
         $this->oDir = Settings::uploadBaseDir();
         $f = $this->oDir.DIRECTORY_SEPARATOR.self::$FILE_NAME;
-        $this->oTargetFile = $f.strftime("%F-%H%M").".zip";
-	}
+        $this->oTargetFile = new File($f.strftime("%F-%H%M").".zip");
+    }
 
-	public function doCommand()
-	{
+    public function doCommand()
+    {
         // Command immer ausführen!
         if (!is_writable($this->oDir))
         {
-            $message  = "Directory -".$this->oDir."- has no write ";
+            $message = "Directory -".$this->oDir."- has no write ";
             $message .= "permission for php script!";
             throw new Exception($message);
         }
 
         // Alle bisherigen Dateien löschen
         $b = $this->oDir.DIRECTORY_SEPARATOR.self::$FILE_NAME."*.zip";
-        foreach(glob($b) as $file)
+        foreach (glob($b) as $file)
         {
             unlink($file);
         }
@@ -37,12 +37,10 @@ final class BackupZipBundleCmd
         $baseDir = substr($this->oDir, 0, strrpos($this->oDir, "/"));
 
         // follow also symbolic links
-        $iterator  = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator(
-                $this->oDir, FilesystemIterator::FOLLOW_SYMLINKS));
+        $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->oDir, FilesystemIterator::FOLLOW_SYMLINKS));
 
         $zip = new ZipArchive();
-        $zip->open($this->oTargetFile, ZipArchive::CREATE);
+        $zip->open($this->oTargetFile->getPath(), ZipArchive::CREATE);
         foreach ($iterator as $key => $value)
         {
             $node = $key;
@@ -53,20 +51,19 @@ final class BackupZipBundleCmd
             }
         }
         $zip->close();
-        chmod($this->oTargetFile, 0666);
+        $this->oTargetFile->changeFileRights(0666);
         return true;
-	}
+    }
 
     public function getFileName()
     {
-        if (file_exists($this->oTargetFile))
+        if ($this->oTargetFile->exists())
         {
-            return $this->oTargetFile;
+            return $this->oTargetFile->getPath();
         }
         else
         {
             return "#";
         }
-    }    
+    }
 }
-?>

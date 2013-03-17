@@ -20,17 +20,22 @@ final class SendFileForDownloadCmd
 
     public function doCommand()
     {
-        if ((file_exists($this->oFile) && is_readable($this->oFile)) ||
-             strlen($this->oFile) > 0)
+        if ((file_exists($this->oFile) && is_readable($this->oFile)) || strlen($this->oFile) > 0)
         {
             header('Content-Description: File Transfer');
             if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE'))
+            {
                 header('Content-Type: application/force-download');
+            }
             else
+            {
                 header('Content-Type: application/octet-stream');
+            }
 
             if (headers_sent())
-                    echo 'Some data has already been output to browser, can\'t send file!';
+            {
+                echo 'Some data has already been output to browser, can\'t send file!';
+            }
             header('Content-Disposition: attachment; filename='.$this->oFileName);
             header('Content-Transfer-Encoding: binary');
             header('Expires: 0');
@@ -60,7 +65,6 @@ final class SendFileForDownloadCmd
         else
         {
             return false;
-        }        
+        }
     }
 }
-?>

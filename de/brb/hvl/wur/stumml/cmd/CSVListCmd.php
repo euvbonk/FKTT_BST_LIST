@@ -5,6 +5,7 @@ import('de_brb_hvl_wur_stumml_beans_datasheet_FileManager');
 import('de_brb_hvl_wur_stumml_Settings');
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_xml_StationElement');
+import('de_brb_hvl_wur_stumml_io_File');
 
 final class CSVListCmd
 {
@@ -12,18 +13,19 @@ final class CSVListCmd
     private static $EPOCH = "IV";
     private $oTargetFile;
 
-	public function __construct(FileManager $fm)
-	{
-		$this->oFileManager = $fm;
-        $this->oTargetFile = Settings::uploadDir()."/".self::$FILE_NAME;
-	}
+    public function __construct(FileManager $fm)
+    {
+        $this->oFileManager = $fm;
+        $this->oTargetFile = new File(Settings::uploadDir()."/".self::$FILE_NAME);
+    }
 
-	public function doCommand()
-	{
-        $latest = $this->oFileManager->getLatestFileFromEpoch(self::$EPOCH);
-		if (strlen($latest) > 0 && (!file_exists($this->oTargetFile) ||
-			filemtime($this->oTargetFile) < filemtime($latest)))
-		{
+    public function doCommand()
+    {
+        $latest = new File($this->oFileManager->getLatestFileFromEpoch(self::$EPOCH));
+        if (strlen($latest->getPath()) > 0 &&
+                (!$this->oTargetFile->exists() || $this->oTargetFile->compareMTimeTo($latest))
+        )
+        {
 
             //$page = new FkttYellowPage();
             //$page->setDatasheetFileList($this->oFileManager->getFilesFromEpochWithOrder($epoch));
@@ -40,12 +42,12 @@ final class CSVListCmd
                     $csvArray[] = array($station->getName(), $station->getShort());
                 }
 
-                if (file_exists($this->oTargetFile))
+                if ($this->oTargetFile->exists())
                 {
-                    unlink($this->oTargetFile);
+                    $this->oTargetFile->delete();
                 }
 
-                $fp = fopen($this->oTargetFile, 'w');
+                $fp = fopen($this->oTargetFile->getPath(), 'w');
 
                 foreach ($csvArray as $fields)
                 {
@@ -63,21 +65,20 @@ final class CSVListCmd
 
             //$calc->saveDocumentToFile($this->oTargetFile);
             //$calc->closeDocument();
-			return true;
-		}
-		return false;
-	}
+            return true;
+        }
+        return false;
+    }
 
     public function getFileName()
     {
-        if (file_exists($this->oTargetFile))
+        if ($this->oTargetFile->exists())
         {
-            return $this->oTargetFile;
+            return $this->oTargetFile->getPath();
         }
         else
         {
             return "#";
         }
-    }    
+    }
 }
-?>

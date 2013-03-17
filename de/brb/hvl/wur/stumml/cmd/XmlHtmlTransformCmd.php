@@ -1,4 +1,5 @@
 <?php
+import('de_brb_hvl_wur_stumml_io_File');
 
 final class XmlHtmlTransformCmd
 {
@@ -10,24 +11,38 @@ final class XmlHtmlTransformCmd
         $this->oHtmlFile = null;
     }
 
-    public function doCommand($xmlFile)
+    public function doCommand(File $xmlFile)
     {
-        // endsWith
-        if (!preg_match("/".preg_quote("xml") .'$/', $xmlFile) || !is_writable(dirname($xmlFile))) return false;
-        
+        // Umwandlung nur fuer xml Dateien sinnvoll und wenn Verzeichnis beschreibbar ist
+        if (!$xmlFile->endsWith("xml") || !$xmlFile->getParentFile()->isWritable())
+        {
+            return false;
+        }
+
         $this->oHtmlFile = null;
-        $htmlFile = dirname($xmlFile).DIRECTORY_SEPARATOR.basename($xmlFile, "xml")."html";
-        if (!file_exists($htmlFile) || filemtime($htmlFile) < filemtime($xmlFile))
+        $htmlFile = new File($xmlFile->getParent()."/".basename($xmlFile->getPath(), "xml")."html");
+        if (!$htmlFile->exists() || $htmlFile->compareMTimeTo($xmlFile))
         {
             // Datei muss vor neuem Anlegen entfernt werden, sonst meckert
             // transformToUri!
-            if (file_exists($htmlFile)) unlink($htmlFile);
+            if ($htmlFile->exists())
+            {
+                $htmlFile->delete();
+            }
 
             $this->oHtmlFile = $htmlFile;
-            $proc = new XSLTProcessor();
-            $proc->importStylesheet(DOMDocument::load(dirname($xmlFile).DIRECTORY_SEPARATOR.self::$XSL_FILE));
-            $proc->transformToURI(DOMDocument::load($xmlFile), 'file://'.$htmlFile);
-            chmod($htmlFile, 0666);
+
+            $xslDOMDocument = new DOMDocument();
+            $xslDOMDocument->load($xmlFile->getParent()."/".self::$XSL_FILE);
+
+            $xmlDOMDocument = new DOMDocument();
+            $xmlDOMDocument->load($xmlFile->getPath());
+
+            $xsltProcessor = new XSLTProcessor();
+            $xsltProcessor->importStylesheet($xslDOMDocument);
+            $xsltProcessor->transformToURI($xmlDOMDocument, 'file://'.$htmlFile->getPath());
+
+            $htmlFile->changeFileRights(0666);
             return true;
         }
         return false;
@@ -38,4 +53,3 @@ final class XmlHtmlTransformCmd
         return $this->oHtmlFile;
     }
 }
-?>

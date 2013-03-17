@@ -25,7 +25,7 @@ class CheckJNLPVersionCmd
         self::$log->debug("<pre>".print_r($allVersions, true)."</pre>");
         self::$LATEST_JAR = $allVersions[count($allVersions)-1];
     }
-    
+
     public function doCommand()
     {
         self::$log->debug("Current file: ".self::$JNLP_FILE_URI);
@@ -60,4 +60,3 @@ class CheckJNLPVersionCmd
         return self::$JNLP_HTTP_URI;
     }
 }
-?>
