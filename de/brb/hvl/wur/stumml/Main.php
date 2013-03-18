@@ -3,6 +3,7 @@
 import('de_brb_hvl_wur_stumml_pages_AddonErrorPage');
 import('de_brb_hvl_wur_stumml_util_QI');
 import('de_brb_hvl_wur_stumml_pages_datasheet_DatasheetsList');
+import('de_brb_hvl_wur_stumml_pages_datasheet_FplView');
 import('de_brb_hvl_wur_stumml_pages_develop_Develop');
 import('de_brb_hvl_wur_stumml_pages_goodsTraffic_GoodsTrafficBasics');
 import('de_brb_hvl_wur_stumml_pages_moduleList_ModuleList');
@@ -38,47 +39,17 @@ class Main
                     $sheet = new AdminPage();
                     break;
                 case "fpl_view":
-                    if (QI::getCommand() == "")
-                    {
-                        $sheet = new AddonErrorPage("Kein Kommando angegeben oder Kommando fehlerhaft!");
-                    }
-                    else
-                    {
-                        import('de_brb_hvl_wur_stumml_beans_datasheet_FileManagerImpl');
-                        $fm = new FileManagerImpl();
-                        $allFiles = $fm->getFilesFromEpochWithOrder();
-                        //print "<pre>".print_r($allFiles, true)."</pre>";
-                        import('de_brb_hvl_wur_stumml_Settings');
-                        $short = QI::getCommand();//strtolower(QI::getCommand());
-                        if (!array_key_exists($short, $allFiles))
-                        {
-                            $sheet = new AddonErrorPage("Angegebenes Datenblatt existiert nicht!");
-                        }
-                        else
-                        {
-                            $xmlFile = $allFiles[$short];
-                            $xslFile = Settings::uploadDir().DIRECTORY_SEPARATOR."fpl.xsl";
-                            $proc = new XSLTProcessor();
-                            $proc->importStylesheet(DOMDocument::load($xslFile));
-                            $html = $proc->transformToXML(DOMDocument::load($xmlFile));
-                            $basePath = dirname("http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).DIRECTORY_SEPARATOR.substr($xmlFile, strlen(QI::getRootDir())+1));
-                            $html = str_replace("bahnhof.css", $basePath.DIRECTORY_SEPARATOR."bahnhof.css", $html);
-                            $html = str_replace("img src=\"".$short, "img src=\"".$basePath.DIRECTORY_SEPARATOR.$short, $html);
-                            echo $html;
-                            exit;
-                        }
-                    }
+                    $sheet = new FplView(QI::getCommand());
                     break;
                 default :
                     // Never reached by gpEasy!
                     break;
             }
         }
-        catch (InvalidArgumentException $e)
+        catch (Exception $e)
         {
             $sheet = new AddonErrorPage($e->getMessage());
         }
         $sheet->showContent();
     }
 }
-?>

@@ -10,7 +10,7 @@ class DatasheetListRowEntriesImpl extends AbstractListRowEntriesImpl implements 
     private $index;
     private $type;
     private $lastChange;
-    
+
     public function __construct($name, $short, $index, $url, $type, $lastChange)
     {
         parent::__construct($name, $short, $url);
@@ -18,27 +18,27 @@ class DatasheetListRowEntriesImpl extends AbstractListRowEntriesImpl implements 
         $this->setType($type);
         $this->setLastChange($lastChange);
     }
-    
+
     public function getType()
     {
         return $this->type;
     }
-    
+
     public function setType($t)
     {
         $this->type = $t;
     }
-    
+
     public function getLastChange()
     {
         return $this->lastChange;
     }
-    
+
     public function setLastChange($l)
     {
         $this->lastChange = $l;
     }
-    
+
     public function setIndex($i)
     {
         $this->index = $i;
@@ -52,17 +52,14 @@ class DatasheetListRowEntriesImpl extends AbstractListRowEntriesImpl implements 
     public function getCellsContent()
     {
         return array((($this->getIndex() > 9) ? $this->getIndex() : "0".$this->getIndex()).".",
-                     $this->getNameWithReference(),
-                     $this->getShortWithReference(),
-                     HtmlUtil::toUtf8($this->getType()),
-                     $this->getLastChange(),
-                     HtmlUtil::toUtf8(QI::buildAbsoluteLink("Fpl_View", $this->getShort(), "cmd=".str_replace(".xml", "", basename($this->getSheetUrl()))))
-                    );
+            $this->getNameWithReference(), $this->getShortWithReference(), HtmlUtil::toUtf8($this->getType()),
+            $this->getLastChange(), HtmlUtil::toUtf8(QI::buildAbsoluteLink("Fpl_View", $this->getShort(),
+                    "cmd=".str_replace(".xml", "", basename($this->getSheetUrl())))));
     }
 
     public function getCellsStyle()
     {
-        return array("style=\"text-align:center;\"", "", "style=\"text-align:center;\"", "style=\"text-align:center;\"", "", "style=\"text-align:center;\"");
+        return array("style=\"text-align:center;\"", "", "style=\"text-align:center;\"", "style=\"text-align:center;\"",
+            "", "style=\"text-align:center;\"");
     }
 }
-?>

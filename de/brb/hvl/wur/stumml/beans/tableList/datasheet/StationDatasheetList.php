@@ -8,7 +8,8 @@ import('de_brb_hvl_wur_stumml_util_reportTable_ListRowCellsImpl');
 class StationDatasheetList
 {
     private $tableEntries;
-    private static $HEAD_ENTRIES = array("Lfd. Nr.", "Betriebsstellenname", "K&uuml;rzel", "Kategorie", "Letzte &Auml;nderung", "Spezial Ansicht");
+    private static $HEAD_ENTRIES = array("Lfd. Nr.", "Betriebsstellenname", "K&uuml;rzel", "Kategorie",
+        "Letzte &Auml;nderung", "Spezial Ansicht");
     private $headOrder = array("", "", "", "", "", "");
 
     public function __construct(array $fileList, $order = "ORDER_SHORT")
@@ -24,15 +25,18 @@ class StationDatasheetList
     {
         switch ($order)
         {
-            case "ORDER_SHORT" : $this->headOrder[2] = "ASC";
-                                 break;
-            case "ORDER_LAST"  : $this->headOrder[4] = "DESC";
-                                 break;
-            default            : $this->headOrder[2] = "ASC";
-                                 break;
+            case "ORDER_SHORT" :
+                $this->headOrder[2] = "ASC";
+                break;
+            case "ORDER_LAST"  :
+                $this->headOrder[4] = "DESC";
+                break;
+            default            :
+                $this->headOrder[2] = "ASC";
+                break;
         }
     }
- 
+
     public function getTableEntries()
     {
         return $this->tableEntries;
@@ -43,21 +47,14 @@ class StationDatasheetList
         if (!empty($array))
         {
             $key = 0;
-            foreach($array as $value)
+            foreach ($array as $value)
             {
                 // Die Datei ist mit Sicherheit vom Typ XML!
                 //        date("D, d. M Y H:i", filemtime($value))
                 $xml = new SimpleXMLElement($value, null, true);
-                $this->tableEntries->append(
-                    new DatasheetListRowEntriesImpl(
-                        (string)$xml->name,
-                        (string)$xml->kuerzel,
-                        ($key+1),
-                        $value,
-                        (string)$xml->typ,
-                        strftime("%a, %d. %b %Y %H:%M", filemtime($value))
-                    )
-                );
+                $this->tableEntries->append(new DatasheetListRowEntriesImpl((string)$xml->name, (string)$xml->kuerzel,
+                                ($key+1), $value, (string)$xml->typ,
+                                strftime("%a, %d. %b %Y %H:%M",filemtime($value))));
                 $key++;
             }
         }
@@ -81,7 +78,10 @@ class StationDatasheetList
     private function buildCellContent($cmd, $main)
     {
         // wenn es für diesen Eintrag keine Order-Angabe gibt
-        if (strlen($this->headOrder[$cmd]) == 0) return $main;
+        if (strlen($this->headOrder[$cmd]) == 0)
+        {
+            return $main;
+        }
 
         $sub = "";
         if ($this->headOrder[$cmd] == "ASC")
@@ -95,4 +95,3 @@ class StationDatasheetList
         return "<span style='color:red;'>".$main."&nbsp;".$sub."</span>";
     }
 }
-?>

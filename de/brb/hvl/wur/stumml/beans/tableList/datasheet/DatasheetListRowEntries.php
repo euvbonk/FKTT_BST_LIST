@@ -6,4 +6,3 @@ interface DatasheetListRowEntries
     public function getType();
     public function getLastChange();
 }
-?>

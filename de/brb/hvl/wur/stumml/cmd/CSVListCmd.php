@@ -23,7 +23,7 @@ final class CSVListCmd
     {
         $latest = new File($this->oFileManager->getLatestFileFromEpoch(self::$EPOCH));
         if (strlen($latest->getPath()) > 0 &&
-                (!$this->oTargetFile->exists() || $this->oTargetFile->compareMTimeTo($latest))
+                (!$this->oTargetFile->exists() || !$this->oTargetFile->compareMTimeTo($latest))
         )
         {
 
@@ -70,15 +70,11 @@ final class CSVListCmd
         return false;
     }
 
-    public function getFileName()
+    /**
+     * @return File
+     */
+    public function getFile()
     {
-        if ($this->oTargetFile->exists())
-        {
-            return $this->oTargetFile->getPath();
-        }
-        else
-        {
-            return "#";
-        }
+        return $this->oTargetFile;
     }
 }

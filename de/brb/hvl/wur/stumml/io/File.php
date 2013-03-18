@@ -14,6 +14,9 @@ class File
         return basename($this->getPath());
     }
 
+    /**
+     * @return String
+     */
     public function getPath()
     {
         return $this->oPath;
@@ -26,7 +29,22 @@ class File
 
     public function getParent()
     {
-        return dirname($this->getPath());
+        if ($this->isFile())
+        {
+            return dirname($this->getPath());
+        }
+        else
+        {
+            $array = explode("/", $this->getPath());
+            // Falls im Dateipfad das letzte Element ein "/" war, so ist im Array das letzte
+            // Element leer und es muss nochmals das letzte Element, was dann wirklich ein
+            // Teil des Dateipfades ist entfernt werden
+            if (strlen(array_pop($array)) <= 0)
+            {
+                array_pop($array);
+            }
+            return join("/", $array);
+        }
     }
 
     public function exists()

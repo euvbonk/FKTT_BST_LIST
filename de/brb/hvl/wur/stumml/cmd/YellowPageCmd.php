@@ -19,7 +19,7 @@ final class YellowPageCmd
     public function __construct(FileManager $fm)
     {
         $this->oFileManager = $fm;
-        $this->oTemplateFile = Settings::addonTemplateBaseDir()."/yellow-page.ots";
+        $this->oTemplateFile = new File(Settings::addonTemplateBaseDir()."/yellow-page.ots");
         $this->renameFile("IV");
     }
 
@@ -32,10 +32,9 @@ final class YellowPageCmd
         $this->renameFile($epoch);
         $latest = new File($this->oFileManager->getLatestFileFromEpoch($epoch));
         if (strlen($latest->getPath()) > 0 &&
-                (!$this->oTargetFile->exists() || $this->oTargetFile->compareMTimeTo($latest))
+                (!$this->oTargetFile->exists() || !$this->oTargetFile->compareMTimeTo($latest))
         )
         {
-
             $page = new FkttYellowPage();
             $page->setDatasheetFileList($this->oFileManager->getFilesFromEpochWithOrder($epoch));
             $page->generate();
@@ -51,7 +50,7 @@ final class YellowPageCmd
             $calc->setYellowPage($page->getAsSpreadsheetXml());
             $calc->generate();
 
-            $calc->saveDocumentToFile($this->oTargetFile->getPath());
+            $calc->saveDocumentToFile($this->oTargetFile);
             $calc->closeDocument();
             return true;
         }
@@ -62,9 +61,12 @@ final class YellowPageCmd
         return false;
     }
 
-    public function getFileName()
+    /**
+     * @return File
+     */
+    public function getFile()
     {
-        return $this->oTargetFile->getPath();
+        return $this->oTargetFile;
     }
 
     protected function renameFile($epoch)

@@ -1,12 +1,13 @@
 <?php
 
+import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_util_openOffice_OpenDocument');
 import('de_brb_hvl_wur_stumml_util_Point');
 import('de_brb_hvl_wur_stumml_util_openOffice_XSpreadsheet');
 
 class SpreadsheetDocument extends OpenDocument
 {
-    private $fileName = null;
+    private $oFile = null;
     private $oCellPosition = null;
     private $oXSpreadsheet = null;
 
@@ -16,18 +17,18 @@ class SpreadsheetDocument extends OpenDocument
         $this->oCellPosition = new Point(0, 0);
     }
 
-    public function openDocumentFromFile($file)
+    public function openDocumentFromFile(File $file)
     {
         $this->setDocument($this->loadDocument($file));
-        $this->setDocumentFileName($file);
+        $this->setDocumentFile($file);
         $this->setSpreadsheetDocument();
     }
 
     public function saveDocument()
     {
-        if ($this->getDocumentFileName() != null)
+        if ($this->getDocumentFile() != null)
         {
-            $this->saveDocumentToFile($this->getDocumentFileName());
+            $this->saveDocumentToFile($this->getDocumentFile());
         }
         else
         {
@@ -35,20 +36,20 @@ class SpreadsheetDocument extends OpenDocument
         }
     }
 
-    public function setDocumentFileName($file)
+    public function setDocumentFile(File $file)
     {
-        $this->fileName = $file;
+        $this->oFile = $file;
     }
 
-    public function getDocumentFileName()
+    public function getDocumentFile()
     {
-        return $this->fileName;
+        return $this->oFile;
     }
 
     /*@Override*/
     public function closeDocument()
     {
-        $this->fileName = null;
+        $this->oFile = null;
         $this->oCellPosition = null;
         $this->oXSpreadsheet = null;
         parent::closeDocument();
@@ -106,5 +107,3 @@ class SpreadsheetDocument extends OpenDocument
         $this->oXSpreadsheet = new XSpreadsheet($spreadsheet[0]->children($ns['table']), $ns);
     }
 }
-
-?>

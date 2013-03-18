@@ -1,3 +1,10 @@
+2013-03-18 euvbonk
+    * Klasse File erweitert und Commands sowie beans weiter mit damit ausgebaut
+    * Fpl View Hack aus Main in eigene Klasse separiert.
+    * Ausserdem Fpl View so angepasst, dass schon erstellte Html Datei im
+      Browser angezeigt wird.
+    * Im Zip Bundle befinden sich nun auch die Html Dateien des Fpl View
+    * TODO:
 2013-03-17 euvbonk
     * Klasse File eingefuehrt und in den Commands eingebaut.
 2013-03-15 euvbonk

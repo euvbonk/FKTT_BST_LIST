@@ -54,9 +54,9 @@ final class QI
         return common::AbsoluteUrl(common::WhichPage());
     }
 
-    public static function getCommand()
+    public static function getCommand($type='cmd')
     {
-        return common::GetCommand();
+        return common::GetCommand($type);
     }
 
     public static function getUriFrom($path)

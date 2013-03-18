@@ -3,15 +3,27 @@ import('de_brb_hvl_wur_stumml_io_File');
 
 final class XmlHtmlTransformCmd
 {
-    private static $XSL_FILE = "bahnhof.xsl";
     private $oHtmlFile;
+    private $oXSLTProcessor;
 
-    public function __construct()
+    public function __construct(File $xslFile)
     {
         $this->oHtmlFile = null;
+
+        $xslDOMDocument = new DOMDocument();
+        $xslDOMDocument->load($xslFile->getPath());
+
+        $this->oXSLTProcessor = new XSLTProcessor();
+        $this->oXSLTProcessor->importStylesheet($xslDOMDocument);
     }
 
-    public function doCommand(File $xmlFile)
+
+    /**
+     * @param File      $xmlFile
+     * @param File|null $htmlFile
+     * @return bool
+     */
+    public function doCommand(File $xmlFile, File $htmlFile = null)
     {
         // Umwandlung nur fuer xml Dateien sinnvoll und wenn Verzeichnis beschreibbar ist
         if (!$xmlFile->endsWith("xml") || !$xmlFile->getParentFile()->isWritable())
@@ -20,34 +32,37 @@ final class XmlHtmlTransformCmd
         }
 
         $this->oHtmlFile = null;
-        $htmlFile = new File($xmlFile->getParent()."/".basename($xmlFile->getPath(), "xml")."html");
-        if (!$htmlFile->exists() || $htmlFile->compareMTimeTo($xmlFile))
+        if ($htmlFile == null)
+        {
+            $this->oHtmlFile = new File($xmlFile->getParent()."/".basename($xmlFile->getPath(), "xml")."html");
+        }
+        else
+        {
+            $this->oHtmlFile = $htmlFile;
+        }
+        if (!$this->oHtmlFile->exists() || !$this->oHtmlFile->compareMTimeTo($xmlFile))
         {
             // Datei muss vor neuem Anlegen entfernt werden, sonst meckert
             // transformToUri!
-            if ($htmlFile->exists())
+            if ($this->oHtmlFile->exists())
             {
-                $htmlFile->delete();
+                $this->oHtmlFile->delete();
             }
-
-            $this->oHtmlFile = $htmlFile;
-
-            $xslDOMDocument = new DOMDocument();
-            $xslDOMDocument->load($xmlFile->getParent()."/".self::$XSL_FILE);
 
             $xmlDOMDocument = new DOMDocument();
             $xmlDOMDocument->load($xmlFile->getPath());
 
-            $xsltProcessor = new XSLTProcessor();
-            $xsltProcessor->importStylesheet($xslDOMDocument);
-            $xsltProcessor->transformToURI($xmlDOMDocument, 'file://'.$htmlFile->getPath());
+            $this->oXSLTProcessor->transformToURI($xmlDOMDocument, 'file://'.$this->oHtmlFile->getPath());
 
-            $htmlFile->changeFileRights(0666);
+            $this->oHtmlFile->changeFileRights(0666);
             return true;
         }
         return false;
     }
 
+    /**
+     * @return File
+     */
     public function getHtmlFile()
     {
         return $this->oHtmlFile;
