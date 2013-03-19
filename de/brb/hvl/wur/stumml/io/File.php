@@ -44,19 +44,20 @@ class File extends SplFileInfo
 
     public function compareMTimeTo(SplFileInfo $b)
     {
-        $time_a = $this->getMTime();//filemtime($this->getPathname());
-        $time_b = $b->getMTime();//filemtime($b->getPathname());
+        /*$time_a = $this->getMTime();
+        $time_b = $b->getMTime();
         if ($time_a == $time_b)
         {
             return 0;
         }
-        return ($time_a < $time_b) ? +1 : -1;
+        return ($time_a < $time_b) ? +1 : -1;*/
+        return self::compareLastModified($this, $b);
     }
 
     public static function compareLastModified(SplFileInfo $a, SplFileInfo $b)
     {
-        $time_a = $a->getMTime();//filemtime($a->getPath());
-        $time_b = $b->getMTime();//filemtime($b->getPath());
+        $time_a = $a->getMTime();
+        $time_b = $b->getMTime();
         if ($time_a == $time_b)
         {
             return 0;

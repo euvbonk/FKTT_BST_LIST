@@ -21,7 +21,7 @@ final class CSVListCmd
 
     public function doCommand()
     {
-        $latest = new File($this->oFileManager->getLatestFileFromEpoch(self::$EPOCH));
+        $latest = $this->oFileManager->getLatestFileFromEpoch(self::$EPOCH);
         if (strlen($latest->getPathname()) > 0 &&
                 (!$this->oTargetFile->exists() || !$this->oTargetFile->compareMTimeTo($latest))
         )
@@ -38,7 +38,7 @@ final class CSVListCmd
                 foreach ($list as $value)
                 {
                     // load as file url
-                    $station = new StationElement(new SimpleXMLElement($value, null, true));
+                    $station = new StationElement(new SimpleXMLElement($value->getPathname(), null, true));
                     $csvArray[] = array($station->getName(), $station->getShort());
                 }
 

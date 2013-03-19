@@ -2,6 +2,7 @@
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_FileManager');
 import('de_brb_hvl_wur_stumml_Settings');
+import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_util_BasicDirectory');
 
 class FileManagerImpl implements FileManager
@@ -20,7 +21,11 @@ class FileManagerImpl implements FileManager
         //print "<pre>".print_r($this->allDatasheets, true)."</pre>";
     }
 
-	public function getLatestFileFromEpoch($epoch)
+    /**
+     * @param $epoch
+     * @return File|null
+     */
+    public function getLatestFileFromEpoch($epoch)
 	{
 		// sollte die uebergebene Epoche nicht existieren
 		if (!in_array($epoch, self::$EPOCHS)) return null;
@@ -35,14 +40,22 @@ class FileManagerImpl implements FileManager
         $ret = array();
         foreach ($in as $fileUrl)
         {
-            if ($this->endsWith("-".$epoch.".xml", $fileUrl) || ($epoch == "IV" && !$this->contains("-", $fileUrl)))
+            $fileUrl = new File($fileUrl);
+            //if ($this->endsWith("-".$epoch.".xml", $fileUrl) || ($epoch == "IV" && !$this->contains("-", $fileUrl)))
+            if ($fileUrl->endsWith("-".$epoch.".xml") || ($epoch == "IV" && !$fileUrl->contains("-")))
             {
-                $ret[basename($fileUrl,".xml")] = $fileUrl;
+                //$ret[basename($fileUrl,".xml")] = $fileUrl;
+                $ret[$fileUrl->getBasename(".xml")] = $fileUrl;
             }
         }
         return $ret;
     }
 
+    /**
+     * @param string $epoch
+     * @param string $order
+     * @return array Files|null
+     */
     public function getFilesFromEpochWithOrder($epoch = "IV", $order = "ORDER_SHORT")
     {
         $test = $this->allDatasheets[$epoch];
@@ -52,7 +65,8 @@ class FileManagerImpl implements FileManager
         }
         else if ($order == "ORDER_LAST")
         {
-            usort($test, array(__CLASS__, "compareTime"));
+            //usort($test, array(__CLASS__, "compareTime"));
+            usort($test, array("File", "compareLastModified"));
             return $test;
         }
         else
@@ -61,6 +75,11 @@ class FileManagerImpl implements FileManager
         }
     }
 
+    /**
+     * @param string $epoch
+     * @param array  $filter
+     * @return array Files
+     */
     public function getFilesFromEpochWithFilter($epoch = "IV", $filter = array())
     {
         if (empty($filter) && ($epoch == self::$EPOCHS[3]))
@@ -90,7 +109,6 @@ class FileManagerImpl implements FileManager
         return $ret;
     }
 
-
     protected function getFilteredDatasheets($filter = array(), $in = array())
     {
         if (empty($filter))
@@ -112,26 +130,4 @@ class FileManagerImpl implements FileManager
         }
         return $ret;
     }
-
-    protected static function compareTime($a, $b)
-    {
-        $time_a = filemtime($a);
-        $time_b = filemtime($b);
-        if ($time_a == $time_b)
-        {
-            return 0;
-        }
-        return ($time_a < $time_b) ? +1 : -1;
-    }
-
-    protected function endsWith($needle, $haystack) 
-    {
-        return preg_match("/".preg_quote($needle) .'$/', $haystack);
-    }
-
-    protected function contains($needle, $haystack)
-    {
-        return (strpos($haystack,$needle)!==false) ? true : false;
-    }
 }
-?>

@@ -46,10 +46,9 @@ final class ZipBundleCmd
             $yellowPageCmd->doCommand($epoch);
             // pruefe jetzt fuer alle Datenblaetter, ob die entsprechenden HTML Dateien aktuell sind und aktualisiere
             // sie falls notwendig.
-            // TODO der FileManager sollte an dieser Stelle ein Array mit Files zurückgeben!
             foreach ($this->oFileManager->getFilesFromEpochWithOrder($epoch) as $file)
             {
-                $file = new File($file);
+                //$file = new File($file);
                 $transformNormal->doCommand($file);
                 $transformFpl->doCommand($file);
             }

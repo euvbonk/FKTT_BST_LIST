@@ -55,12 +55,10 @@ abstract class AbstractYellowPage implements SpreadsheetXml
             foreach ($list as $value)
             {
                 // load as file url
-                $this->oFileList[] = new StationElement(new SimpleXMLElement($value, null, true));
+                $this->oFileList[] = new StationElement(new SimpleXMLElement($value->getPathname(), null, true));
             }
         }
     }
     
     public abstract function generate();
 }
-
-?>

@@ -49,12 +49,12 @@ class GoodsTrafficList
     {
         foreach ($array as $value)
         {
-            $xml = new DatasheetElement(new SimpleXMLElement($value, null, true), $dAW);
+            $xml = new DatasheetElement(new SimpleXMLElement($value->getPathname(), null, true), $dAW);
             $this->tableEntries->append(
                 new GoodsTrafficListRowEntriesImpl(
                                                 $xml->getName(),
                                                 $xml->getShort(),
-                                                $value,
+                                                $value->getPathname(),
                                                 $xml->getShort(),
                                                 $xml->getCarsInput(),
                                                 $xml->getCarsOutput(),
@@ -103,4 +103,3 @@ class GoodsTrafficList
         return sprintf(ReportTableListProperties::FORMAT, $this->sumMaxInOut*$lengthPerCar/min($this->minMaxLength));
     }
 }
-?>

@@ -51,10 +51,10 @@ class StationDatasheetList
             {
                 // Die Datei ist mit Sicherheit vom Typ XML!
                 //        date("D, d. M Y H:i", filemtime($value))
-                $xml = new SimpleXMLElement($value, null, true);
+                $xml = new SimpleXMLElement($value->getPathname(), null, true);
                 $this->tableEntries->append(new DatasheetListRowEntriesImpl((string)$xml->name, (string)$xml->kuerzel,
                                 ($key+1), $value, (string)$xml->typ,
-                                strftime("%a, %d. %b %Y %H:%M",filemtime($value))));
+                                strftime("%a, %d. %b %Y %H:%M", $value->getMTime())));
                 $key++;
             }
         }
