@@ -22,7 +22,7 @@ final class CSVListCmd
     public function doCommand()
     {
         $latest = new File($this->oFileManager->getLatestFileFromEpoch(self::$EPOCH));
-        if (strlen($latest->getPath()) > 0 &&
+        if (strlen($latest->getPathname()) > 0 &&
                 (!$this->oTargetFile->exists() || !$this->oTargetFile->compareMTimeTo($latest))
         )
         {
@@ -47,7 +47,7 @@ final class CSVListCmd
                     $this->oTargetFile->delete();
                 }
 
-                $fp = fopen($this->oTargetFile->getPath(), 'w');
+                $fp = fopen($this->oTargetFile->getPathname(), 'w');
 
                 foreach ($csvArray as $fields)
                 {

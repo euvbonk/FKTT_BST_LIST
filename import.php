@@ -1,6 +1,8 @@
 <?php
 defined('is_running') or die('Not an entry point...');
 
+if (version_compare(PHP_VERSION, '5.2.0', '<')) die('Addon requires at least PHP Version 5.2.0+');
+
 /* Datei definiert die 'import' Funktion, die notwendig ist für das
  * gesamte Addon, da mittels dieser Funktion alle notwendigen Klassen
  * importiert werden, um aufgerufen werden zu können.
@@ -70,5 +72,3 @@ if (!function_exists('import'))
 
 import('de_brb_hvl_wur_stumml_Main');
 import('gadgets_*');
-
-?>

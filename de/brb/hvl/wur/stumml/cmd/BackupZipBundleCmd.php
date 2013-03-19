@@ -40,7 +40,7 @@ final class BackupZipBundleCmd
         $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->oDir, FilesystemIterator::FOLLOW_SYMLINKS));
 
         $zip = new ZipArchive();
-        $zip->open($this->oTargetFile->getPath(), ZipArchive::CREATE);
+        $zip->open($this->oTargetFile->getPathname(), ZipArchive::CREATE);
         foreach ($iterator as $key => $value)
         {
             $node = $key;
@@ -59,7 +59,7 @@ final class BackupZipBundleCmd
     {
         if ($this->oTargetFile->exists())
         {
-            return $this->oTargetFile->getPath();
+            return $this->oTargetFile->getPathname();
         }
         else
         {

@@ -76,9 +76,10 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
     public final function getYellowPageLink()
     {
         $t = new YellowPageCmd($this->getFileManager());
-        if ($t->doCommand($this->getEpoch()))
+        $t->doCommand($this->getEpoch());
+        if ($t->getFile()->exists())
         {
-            return StationDatasheetSettings::getDownloadLinkForFile($t->getFile()->getPath(),
+            return StationDatasheetSettings::getDownloadLinkForFile($t->getFile()->getPathname(),
                     "Gelbe Seiten für die Epoche ".$this->getEpoch());
         }
         else
@@ -96,7 +97,7 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
         $t->doCommand();
         if ($t->getFile()->exists())
         {
-            return StationDatasheetSettings::getDownloadLinkForFile($t->getFile()->getPath(),
+            return StationDatasheetSettings::getDownloadLinkForFile($t->getFile()->getPathname(),
                 "Liste mit Namen und Kürzel als CSV");
         }
         else
@@ -116,7 +117,7 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
             $t->doCommand();
             if ($t->getFile()->exists())
             {
-                return StationDatasheetSettings::getDownloadLinkForFile($t->getFile()->getPath(),
+                return StationDatasheetSettings::getDownloadLinkForFile($t->getFile()->getPathname(),
                     "Archiv mit allen Datenblättern und Gelben Seiten");
             }
             else

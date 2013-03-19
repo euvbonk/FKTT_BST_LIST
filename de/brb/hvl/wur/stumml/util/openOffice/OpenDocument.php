@@ -45,9 +45,9 @@ abstract class OpenDocument
         }
         $charset = ini_get('default_charset');
         ini_set('default_charset', 'UTF-8');
-        copy($this->oArchiveFileName, $file->getPath());
+        copy($this->oArchiveFileName, $file->getPathname());
         $zip = new ZipArchive();
-        $zip->open($file->getPath());
+        $zip->open($file->getPathname());
         $zip->deleteName('content.xml');
         $zip->addFromString('content.xml', $this->oDocumentContent->asXML());
         $zip->close();
@@ -64,7 +64,7 @@ abstract class OpenDocument
 
     protected function loadDocument(File $file)
     {
-        $this->oArchiveFileName = $file->getPath();
+        $this->oArchiveFileName = $file->getPathname();
         $zip = new ZipArchive();
         $zip->open($this->oArchiveFileName);
         $content = new SimpleXMLElement($zip->getFromIndex($zip->locateName('content.xml')));

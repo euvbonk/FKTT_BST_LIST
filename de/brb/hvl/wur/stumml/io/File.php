@@ -1,25 +1,15 @@
 <?php
 
-class File
+class File extends SplFileInfo
 {
-    private $oPath = null;
-
     public function __construct($filePath)
     {
-        $this->oPath = $filePath;
+        parent::__construct($filePath);
     }
 
     public function getName()
     {
-        return basename($this->getPath());
-    }
-
-    /**
-     * @return String
-     */
-    public function getPath()
-    {
-        return $this->oPath;
+        return basename($this->getPathname());
     }
 
     public function getParentFile()
@@ -31,11 +21,11 @@ class File
     {
         if ($this->isFile())
         {
-            return dirname($this->getPath());
+            return dirname($this->getPathname());
         }
         else
         {
-            $array = explode("/", $this->getPath());
+            $array = explode("/", $this->getPathname());
             // Falls im Dateipfad das letzte Element ein "/" war, so ist im Array das letzte
             // Element leer und es muss nochmals das letzte Element, was dann wirklich ein
             // Teil des Dateipfades ist entfernt werden
@@ -49,13 +39,24 @@ class File
 
     public function exists()
     {
-        return file_exists($this->getPath());
+        return file_exists($this->getPathname());
     }
 
-    public function compareMTimeTo(File $b)
+    public function compareMTimeTo(SplFileInfo $b)
     {
-        $time_a = filemtime($this->getPath());
-        $time_b = filemtime($b->getPath());
+        $time_a = $this->getMTime();//filemtime($this->getPathname());
+        $time_b = $b->getMTime();//filemtime($b->getPathname());
+        if ($time_a == $time_b)
+        {
+            return 0;
+        }
+        return ($time_a < $time_b) ? +1 : -1;
+    }
+
+    public static function compareLastModified(SplFileInfo $a, SplFileInfo $b)
+    {
+        $time_a = $a->getMTime();//filemtime($a->getPath());
+        $time_b = $b->getMTime();//filemtime($b->getPath());
         if ($time_a == $time_b)
         {
             return 0;
@@ -65,36 +66,21 @@ class File
 
     public function changeFileRights($int)
     {
-        chmod($this->getPath(), $int);
-    }
-
-    public function isFile()
-    {
-        return is_file($this->getPath());
-    }
-
-    public function isReadable()
-    {
-        return is_readable($this->getPath());
-    }
-
-    public function isWritable()
-    {
-        return is_writable($this->getPath());
+        chmod($this->getPathname(), $int);
     }
 
     public function delete()
     {
-        return unlink($this->getPath());
+        return unlink($this->getPathname());
     }
 
     public function endsWith($string)
     {
-        return preg_match("/".preg_quote($string).'$/', $this->getPath());
+        return preg_match("/".preg_quote($string).'$/', $this->getPathname());
     }
 
     public function contains($string)
     {
-        return (strpos($this->getPath(), $string) !== false) ? true : false;
+        return (strpos($this->getPathname(), $string) !== false) ? true : false;
     }
 }

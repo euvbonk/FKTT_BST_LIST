@@ -11,7 +11,7 @@ final class XmlHtmlTransformCmd
         $this->oHtmlFile = null;
 
         $xslDOMDocument = new DOMDocument();
-        $xslDOMDocument->load($xslFile->getPath());
+        $xslDOMDocument->load($xslFile->getPathname());
 
         $this->oXSLTProcessor = new XSLTProcessor();
         $this->oXSLTProcessor->importStylesheet($xslDOMDocument);
@@ -34,7 +34,7 @@ final class XmlHtmlTransformCmd
         $this->oHtmlFile = null;
         if ($htmlFile == null)
         {
-            $this->oHtmlFile = new File($xmlFile->getParent()."/".basename($xmlFile->getPath(), "xml")."html");
+            $this->oHtmlFile = new File($xmlFile->getParent()."/".basename($xmlFile->getPathname(), "xml")."html");
         }
         else
         {
@@ -50,7 +50,7 @@ final class XmlHtmlTransformCmd
             }
 
             $xmlDOMDocument = new DOMDocument();
-            $xmlDOMDocument->load($xmlFile->getPath());
+            $xmlDOMDocument->load($xmlFile->getPathname());
 
             $this->oXSLTProcessor->transformToURI($xmlDOMDocument, 'file://'.$this->oHtmlFile->getPath());
 

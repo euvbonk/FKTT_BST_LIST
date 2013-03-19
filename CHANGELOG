@@ -1,3 +1,7 @@
+2013-03-19 euvbonk
+    * Klasse File erbt alles aus SplFileInfo und vereinfacht einige Dinge
+    * ZipBundleCmd prueft jetzt immer ob eine neuere Daten vorhanden sind
+    * PHP mindestens der Version 5.2 wird benoetigt
 2013-03-18 euvbonk
     * Klasse File erweitert und Commands sowie beans weiter mit damit ausgebaut
     * Fpl View Hack aus Main in eigene Klasse separiert.

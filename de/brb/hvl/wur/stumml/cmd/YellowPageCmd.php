@@ -31,7 +31,7 @@ final class YellowPageCmd
         }
         $this->renameFile($epoch);
         $latest = new File($this->oFileManager->getLatestFileFromEpoch($epoch));
-        if (strlen($latest->getPath()) > 0 &&
+        if (strlen($latest->getPathname()) > 0 &&
                 (!$this->oTargetFile->exists() || !$this->oTargetFile->compareMTimeTo($latest))
         )
         {
@@ -52,10 +52,6 @@ final class YellowPageCmd
 
             $calc->saveDocumentToFile($this->oTargetFile);
             $calc->closeDocument();
-            return true;
-        }
-        elseif (strlen($latest->getPath()) > 0 && $this->oTargetFile->exists())
-        {
             return true;
         }
         return false;

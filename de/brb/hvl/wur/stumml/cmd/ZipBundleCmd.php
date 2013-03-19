@@ -13,63 +13,76 @@ final class ZipBundleCmd
 {
     private static $FILE_NAME = "datasheetsAndYellowPages.zip";
     private $oFileManager;
-    private $oTargetFile;
-    private $oReferenceFile;
-    private $oTNormal;
-    private $oTFPL;
+    private $oTargetFile = null;
 
     public function __construct(FileManager $fm)
     {
         $this->oFileManager = $fm;
-        $ud = Settings::uploadDir()."/";
-        $this->oTargetFile = new File($ud.self::$FILE_NAME);
-
-        // TODO Verfeinerung hier notwendig, was soll das ReferenceFile sein?
-        // TODO: Was ist, wenn nur die Bilddatei geaendert wird? Wie kann
-        //       man das sinnvoll herausfinden?
-        $x = $fm->getLatestFileFromEpoch(FileManagerImpl::$EPOCHS[3]);
-        $h = str_replace(".xml", ".html", $x);
-        if (file_exists($h))
-        {
-            $refFile = (filemtime($x) > filemtime($h)) ? $x : $h;
-        }
-        else
-        {
-            $refFile = $h;
-        }
-        $this->oReferenceFile = new File($refFile);
-
-        // Zwei Transformer Commands
-        $this->oTNormal = new XmlHtmlTransformCmd(new File($ud."bahnhof.xsl"));
-        $this->oTFPL = new XmlHtmlTransformCmd(new File($ud."fpl.xsl"));
     }
 
     public function doCommand()
     {
+        $dirToArchive = Settings::uploadDir();
+        if (!is_writable($dirToArchive))
+        {
+            $message = "Directory -".$dirToArchive."- has no write ";
+            $message .= "permission for php script!";
+            throw new Exception($message);
+        }
+
         /* CSV Datei ist nicht bestandteil des Zip-Bundles!
         $CSVListCmd = new CSVListCmd($this->oFileManager);
         // wird nur ausgefuehrt, wenn es ein neueres Datenblatt gibt!
         $CSVListCmd->doCommand();*/
 
         $yellowPageCmd = new YellowPageCmd($this->oFileManager);
+        // Zwei Transformer Commands
+        $transformNormal = new XmlHtmlTransformCmd(new File($dirToArchive."/bahnhof.xsl"));
+        $transformFpl = new XmlHtmlTransformCmd(new File($dirToArchive."/fpl.xsl"));
+
         foreach (FileManagerImpl::$EPOCHS as $epoch)
         {
-            // wird nur ausgefuehrt, wenn es ein neueres Datenblatt fuer die jeweilige Epoche gibt!
+            // falls Aenderungen am Datenblatt, dann muessen zwingend gelbe Seiten ebenfalls aktualisiert werden.
             $yellowPageCmd->doCommand($epoch);
+            // pruefe jetzt fuer alle Datenblaetter, ob die entsprechenden HTML Dateien aktuell sind und aktualisiere
+            // sie falls notwendig.
+            // TODO der FileManager sollte an dieser Stelle ein Array mit Files zurückgeben!
+            foreach ($this->oFileManager->getFilesFromEpochWithOrder($epoch) as $file)
+            {
+                $file = new File($file);
+                $transformNormal->doCommand($file);
+                $transformFpl->doCommand($file);
+            }
         }
 
-        if ((!$this->oTargetFile->exists() || !$this->oReferenceFile->exists() ||
-                !$this->oTargetFile->compareMTimeTo($this->oReferenceFile))
+        $allFiles = array();
+        $iterator =
+                new RecursiveIteratorIterator(new ZipBundleFileFilter(new RecursiveDirectoryIterator($dirToArchive)));
+        // sammle jetzt alle Dateien, die fuer das Zip-Bundle in Frage kommen, in einem Array
+        foreach ($iterator as $file)
+        {
+            if ($file->isFile() && $file->isReadable())
+            {
+                $allFiles[] = $file;
+            }
+        }
+        // Sortiere alle Dateien so, dass die zuletzt geaenderte Datei ganz am Anfang des Array steht!
+        usort($allFiles, array("File", "compareLastModified"));
+        // Testausgabe. Achtung $file ist vom Typ SplFileInfo Objekt!
+        /*foreach ($allFiles as $file)
+        {
+            echo $file->getPathname()." = > ".strftime("%a, %d. %b %Y %H:%M", $file->getMTime())."<br>";
+        }*/
+
+        $this->oTargetFile = new File($dirToArchive."/".self::$FILE_NAME);
+
+        // zunaechst muessen ueberhaupt Dateien zum Archivieren vorhanden sein
+        // Dann soll auf jedenfall ein Archiv erstellt werden, wenn die Zieldatei noch gar nicht existiert oder eben
+        // falls neueste Datei aller Dateien spaeter modifiziert wurde als die Zieldatei
+        if (
+            count($allFiles) > 0 && (!$this->oTargetFile->exists() || !$this->oTargetFile->compareMTimeTo($allFiles[0]))
         )
         {
-            $dirToArchive = Settings::uploadDir();
-            if (!is_writable($dirToArchive))
-            {
-                $message = "Directory -".$dirToArchive."- has no write ";
-                $message .= "permission for php script!";
-                throw new Exception($message);
-            }
-
             if ($this->oTargetFile->exists())
             {
                 $this->oTargetFile->delete();
@@ -79,34 +92,18 @@ final class ZipBundleCmd
             // local path in the archive
             $baseDir = Settings::uploadBaseDir();
 
-            $iterator =
-                    new RecursiveIteratorIterator(new ZipBundleFileFilter(new RecursiveDirectoryIterator($dirToArchive)));
-
             $zip = new ZipArchive();
-            $zip->open($this->oTargetFile->getPath(), ZipArchive::CREATE);
-            foreach ($iterator as $key => $value)
+            $zip->open($this->oTargetFile->getPathname(), ZipArchive::CREATE);
+            foreach ($allFiles as $node)
             {
-                $node = new File($key);
                 if ($node->isFile() && $node->isReadable())
                 {
-                    $node_new = str_replace($baseDir."/", "", $node->getPath());
-                    if ($this->oTNormal->doCommand($node))
-                    {
-                        $zip->addFile($this->oTNormal->getHtmlFile()->getPath(),
-                            str_replace(".xml", ".html", $node_new));
-                    }
-                    $hFPL = new File(str_replace(".xml", "_fpl.html", $node->getPath()));
-                    if ($this->oTFPL->doCommand($node, $hFPL))
-                    {
-                        $zip->addFile($this->oTFPL->getHtmlFile()->getPath(),
-                            str_replace(".xml", "_fpl.html", $node_new));
-                    }
-                    $zip->addFile($node->getPath(), $node_new);
+                    $zip->addFile($node->getPathname(), str_replace($baseDir."/", "", $node->getPathname()));
                 }
             }
             // TODO: Update bstlist.html bzw. index.html which shows
             //       a local view of all datasheets
-            //       create bstlist for all epochs
+            //       create bstlist for all epochs and add them to archive
             $zip->close();
             $this->oTargetFile->changeFileRights(0666);
             return true;
