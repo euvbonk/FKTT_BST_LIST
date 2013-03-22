@@ -2,6 +2,7 @@
 
 import('de_brb_hvl_wur_stumml_Settings');
 import('de_brb_hvl_wur_stumml_util_QI');
+import('de_brb_hvl_wur_stumml_io_File');
 
 class DatasheetEditorSettings extends Settings
 {
@@ -21,10 +22,13 @@ class DatasheetEditorSettings extends Settings
     {
         return '11. M&auml;rz 2013 10:00:00';
     }
-    
+
+    /**
+     * @return File
+     */
     public final function getTemplateFile()
     {
-        return $this->addonTemplateBaseDir().'/datasheet_editor.php';
+        return new File($this->addonTemplateBaseDir().'/datasheet_editor.php');
     }
 
     public final function getCertificateUrl()
@@ -32,12 +36,6 @@ class DatasheetEditorSettings extends Settings
         return QI::getDataDir()."/rgzm/rgzm.cert";
     }
 
-    /*protected static function getUrlForFile($fileName)
-    {
-        $filepath = substr(parent::uploadBaseDir().DIRECTORY_SEPARATOR."rgzm".DIRECTORY_SEPARATOR.$fileName, strlen(QI::getRootDir())+1);
-        return str_replace('index.php/', '', QI::getUriFrom($filepath));
-    }*/
-
     private function __construct(){}
-    private function __clone(){}}
-?>
+    private function __clone(){}
+}

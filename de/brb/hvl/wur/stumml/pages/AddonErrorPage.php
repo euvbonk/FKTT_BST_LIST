@@ -8,7 +8,7 @@ class AddonErrorPage extends Frame
 
     public function __construct($message)
     {
-        parent::__construct(null);
+        parent::__construct();
         $this->cMessage = $message;
     }
 
@@ -23,5 +23,3 @@ class AddonErrorPage extends Frame
         print "<p>".$this->cMessage."</p>";
     }
 }
-
-?>

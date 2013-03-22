@@ -53,4 +53,3 @@ class ModuleList extends Frame implements FrameForm
         return QI::getPageUri();
     }
 }
-?>

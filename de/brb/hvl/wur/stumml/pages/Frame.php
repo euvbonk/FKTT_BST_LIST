@@ -1,14 +1,19 @@
 <?php
+import('de_brb_hvl_wur_stumml_io_File');
+
 abstract class Frame
 {
     private $templateFileName;
 
-    public function __construct($fileName)
+    public function __construct(File $file = null)
     {
-        $this->setTemplateFile($fileName);
+        if ($file != null && $file instanceof File)
+        {
+            $this->setTemplateFile($file);
+        }
     }    
 
-    public function setTemplateFile($file)
+    public function setTemplateFile(File $file)
     {
         $this->templateFileName = $file;
     }
@@ -16,12 +21,11 @@ abstract class Frame
     public function showContent()
     {
         $f = $this->templateFileName;
-        if (file_exists($f) && is_file($f))
+        if ($f != null && $f->exists() && $f->isFile())
         {
-            require_once($f);
+            require_once($f->getPathname());
         }
     }
 
     public abstract function getLastChangeTimestamp();
 }
-?>

@@ -1,3 +1,10 @@
+2013-03-22 euvbonk v0.7RC2
+    * gpEasy muss mindestens in Version 2.1 vorliegen.
+    * Aus den Settings wird jetzt ebenfalls das Template File als File zurueck-
+      gegeben
+    * Der Java WS Launch Button wird zumindest auf der Liste-Seite nicht mehr
+      ueber das Deploy-Skript benutzt aufgrund von Problemen beim Starten
+    * Code cleanup
 2013-03-19 euvbonk
     * Klasse File erbt alles aus SplFileInfo und vereinfacht einige Dinge
     * ZipBundleCmd prueft jetzt immer ob eine neuere Daten vorhanden sind

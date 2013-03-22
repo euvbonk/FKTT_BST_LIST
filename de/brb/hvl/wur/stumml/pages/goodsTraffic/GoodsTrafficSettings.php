@@ -1,6 +1,7 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_Settings');
+import('de_brb_hvl_wur_stumml_io_File');
 
 class GoodsTrafficSettings extends Settings
 {
@@ -20,12 +21,15 @@ class GoodsTrafficSettings extends Settings
     {
         return '14. Oktober 2011 22:30:00';
     }
-    
+
+    /**
+     * @return File
+     */
     public final function getTemplateFile()
     {
-        return $this->addonTemplateBaseDir().'/goods_traffic_basics.php';
+        return new File($this->addonTemplateBaseDir().'/goods_traffic_basics.php');
     }
 
     private function __construct(){}
-    private function __clone(){}}
-?>
+    private function __clone(){}
+}

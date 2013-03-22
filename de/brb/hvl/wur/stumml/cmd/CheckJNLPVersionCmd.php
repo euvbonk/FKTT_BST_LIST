@@ -24,6 +24,7 @@ class CheckJNLPVersionCmd
         $allVersions = glob(Settings::uploadBaseDir()."/rgzm/versions/rgzm_*.jar");
         self::$log->debug("<pre>".print_r($allVersions, true)."</pre>");
         self::$LATEST_JAR = $allVersions[count($allVersions)-1];
+        return $this;
     }
 
     public function doCommand()

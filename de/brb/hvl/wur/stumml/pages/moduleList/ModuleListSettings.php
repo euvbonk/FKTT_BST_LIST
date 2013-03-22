@@ -1,6 +1,7 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_Settings');
+import('de_brb_hvl_wur_stumml_io_File');
 
 class ModuleListSettings extends Settings
 {
@@ -20,12 +21,15 @@ class ModuleListSettings extends Settings
     {
         return '20. April 2012 14:00:00';
     }
-    
+
+    /**
+     * @return File
+     */
     public final function getTemplateFile()
     {
-        return $this->addonTemplateBaseDir().'/module_list.php';
+        return new File($this->addonTemplateBaseDir().'/module_list.php');
     }
 
     private function __construct(){}
-    private function __clone(){}}
-?>
+    private function __clone(){}
+}

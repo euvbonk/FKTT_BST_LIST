@@ -44,4 +44,3 @@ final class AdminPage extends Frame implements FrameForm
         return AdminPageSettings::getInstance()->lastAddonChange();
     }
 }
-?>

@@ -15,18 +15,9 @@
               <td style="text-align: right;"><input type="submit" value="Filter l&ouml;schen" name="reset" /></td>
           </tr>
       </table>
-<!--        <style type="text/css">
-        /* <![CDATA[ */
-            table { border:1px solid; padding:2px; margin:4px; border-style:outset; }
-            th, td { border:1px solid; padding:2px; margin:4px; border-style:inset; }
-            td.mittig { text-align:center; }
-        /* ]]> */
-        </style>
-      <table>-->
         <!-- BSTLIST_ENTRY_FOR_FKTT_PORTAL -->
 <?php echo $this->getTable(); ?>
         <!-- BSTLIST_FLUSH_FOR_FKTT_PORTAL -->
-<!--      </table>-->
       </form>
       <p><?php echo $this->getYellowPageLink(); ?></p>
       <p>
@@ -37,7 +28,7 @@
          Netscape ab Version 6,
          Mozilla Firefox ab Version 1.0
       </p>
-      <!--<p><?php $p = StationDatasheetSettings::getInstance()->newSheet(); /*$p['link']*/ echo common::Link(common::WhichPage(), $p['label'], 'cmd=add_new_sheet'); ?></p>-->
+      <p>Neues Datenblatt anlegen: <a href="<?php echo $this->getApplicationUrl(); ?>"><img src="http://www.java.com/js/webstart.png"  style="position:relative;top:5px;" alt="Java WS Launch Button"/></a> Editor</p>
       <p>F&uuml;r die Zukunft ist geplant, die Seiten auch als HTML<br/> 
          bzw. XHTML abzulegen und die Fahrplaner und BFO<br/> 
          Ersteller werden das ganze auch noch im pdf Format<br/> bekommen.
@@ -49,4 +40,3 @@
          zuletzt ge&auml;ndert: <?php echo $this->getLastChangeTimestamp(); ?><br/>
         <a href="&#109;&#97;&#105;&#108;&#116;&#111;:seiste&#064;yahoo.de">
         Fragen und Klagen an Stefan Seibt</a></p>
-      <?php gpOutput::Get('Extra','Test'); ?>

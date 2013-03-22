@@ -130,4 +130,14 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
             return "";
         }
     }
+
+    /**
+     * @see Interface DatasheetsPageContent
+     * @return String Uri
+     */
+    public final function getApplicationUrl()
+    {
+        $cmd = new CheckJNLPVersionCmd("editor");
+        return $cmd->doCommand();
+    }
 }

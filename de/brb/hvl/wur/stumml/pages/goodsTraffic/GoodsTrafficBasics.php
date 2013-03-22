@@ -115,4 +115,3 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
         return $this->oListTable->getTrainCount($this->lengthPerCar);
     }
 }
-?>

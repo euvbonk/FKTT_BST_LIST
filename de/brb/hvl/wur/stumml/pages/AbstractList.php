@@ -4,6 +4,7 @@ import('de_brb_hvl_wur_stumml_pages_Frame');
 import('de_brb_hvl_wur_stumml_pages_FrameForm');
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_FileManagerImpl');
+import('de_brb_hvl_wur_stumml_io_File');
 
 import('de_brb_hvl_wur_stumml_util_QI');
 import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableListImpl');
@@ -15,7 +16,7 @@ abstract class AbstractList extends Frame implements FrameForm
     private $oFileManager;
     private $oReportTable;
 
-    public function __construct($templateFile)
+    public function __construct(File $templateFile)
     {
         parent::__construct($templateFile);
         $this->setEpoch(FileManagerImpl::$EPOCHS[3]);

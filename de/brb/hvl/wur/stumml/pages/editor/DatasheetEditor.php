@@ -41,4 +41,3 @@ final class DatasheetEditor extends Frame implements DatasheetEditorPageContent
         return DatasheetEditorSettings::getDownloadLinkForFile($f, $label);
     }
 }
-?>

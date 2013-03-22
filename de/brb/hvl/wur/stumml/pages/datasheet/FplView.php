@@ -10,7 +10,7 @@ class FplView extends Frame
     
     public function __construct($station)
     {
-        parent::__construct(null);
+        parent::__construct();
 
         if ($station == "")
         {

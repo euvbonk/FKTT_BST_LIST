@@ -3,4 +3,3 @@ interface FrameForm
 {
     public function getFormActionUri();
 }
-?>

@@ -75,9 +75,13 @@ abstract class Settings
         return str_replace('index.php/', '', HtmlUtil::toUtf8(QI::buildAbsoluteLink($filePath, $label)));
     }*/
 
+
+    /**
+     * @abstract
+     * @return File
+     */
     public abstract function getTemplateFile();
 
     private function __construct(){}
     private function __clone(){}
 }
-?>

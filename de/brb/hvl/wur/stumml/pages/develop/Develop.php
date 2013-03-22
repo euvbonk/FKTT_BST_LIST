@@ -2,6 +2,7 @@
 
 import('de_brb_hvl_wur_stumml_pages_Frame');
 import('de_brb_hvl_wur_stumml_Settings');
+import('de_brb_hvl_wur_stumml_io_File');
 
 import('de_brb_hvl_wur_stumml_util_logging_StdoutLogger');
 
@@ -16,7 +17,7 @@ class Develop extends Frame implements DevelopPageContent
 
     public function __construct()
     {
-        parent::__construct(Settings::addonTemplateBaseDir()."/develop.php");
+        parent::__construct(new File(Settings::addonTemplateBaseDir()."/develop.php"));
         self::$log = new StdoutLogger(get_class($this));
     }
 
@@ -33,4 +34,3 @@ class Develop extends Frame implements DevelopPageContent
     {
     }
 }
-?>

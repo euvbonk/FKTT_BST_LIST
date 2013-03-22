@@ -31,7 +31,7 @@ class ZipTest extends ZipArchive
             throw new Exception("Directory -".$this->dirToArchive."- has no write permission for php script!");
         }
         
-        // TODO: archive filename as a getter method of Settings class!
+        // archive filename as a getter method of Settings class!
         $this->archiveFileName = $this->dirToArchive."/test.zip";
         $this->printDebug("Archivdateiname inklusive Pfad: ".$this->archiveFileName);
 
@@ -65,7 +65,7 @@ class ZipTest extends ZipArchive
         // local path in the archive
         $baseDir = Settings::uploadBaseDir();
         
-        $transform = new XmlHtmlTransformCmd();
+        $transform = new XmlHtmlTransformCmd("");
         //$dirIt = new RecursiveDirectoryIterator(Settings::uploadDir());
         //$filterIt = new ZipBundleFileFilter($dirIt);
         //$iterator  = new RecursiveIteratorIterator($filterIt, RecursiveIteratorIterator::SELF_FIRST);

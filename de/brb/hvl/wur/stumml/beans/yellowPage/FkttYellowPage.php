@@ -50,7 +50,7 @@ class FkttYellowPage extends AbstractYellowPage
                     {
                         foreach ($shipper->getReceivedCargos() as $cargo)
                         {
-                            //print "<tr><td>".$shipper->getName()."</td><td>".$cargo->getName()."</td><td>E</td><td>&nbsp;</td><td>".$cargo->getClassOfCar()."</td><td>".$station->getName()."</td><td>TODO</td></tr>\n";
+                            //print "<tr><td>".$shipper->getName()."</td><td>".$cargo->getName()."</td><td>E</td><td>&nbsp;</td><td>".$cargo->getClassOfCar()."</td><td>".$station->getName()."</td><td>&nbsp;</td></tr>\n";
                             $drow = new YellowPageTableRow();
                             $drow->addCell(new YellowPageTableRowCell($shipper->getName()));
                             $drow->addCell(new YellowPageTableRowCell($cargo->getName()));
