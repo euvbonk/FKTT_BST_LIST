@@ -19,7 +19,7 @@ class ModuleListSettings extends Settings
     /*@Override*/
     public function lastAddonChange()
     {
-        return '20. April 2012 14:00:00';
+        return '22. M&auml;rz 2013 19:00:00';
     }
 
     /**

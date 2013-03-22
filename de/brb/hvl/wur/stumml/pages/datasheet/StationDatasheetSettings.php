@@ -20,7 +20,7 @@ class StationDatasheetSettings extends Settings
     /*@Override*/
     public function lastAddonChange()
     {
-        return '08. M&auml;rz 2013 18:00:00';
+        return '22. M&auml;rz 2013 19:00:00';
     }
     
     /**
