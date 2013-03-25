@@ -28,8 +28,8 @@
          Netscape ab Version 6,
          Mozilla Firefox ab Version 1.0
       </p>
-      <p>Neues Datenblatt anlegen: <a href="<?php echo $this->getApplicationUrl(); ?>"><img src="http://www.java.com/js/webstart.png"  style="position:relative;top:5px;" alt="Java WS Launch Button"/></a> Editor</p>
-      <p>F&uuml;r die Zukunft ist geplant, die Seiten auch als HTML<br/> 
+      <p>Neues Datenblatt anlegen: <?php echo $this->getApplicationUrl(); ?> Editor</p>
+      <p>F&uuml;r die Zukunft ist geplant, die Seiten auch als HTML<br/>
          bzw. XHTML abzulegen und die Fahrplaner und BFO<br/> 
          Ersteller werden das ganze auch noch im pdf Format<br/> bekommen.
       </p>

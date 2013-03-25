@@ -22,6 +22,10 @@ final class CSVListCmd
     public function doCommand()
     {
         $latest = $this->oFileManager->getLatestFileFromEpoch(self::$EPOCH);
+        if ($latest == null)
+        {
+            return false;
+        }
         if (strlen($latest->getPathname()) > 0 &&
                 (!$this->oTargetFile->exists() || $this->oTargetFile->getMTime() < $latest->getMTime())
         )

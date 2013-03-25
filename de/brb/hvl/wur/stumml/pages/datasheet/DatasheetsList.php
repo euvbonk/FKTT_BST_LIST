@@ -138,6 +138,8 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
     public final function getApplicationUrl()
     {
         $cmd = new CheckJNLPVersionCmd("editor");
-        return $cmd->doCommand();
+        return StationDatasheetSettings::getDownloadLinkForFile($cmd->doCommand(),
+            "<img src=\"http://www.java.com/js/webstart.png\"  style=\"position:relative;top:5px;\" alt=\"Java WS Launch Button\"/>",
+            false);
     }
 }

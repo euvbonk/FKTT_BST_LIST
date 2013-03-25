@@ -23,13 +23,24 @@ class CheckJNLPVersionCmd
         // einlesen der gewuenschten Versionen
         $allVersions = glob(Settings::uploadBaseDir()."/rgzm/versions/rgzm_*.jar");
         self::$log->debug("<pre>".print_r($allVersions, true)."</pre>");
-        self::$LATEST_JAR = $allVersions[count($allVersions)-1];
+        if (!empty($allVersions))
+        {
+            self::$LATEST_JAR = $allVersions[count($allVersions)-1];
+        }
+        else
+        {
+            self::$LATEST_JAR = "";
+        }
         return $this;
     }
 
     public function doCommand()
     {
         self::$log->debug("Current file: ".self::$JNLP_FILE_URI);
+        if (!file_exists(self::$JNLP_FILE_URI))
+        {
+            return "";
+        }
         $xml = simplexml_load_file(self::$JNLP_FILE_URI);
         //self::$log->debug("<pre>".print_r($xml, true)."</pre>");
         //$result = $xml->xpath("/jnlp/resources/jar[starts-with(@href,'versions/rgzm') or starts-with(@href,'v*/rgzm')]");
@@ -58,6 +69,6 @@ class CheckJNLPVersionCmd
             // Dieses neue XML muss jetzt in die Datei zurueckgeschrieben werden!
             @file_put_contents(self::$JNLP_FILE_URI, $xml->asXML());
         }
-        return self::$JNLP_HTTP_URI;
+        return self::$JNLP_FILE_URI;//$JNLP_HTTP_URI;
     }
 }

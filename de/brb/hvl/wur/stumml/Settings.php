@@ -54,10 +54,10 @@ abstract class Settings
     public final static function getDownloadLinkForFile($file, $label, $addLastChange = true)
     {
         $uri = self::getHttpUriForFile($file);
-        if (strlen($uri) > 0)
+        if (strlen($uri) > 0 && file_exists($file))
         {
-            $ret = HtmlUtil::toUtf8("<a href=\"".$uri."\" title=\"".$label."\">".$label."</a>");
-            if ($addLastChange)
+            $ret = HtmlUtil::toUtf8("<a href=\"".$uri."\" title=\"".strip_tags($label)."\">".$label."</a>");
+            if ($addLastChange && file_exists($file))
             {
                 $ret .= "&nbsp;(" . strftime("%a, %d. %b %Y %H:%M", filemtime($file)) . ")";
             }
@@ -65,7 +65,7 @@ abstract class Settings
         }
         else
         {
-            return "File does not exist!";
+            return "<span style='font-weight: bold'>\"File does not exist!\"</span>";
         }
     }
 

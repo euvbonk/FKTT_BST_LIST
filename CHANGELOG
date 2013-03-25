@@ -1,3 +1,7 @@
+2013-03-25 euvbonk v0.7
+    * Robustifizierung der Installation, falls noch gar keine Verzeichnisse
+      vorhanden sind. Test mit clean gpeasy 3.6RC4
+    * Vorbereitung fuer Migration von svn auf git
 2013-03-24/25 euvbonk v0.7RC3
     * Bugfix: FPL Html Ansicht wurde nicht richtig erstellt.
     * Vergleichsfunktion in File fuer die letzte Aenderung arbeitet nicht
