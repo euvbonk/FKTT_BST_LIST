@@ -23,7 +23,7 @@ final class CSVListCmd
     {
         $latest = $this->oFileManager->getLatestFileFromEpoch(self::$EPOCH);
         if (strlen($latest->getPathname()) > 0 &&
-                (!$this->oTargetFile->exists() || !$this->oTargetFile->compareMTimeTo($latest))
+                (!$this->oTargetFile->exists() || $this->oTargetFile->getMTime() < $latest->getMTime())
         )
         {
 

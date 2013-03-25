@@ -20,7 +20,7 @@ final class XmlHtmlTransformCmd
 
     /**
      * @param File      $xmlFile
-     * @param File|null $htmlFile
+     * @param File $htmlFile [optional]
      * @return bool
      */
     public function doCommand(File $xmlFile, File $htmlFile = null)
@@ -40,7 +40,7 @@ final class XmlHtmlTransformCmd
         {
             $this->oHtmlFile = $htmlFile;
         }
-        if (!$this->oHtmlFile->exists() || !$this->oHtmlFile->compareMTimeTo($xmlFile))
+        if (!$this->oHtmlFile->exists() || $this->oHtmlFile->getMTime() < $xmlFile->getMTime())
         {
             // Datei muss vor neuem Anlegen entfernt werden, sonst meckert
             // transformToUri!
@@ -52,7 +52,7 @@ final class XmlHtmlTransformCmd
             $xmlDOMDocument = new DOMDocument();
             $xmlDOMDocument->load($xmlFile->getPathname());
 
-            $this->oXSLTProcessor->transformToURI($xmlDOMDocument, 'file://'.$this->oHtmlFile->getPath());
+            $this->oXSLTProcessor->transformToURI($xmlDOMDocument, 'file://'.$this->oHtmlFile->getPathname());
 
             $this->oHtmlFile->changeFileRights(0666);
             return true;

@@ -32,7 +32,7 @@ final class YellowPageCmd
         $this->renameFile($epoch);
         $latest = $this->oFileManager->getLatestFileFromEpoch($epoch);
         if (strlen($latest->getPathname()) > 0 &&
-                (!$this->oTargetFile->exists() || !$this->oTargetFile->compareMTimeTo($latest))
+                (!$this->oTargetFile->exists() || $this->oTargetFile->getMTime() < $latest->getMTime())
         )
         {
             $page = new FkttYellowPage();

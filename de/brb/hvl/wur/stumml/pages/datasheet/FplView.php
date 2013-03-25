@@ -40,8 +40,11 @@ class FplView extends Frame
             else
             {
                 $xmlFile = $allFiles[$station];
-                $this->content = file_get_contents(str_replace(".xml", "_fpl.html", $xmlFile->getPathname()));
-
+                $this->content = @file_get_contents(str_replace(".xml", "_fpl.html", $xmlFile->getPathname()));
+                if ($this->content === false)
+                {
+                    throw new Exception("&Ouml;ffnen der Datei fehlgeschlagen oder Datei existiert nicht!");
+                }
                 // Pfade fuer css und img anpassen!
                 $basePath = dirname(Settings::getHttpUriForFile($xmlFile->getPathname()));
                 $this->content = str_replace("bahnhof.css", $basePath."/bahnhof.css", $this->content);

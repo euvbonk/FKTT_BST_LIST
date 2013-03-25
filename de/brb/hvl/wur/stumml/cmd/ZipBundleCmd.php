@@ -48,9 +48,8 @@ final class ZipBundleCmd
             // sie falls notwendig.
             foreach ($this->oFileManager->getFilesFromEpochWithOrder($epoch) as $file)
             {
-                //$file = new File($file);
                 $transformNormal->doCommand($file);
-                $transformFpl->doCommand($file);
+                $transformFpl->doCommand($file, new File(str_replace(".xml", "_fpl.html", $file->getPathname())));
             }
         }
 
@@ -78,8 +77,8 @@ final class ZipBundleCmd
         // zunaechst muessen ueberhaupt Dateien zum Archivieren vorhanden sein
         // Dann soll auf jedenfall ein Archiv erstellt werden, wenn die Zieldatei noch gar nicht existiert oder eben
         // falls neueste Datei aller Dateien spaeter modifiziert wurde als die Zieldatei
-        if (
-            count($allFiles) > 0 && (!$this->oTargetFile->exists() || !$this->oTargetFile->compareMTimeTo($allFiles[0]))
+        if (count($allFiles) > 0 &&
+                (!$this->oTargetFile->exists() || $this->oTargetFile->getMTime() < $allFiles[0]->getMTime())
         )
         {
             if ($this->oTargetFile->exists())

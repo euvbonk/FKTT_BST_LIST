@@ -1,3 +1,8 @@
+2013-03-24/25 euvbonk v0.7RC3
+    * Bugfix: FPL Html Ansicht wurde nicht richtig erstellt.
+    * Vergleichsfunktion in File fuer die letzte Aenderung arbeitet nicht
+      korrekt, Ueberarbeitung in naechster Version
+    * Code clean up
 2013-03-22 euvbonk v0.7RC2
     * gpEasy muss mindestens in Version 2.1 vorliegen.
     * Aus den Settings wird jetzt ebenfalls das Template File als File zurueck-

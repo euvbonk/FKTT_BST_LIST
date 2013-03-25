@@ -11,7 +11,7 @@ final class BackupZipBundleCmd
     public function __construct()
     {
         $this->oDir = Settings::uploadBaseDir();
-        $f = $this->oDir.DIRECTORY_SEPARATOR.self::$FILE_NAME;
+        $f = $this->oDir."/".self::$FILE_NAME;
         $this->oTargetFile = new File($f.strftime("%F-%H%M").".zip");
     }
 
@@ -26,7 +26,7 @@ final class BackupZipBundleCmd
         }
 
         // Alle bisherigen Dateien löschen
-        $b = $this->oDir.DIRECTORY_SEPARATOR.self::$FILE_NAME."*.zip";
+        $b = $this->oDir."/".self::$FILE_NAME."*.zip";
         foreach (glob($b) as $file)
         {
             unlink($file);
@@ -37,17 +37,19 @@ final class BackupZipBundleCmd
         $baseDir = substr($this->oDir, 0, strrpos($this->oDir, "/"));
 
         // follow also symbolic links
-        $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->oDir, FilesystemIterator::FOLLOW_SYMLINKS));
+        $iterator =
+                new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->oDir, FilesystemIterator::FOLLOW_SYMLINKS));
 
         $zip = new ZipArchive();
         $zip->open($this->oTargetFile->getPathname(), ZipArchive::CREATE);
-        foreach ($iterator as $key => $value)
+        foreach ($iterator as $node)
         {
-            $node = $key;
-            if (is_file($node) && is_readable($node))
+            //$node = new File($key);
+            //if (is_file($node) && is_readable($node))
+            if ($node->isFile() && $node->isReadable())
             {
-                $node_new = str_replace($baseDir."/", "", $node);
-                $zip->addFile($node, $node_new);
+                $node_new = str_replace($baseDir."/", "", $node->getPathname());
+                $zip->addFile($node->getPathname(), $node_new);
             }
         }
         $zip->close();

@@ -56,6 +56,7 @@ class File extends SplFileInfo
 
     public static function compareLastModified(SplFileInfo $a, SplFileInfo $b)
     {
+        // TODO this function does not work as expected!
         $time_a = $a->getMTime();
         $time_b = $b->getMTime();
         if ($time_a == $time_b)
