@@ -30,15 +30,7 @@
       </p>
       "); ?>
       <p>
-        Dr&uuml;cke <span style="position:relative;top:6px;"> 
-        <!-- following script shows javaws launch application button -->
-        <script type="text/javascript">
-           /* <![CDATA[ */
-              deployJava.createWebStartLaunchButton('<?php echo $this->getJNLPFileUrl(); ?>', '1.5.0');
-              /* alternatively launch application if page is loaded
-               deployJava.launch('<?php echo $this->getJNLPFileUrl(); ?>');*/
-           /* ]]> */
-        </script></span> um die Anwendung direkt zu starten.
+        Dr&uuml;cke <?php echo $this->getJNLPFileUrl(); ?> um die Anwendung direkt zu starten.
       </p>
       <p>
         Alle Pakete sind mit einem 

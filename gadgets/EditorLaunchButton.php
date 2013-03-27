@@ -9,24 +9,19 @@ class EditorLaunchButton
 {
     public function __construct()
     {
-        // check and repair jnlp file if necessary
-        $cmd = new CheckJNLPVersionCmd("editor");
-        $URL = $cmd->doCommand();
-        //
-        //$URL = Settings::getHttpUriForFile('rgzm/editor.jnlp');
+        // TODO: Put this somewhere else!
         // extend allowed upload file extensions used in this plugin
         $GLOBALS['upload_extensions_allow'] = array_merge($GLOBALS['upload_extensions_allow'], array('jar','jnlp','dtd','css','xsl'));
-        echo '<div style="padding:5px 0 5px 0;">';
-        echo '   <!-- following script shows javaws launch application button -->';
-        echo '   <script type="text/javascript">';
-        echo '      /* <![CDATA[ */';
-        echo "         deployJava.createWebStartLaunchButton('".$URL."', '1.5.0');";
-        echo '         /* alternatively launch application if page is loaded ';
-        echo "            deployJava.launch('".$URL."');";
-        echo '          */';
-        echo '      /* ]]> */';
-        echo '   </script>&nbsp;<span style="color:blue;position:relative;top:-5px;">Editor</span>';
-        echo '</div> ';
+
+        // check and repair jnlp file if necessary
+        $cmd = new CheckJNLPVersionCmd("editor");
+        if ($cmd->doCommand())
+        {
+            echo '<div style="padding:0 0 5px 0;">';
+            echo $cmd->getDeploy();
+            echo '&nbsp;<span style="color:blue;">Editor</span>';
+            echo '</div> ';
+        }
     }
 
     public function EditorLaunchButton()

@@ -7,7 +7,11 @@ import('de_brb_hvl_wur_stumml_io_File');
 class StationDatasheetSettings extends Settings
 {
     private static $INSTANCE = null;
-    
+
+    /**
+     * @static instance
+     * @return StationDatasheetSettings
+     */
     public static function getInstance()
     {
         if (null === self::$INSTANCE)

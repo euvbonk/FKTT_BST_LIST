@@ -12,6 +12,7 @@ class CheckJNLPVersionCmd
     private static $JNLP_FILE_URI;
 
     private static $LATEST_JAR;
+    private static $WS_IMAGE_URL = "http://www.java.com/js/webstart.png";
 
     public function __construct($jnlpFileName)
     {
@@ -39,7 +40,7 @@ class CheckJNLPVersionCmd
         self::$log->debug("Current file: ".self::$JNLP_FILE_URI);
         if (!file_exists(self::$JNLP_FILE_URI))
         {
-            return "";
+            return false;
         }
         $xml = simplexml_load_file(self::$JNLP_FILE_URI);
         //self::$log->debug("<pre>".print_r($xml, true)."</pre>");
@@ -69,6 +70,28 @@ class CheckJNLPVersionCmd
             // Dieses neue XML muss jetzt in die Datei zurueckgeschrieben werden!
             @file_put_contents(self::$JNLP_FILE_URI, $xml->asXML());
         }
-        return self::$JNLP_FILE_URI;//$JNLP_HTTP_URI;
+        return true;//self::$JNLP_FILE_URI; //$JNLP_HTTP_URI;
+    }
+
+    public function getDeploy($useDeployScript = false)
+    {
+        if ($useDeployScript)
+        {
+            $ret = "";
+            $ret .= "<!-- following script shows javaws launch application button -->\n";
+            $ret .= "<script type=\"text/javascript\">\n";
+            $ret .= "   /* <![CDATA[ */";
+            $ret .= "     deployJava.createWebStartLaunchButton('".self::$JNLP_HTTP_URI."', '1.6.0+');\n";
+            //$ret .= "     /* alternatively launch application if page is loaded \n";
+            //$ret .= "      deployJava.launch('".self::$JNLP_HTTP_URI."');*/\n";
+            $ret .= "   /* ]]> */";
+            $ret .= "</script>";
+            return $ret;
+        }
+        else
+        {
+            return Settings::getDownloadLinkForFile(self::$JNLP_FILE_URI, "<img src=\"".self::$WS_IMAGE_URL.
+                    "\"  style=\"position:relative;top:5px;\" alt=\"Java WS Launch Button\"/>", false);
+        }
     }
 }

@@ -1,3 +1,6 @@
+2013-03-27 euvbonk v0.8alpha
+    * Weg mit diesem verdammten java webstart deploy skript!
+      Nicht einmal Oracle benutzt das auf seinen Seiten!
 2013-03-25 euvbonk v0.7
     * Robustifizierung der Installation, falls noch gar keine Verzeichnisse
       vorhanden sind. Test mit clean gpeasy 3.6RC4
