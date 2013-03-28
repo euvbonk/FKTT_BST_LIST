@@ -6,4 +6,3 @@ interface FileManager
     public function getFilesFromEpochWithOrder($epoch = "IV", $order = "ORDER_SHORT");
     public function getLatestFileFromEpoch($epoch);
 }
-?>

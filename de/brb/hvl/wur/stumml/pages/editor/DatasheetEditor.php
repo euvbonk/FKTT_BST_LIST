@@ -14,11 +14,14 @@ final class DatasheetEditor extends Frame implements DatasheetEditorPageContent
         parent::__construct(DatasheetEditorSettings::getInstance()->getTemplateFile());
         $cmd = new CheckJNLPVersionCmd("editor");
         self::$JNLP_HTTP_URI = ($cmd->doCommand()) ? $cmd->getDeploy() : "";
+        return $this;
     }
 
     /**
      * @see abstract class Frame
-     */    
+     * @return String
+     */
+    //@Override
     public final function getLastChangeTimestamp()
     {
         return DatasheetEditorSettings::getInstance()->lastAddonChange();
@@ -26,6 +29,7 @@ final class DatasheetEditor extends Frame implements DatasheetEditorPageContent
 
     /**
      * @see Interface DatasheetEditorPageContent
+     * @return String
      */
     public final function getJNLPFileUrl()
     {
@@ -34,6 +38,8 @@ final class DatasheetEditor extends Frame implements DatasheetEditorPageContent
 
     /**
      * @see Interface DatasheetEditorPageContent
+     * @param $label String
+     * @return String
      */
     public final function getCertificateFileUrl($label)
     {

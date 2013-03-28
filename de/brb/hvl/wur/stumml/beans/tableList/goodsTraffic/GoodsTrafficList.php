@@ -17,18 +17,30 @@ class GoodsTrafficList
 
     private $tableEntries;
 
+    /**
+     * @param array $fileList
+     * @param float $dAW
+     * @return GoodsTrafficList
+     */
     public function __construct(array $fileList, $dAW)
     {
         $this->tableEntries = new ListRow();
 
         $this->buildTableEntries($fileList, $dAW);
+        return $this;
     }
-    
+
+    /**
+     * @return ListRow
+     */
     public function getTableEntries()
     {
         return $this->tableEntries;
     }
 
+    /**
+     * @return ListRow
+     */
     public function getTableFooter()
     {
         $l = new ListRow();
@@ -45,8 +57,13 @@ class GoodsTrafficList
         return $l;
     }
 
+    /**
+     * @param array $array
+     * @param float $dAW
+     */
     private function buildTableEntries($array, $dAW)
     {
+        /** @var $value File */
         foreach ($array as $value)
         {
             $xml = new DatasheetElement(new SimpleXMLElement($value->getPathname(), null, true), $dAW);
@@ -80,6 +97,9 @@ class GoodsTrafficList
         }
     }
 
+    /**
+     * @return ListRow
+     */
     public function getTableHeader()
     {
         $l = new ListRow();
@@ -97,6 +117,10 @@ class GoodsTrafficList
         return $l;
     }
 
+    /**
+     * @param float $lengthPerCar
+     * @return string
+     */
     public function getTrainCount($lengthPerCar)
     {
         if (empty($this->minMaxLength) || min($this->minMaxLength) == 0) return "0.0";

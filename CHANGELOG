@@ -1,3 +1,7 @@
+2013-03-28 euvbonk v0.8alpha
+    * Dokumentation der Klassenmethoden
+    * Konsistenz in der Implementierung
+    * code clean up
 2013-03-27 euvbonk v0.8alpha
     * Weg mit diesem verdammten java webstart deploy skript!
       Nicht einmal Oracle benutzt das auf seinen Seiten!

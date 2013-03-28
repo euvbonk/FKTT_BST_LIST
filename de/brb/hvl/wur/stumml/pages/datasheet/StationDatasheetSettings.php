@@ -10,7 +10,7 @@ class StationDatasheetSettings extends Settings
 
     /**
      * @static instance
-     * @return StationDatasheetSettings
+     * @return Settings
      */
     public static function getInstance()
     {

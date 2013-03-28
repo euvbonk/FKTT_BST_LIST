@@ -64,4 +64,3 @@ final class QI
         return common::AbsoluteUrl($path);
     }
 }
-?>

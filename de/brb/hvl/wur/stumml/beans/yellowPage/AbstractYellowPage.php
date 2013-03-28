@@ -10,6 +10,10 @@ abstract class AbstractYellowPage implements SpreadsheetXml
     private $oYellowPageList = null;
     private $oFileList = null;
 
+    /**
+     * @param array $fileList [optional]
+     * @return AbstractYellowPage
+     */
     public function __construct($fileList = array())
     {
         if (!empty($fileList))
@@ -21,37 +25,57 @@ abstract class AbstractYellowPage implements SpreadsheetXml
             $this->oFileList = array();
         }
         $this->oYellowPageList = new YellowPageTableRowList();
+        return $this;
     }
-    
+
+    /**
+     * @param array $list
+     */
     public function setDatasheetFileList($list)
     {
         $this->loadDatasheets($list);
     }
 
+    /**
+     * @return null|YellowPageTableRowList
+     */
     public function getYellowPage()
     {
         return $this->oYellowPageList;
     }
 
+    /**
+     * @return string
+     */
     public function getAsSpreadsheetXml()
     {
         return $this->oYellowPageList->getAsSpreadsheetXml();
     }
 
+    /**
+     * @return array|null
+     */
     protected function getDatasheets()
     {
         return $this->oFileList;
     }
-    
+
+    /**
+     * @param YellowPageTableRowCellList $list
+     */
     protected function addRow(YellowPageTableRowCellList $list)
     {
         $this->oYellowPageList->addRow($list);
     }
-    
+
+    /**
+     * @param array $list
+     */
     private function loadDatasheets($list)
     {
         if (count($list) > 0)
         {
+            /** @var $value File */
             foreach ($list as $value)
             {
                 // load as file url
@@ -59,6 +83,10 @@ abstract class AbstractYellowPage implements SpreadsheetXml
             }
         }
     }
-    
+
+    /**
+     * @abstract
+     * @return void
+     */
     public abstract function generate();
 }

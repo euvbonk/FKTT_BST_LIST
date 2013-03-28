@@ -1,6 +1,7 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_DatasheetListRowEntriesImpl');
+import('de_brb_hvl_wur_stumml_beans_datasheet_xml_BaseElement');
 
 import('de_brb_hvl_wur_stumml_util_reportTable_ListRow');
 import('de_brb_hvl_wur_stumml_util_reportTable_ListRowCellsImpl');
@@ -12,6 +13,11 @@ class StationDatasheetList
         "Letzte &Auml;nderung", "Spezial Ansicht");
     private $headOrder = array("", "", "", "", "", "");
 
+    /**
+     * @param array  $fileList
+     * @param string $order [optional]
+     * @return StationDatasheetList
+     */
     public function __construct(array $fileList, $order = "ORDER_SHORT")
     {
         $this->tableEntries = new ListRow();
@@ -19,8 +25,12 @@ class StationDatasheetList
         $this->setOrder($order);
 
         $this->buildTableEntries($fileList);
+        return $this;
     }
 
+    /**
+     * @param string $order [optional]
+     */
     public function setOrder($order = "ORDER_SHORT")
     {
         switch ($order)
@@ -37,29 +47,42 @@ class StationDatasheetList
         }
     }
 
+    /**
+     * @return ListRow
+     */
     public function getTableEntries()
     {
         return $this->tableEntries;
     }
 
+    /**
+     * @param $array
+     */
     private function buildTableEntries($array)
     {
         if (!empty($array))
         {
             $key = 0;
+            /** @var $value File */
             foreach ($array as $value)
             {
                 // Die Datei ist mit Sicherheit vom Typ XML!
                 //        date("D, d. M Y H:i", filemtime($value))
-                $xml = new SimpleXMLElement($value->getPathname(), null, true);
-                $this->tableEntries->append(new DatasheetListRowEntriesImpl((string)$xml->name, (string)$xml->kuerzel,
+                $xml = new BaseElement(new SimpleXMLElement($value->getPathname(), null, true));
+                $this->tableEntries->append(new DatasheetListRowEntriesImpl($xml->getValueForTag('name'),
+                            $xml->getValueForTag('kuerzel'), ($key+1), $value, $xml->getValueForTag('typ'),
+                            strftime("%a, %d. %b %Y %H:%M", $value->getMTime())));
+                /*$this->tableEntries->append(new DatasheetListRowEntriesImpl((string)$xml->name, (string)$xml->kuerzel,
                                 ($key+1), $value, (string)$xml->typ,
-                                strftime("%a, %d. %b %Y %H:%M", $value->getMTime())));
+                                strftime("%a, %d. %b %Y %H:%M", $value->getMTime())));*/
                 $key++;
             }
         }
     }
 
+    /**
+     * @return ListRow
+     */
     public function getTableHeader()
     {
         $cells = array();
@@ -75,6 +98,11 @@ class StationDatasheetList
         return $l;
     }
 
+    /**
+     * @param int    $cmd
+     * @param string $main
+     * @return string
+     */
     private function buildCellContent($cmd, $main)
     {
         // wenn es für diesen Eintrag keine Order-Angabe gibt

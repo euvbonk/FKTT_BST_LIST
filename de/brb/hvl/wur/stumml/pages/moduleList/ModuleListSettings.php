@@ -6,7 +6,11 @@ import('de_brb_hvl_wur_stumml_io_File');
 class ModuleListSettings extends Settings
 {
     private static $INSTANCE = null;
-    
+
+    /**
+     * @static instance
+     * @return Settings
+     */
     public static function getInstance()
     {
         if (null === self::$INSTANCE)
@@ -16,6 +20,9 @@ class ModuleListSettings extends Settings
         return self::$INSTANCE;
     }
 
+    /**
+     * @return String
+     */
     /*@Override*/
     public function lastAddonChange()
     {

@@ -8,9 +8,12 @@ import('de_brb_hvl_wur_stumml_util_AbstractFileFilter');
  */
 class ZipBundleFileFilter extends AbstractFileFilter
 {
+    /**
+     * @return array string
+     */
+    //@Override
     protected function getFileFilter()
     {
         return array("dtd", "xsl", "css", "xml", "png", "gif", "jpg", "html", "jpeg", "ods", "pdf");
     }
 }
-?>

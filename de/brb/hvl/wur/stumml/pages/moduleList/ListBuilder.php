@@ -9,7 +9,7 @@ class ListBuilder
     {
         $this->dataArray = $this->string2array($content);
         $this->dataString = "";
-
+        return $this;
     }
     
 	public function buildCsvString()

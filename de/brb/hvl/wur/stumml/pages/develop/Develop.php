@@ -19,6 +19,7 @@ class Develop extends Frame implements DevelopPageContent
     {
         parent::__construct(new File(Settings::addonTemplateBaseDir()."/develop.php"));
         self::$log = new StdoutLogger(get_class($this));
+        return $this;
     }
 
     public function content()

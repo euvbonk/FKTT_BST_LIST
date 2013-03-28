@@ -14,6 +14,10 @@ class CheckJNLPVersionCmd
     private static $LATEST_JAR;
     private static $WS_IMAGE_URL = "http://www.java.com/js/webstart.png";
 
+    /**
+     * @param string $jnlpFileName
+     * @return CheckJNLPVersionCmd
+     */
     public function __construct($jnlpFileName)
     {
         self::$log = new StdoutLogger(get_class($this));
@@ -35,6 +39,9 @@ class CheckJNLPVersionCmd
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function doCommand()
     {
         self::$log->debug("Current file: ".self::$JNLP_FILE_URI);
@@ -42,6 +49,7 @@ class CheckJNLPVersionCmd
         {
             return false;
         }
+        /** @var $xml SimpleXMLElement */
         $xml = simplexml_load_file(self::$JNLP_FILE_URI);
         //self::$log->debug("<pre>".print_r($xml, true)."</pre>");
         //$result = $xml->xpath("/jnlp/resources/jar[starts-with(@href,'versions/rgzm') or starts-with(@href,'v*/rgzm')]");
@@ -73,6 +81,10 @@ class CheckJNLPVersionCmd
         return true;//self::$JNLP_FILE_URI; //$JNLP_HTTP_URI;
     }
 
+    /**
+     * @param bool $useDeployScript [optional]
+     * @return string
+     */
     public function getDeploy($useDeployScript = false)
     {
         if ($useDeployScript)

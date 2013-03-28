@@ -16,41 +16,69 @@ class ReportTableListImpl implements ReportTableList, Html
     private $cFooter = null;
     private $cSelector = false;
 
+    /**
+     * @param bool $bool [optional]
+     */
     public function setRowSelectorEnabled($bool=false)
     {
         $this->cSelector = $bool;
     }
 
+    /**
+     * @param ListRow $rows
+     */
     public function setTableHead(ListRow $rows)
     {
         $this->cHeader = $rows;
     }
 
+    /**
+     * @param ListRow $rows
+     */
     public function setTableBody(ListRow $rows)
     {
         $this->cEntries = $rows;
     }
 
+    /**
+     * @param ListRow $rows
+     */
     public function setTableFoot(ListRow $rows)
     {
         $this->cFooter = $rows;
     }
 
+    /**
+     * @return string
+     */
     public function getTableHead()
     {
         return $this->buildRows("thead", $this->cHeader, ReportTableListProperties::HEAD_ROW_COLOR, "TableHeadCell");
     }
 
+    /**
+     * @return string
+     */
     public function getTableBody()
     {
         return $this->buildRows("tbody", $this->cEntries, array(ReportTableListProperties::ODD, ReportTableListProperties::EVEN));
     }
 
+    /**
+     * @return string
+     */
     public function getTableFoot()
     {
         return $this->buildRows("tfoot", $this->cFooter, ReportTableListProperties::FOOT_ROW_COLOR);
     }
 
+    /**
+     * @param string       $struct
+     * @param ListRow|null $rows [optional]
+     * @param string       $rowColor
+     * @param string       $cellForm [optional]
+     * @return string
+     */
     protected function buildRows($struct, ListRow $rows = null, $rowColor, $cellForm = "TableCell")
     {
         $str = "<".$struct.">\n";
@@ -73,6 +101,7 @@ class ReportTableListImpl implements ReportTableList, Html
             {
                 $trow->addCell(new $cellForm("X", "rowspan=\"".$rows->count()."\""));
             }
+            /** @var $row ListRowCells */
             foreach ($row->getCellsContent() as $key => $cell)
             {
                 if ($this->cSelector && $key == 0 && $struct == "tbody")
@@ -97,6 +126,9 @@ class ReportTableListImpl implements ReportTableList, Html
         return $str;
     }
 
+    /**
+     * @return string
+     */
     public function getHtml()
     {
         $str = "";
@@ -106,11 +138,12 @@ class ReportTableListImpl implements ReportTableList, Html
         return (strlen($str) > 0) ? "<table cellspacing=\"1\">\n".$str."</table>\n" : "Nothing to display!";
     }
 
+    /**
+     * @return string
+     */
     //@Override
     public function __toString()
     {
         return "<table>".$this->cHeader.$this->cEntries.$this->cFooter."</table>";
     }
 }
-
-?>

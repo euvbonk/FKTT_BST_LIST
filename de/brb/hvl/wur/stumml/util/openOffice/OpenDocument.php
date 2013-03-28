@@ -7,8 +7,12 @@ abstract class OpenDocument
     private $oDocumentContent = null;
     private $oArchiveFileName = null;
 
+    /**
+     * @return OpenDocument
+     */
     public function __construct()
     {
+        return $this;
     }
 
     /**
@@ -31,6 +35,11 @@ abstract class OpenDocument
      */
     public abstract function getDocumentFile();
 
+    /**
+     * @abstract
+     * @return void
+     * @throws Exception
+     */
     public abstract function saveDocument();
 
     /**
@@ -49,19 +58,26 @@ abstract class OpenDocument
         $zip = new ZipArchive();
         $zip->open($file->getPathname());
         $zip->deleteName('content.xml');
-        $zip->addFromString('content.xml', $this->oDocumentContent->asXML());
+        $zip->addFromString('content.xml', $this->getDocument()->asXML());
         $zip->close();
         $file->changeFileRights(0666);
         ini_set('default_charset', $charset);
     }
 
+    /**
+     * @return void
+     */
     public function debug()
     {
         print "\n<pre>";
-        var_dump($this->oDocumentContent->asXML());
+        var_dump($this->getDocument()->asXML());
         print "</pre>\n";
     }
 
+    /**
+     * @param File $file
+     * @return SimpleXMLElement
+     */
     protected function loadDocument(File $file)
     {
         $this->oArchiveFileName = $file->getPathname();
@@ -72,16 +88,25 @@ abstract class OpenDocument
         return $content;
     }
 
-    protected function setDocument($content)
+    /**
+     * @param SimpleXMLElement $content
+     */
+    protected function setDocument(SimpleXMLElement $content)
     {
         $this->oDocumentContent = $content;
     }
 
+    /**
+     * @return SimpleXMLElement
+     */
     protected function getDocument()
     {
         return $this->oDocumentContent;
     }
 
+    /**
+     * @return void
+     */
     public function closeDocument()
     {
         $this->oDocumentContent = null;

@@ -8,13 +8,21 @@ final class BackupZipBundleCmd
     private $oTargetFile;
     private $oDir;
 
+    /**
+     * @return BackupZipBundleCmd
+     */
     public function __construct()
     {
         $this->oDir = Settings::uploadBaseDir();
         $f = $this->oDir."/".self::$FILE_NAME;
         $this->oTargetFile = new File($f.strftime("%F-%H%M").".zip");
+        return $this;
     }
 
+    /**
+     * @return bool true
+     * @throws Exception if directory has no write permissions
+     */
     public function doCommand()
     {
         // Command immer ausführen!
@@ -42,6 +50,7 @@ final class BackupZipBundleCmd
 
         $zip = new ZipArchive();
         $zip->open($this->oTargetFile->getPathname(), ZipArchive::CREATE);
+        /** @var $node File */
         foreach ($iterator as $node)
         {
             //$node = new File($key);
@@ -57,6 +66,9 @@ final class BackupZipBundleCmd
         return true;
     }
 
+    /**
+     * @return string
+     */
     public function getFileName()
     {
         if ($this->oTargetFile->exists())

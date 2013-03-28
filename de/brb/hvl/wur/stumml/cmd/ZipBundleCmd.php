@@ -15,11 +15,20 @@ final class ZipBundleCmd
     private $oFileManager;
     private $oTargetFile = null;
 
+    /**
+     * @param FileManager $fm
+     * @return ZipBundleCmd
+     */
     public function __construct(FileManager $fm)
     {
         $this->oFileManager = $fm;
+        return $this;
     }
 
+    /**
+     * @return bool
+     * @throws Exception if directory has no write permission
+     */
     public function doCommand()
     {
         $dirToArchive = Settings::uploadDir();
@@ -57,6 +66,7 @@ final class ZipBundleCmd
         $iterator =
                 new RecursiveIteratorIterator(new ZipBundleFileFilter(new RecursiveDirectoryIterator($dirToArchive)));
         // sammle jetzt alle Dateien, die fuer das Zip-Bundle in Frage kommen, in einem Array
+        /** @var $file File */
         foreach ($iterator as $file)
         {
             if ($file->isFile() && $file->isReadable())
@@ -78,12 +88,12 @@ final class ZipBundleCmd
         // Dann soll auf jedenfall ein Archiv erstellt werden, wenn die Zieldatei noch gar nicht existiert oder eben
         // falls neueste Datei aller Dateien spaeter modifiziert wurde als die Zieldatei
         if (count($allFiles) > 0 &&
-                (!$this->oTargetFile->exists() || $this->oTargetFile->getMTime() < $allFiles[0]->getMTime())
+                (!$this->getFile()->exists() || $this->getFile()->getMTime() < $allFiles[0]->getMTime())
         )
         {
-            if ($this->oTargetFile->exists())
+            if ($this->getFile()->exists())
             {
-                $this->oTargetFile->delete();
+                $this->getFile()->delete();
             }
 
             // parent full directory path of $dirToArchive, to generate the
@@ -91,7 +101,8 @@ final class ZipBundleCmd
             $baseDir = Settings::uploadBaseDir();
 
             $zip = new ZipArchive();
-            $zip->open($this->oTargetFile->getPathname(), ZipArchive::CREATE);
+            $zip->open($this->getFile()->getPathname(), ZipArchive::CREATE);
+            /** @var $node File */
             foreach ($allFiles as $node)
             {
                 if ($node->isFile() && $node->isReadable())
@@ -103,7 +114,7 @@ final class ZipBundleCmd
             //       a local view of all datasheets
             //       create bstlist for all epochs and add them to archive
             $zip->close();
-            $this->oTargetFile->changeFileRights(0666);
+            $this->getFile()->changeFileRights(0666);
             return true;
         }
         return false;

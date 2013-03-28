@@ -5,6 +5,11 @@ final class SendFileForDownloadCmd
     private $oFile;
     private $oFileName;
 
+    /**
+     * @param string $file
+     * @param string $fileName [optional]
+     * @return SendFileForDownloadCmd
+     */
     public function __construct($file, $fileName = 'foo.csv')
     {
         $this->oFile = $file;
@@ -16,8 +21,12 @@ final class SendFileForDownloadCmd
         {
             $this->oFileName = $fileName;
         }
+        return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function doCommand()
     {
         if ((file_exists($this->oFile) && is_readable($this->oFile)) || strlen($this->oFile) > 0)

@@ -10,6 +10,9 @@ class FileManagerImpl implements FileManager
     public static $EPOCHS = array('I', 'II', 'III', 'IV', 'V', 'VI');
     private $allDatasheets = array();
 
+    /**
+     * @return FileManagerImpl
+     */
     public function __construct()
     {
         // grab all datasheets for all epochs
@@ -19,6 +22,7 @@ class FileManagerImpl implements FileManager
             $this->allDatasheets[$epoch] = $this->getFilesFromEpoch($all, $epoch);
         }
         //print "<pre>".print_r($this->allDatasheets, true)."</pre>";
+        return $this;
     }
 
     /**
@@ -28,13 +32,20 @@ class FileManagerImpl implements FileManager
     public function getLatestFileFromEpoch($epoch)
 	{
 		// sollte die uebergebene Epoche nicht existieren
-		if (!in_array($epoch, self::$EPOCHS)) return null;
+        if (!in_array($epoch, self::$EPOCHS)) {
+            return null;
+        }
 		$t = $this->getFilesFromEpochWithOrder($epoch, "ORDER_LAST");
 		// im Array steht dann an nullter Position die Datei in der die
 		// letzte Aenderung stattgefunden hat
 		return (!empty($t)) ? $t[0] : null;
 	}
 
+    /**
+     * @param array  $in
+     * @param string $epoch [optional]
+     * @return array
+     */
     public function getFilesFromEpoch($in, $epoch = "IV")
     {
         $ret = array();
@@ -109,6 +120,11 @@ class FileManagerImpl implements FileManager
         return $ret;
     }
 
+    /**
+     * @param array $filter [optional]
+     * @param array $in [optional]
+     * @return array
+     */
     protected function getFilteredDatasheets($filter = array(), $in = array())
     {
         if (empty($filter))

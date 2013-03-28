@@ -74,6 +74,10 @@ class LocaleCharacter
         }
     }
 
+    /**
+     * @static instance
+     * @return LocaleCharacter
+     */
     public static function getInstance()
     {
         if (null === self::$INSTANCE)
@@ -83,4 +87,3 @@ class LocaleCharacter
         return self::$INSTANCE;
     }
 }
-?>

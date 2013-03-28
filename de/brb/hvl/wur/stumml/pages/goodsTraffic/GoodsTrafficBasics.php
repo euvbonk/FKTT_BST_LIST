@@ -39,6 +39,7 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
         $this->getReportTable()->setTableHead($this->oListTable->getTableHeader());
         $this->getReportTable()->setTableBody($this->oListTable->getTableEntries());
         $this->getReportTable()->setTableFoot($this->oListTable->getTableFooter());
+        return $this;
     }
 
     protected function doCommand($cmd, $DATA = array())
@@ -71,7 +72,9 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
 
     /**
      * @see abstract class Frame
-     */    
+     * @return String
+     */
+    //@Override
     public final function getLastChangeTimestamp()
     {
         return GoodsTrafficSettings::getInstance()->lastAddonChange();
@@ -79,6 +82,7 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
 
     /**
      * @see Interface GoodsTrafficPageContent
+     * @return String
      */
     public final function getDaysOfWeekOptionsUI()
     {
@@ -92,6 +96,7 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
     
     /**
      * @see Interface GoodsTrafficPageContent
+     * @return String
      */
     public final function getFilterCSV()
     {
@@ -100,6 +105,7 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
 
     /**
      * @see Interface GoodsTrafficPageContent
+     * @return float
      */
     public final function getLengthPerCar()
     {
@@ -108,6 +114,7 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
 
     /**
      * @see Interface GoodsTrafficPageContent
+     * @return float|String
      */
     public final function getMinTrainCount()
     {

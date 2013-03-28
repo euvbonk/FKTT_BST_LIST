@@ -9,4 +9,3 @@ interface GoodsTrafficListRowEntries
     public function getShortestTrack();
     public function getLongestTrack();
 }
-?>

@@ -13,14 +13,23 @@ final class CSVListCmd
     private static $EPOCH = "IV";
     private $oTargetFile;
 
+    /**
+     * @param FileManager $fm
+     * @return CSVListCmd
+     */
     public function __construct(FileManager $fm)
     {
         $this->oFileManager = $fm;
         $this->oTargetFile = new File(Settings::uploadDir()."/".self::$FILE_NAME);
+        return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function doCommand()
     {
+        /** @var $latest File */
         $latest = $this->oFileManager->getLatestFileFromEpoch(self::$EPOCH);
         if ($latest == null)
         {
@@ -39,6 +48,7 @@ final class CSVListCmd
             if (count($list) > 0)
             {
                 $csvArray = array();
+                /** @var $value File */
                 foreach ($list as $value)
                 {
                     // load as file url

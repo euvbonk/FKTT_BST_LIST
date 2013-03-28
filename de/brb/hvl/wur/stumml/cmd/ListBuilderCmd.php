@@ -6,12 +6,20 @@ class ListBuilderCmd
     private $dataArray;
     private $dataString;
 
+    /**
+     * @param $content
+     * @return ListBuilderCmd
+     */
     public function __construct($content)
     {
         $this->oContent = $content;
         $this->dataString = "";
+        return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function doCommand() //buildCsvString()
     {
         $arr = $this->prepareArrayData();
@@ -48,11 +56,17 @@ class ListBuilderCmd
         return true;
     }
 
+    /**
+     * @return string
+     */
     public function getCsvString()
     {
         return $this->dataString;
     }
 
+    /**
+     * @return array
+     */
     private function prepareArrayData()
     {
         $this->dataArray = $this->string2array($this->oContent);
@@ -90,6 +104,11 @@ class ListBuilderCmd
         return $_three;
     }
 
+    /**
+     * @param string $needle
+     * @param string $haystack
+     * @return bool|int
+     */
     private function array_search_regexp($needle, $haystack)
     {
         foreach ($haystack as $key => $value)
@@ -102,6 +121,10 @@ class ListBuilderCmd
         return FALSE;
     }
 
+    /**
+     * @param string $str
+     * @return array
+     */
     private function string2array($str)
     {
         // Konvertiert umlaute,
@@ -110,6 +133,10 @@ class ListBuilderCmd
         return $this->trimArray(preg_split("/\r\n/", $this->convert($str, 1), -1, PREG_SPLIT_NO_EMPTY));
     }
 
+    /**
+     * @param array $one
+     * @return array
+     */
     private function trimArray($one)
     {
         foreach ($one as $key => $value)
@@ -119,6 +146,11 @@ class ListBuilderCmd
         return $two;
     }
 
+    /**
+     * @param string $str
+     * @param int $way [1|2]
+     * @return bool|string
+     */
     private function convert($str, $way)
     {
         $umlaute = array("ä", "ö", "ü", "Ä", "Ö", "Ü");

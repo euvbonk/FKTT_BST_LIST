@@ -51,5 +51,6 @@ class Main
             $sheet = new AddonErrorPage($e->getMessage());
         }
         $sheet->showContent();
+        return $this;
     }
 }

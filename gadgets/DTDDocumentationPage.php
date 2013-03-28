@@ -15,10 +15,11 @@ class DTDDocumentationPage
         echo ' Sie k&ouml;nnen die eingebettete Seite &uuml;ber den folgenden Verweis';
         echo ' aufrufen: <a href="'.$URL.'">DTD-Dokumentation</a></p>';
         echo '</iframe>';
+        return $this;
     }
 
     public function DTDDocumentationPage()
     {
-        self::__construct();
+        return self::__construct();
     }
 }

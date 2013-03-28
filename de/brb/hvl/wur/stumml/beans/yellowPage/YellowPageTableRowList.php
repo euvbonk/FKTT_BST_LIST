@@ -5,22 +5,32 @@ import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageTableRowCellList');
 
 class YellowPageTableRowList extends ArrayObject implements SpreadsheetXml
 {
+    /**
+     * @param YellowPageTableRowCellList $cell
+     */
     public function append(YellowPageTableRowCellList $cell)
     {
         parent::append($cell);
     }
 
+    /**
+     * @param YellowPageTableRowCellList $cell
+     */
     public function addRow(YellowPageTableRowCellList $cell)
     {
         $this->append($cell);
     }
 
+    /**
+     * @return string
+     */
     public function getAsSpreadsheetXml()
     {
         $str = "";
         if ($this->count() > 0)
         {
             $index = 0;
+            /** @var $row YellowPageTableRowCellList */
             foreach ($this->getIterator() as $row)
             {
                 $str .= $row->getAsSpreadsheetXml();
@@ -31,4 +41,3 @@ class YellowPageTableRowList extends ArrayObject implements SpreadsheetXml
         return $str;
     }
 }
-?>

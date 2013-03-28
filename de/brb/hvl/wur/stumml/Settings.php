@@ -6,7 +6,11 @@ import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
 abstract class Settings
 {
     private static $INSTANCE = null;
-    
+
+    /**
+     * @static instance
+     * @return Settings
+     */
     public static function getInstance()
     {
         if (null === self::$INSTANCE)
@@ -51,6 +55,13 @@ abstract class Settings
         return str_replace('index.php/', '', QI::getUriFrom($path));
     }
 
+    /**
+     * @static
+     * @param      $file
+     * @param      $label
+     * @param bool $addLastChange [optional]
+     * @return string
+     */
     public final static function getDownloadLinkForFile($file, $label, $addLastChange = true)
     {
         $uri = self::getHttpUriForFile($file);
@@ -68,13 +79,6 @@ abstract class Settings
             return "<span style='font-weight: bold'>\"File does not exist!\"</span>";
         }
     }
-
-    /*public final static function buildDownloadPath($filePath, $label)
-    {
-        $filePath = substr($filePath, strlen(QI::getRootDir())+1);
-        return str_replace('index.php/', '', HtmlUtil::toUtf8(QI::buildAbsoluteLink($filePath, $label)));
-    }*/
-
 
     /**
      * @abstract

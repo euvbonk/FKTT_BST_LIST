@@ -6,11 +6,20 @@ import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageTableRowCell');
 
 class FkttYellowPage extends AbstractYellowPage
 {
+    /**
+     * @param array $fileList [optional]
+     * @return FkttYellowPage
+     */
     public function __construct($fileList = array())
     {
         parent::__construct($fileList);
+        return $this;
     }
 
+    /**
+     * implemented method
+     * @return void
+     */
     public function generate()
     {
         /*print "<table border=\"1\">
@@ -23,15 +32,18 @@ class FkttYellowPage extends AbstractYellowPage
                        <td>Ladestelle</td>
                        <td>Besonderheiten</td>
                    </tr>\n";*/
+        /** @var $station StationElement */
         foreach ($this->getDatasheets() as $station)
         {
             $freight = $station->getFreightTrafficElement();
             if ($freight != null)
             {
+                /** @var $shipper ShipperElement */
                 foreach ($freight->getShippers() as $shipper)
                 {
                     if (count($shipper->getDistributedCargos())>0)
                     {
+                        /** @var $cargo CargoElement */
                         foreach ($shipper->getDistributedCargos() as $cargo)
                         {
                             //print "<tr><td>&nbsp;</td><td>".$cargo->getName()."</td><td>".$shipper->getName()."</td><td>".$cargo->getClassOfCar()."</td><td>".$station->getName()."</td><td>".$freight->getLoadingPlaceNameById($cargo->getLoadingPlaceIdentifier())."</td><td>&nbsp;</td></tr>\n";
@@ -68,4 +80,3 @@ class FkttYellowPage extends AbstractYellowPage
         //print "</table>";
     }
 }
-?>

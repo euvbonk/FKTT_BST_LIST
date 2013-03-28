@@ -16,8 +16,5 @@ interface ReportTableList extends ReportTableListProperties
     
     public function setTableFoot(ListRow $rows);
     
-    //public function addTableEntry(Html $row);
-
     public function setTableBody(ListRow $rows);
 }
-?>

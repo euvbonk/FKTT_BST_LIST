@@ -29,6 +29,7 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
 
         $this->getReportTable()->setTableHead($this->oList->getTableHeader());
         $this->getReportTable()->setTableBody($this->oList->getTableEntries());
+        return $this;
     }
 
     protected function doCommand($DATA = array())

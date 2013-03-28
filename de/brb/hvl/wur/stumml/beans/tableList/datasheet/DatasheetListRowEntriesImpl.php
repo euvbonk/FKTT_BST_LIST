@@ -11,44 +11,75 @@ class DatasheetListRowEntriesImpl extends AbstractListRowEntriesImpl implements 
     private $type;
     private $lastChange;
 
+    /**
+     * @param string $name
+     * @param string $short
+     * @param int    $index
+     * @param string $url
+     * @param string $type
+     * @param string $lastChange
+     * @return DatasheetListRowEntriesImpl
+     */
     public function __construct($name, $short, $index, $url, $type, $lastChange)
     {
         parent::__construct($name, $short, $url);
         $this->setIndex($index);
         $this->setType($type);
         $this->setLastChange($lastChange);
+        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getType()
     {
         return $this->type;
     }
 
+    /**
+     * @param string $t
+     */
     public function setType($t)
     {
         $this->type = $t;
     }
 
+    /**
+     * @return string
+     */
     public function getLastChange()
     {
         return $this->lastChange;
     }
 
+    /**
+     * @param string $l
+     */
     public function setLastChange($l)
     {
         $this->lastChange = $l;
     }
 
+    /**
+     * @param int $i
+     */
     public function setIndex($i)
     {
         $this->index = $i;
     }
 
+    /**
+     * @return int
+     */
     public function getIndex()
     {
         return $this->index;
     }
 
+    /**
+     * @return array mixed
+     */
     public function getCellsContent()
     {
         return array((($this->getIndex() > 9) ? $this->getIndex() : "0".$this->getIndex()).".",
@@ -57,6 +88,9 @@ class DatasheetListRowEntriesImpl extends AbstractListRowEntriesImpl implements 
                     "cmd=".str_replace(".xml", "", basename($this->getSheetUrl())))));
     }
 
+    /**
+     * @return array string
+     */
     public function getCellsStyle()
     {
         return array("style=\"text-align:center;\"", "", "style=\"text-align:center;\"", "style=\"text-align:center;\"",

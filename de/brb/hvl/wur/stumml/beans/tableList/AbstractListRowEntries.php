@@ -8,4 +8,3 @@ interface AbstractListRowEntries extends ListRowCells
     public function getShort();
     public function getSheetUrl();
 }
-?>

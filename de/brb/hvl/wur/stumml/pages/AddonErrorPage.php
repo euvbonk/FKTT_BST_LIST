@@ -6,16 +6,26 @@ class AddonErrorPage extends Frame
 {
     private $cMessage;
 
+    /**
+     * @param String|null $message
+     */
     public function __construct($message)
     {
         parent::__construct();
         $this->cMessage = $message;
     }
 
+    /**
+     * @return String|void
+     */
+    //@Override
     public function getLastChangeTimestamp()
     {
     }
 
+    /**
+     * Shows given error message
+     */
     //@Override
     public function showContent()
     {

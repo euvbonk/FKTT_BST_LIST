@@ -26,6 +26,7 @@ final class AdminPage extends Frame implements FrameForm
                             }
                             break;
         }
+        return $this;
     }
 
     /**

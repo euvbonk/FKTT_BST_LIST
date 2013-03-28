@@ -11,12 +11,19 @@ class SpreadsheetDocument extends OpenDocument
     private $oCellPosition = null;
     private $oXSpreadsheet = null;
 
+    /**
+     * @return SpreadsheetDocument
+     */
     public function __construct()
     {
         parent::__construct();
         $this->oCellPosition = new Point(0, 0);
+        return $this;
     }
 
+    /**
+     * @param File $file
+     */
     public function openDocumentFromFile(File $file)
     {
         $this->setDocument($this->loadDocument($file));
@@ -24,6 +31,9 @@ class SpreadsheetDocument extends OpenDocument
         $this->setSpreadsheetDocument();
     }
 
+    /**
+     * @throws Exception
+     */
     public function saveDocument()
     {
         if ($this->getDocumentFile() != null)
@@ -36,11 +46,17 @@ class SpreadsheetDocument extends OpenDocument
         }
     }
 
+    /**
+     * @param File $file
+     */
     public function setDocumentFile(File $file)
     {
         $this->oFile = $file;
     }
 
+    /**
+     * @return File|null
+     */
     public function getDocumentFile()
     {
         return $this->oFile;
@@ -55,27 +71,50 @@ class SpreadsheetDocument extends OpenDocument
         parent::closeDocument();
     }
 
+    /**
+     * @param int $column
+     * @param int $row
+     */
     public function setCellPositionByIndex($column, $row)
     {
         $this->oCellPosition->setLocation($column, $row);
     }
 
+    /**
+     * @return Point
+     */
     public function getCurrentCellPosition()
     {
         return $this->oCellPosition->getLocation();
     }
 
+    /**
+     * @param string $cellText
+     */
     public function setTextToCurrentCell($cellText)
     {
         $cellLocation = $this->getCurrentCellPosition();
-        $cell = $this->oXSpreadsheet->getCellByPosition($cellLocation->x, $cellLocation->y);
+        $cell = $this->getSpreadsheetDocument()->getCellByPosition($cellLocation->x, $cellLocation->y);
         $cell->setFormula($cellText);
     }
 
+    /**
+     * @param string $cellText
+     * @param int $xIndex
+     * @param int $yIndex
+     */
     public function setTextAtCellPositionByIndex($cellText, $xIndex, $yIndex)
     {
         $this->setCellPositionByIndex($xIndex, $yIndex);
         $this->setTextToCurrentCell($cellText);
+    }
+
+    /**
+     * @return XSpreadsheet
+     */
+    protected function getSpreadsheetDocument()
+    {
+        return $this->oXSpreadsheet;
     }
 
     public function setSpreadsheetDocument()

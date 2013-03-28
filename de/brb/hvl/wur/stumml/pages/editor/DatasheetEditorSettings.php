@@ -10,7 +10,7 @@ class DatasheetEditorSettings extends Settings
 
     /**
      * @static instance
-     * @return DatasheetEditorSettings
+     * @return Settings
      */
     public static function getInstance()
     {
@@ -21,6 +21,9 @@ class DatasheetEditorSettings extends Settings
         return self::$INSTANCE;
     }
 
+    /**
+     * @return String
+     */
     /*@Override*/
     public function lastAddonChange()
     {
@@ -30,6 +33,7 @@ class DatasheetEditorSettings extends Settings
     /**
      * @return File
      */
+    //@Override
     public final function getTemplateFile()
     {
         return new File($this->addonTemplateBaseDir().'/datasheet_editor.php');

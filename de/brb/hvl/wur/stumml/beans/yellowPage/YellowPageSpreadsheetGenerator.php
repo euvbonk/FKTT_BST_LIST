@@ -7,6 +7,10 @@ class YellowPageSpreadsheetGenerator extends SpreadsheetDocument implements Yell
 {
     private $oYellowPage = null;
 
+    /**
+     * @param array $list [optional]
+     * @return YellowPageSpreadsheetGenerator
+     */
     public function __construct($list = array())
     {
         parent::__construct();
@@ -15,18 +19,28 @@ class YellowPageSpreadsheetGenerator extends SpreadsheetDocument implements Yell
         {
             $this->setYellowPage($list);
         }
+        return $this;
     }
 
+    /**
+     * @param array $yellowPage
+     */
     public function setYellowPage(/*List<YellowPageTableRow>*/ $yellowPage)
     {
         $this->oYellowPage = $yellowPage;
     }
-    
+
+    /**
+     * @return null|array
+     */
     public function getYellowPage()
     {
         return $this->oYellowPage;
     }
-    
+
+    /**
+     * @see interface YellowPageConverter
+     */
     public function generate()
     {
         /*$currentColumn = $this->getCurrentCellPosition()->x;
@@ -52,4 +66,3 @@ class YellowPageSpreadsheetGenerator extends SpreadsheetDocument implements Yell
         //print $posOfLastTableRow." + ".strlen("</table:table-row>")." (".$posUntil.") <br/>";
     }
 }
-?>

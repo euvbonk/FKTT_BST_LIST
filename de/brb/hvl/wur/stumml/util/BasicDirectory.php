@@ -2,29 +2,50 @@
 class BasicDirectory
 {
 	private $directoryName;
-	
-	public function __construct($dirname="")
+
+    /**
+     * @param string $dirname
+     * @return BasicDirectory
+     */
+    public function __construct($dirname="")
 	{
 		$this->directoryName = $dirname;
+        return $this;
 	}
-	
-	public function setDirName($name)
+
+    /**
+     * @param string $name
+     */
+    public function setDirName($name)
 	{
 		$this->directoryName = $name;
 	}
 
-	public function getDirName()
+    /**
+     * @return string
+     */
+    public function getDirName()
 	{
 		return $this->directoryName;
 	}
 
-	public function changeDirRights($rights)
+    /**
+     * @param int $rights
+     */
+    public function changeDirRights($rights)
 	{
 		@chmod($this->directoryName, $rights);
 	}
 
 	/* modified function from php-manual */
- 	public static function scanDirectories($base='', $allowext, $data=array())
+    /**
+     * @static
+     * @param string $base [optional]
+     * @param string $allowext
+     * @param array  $data [optional]
+     * @return array string
+     */
+    public static function scanDirectories($base='', $allowext, $data=array())
 	{
 
 		if (!file_exists($base) || !is_dir($base)) return array();
@@ -50,4 +71,3 @@ class BasicDirectory
 	  return $data; // return the $data array
 	}
 }
-?>

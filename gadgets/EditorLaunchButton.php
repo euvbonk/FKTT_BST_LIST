@@ -2,7 +2,6 @@
 
 defined('is_running') or die('Not an entry point...');
 
-//import('de_brb_hvl_wur_stumml_Settings');
 import('de_brb_hvl_wur_stumml_cmd_CheckJNLPVersionCmd');
 
 class EditorLaunchButton
@@ -22,10 +21,11 @@ class EditorLaunchButton
             echo '&nbsp;<span style="color:blue;">Editor</span>';
             echo '</div> ';
         }
+        return $this;
     }
 
     public function EditorLaunchButton()
     {
-        self::__construct();
+        return self::__construct();
     }
 }

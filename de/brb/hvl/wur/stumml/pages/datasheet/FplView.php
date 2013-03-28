@@ -39,6 +39,7 @@ class FplView extends Frame
             }
             else
             {
+                /** @var $xmlFile File */
                 $xmlFile = $allFiles[$station];
                 $this->content = @file_get_contents(str_replace(".xml", "_fpl.html", $xmlFile->getPathname()));
                 if ($this->content === false)
@@ -52,6 +53,7 @@ class FplView extends Frame
                 $this->showContent();
             }
         }
+        return $this;
     }
     
     //@Override

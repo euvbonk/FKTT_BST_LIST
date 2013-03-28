@@ -8,4 +8,3 @@ interface ReportTableListProperties
     const HEAD_ROW_COLOR = "#C0C0C0";
     const FOOT_ROW_COLOR = "#eeeeee";
 }
-?>

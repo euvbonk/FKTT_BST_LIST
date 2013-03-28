@@ -7,17 +7,27 @@ abstract class AbstractLogger
 
     private $oClassName;
 
+    /**
+     * @param string $className
+     * @return AbstractLogger
+     */
     public function __construct($className)
     {
         $this->oClassName = $className;
-        
+        return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isDebugEnabled()
     {
         return QI::isGpeasyDebugEnabled();
     }
 
+    /**
+     * @param string $message
+     */
     public function debug($message)
     {
         if ($this->isDebugEnabled())
@@ -26,11 +36,19 @@ abstract class AbstractLogger
         }
     }
 
+    /**
+     * @param string $level
+     * @param string $message
+     */
     protected function buildMessageString($level, $message)
     {
         $this->writeMessage(date(self::$oDateFormat)." ".$level." ".$this->oClassName." - ".$message);
     }
 
+    /**
+     * @abstract
+     * @param string $message
+     * @return void
+     */
     protected abstract function writeMessage($message);
 }
-?>

@@ -16,19 +16,29 @@ final class YellowPageCmd
     private $oTemplateFile;
     private $oTargetFile;
 
+    /**
+     * @param FileManager $fm
+     * @return YellowPageCmd
+     */
     public function __construct(FileManager $fm)
     {
         $this->oFileManager = $fm;
         $this->oTemplateFile = new File(Settings::addonTemplateBaseDir()."/yellow-page.ots");
         $this->renameFile("IV");
+        return $this;
     }
 
+    /**
+     * @param string $epoch
+     * @return bool
+     */
     public function doCommand($epoch)
     {
         if (strlen($epoch) == 0)
         {
             return false;
         }
+        /** @var $latest File */
         $latest = $this->oFileManager->getLatestFileFromEpoch($epoch);
         if ($latest == null)
         {
@@ -36,16 +46,16 @@ final class YellowPageCmd
         }
         $this->renameFile($epoch);
         if (strlen($latest->getPathname()) > 0 &&
-                (!$this->oTargetFile->exists() || $this->oTargetFile->getMTime() < $latest->getMTime())
+                (!$this->getFile()->exists() || $this->getFile()->getMTime() < $latest->getMTime())
         )
         {
             $page = new FkttYellowPage();
             $page->setDatasheetFileList($this->oFileManager->getFilesFromEpochWithOrder($epoch));
             $page->generate();
 
-            if ($this->oTargetFile->exists())
+            if ($this->getFile()->exists())
             {
-                $this->oTargetFile->delete();
+                $this->getFile()->delete();
             }
 
             $calc = new YellowPageSpreadsheetGenerator();
@@ -69,6 +79,9 @@ final class YellowPageCmd
         return $this->oTargetFile;
     }
 
+    /**
+     * @param string $epoch
+     */
     protected function renameFile($epoch)
     {
         $this->oTargetFile = new File(Settings::uploadDir()."/".self::$FILE_NAMES[$epoch]);

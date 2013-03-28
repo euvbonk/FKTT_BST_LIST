@@ -6,6 +6,10 @@ final class XmlHtmlTransformCmd
     private $oHtmlFile;
     private $oXSLTProcessor;
 
+    /**
+     * @param File $xslFile
+     * @return XmlHtmlTransformCmd
+     */
     public function __construct(File $xslFile)
     {
         $this->oHtmlFile = null;
@@ -15,6 +19,7 @@ final class XmlHtmlTransformCmd
 
         $this->oXSLTProcessor = new XSLTProcessor();
         $this->oXSLTProcessor->importStylesheet($xslDOMDocument);
+        return $this;
     }
 
 
@@ -31,30 +36,29 @@ final class XmlHtmlTransformCmd
             return false;
         }
 
-        $this->oHtmlFile = null;
         if ($htmlFile == null)
         {
-            $this->oHtmlFile = new File($xmlFile->getParent()."/".basename($xmlFile->getPathname(), "xml")."html");
+            $this->oHtmlFile = $htmlFile = new File($xmlFile->getParent()."/".basename($xmlFile->getPathname(), "xml")."html");
         }
         else
         {
             $this->oHtmlFile = $htmlFile;
         }
-        if (!$this->oHtmlFile->exists() || $this->oHtmlFile->getMTime() < $xmlFile->getMTime())
+        if (!$htmlFile->exists() || $htmlFile->getMTime() < $xmlFile->getMTime())
         {
             // Datei muss vor neuem Anlegen entfernt werden, sonst meckert
             // transformToUri!
-            if ($this->oHtmlFile->exists())
+            if ($htmlFile->exists())
             {
-                $this->oHtmlFile->delete();
+                $htmlFile->delete();
             }
 
             $xmlDOMDocument = new DOMDocument();
             $xmlDOMDocument->load($xmlFile->getPathname());
 
-            $this->oXSLTProcessor->transformToURI($xmlDOMDocument, 'file://'.$this->oHtmlFile->getPathname());
+            $this->oXSLTProcessor->transformToURI($xmlDOMDocument, 'file://'.$htmlFile->getPathname());
 
-            $this->oHtmlFile->changeFileRights(0666);
+            $htmlFile->changeFileRights(0666);
             return true;
         }
         return false;

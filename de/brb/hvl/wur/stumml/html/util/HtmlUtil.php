@@ -7,6 +7,10 @@ class HtmlUtil implements Html
     private static $INSTANCE = null;
     private static $MAP = null;
 
+    /**
+     * @static instance
+     * @return HtmlUtil
+     */
     public static function getInstance()
     {
         if (null === self::$INSTANCE)
@@ -38,6 +42,11 @@ class HtmlUtil implements Html
         }
 	}*/
 
+    /**
+     * @static
+     * @param string $string
+     * @return string
+     */
     public static function toUtf8($string)
     {
         if (null === self::$MAP)
@@ -47,6 +56,9 @@ class HtmlUtil implements Html
         return str_replace(array_keys(self::$MAP), array_values(self::$MAP), $string);
     }
 
+    /**
+     * @return string
+     */
     public function getHtml()
     {
         $ret = "The following characters are mapped to their utf-8 equivalent by the static function \"".__CLASS__."::toUtf8(\$string)\":<br/>";
@@ -56,5 +68,7 @@ class HtmlUtil implements Html
         }
         return $ret;
     }
+
+    private function __construct(){}
+    private function __clone(){}
 }
-?>

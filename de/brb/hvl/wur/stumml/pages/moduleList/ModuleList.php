@@ -33,6 +33,7 @@ class ModuleList extends Frame implements FrameForm
                                 break;
             }
         }
+        return $this;
     }
     
     public function getPostContent()
@@ -40,6 +41,10 @@ class ModuleList extends Frame implements FrameForm
         return $this->content;
     }
 
+    /**
+     * @return String
+     */
+    //@Override
     public function getLastChangeTimestamp()
     {
         return ModuleListSettings::getInstance()->lastAddonChange();
@@ -47,6 +52,7 @@ class ModuleList extends Frame implements FrameForm
 
     /**
      * @see Interface FrameForm
+     * @return String
      */
     public function getFormActionUri()
     {

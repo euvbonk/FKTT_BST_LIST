@@ -46,15 +46,13 @@ abstract class AbstractList extends Frame implements FrameForm
 
     /**
      * @see Interface FrameForm
+     * @return String
      */
     public final function getFormActionUri()
     {
         return QI::getPageUri();
     }
 
-    /**
-     * @see Interface GoodsTrafficPageContent
-     */
     public final function getEpochOptionsUI()
     {
         $str = "";
@@ -65,12 +63,8 @@ abstract class AbstractList extends Frame implements FrameForm
         return $str;
     }
     
-    /**
-     * @see Interface DatasheetsPageContent
-     */
     public final function getTable()
     {
         return $this->getReportTable()->getHtml();
     }
 }
-?>

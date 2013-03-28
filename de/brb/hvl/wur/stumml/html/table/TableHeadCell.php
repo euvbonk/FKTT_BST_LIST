@@ -6,6 +6,11 @@ class TableHeadCell implements Html
     private $content;
     private $attribute;
 
+    /**
+     * @param string $content
+     * possible param string $attribute
+     * @return TableHeadCell
+     */
     public function __construct($content)
     {
         $this->content = $content;
@@ -14,8 +19,12 @@ class TableHeadCell implements Html
             $argv = func_get_args();
             $this->attribute = $argv[1];
         }
+        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getHtml()
     {
         if ($this->attribute != "")
@@ -28,4 +37,3 @@ class TableHeadCell implements Html
         }
     }
 }
-?>

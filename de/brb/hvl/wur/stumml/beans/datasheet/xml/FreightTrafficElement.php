@@ -1,43 +1,67 @@
 <?php
+
+import('de_brb_hvl_wur_stumml_beans_datasheet_xml_BaseElement');
 import('de_brb_hvl_wur_stumml_beans_datasheet_xml_ShipperElement');
 
-class FreightTrafficElement
+class FreightTrafficElement extends BaseElement
 {
-    private $oXml;
     private $oShippers = array();
-    
+
+    /**
+     * @param SimpleXMLElement $xml
+     * @return FreightTrafficElement
+     */
     public function __construct(SimpleXMLElement $xml)
     {
-        $this->oXml = $xml;
-        foreach ($this->oXml->xpath("verlader") as $shipperEl)
+        parent::__construct($xml);
+        foreach ($this->getElement()->xpath("verlader") as $shipperEl)
         {
             $this->oShippers[] = new ShipperElement($shipperEl);
         }
+        return $this;
     }
 
+    /**
+     * @return array ShipperElement
+     */
     public function getShippers()
     {
         return $this->oShippers;
     }
 
+    /**
+     * @param $ids string
+     * @return string
+     */
     public function getLoadingPlaceNameById($ids)
     {
         $str = "";
         foreach (explode(" ", $ids) as $id)
         {
-            foreach ($this->oXml->xpath("ladestelle") as $lp)
+            /** @var $lp SimpleXMLElement */
+            foreach ($this->getElement()->xpath("ladestelle") as $lp)
             {
-                if ($lp->attributes() == $id)
+                //print "<pre>".print_r($lp->attributes(), true)."</pre>";
+                foreach ($lp->attributes() as $value)
                 {
-                    if (strlen($str)>0)
+                    if ($value == $id)
                     {
-                        $str .= ", ";
+                        if (strlen($str) > 0)
+                        {
+                            $str .= ", ";
+                        }
+                        /** @var $child SimpleXMLElement */
+                        foreach ($lp->children() as $child)
+                        {
+                            if ($child->getName() == 'name')
+                            {
+                                $str .= $child[0];
+                            }
+                        }
                     }
-                    $str .= $lp->name;
                 }
             }
         }
         return $str;
     }
 }
-?>
