@@ -1,3 +1,10 @@
+2013-03-30 euvbonk v0.8alpha
+    * FileFilter angepasst und um weitere Klasse fuer das XML Listing ergaenzt
+    * File-Klasse nun mit Methode listFiles die ein iterator zurueckgibt
+    * BasicDirectory ist jetzt deprecated, da File->listFiles dessen Funktion
+      uebernommen hat
+    * Iterator aus listFiles benutzt File Klasse als Basis
+    * FileManagerImpl ebenfalls auf File->listFiles umgestellt
 2013-03-28 euvbonk v0.8alpha
     * Dokumentation der Klassenmethoden
     * Konsistenz in der Implementierung

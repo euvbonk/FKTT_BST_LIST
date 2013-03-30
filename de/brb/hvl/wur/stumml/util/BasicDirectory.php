@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * @deprecated
+ */
 class BasicDirectory
 {
 	private $directoryName;
@@ -6,6 +10,7 @@ class BasicDirectory
     /**
      * @param string $dirname
      * @return BasicDirectory
+     * @deprecated
      */
     public function __construct($dirname="")
 	{
@@ -15,6 +20,7 @@ class BasicDirectory
 
     /**
      * @param string $name
+     * @deprecated
      */
     public function setDirName($name)
 	{
@@ -23,6 +29,7 @@ class BasicDirectory
 
     /**
      * @return string
+     * @deprecated
      */
     public function getDirName()
 	{
@@ -31,6 +38,7 @@ class BasicDirectory
 
     /**
      * @param int $rights
+     * @deprecated
      */
     public function changeDirRights($rights)
 	{
@@ -44,11 +52,14 @@ class BasicDirectory
      * @param string $allowext
      * @param array  $data [optional]
      * @return array string
+     * @deprecated
      */
     public static function scanDirectories($base='', $allowext, $data=array())
 	{
 
-		if (!file_exists($base) || !is_dir($base)) return array();
+        if (!file_exists($base) || !is_dir($base)) {
+            return array();
+        }
 
 		$array = array_diff(scandir($base), array('.', '..')); # remove . and .. from the array
 

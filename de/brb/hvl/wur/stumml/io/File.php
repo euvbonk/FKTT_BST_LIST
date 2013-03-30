@@ -126,4 +126,31 @@ class File extends SplFileInfo
     {
         return (strpos($this->getPathname(), $string) !== false) ? true : false;
     }
+
+    /**
+     * @param null|string $filterClassName [optional]
+     * @param bool $recursive [optional]
+     * @return null|RecursiveIteratorIterator iterator for SplFileInfo-Objects
+     */
+    public function listFiles($filterClassName = null, $recursive = true)
+    {
+        if ($recursive)
+        {
+            $it = null;
+            if ($filterClassName != null && strlen($filterClassName) > 0)
+            {
+                $it = new RecursiveIteratorIterator(new $filterClassName(new RecursiveDirectoryIterator($this->getPathname())));
+            }
+            else
+            {
+                // follow also symbolic links
+                $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->getPathname(), FilesystemIterator::FOLLOW_SYMLINKS));
+            }
+            $iit = $it->getInnerIterator();
+            /** @var $iit RecursiveDirectoryIterator */
+            $iit->setInfoClass('File');
+            return $it;
+        }
+        return null;
+    }
 }

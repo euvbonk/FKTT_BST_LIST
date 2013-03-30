@@ -8,11 +8,13 @@ abstract class AbstractFileFilter extends RecursiveFilterIterator
     public function accept()
     {
         // a directory is always accepted
-        if (is_dir($this->getCurrent()))
+        if ($this->getCurrent()->isDir())
         {
-            return true;
+            $ext = explode("/", $this->getCurrent()->getPathname());
+            $l = count($ext);
+            return !in_array($ext[$l-1], $this->getDropDirFilter(), true);
         }
-        else if (is_file($this->getCurrent()))
+        else if ($this->getCurrent()->isFile())
         {
             return in_array($this->getFileExtension($this->getCurrent()->getFilename()), $this->getFileFilter(), true);
         }
@@ -47,4 +49,10 @@ abstract class AbstractFileFilter extends RecursiveFilterIterator
      * @return array string
      */
     abstract protected function getFileFilter();
+
+    /**
+     * @abstract
+     * @return array string
+     */
+    abstract protected function getDropDirFilter();
 }

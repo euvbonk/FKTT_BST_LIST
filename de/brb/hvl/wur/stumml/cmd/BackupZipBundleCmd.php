@@ -1,6 +1,7 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_Settings');
+import('de_brb_hvl_wur_stumml_io_File');
 
 final class BackupZipBundleCmd
 {
@@ -13,8 +14,8 @@ final class BackupZipBundleCmd
      */
     public function __construct()
     {
-        $this->oDir = Settings::uploadBaseDir();
-        $f = $this->oDir."/".self::$FILE_NAME;
+        $this->oDir = new File(Settings::uploadBaseDir());
+        $f = $this->oDir->getPathname()."/".self::$FILE_NAME;
         $this->oTargetFile = new File($f.strftime("%F-%H%M").".zip");
         return $this;
     }
@@ -26,15 +27,15 @@ final class BackupZipBundleCmd
     public function doCommand()
     {
         // Command immer ausführen!
-        if (!is_writable($this->oDir))
+        if (!$this->oDir->isWritable())
         {
-            $message = "Directory -".$this->oDir."- has no write ";
+            $message = "Directory -".$this->oDir->getPathname()."- has no write ";
             $message .= "permission for php script!";
             throw new Exception($message);
         }
 
         // Alle bisherigen Dateien löschen
-        $b = $this->oDir."/".self::$FILE_NAME."*.zip";
+        $b = $this->oDir->getPathname()."/".self::$FILE_NAME."*.zip";
         foreach (glob($b) as $file)
         {
             unlink($file);
@@ -42,19 +43,15 @@ final class BackupZipBundleCmd
 
         // parent full directory path of $dirToArchive, to generate the
         // local path in the archive
-        $baseDir = substr($this->oDir, 0, strrpos($this->oDir, "/"));
+        $baseDir = substr($this->oDir->getPathname(), 0, strrpos($this->oDir->getPathname(), "/"));
 
-        // follow also symbolic links
-        $iterator =
-                new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->oDir, FilesystemIterator::FOLLOW_SYMLINKS));
+        $iterator = $this->oDir->listFiles();
 
         $zip = new ZipArchive();
         $zip->open($this->oTargetFile->getPathname(), ZipArchive::CREATE);
         /** @var $node File */
         foreach ($iterator as $node)
         {
-            //$node = new File($key);
-            //if (is_file($node) && is_readable($node))
             if ($node->isFile() && $node->isReadable())
             {
                 $node_new = str_replace($baseDir."/", "", $node->getPathname());

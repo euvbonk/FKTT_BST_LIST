@@ -31,10 +31,10 @@ final class ZipBundleCmd
      */
     public function doCommand()
     {
-        $dirToArchive = Settings::uploadDir();
-        if (!is_writable($dirToArchive))
+        $dirToArchive = new File(Settings::uploadDir());
+        if (!$dirToArchive->isWritable())
         {
-            $message = "Directory -".$dirToArchive."- has no write ";
+            $message = "Directory -".$dirToArchive->getPathname()."- has no write ";
             $message .= "permission for php script!";
             throw new Exception($message);
         }
@@ -46,8 +46,8 @@ final class ZipBundleCmd
 
         $yellowPageCmd = new YellowPageCmd($this->oFileManager);
         // Zwei Transformer Commands
-        $transformNormal = new XmlHtmlTransformCmd(new File($dirToArchive."/bahnhof.xsl"));
-        $transformFpl = new XmlHtmlTransformCmd(new File($dirToArchive."/fpl.xsl"));
+        $transformNormal = new XmlHtmlTransformCmd(new File($dirToArchive->getPathname()."/bahnhof.xsl"));
+        $transformFpl = new XmlHtmlTransformCmd(new File($dirToArchive->getPathname()."/fpl.xsl"));
 
         foreach (FileManagerImpl::$EPOCHS as $epoch)
         {
@@ -63,8 +63,7 @@ final class ZipBundleCmd
         }
 
         $allFiles = array();
-        $iterator =
-                new RecursiveIteratorIterator(new ZipBundleFileFilter(new RecursiveDirectoryIterator($dirToArchive)));
+        $iterator = $dirToArchive->listFiles('ZipBundleFileFilter');
         // sammle jetzt alle Dateien, die fuer das Zip-Bundle in Frage kommen, in einem Array
         /** @var $file File */
         foreach ($iterator as $file)
@@ -77,12 +76,13 @@ final class ZipBundleCmd
         // Sortiere alle Dateien so, dass die zuletzt geaenderte Datei ganz am Anfang des Array steht!
         usort($allFiles, array("File", "compareLastModified"));
         // Testausgabe. Achtung $file ist vom Typ SplFileInfo Objekt!
+        /** @var $file SplFileInfo */
         /*foreach ($allFiles as $file)
         {
             echo $file->getPathname()." = > ".strftime("%a, %d. %b %Y %H:%M", $file->getMTime())."<br>";
         }*/
 
-        $this->oTargetFile = new File($dirToArchive."/".self::$FILE_NAME);
+        $this->oTargetFile = new File($dirToArchive->getPathname()."/".self::$FILE_NAME);
 
         // zunaechst muessen ueberhaupt Dateien zum Archivieren vorhanden sein
         // Dann soll auf jedenfall ein Archiv erstellt werden, wenn die Zieldatei noch gar nicht existiert oder eben

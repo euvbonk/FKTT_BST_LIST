@@ -3,7 +3,7 @@
 import('de_brb_hvl_wur_stumml_beans_datasheet_FileManager');
 import('de_brb_hvl_wur_stumml_Settings');
 import('de_brb_hvl_wur_stumml_io_File');
-import('de_brb_hvl_wur_stumml_util_BasicDirectory');
+import('de_brb_hvl_wur_stumml_util_XmlListingFileFilter');
 
 class FileManagerImpl implements FileManager
 {
@@ -16,7 +16,8 @@ class FileManagerImpl implements FileManager
     public function __construct()
     {
         // grab all datasheets for all epochs
-        $all = BasicDirectory::scanDirectories(Settings::uploadDir(), array("xml"));
+        $f = new File(Settings::uploadDir());
+        $all = $f->listFiles('XmlListingFileFilter');
         foreach (self::$EPOCHS as $epoch)
         {
             $this->allDatasheets[$epoch] = $this->getFilesFromEpoch($all, $epoch);
@@ -26,7 +27,7 @@ class FileManagerImpl implements FileManager
     }
 
     /**
-     * @param $epoch
+     * @param string $epoch
      * @return File|null
      */
     public function getLatestFileFromEpoch($epoch)
@@ -42,23 +43,23 @@ class FileManagerImpl implements FileManager
 	}
 
     /**
-     * @param array  $in
-     * @param string $epoch [optional]
+     * @param iterator $in
+     * @param string   $epoch [optional]
      * @return array
      */
     public function getFilesFromEpoch($in, $epoch = "IV")
     {
         $ret = array();
+        /** @var $fileUrl File */
         foreach ($in as $fileUrl)
         {
-            $fileUrl = new File($fileUrl);
-            //if ($this->endsWith("-".$epoch.".xml", $fileUrl) || ($epoch == "IV" && !$this->contains("-", $fileUrl)))
             if ($fileUrl->endsWith("-".$epoch.".xml") || ($epoch == "IV" && !$fileUrl->contains("-")))
             {
-                //$ret[basename($fileUrl,".xml")] = $fileUrl;
                 $ret[$fileUrl->getBasename(".xml")] = $fileUrl;
             }
         }
+        // iterator result is not ordered! Ordering by short means sort by key
+        ksort($ret);
         return $ret;
     }
 
@@ -76,7 +77,6 @@ class FileManagerImpl implements FileManager
         }
         else if ($order == "ORDER_LAST")
         {
-            //usort($test, array(__CLASS__, "compareTime"));
             usort($test, array("File", "compareLastModified"));
             return $test;
         }
