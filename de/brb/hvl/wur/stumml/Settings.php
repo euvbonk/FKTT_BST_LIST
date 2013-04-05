@@ -1,28 +1,25 @@
 <?php
 
+import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_util_QI');
 import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
 
 abstract class Settings
 {
-    private static $INSTANCE = null;
+    protected static $INSTANCE = null;
 
     /**
      * @static instance
      * @return Settings
      */
-    public static function getInstance()
+    protected static function getInstance()
     {
-        if (null === self::$INSTANCE)
-        {
-            self::$INSTANCE = new self;
-        }
         return self::$INSTANCE;
     }
 
     public function lastAddonChange()
     {
-        return '22. M&auml;rz 2013 19:00:00';
+        return '05. April 2013 20:00:00';
     }
 
     public final static function uploadBaseDir()
@@ -45,6 +42,7 @@ abstract class Settings
         return self::uploadBaseDir().'/db';
     }
 
+    // TODO auslagern in eigene FileSystemResolver- bzw. WebUtil-Klasse
     public final static function getHttpUriForFile($filePath)
     {
         $path = QI::getRelativeDataDir().'/'.$filePath;
@@ -62,6 +60,7 @@ abstract class Settings
      * @param bool $addLastChange [optional]
      * @return string
      */
+    // TODO auslagern in eigene FileSystemResolver- bzw. WebUtil-Klasse
     public final static function getDownloadLinkForFile($file, $label, $addLastChange = true)
     {
         $uri = self::getHttpUriForFile($file);
@@ -82,9 +81,18 @@ abstract class Settings
 
     /**
      * @abstract
+     * @return String
+     */
+    protected abstract function getTemplateFileName();
+
+    /**
+     * @abstract
      * @return File
      */
-    public abstract function getTemplateFile();
+    public final function getTemplateFile()
+    {
+        return new File(self::addonTemplateBaseDir()."/".self::getInstance()->getTemplateFileName());
+    }
 
     private function __construct(){}
     private function __clone(){}

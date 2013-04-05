@@ -64,17 +64,10 @@ final class BackupZipBundleCmd
     }
 
     /**
-     * @return string
+     * @return File
      */
-    public function getFileName()
+    public function getFile()
     {
-        if ($this->oTargetFile->exists())
-        {
-            return $this->oTargetFile->getPathname();
-        }
-        else
-        {
-            return "#";
-        }
+        return $this->oTargetFile;
     }
 }

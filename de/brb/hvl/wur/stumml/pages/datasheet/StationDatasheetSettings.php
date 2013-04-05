@@ -1,38 +1,38 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_Settings');
-import('de_brb_hvl_wur_stumml_cmd_CheckJNLPVersionCmd');
 import('de_brb_hvl_wur_stumml_io_File');
 
 class StationDatasheetSettings extends Settings
 {
-    private static $INSTANCE = null;
-
     /**
      * @static instance
-     * @return Settings
+     * @return Settings|StationDatasheetSettings
      */
     public static function getInstance()
     {
-        if (null === self::$INSTANCE)
+        if (null === parent::$INSTANCE)
         {
-            self::$INSTANCE = new self;
+            parent::$INSTANCE = new self;
         }
-        return self::$INSTANCE;
+        return parent::getInstance();
     }
 
+    /**
+     * @return String
+     */
     /*@Override*/
     public function lastAddonChange()
     {
-        return '22. M&auml;rz 2013 19:00:00';
+        return '05. April 2013 20:00:00';
     }
     
     /**
-     * @return File
+     * @return String
      */
-    public final function getTemplateFile()
+    protected function getTemplateFileName()
     {
-        return new File($this->addonTemplateBaseDir().'/datasheets_list.php');
+        return 'datasheets_list.php';
     }
     
     private function __construct(){}

@@ -5,19 +5,17 @@ import('de_brb_hvl_wur_stumml_io_File');
 
 class AdminPageSettings extends Settings
 {
-    private static $INSTANCE = null;
-
     /**
      * @static instance
-     * @return Settings
+     * @return Settings|AdminPageSettings
      */
     public static function getInstance()
     {
-        if (null === self::$INSTANCE)
+        if (null === parent::$INSTANCE)
         {
-            self::$INSTANCE = new self;
+            parent::$INSTANCE = new self;
         }
-        return self::$INSTANCE;
+        return parent::getInstance();
     }
 
     /**
@@ -26,16 +24,16 @@ class AdminPageSettings extends Settings
     /*@Override*/
     public function lastAddonChange()
     {
-        return '20. April 2012 14:00:00';
+        return '05. April 2013 20:00:00';
     }
 
     /**
-     * @return File
+     * @return String
      */
     //@Override
-    public final function getTemplateFile()
+    protected function getTemplateFileName()
     {
-        return new File($this->addonTemplateBaseDir().'/admin.php');
+        return 'admin.php';
     }
 
     private function __construct(){}

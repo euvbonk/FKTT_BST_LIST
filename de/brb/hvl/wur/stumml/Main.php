@@ -3,6 +3,7 @@
 import('de_brb_hvl_wur_stumml_pages_AddonErrorPage');
 import('de_brb_hvl_wur_stumml_util_QI');
 import('de_brb_hvl_wur_stumml_pages_datasheet_DatasheetsList');
+import('de_brb_hvl_wur_stumml_pages_datasheet_EditDatasheet');
 import('de_brb_hvl_wur_stumml_pages_datasheet_FplView');
 import('de_brb_hvl_wur_stumml_pages_develop_Develop');
 import('de_brb_hvl_wur_stumml_pages_goodsTraffic_GoodsTrafficBasics');
@@ -40,6 +41,9 @@ class Main
                     break;
                 case "fpl_view":
                     $sheet = new FplView(QI::getCommand());
+                    break;
+                case "edit_datasheet":
+                    $sheet = new EditDatasheet(QI::getCommand());
                     break;
                 default :
                     // Never reached by gpEasy!

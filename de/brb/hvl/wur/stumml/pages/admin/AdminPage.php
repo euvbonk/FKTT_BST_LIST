@@ -20,7 +20,7 @@ final class AdminPage extends Frame implements FrameForm
             case 'export' : $b = new BackupZipBundleCmd();
                             if ($b->doCommand())
                             {
-                                $c = new SendFileForDownloadCmd($b->getFileName());
+                                $c = new SendFileForDownloadCmd($b->getFile());
                                 $c->doCommand();
                                 exit;
                             }

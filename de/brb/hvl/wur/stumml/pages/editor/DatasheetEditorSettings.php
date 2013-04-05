@@ -6,19 +6,17 @@ import('de_brb_hvl_wur_stumml_io_File');
 
 class DatasheetEditorSettings extends Settings
 {
-    private static $INSTANCE = null;
-
     /**
      * @static instance
-     * @return Settings
+     * @return Settings|DatasheetEditorSettings
      */
     public static function getInstance()
     {
-        if (null === self::$INSTANCE)
+        if (null === parent::$INSTANCE)
         {
-            self::$INSTANCE = new self;
+            parent::$INSTANCE = new self;
         }
-        return self::$INSTANCE;
+        return parent::getInstance();
     }
 
     /**
@@ -27,18 +25,21 @@ class DatasheetEditorSettings extends Settings
     /*@Override*/
     public function lastAddonChange()
     {
-        return '11. M&auml;rz 2013 10:00:00';
+        return '05. April 2013 20:00:00';
     }
 
     /**
-     * @return File
+     * @return String
      */
     //@Override
-    public final function getTemplateFile()
+    protected function getTemplateFileName()
     {
-        return new File($this->addonTemplateBaseDir().'/datasheet_editor.php');
+        return 'datasheet_editor.php';
     }
 
+    /**
+     * @return String
+     */
     public final function getCertificateUrl()
     {
         return QI::getDataDir()."/rgzm/rgzm.cert";

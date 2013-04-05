@@ -1,3 +1,16 @@
+2013-04-05 euvbonk v0.8alpha
+    * Refaktorierung der EditDatasheet Klasse in separate Datei
+    * Dokumentation
+2013-04-04 euvbonk v0.8alpha
+    * Umgestaltung der Settings, einzige Instanz wird in Basisklasse gehalten
+      ebenso die File Generierung
+    * Dokumentation
+2013-04-03 euvbonk v0.8alpha
+    * Neue Klasse zum direkten Editieren von Datenblaettern, welche so aehnlich
+      aufgebaut ist wie der Fpl_View. Dabei wird on the fly die jnlp Datei von
+      Webstart derart geaendert, dass der Editor gleich mit der entsprechenden
+      Datei startet.
+      TODO: passende Integrierung in die Tabelle
 2013-03-30 euvbonk v0.8alpha
     * FileFilter angepasst und um weitere Klasse fuer das XML Listing ergaenzt
     * File-Klasse nun mit Methode listFiles die ein iterator zurueckgibt

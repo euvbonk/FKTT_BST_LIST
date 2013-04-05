@@ -1,72 +1,50 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_Settings');
-import('de_brb_hvl_wur_stumml_beans_datasheet_FileManagerImpl');
-import('de_brb_hvl_wur_stumml_pages_Frame');
+import('de_brb_hvl_wur_stumml_io_File');
+import('de_brb_hvl_wur_stumml_pages_datasheet_SingleDatasheetCommandPage');
 
-class FplView extends Frame
+class FplView extends SingleDatasheetCommandPage
 {
     private $content;
-    
+
+    /**
+     * @param String $station
+     * @throws Exception
+     * @return FplView
+     */
     public function __construct($station)
     {
-        parent::__construct();
-
-        if ($station == "")
-        {
-            throw new InvalidArgumentException("Kein Kommando angegeben oder Kommando fehlerhaft!");
-        }
-        else
-        {
-            $values = explode("-", $station);
-            $short = $values[0];
-            if (sizeof($values) > 1)
-            {
-                $epoch = $values[1];
-            }
-            else
-            {
-                $epoch = "IV";
-            }
-
-            $fm = new FileManagerImpl();
-            $allFiles = $fm->getFilesFromEpochWithOrder($epoch);
-            //print "<pre>".print_r($allFiles, true)."</pre>";
-
-            if (!array_key_exists($station, $allFiles))
-            {
-                throw new Exception("Angegebenes Datenblatt existiert nicht!");
-            }
-            else
-            {
-                /** @var $xmlFile File */
-                $xmlFile = $allFiles[$station];
-                $this->content = @file_get_contents(str_replace(".xml", "_fpl.html", $xmlFile->getPathname()));
-                if ($this->content === false)
-                {
-                    throw new Exception("&Ouml;ffnen der Datei fehlgeschlagen oder Datei existiert nicht!");
-                }
-                // Pfade fuer css und img anpassen!
-                $basePath = dirname(Settings::getHttpUriForFile($xmlFile->getPathname()));
-                $this->content = str_replace("bahnhof.css", $basePath."/bahnhof.css", $this->content);
-                $this->content = str_replace("img src=\"".$short, "img src=\"".$basePath."/".$short, $this->content);
-                $this->showContent();
-            }
-        }
+        parent::__construct($station);
         return $this;
     }
-    
+
+    /**
+     * @abstract
+     * @param File   $file
+     * @param String $short
+     * @return void
+     * @throws Exception
+     */
+    //@Override
+    protected function doIt(File $file, $short)
+    {
+        $this->content = @file_get_contents(str_replace(".xml", "_fpl.html", $file->getPathname()));
+        if ($this->content === false)
+        {
+            throw new Exception("&Ouml;ffnen der Datei fehlgeschlagen oder Datei existiert nicht!");
+        }
+        // Pfade fuer css und img anpassen!
+        $basePath = dirname(Settings::getHttpUriForFile($file->getPathname()));
+        $this->content = str_replace("bahnhof.css", $basePath."/bahnhof.css", $this->content);
+        $this->content = str_replace("img src=\"".$short, "img src=\"".$basePath."/".$short, $this->content);
+        $this->showContent();
+    }
+
     //@Override
     public function showContent()
     {
         print $this->content;
         exit;
-    }
-
-    //@Override
-    public function getLastChangeTimestamp()
-    {
-        // never used and reached!
-        return "";
     }
 }

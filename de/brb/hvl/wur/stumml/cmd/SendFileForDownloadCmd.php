@@ -8,20 +8,33 @@ final class SendFileForDownloadCmd
     /**
      * @param string $file
      * @param string $fileName [optional]
+     * @throws InvalidArgumentException
      * @return SendFileForDownloadCmd
      */
     public function __construct($file, $fileName = 'foo.csv')
     {
         $this->oFile = $file;
-        if (is_file($this->oFile))
+        if ($this->getFile() instanceof File)
         {
-            $this->oFileName = basename($file);
+            $this->oFileName = $this->getFile()->getBasename();
         }
-        else
+        elseif (is_string($this->getFile()))
         {
             $this->oFileName = $fileName;
         }
+        else
+        {
+            throw new InvalidArgumentException("Argument \"file\" must be either a File-Object or a String!");
+        }
         return $this;
+    }
+
+    /**
+     * @return string|File
+     */
+    protected function getFile()
+    {
+        return $this->oFile;
     }
 
     /**
