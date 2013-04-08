@@ -19,6 +19,7 @@ class Main
         try
         {
             setlocale(LC_TIME, "de_DE.utf8");
+            date_default_timezone_set("Europe/Berlin");
             switch (strtolower(QI::getPageName()))
             {
                 case "datasheets_list" :

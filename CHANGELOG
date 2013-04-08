@@ -1,3 +1,6 @@
+2013-04-08 euvbonk v0.8alpha
+    * Zeitangaben beziehen sich nun direkt auf "Europe/Berlin"; damit stimmen
+      dann auch die Zeitstempel
 2013-04-05 euvbonk v0.8alpha
     * Refaktorierung der EditDatasheet Klasse in separate Datei
     * Dokumentation
