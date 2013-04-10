@@ -84,8 +84,10 @@ class DatasheetListRowEntriesImpl extends AbstractListRowEntriesImpl implements 
     {
         return array((($this->getIndex() > 9) ? $this->getIndex() : "0".$this->getIndex()).".",
             $this->getNameWithReference(), $this->getShortWithReference(), HtmlUtil::toUtf8($this->getType()),
-            $this->getLastChange(), HtmlUtil::toUtf8(QI::buildAbsoluteLink("Fpl_View", $this->getShort(),
-                    "cmd=".str_replace(".xml", "", basename($this->getSheetUrl())))));
+            $this->getLastChange(), $this->buildCommandLink("Fpl_View", $this->getShort(), $this->getSheetUrl()),
+            $this->buildCommandLink("Edit_Datasheet",
+                "<img src=\"http://www.java.com/js/webstart.png\"  alt=\"Java WS Launch Button\"/>",
+                $this->getSheetUrl()));
     }
 
     /**
@@ -94,6 +96,12 @@ class DatasheetListRowEntriesImpl extends AbstractListRowEntriesImpl implements 
     public function getCellsStyle()
     {
         return array("style=\"text-align:center;\"", "", "style=\"text-align:center;\"", "style=\"text-align:center;\"",
-            "", "style=\"text-align:center;\"");
+            "", "style=\"text-align:center;\"", "style=\"text-align:center;\"");
+    }
+
+    protected function buildCommandLink($pageName, $label, $url)
+    {
+        return HtmlUtil::toUtf8(QI::buildAbsoluteLink($pageName, $label,
+                "cmd=".str_replace(".xml", "", basename($url))));
     }
 }

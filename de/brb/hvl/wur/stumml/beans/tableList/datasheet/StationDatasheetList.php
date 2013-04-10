@@ -10,8 +10,8 @@ class StationDatasheetList
 {
     private $tableEntries;
     private static $HEAD_ENTRIES = array("Lfd. Nr.", "Betriebsstellenname", "K&uuml;rzel", "Kategorie",
-        "Letzte &Auml;nderung", "Spezial Ansicht");
-    private $headOrder = array("", "", "", "", "", "");
+        "Letzte &Auml;nderung", "Spezial Ansicht", "Bearbeiten");
+    private $headOrder = array("", "", "", "", "", "", "");
 
     /**
      * @param array  $fileList
