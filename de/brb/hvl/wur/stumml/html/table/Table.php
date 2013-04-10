@@ -27,11 +27,13 @@ class Table implements Html
      */
     public function getHtml()
     {
-        $ret = "<table>\n";
+        //$ret = "<table>\n";
+        $ret = "<table>";
         /** @var $row Html */
         foreach ($this->rows as $row)
         {
-            $ret .= "   ".$row->getHtml();
+            //$ret .= "   ".$row->getHtml();
+            $ret .= $row->getHtml();
         }
         $ret .= "</table>";
         return $ret;

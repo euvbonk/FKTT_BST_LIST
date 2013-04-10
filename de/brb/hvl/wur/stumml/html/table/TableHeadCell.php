@@ -29,11 +29,13 @@ class TableHeadCell implements Html
     {
         if ($this->attribute != "")
         {
-            return "<th ".$this->attribute.">".$this->content."</th>\n";
+            //return "<th ".$this->attribute.">".$this->content."</th>\n";
+            return "<th ".$this->attribute.">".$this->content."</th>";
         }
         else
         {
-            return "<th>".$this->content."</th>\n";
+            //return "<th>".$this->content."</th>\n";
+            return "<th>".$this->content."</th>";
         }
     }
 }

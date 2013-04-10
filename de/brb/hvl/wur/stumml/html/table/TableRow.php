@@ -37,13 +37,16 @@ class TableRow implements Html
      */
     public function getHtml()
     {
-        $ret = "<tr".((strlen($this->attribute)>0) ? " ".$this->attribute : "").">\n";
+        //$ret = "<tr".((strlen($this->attribute)>0) ? " ".$this->attribute : "").">\n";
+        $ret = "<tr".((strlen($this->attribute)>0) ? " ".$this->attribute : "").">";
         /** @var $cell Html */
         foreach ($this->cells as $cell)
         {
-            $ret .= "   ".$cell->getHtml();
+            //$ret .= "   ".$cell->getHtml();
+            $ret .= $cell->getHtml();
         }
-        $ret .= "</tr>\n";
+        //$ret .= "</tr>\n";
+        $ret .= "</tr>";
         return $ret;
     }
 }

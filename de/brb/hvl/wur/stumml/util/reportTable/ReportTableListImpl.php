@@ -81,7 +81,8 @@ class ReportTableListImpl implements ReportTableList, Html
      */
     protected function buildRows($struct, ListRow $rows = null, $rowColor, $cellForm = "TableCell")
     {
-        $str = "<".$struct.">\n";
+        //$str = "<".$struct.">\n";
+        $str = "<".$struct.">";
         if ($rows != null)
         {
         foreach ($rows as $ind => $row)
@@ -122,7 +123,8 @@ class ReportTableListImpl implements ReportTableList, Html
             }
             $str .= $trow->getHtml();
         }}
-        $str .= "</".$struct.">\n";
+        //$str .= "</".$struct.">\n";
+        $str .= "</".$struct.">";
         return $str;
     }
 
@@ -135,7 +137,8 @@ class ReportTableListImpl implements ReportTableList, Html
         $str .= ($this->cHeader != null) ? $this->getTableHead() : "";
         $str .= ($this->cEntries != null) ? $this->getTableBody() : "";
         $str .= ($this->cFooter != null) ? $this->getTableFoot() : "";
-        return (strlen($str) > 0) ? "<table cellspacing=\"1\">\n".$str."</table>\n" : "Nothing to display!";
+        //return (strlen($str) > 0) ? "<table cellspacing=\"1\">\n".$str."</table>\n" : "Nothing to display!";
+        return (strlen($str) > 0) ? "<table cellspacing=\"1\">".$str."</table>" : "Nothing to display!";
     }
 
     /**

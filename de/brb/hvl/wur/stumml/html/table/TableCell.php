@@ -29,11 +29,13 @@ class TableCell implements Html
     {
         if ($this->attribute != "")
         {
-            return "<td ".$this->attribute.">".$this->content."</td>\n";
+            //return "<td ".$this->attribute.">".$this->content."</td>\n";
+            return "<td ".$this->attribute.">".$this->content."</td>";
         }
         else
         {
-            return "<td>".$this->content."</td>\n";
+            //return "<td>".$this->content."</td>\n";
+            return "<td>".$this->content."</td>";
         }
     }
 }
