@@ -28,7 +28,7 @@ class ModuleListSettings extends Settings
     }
 
     /**
-     * @return File
+     * @return String
      */
     protected function getTemplateFileName()
     {

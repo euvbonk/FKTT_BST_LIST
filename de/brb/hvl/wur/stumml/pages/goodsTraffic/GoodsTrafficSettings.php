@@ -28,7 +28,7 @@ class GoodsTrafficSettings extends Settings
     }
 
     /**
-     * @return File
+     * @return String
      */
     //@Override
     protected function getTemplateFileName()
