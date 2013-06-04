@@ -52,13 +52,12 @@ final class XmlHtmlTransformCmd
             {
                 $htmlFile->delete();
             }
-
             $xmlDOMDocument = new DOMDocument();
             $xmlDOMDocument->load($xmlFile->getPathname());
 
-            $this->oXSLTProcessor->transformToURI($xmlDOMDocument, 'file://'.$htmlFile->getPathname());
+            @$this->oXSLTProcessor->transformToURI($xmlDOMDocument, 'file://'.$htmlFile->getPathname());
 
-            $htmlFile->changeFileRights(0666);
+            @$htmlFile->changeFileRights(0666);
             return true;
         }
         return false;
