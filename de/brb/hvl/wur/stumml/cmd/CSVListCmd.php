@@ -20,7 +20,7 @@ final class CSVListCmd
     public function __construct(FileManager $fm)
     {
         $this->oFileManager = $fm;
-        $this->oTargetFile = new File(Settings::uploadDir()."/".self::$FILE_NAME);
+        $this->oTargetFile = new File("db/".self::$FILE_NAME);
         return $this;
     }
 

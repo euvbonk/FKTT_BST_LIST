@@ -23,19 +23,21 @@ class CheckJNLPVersionCmd
         self::$log = new StdoutLogger(get_class($this));
         self::$JNLP_FILE_NAME = $jnlpFileName.".jnlp";
         self::$JNLP_HTTP_URI = Settings::getHttpUriForFile('rgzm/'.self::$JNLP_FILE_NAME);
-        self::$JNLP_FILE_URI = Settings::uploadBaseDir()."/rgzm/".self::$JNLP_FILE_NAME;
+        self::$JNLP_FILE_URI = new File("rgzm/".self::$JNLP_FILE_NAME);
 
         // einlesen der gewuenschten Versionen
-        $allVersions = glob(Settings::uploadBaseDir()."/rgzm/versions/rgzm_*.jar");
-        self::$log->debug("<pre>".print_r($allVersions, true)."</pre>");
-        if (!empty($allVersions))
+        $allVersions = new GlobIterator(self::$JNLP_FILE_URI->getPath()."/versions/rgzm_*.jar");
+        self::$log->debug($allVersions->count());
+        if ($allVersions->count() > 0)
         {
-            self::$LATEST_JAR = $allVersions[count($allVersions)-1];
+            $allVersions->seek($allVersions->count()-1);
+            self::$LATEST_JAR = $allVersions->getBasename();
         }
         else
         {
             self::$LATEST_JAR = "";
         }
+        self::$log->debug(self::$LATEST_JAR);
         return $this;
     }
 
@@ -44,23 +46,23 @@ class CheckJNLPVersionCmd
      */
     public function doCommand()
     {
-        self::$log->debug("Current file: ".self::$JNLP_FILE_URI);
-        if (!file_exists(self::$JNLP_FILE_URI))
+        self::$log->debug("Current file: ".self::$JNLP_FILE_URI->getPathname());
+        if (!self::$JNLP_FILE_URI->exists())
         {
             return false;
         }
         /** @var $xml SimpleXMLElement */
-        $xml = simplexml_load_file(self::$JNLP_FILE_URI);
+        $xml = simplexml_load_file(self::$JNLP_FILE_URI->getPathname());
         //self::$log->debug("<pre>".print_r($xml, true)."</pre>");
         //$result = $xml->xpath("/jnlp/resources/jar[starts-with(@href,'versions/rgzm') or starts-with(@href,'v*/rgzm')]");
         //self::$log->debug("<pre>".print_r($result, true)."</pre>");
         $jarLink = $xml->resources->jar[0]['href'];
         self::$log->debug($jarLink);
         $hasChanges = false;
-        if (basename($jarLink) != basename(self::$LATEST_JAR))
+        if (basename($jarLink) != self::$LATEST_JAR)
         {
             self::$log->debug("Erneuere Jar-Link...");
-            $xml->resources->jar[0]['href'] = "versions/".basename(self::$LATEST_JAR);
+            $xml->resources->jar[0]['href'] = "versions/".self::$LATEST_JAR;
             $hasChanges = true;
         }
         // check codebase and href for jnlp
@@ -76,9 +78,9 @@ class CheckJNLPVersionCmd
             self::$log->debug("Aenderungen in Datei sichern!");
             self::$log->debug($xml->asXML());
             // Dieses neue XML muss jetzt in die Datei zurueckgeschrieben werden!
-            @file_put_contents(self::$JNLP_FILE_URI, $xml->asXML());
+            @file_put_contents(self::$JNLP_FILE_URI->getPathname(), $xml->asXML());
         }
-        return true;//self::$JNLP_FILE_URI; //$JNLP_HTTP_URI;
+        return true;
     }
 
     /**
@@ -102,7 +104,7 @@ class CheckJNLPVersionCmd
         }
         else
         {
-            return Settings::getDownloadLinkForFile(self::$JNLP_FILE_URI, "<img src=\"".self::$WS_IMAGE_URL.
+            return Settings::getDownloadLinkForFile(self::$JNLP_FILE_URI->getPathname(), "<img src=\"".self::$WS_IMAGE_URL.
                     "\"  style=\"position:relative;top:5px;\" alt=\"Java WS Launch Button\"/>", false);
         }
     }

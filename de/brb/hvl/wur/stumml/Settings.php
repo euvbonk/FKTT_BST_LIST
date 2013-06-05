@@ -19,9 +19,13 @@ abstract class Settings
 
     public function lastAddonChange()
     {
-        return '05. April 2013 20:00:00';
+        return '05. Juni 2013 20:00:00';
     }
 
+    /**
+     * @deprecated
+     * @return string
+     */
     public final static function uploadBaseDir()
     {
         return QI::getDataDir();
@@ -37,6 +41,10 @@ abstract class Settings
         return self::addonBaseDir().'/templates';
     }
 
+    /**
+     * @deprecated
+     * @return string
+     */
     public final static function uploadDir()
     {
         return self::uploadBaseDir().'/db';

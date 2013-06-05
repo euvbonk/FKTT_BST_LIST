@@ -2,7 +2,6 @@
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_FileManagerImpl');
 
-import('de_brb_hvl_wur_stumml_Settings');
 //import('de_brb_hvl_wur_stumml_cmd_CSVListCmd');
 import('de_brb_hvl_wur_stumml_cmd_XmlHtmlTransformCmd');
 import('de_brb_hvl_wur_stumml_cmd_YellowPageCmd');
@@ -31,7 +30,7 @@ final class ZipBundleCmd
      */
     public function doCommand()
     {
-        $dirToArchive = new File(Settings::uploadDir());
+        $dirToArchive = new File("db");
         if (!$dirToArchive->isWritable())
         {
             $message = "Directory -".$dirToArchive->getPathname()."- has no write ";
@@ -55,6 +54,7 @@ final class ZipBundleCmd
             $yellowPageCmd->doCommand($epoch);
             // pruefe jetzt fuer alle Datenblaetter, ob die entsprechenden HTML Dateien aktuell sind und aktualisiere
             // sie falls notwendig.
+            /** @var $file File */
             foreach ($this->oFileManager->getFilesFromEpochWithOrder($epoch) as $file)
             {
                 $transformNormal->doCommand($file);
@@ -82,7 +82,7 @@ final class ZipBundleCmd
             echo $file->getPathname()." = > ".strftime("%a, %d. %b %Y %H:%M", $file->getMTime())."<br>";
         }*/
 
-        $this->oTargetFile = new File($dirToArchive->getPathname()."/".self::$FILE_NAME);
+        $this->oTargetFile = new File("db/".self::$FILE_NAME);
 
         // zunaechst muessen ueberhaupt Dateien zum Archivieren vorhanden sein
         // Dann soll auf jedenfall ein Archiv erstellt werden, wenn die Zieldatei noch gar nicht existiert oder eben
@@ -98,7 +98,7 @@ final class ZipBundleCmd
 
             // parent full directory path of $dirToArchive, to generate the
             // local path in the archive
-            $baseDir = Settings::uploadBaseDir();
+            $baseDir = new File();//Settings::uploadBaseDir();
 
             $zip = new ZipArchive();
             $zip->open($this->getFile()->getPathname(), ZipArchive::CREATE);
@@ -107,7 +107,7 @@ final class ZipBundleCmd
             {
                 if ($node->isFile() && $node->isReadable())
                 {
-                    $zip->addFile($node->getPathname(), str_replace($baseDir."/", "", $node->getPathname()));
+                    $zip->addFile($node->getPathname(), str_replace($baseDir->getPathname()."/", "", $node->getPathname()));
                 }
             }
             // TODO: Update bstlist.html bzw. index.html which shows

@@ -84,6 +84,6 @@ final class YellowPageCmd
      */
     protected function renameFile($epoch)
     {
-        $this->oTargetFile = new File(Settings::uploadDir()."/".self::$FILE_NAMES[$epoch]);
+        $this->oTargetFile = new File("db/".self::$FILE_NAMES[$epoch]);
     }
 }

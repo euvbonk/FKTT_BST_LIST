@@ -16,23 +16,23 @@ function Install_Check()
 		return false;
 	}*/
 
-    import('de_brb_hvl_wur_stumml_Settings');
-    $dir = Settings::uploadBaseDir(); /*getInstance()->*/
-    if (is_link($dir))
+    import('de_brb_hvl_wur_stumml_io_File');
+    $dir = new File();
+    if ($dir->isLink()) // Sollte wenn moeglich vermieden werden!
     {
-        $dir = realpath($dir);
+        $dir = new File(realpath($dir->getPathname()));
     }
-    if (!gpFiles::CheckDir($dir)) // !!!Funktion legt bei nicht vorhanden sein des Ordners diesen an!!!
+    if (!gpFiles::CheckDir($dir->getPathname())) // !!!Funktion legt bei nicht vorhanden sein des Ordners diesen an!!!
     {
         echo '<p style="color:red">Addon kann nicht installiert werden, '.
-             'der Ordner "'.substr($dir, strrpos($dir, '/')+1).'" existiert '.
-             'nicht muss aber zwingend vorhanden sein!</p>';
+             'der Ordner "'.$dir->getName().'" existiert '.
+             'nicht, muss aber zwingend vorhanden sein!</p>';
         return false;
     }
-    if (!is_writable($dir))
+    if (!$dir->isWritable()) // Bedingung kann aufgrund vorhergehendem if nicht erreicht werden
     {
         echo '<p style="color:red">Addon kann nicht installiert werden, '.
-             'der Ordner "'.substr($dir, strrpos($dir, '/')+1).'" besitzt '.
+             'der Ordner "'.$dir->getName().'" besitzt '.
              'keine Schreibrechte, die aber zwingend vorhanden sein m&uuml;ssen!</p>';
         return false;
     }

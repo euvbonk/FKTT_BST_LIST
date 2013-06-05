@@ -7,7 +7,7 @@ import('de_brb_hvl_wur_stumml_pages_datasheet_SingleDatasheetCommandPage');
 
 class EditDatasheet extends SingleDatasheetCommandPage
 {
-    private static $JNLP_FILE_NAME = "editor.jnlp";
+    private static $JNLP_FILE = null;
 
     /**
      * @param String $station
@@ -30,8 +30,9 @@ class EditDatasheet extends SingleDatasheetCommandPage
     //@Override
     protected function doIt(File $file, $short)
     {
+        self::$JNLP_FILE = new File("rgzm/editor.jnlp");
         /** @var $xml SimpleXMLElement */
-        $xml = simplexml_load_file(Settings::uploadBaseDir()."/rgzm/".self::$JNLP_FILE_NAME);
+        $xml = simplexml_load_file(self::$JNLP_FILE->getPathname());
         $foo = $xml->xpath("/jnlp/application-desc");
         /** @var $foo SimpleXMLElement */
         $foo = $foo[0];

@@ -16,7 +16,7 @@ class FileManagerImpl implements FileManager
     public function __construct()
     {
         // grab all datasheets for all epochs
-        $f = new File(Settings::uploadDir());
+        $f = new File('db');
         $all = $f->listFiles('XmlListingFileFilter');
         foreach (self::$EPOCHS as $epoch)
         {

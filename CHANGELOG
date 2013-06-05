@@ -1,3 +1,14 @@
+2013-06-05 euvbonk v0.8alpha
+    * Seite fuer gesamte Datensicherung umgestellt: Erstelltes Archiv wird als Download Link bereit gestellt und nicht
+      mehr an den Browser gesandt.
+    * Weitere Abhaengigkeiten zu den Settings beseitigt.
+    * Klasse File muss spaeter alle Pfade selbst aufloesen.
+    * Code cleanup und Dokumentation
+    * Weitere Verringerung von Abhaengigkeiten der Settings-Klasse
+2013-06-04 euvbonk v0.8alpha
+    * Inkonsistenz durch ungenuegenden Dateipfad in Klasse File beseitigt sowie Dokumentation und Code cleanup.
+      Immer noch durchzufuehren: Interne Dateipfad Aufloesung.
+    * Unterdrueckung der Fehlermeldungen bei Umwandlung aufgrund des Softlinks auf dem lokalen System.
 2013-04-09 euvbonk v0.8alpha
     * Neue Spalte in Listenansicht, um Datenblaetter direkt im Editor zu
       oeffnen
