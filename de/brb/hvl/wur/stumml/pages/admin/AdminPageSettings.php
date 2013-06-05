@@ -24,7 +24,7 @@ class AdminPageSettings extends Settings
     /*@Override*/
     public function lastAddonChange()
     {
-        return '05. April 2013 20:00:00';
+        return '05. Mai 2013 20:00:00';
     }
 
     /**

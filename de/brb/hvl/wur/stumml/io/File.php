@@ -6,9 +6,13 @@ class File extends SplFileInfo
      * @param string $filePath
      * @return File
      */
-    public function __construct($filePath)
+    public function __construct($filePath = null)
     {
-        if (!file_exists($filePath) && (!is_dir($filePath) || is_file($filePath)))
+        if ($filePath == null)
+        {
+            $filePath = QI::getDataDir();
+        }
+        else if (!file_exists($filePath) && (!is_dir($filePath) || is_file($filePath)))
         {
             $filePath = QI::getDataDir()."/".$filePath;
         }

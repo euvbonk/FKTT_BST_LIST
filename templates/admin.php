@@ -1,9 +1,12 @@
 
       <h3>Addon Daten Verzeichnis als Zip sichern:</h3>
       <p>
+        Folgende Archive sind vorhanden und werden
+        <span style="text-decoration:underline;font-weight:bold;font-style: italic;">vor der Sicherung entfernt!</span>:
+        <ul><?php echo $this->getZipList(); ?></ul>
         <form action="<?php echo $this->getFormActionUri(); ?>" method="post">
             <input type="hidden" name="cmd" value="export" />
-            <input type="submit" value="Export starten" />
+            <input type="submit" value="Sicherung starten" />
         </form>
       </p>
       <hr />

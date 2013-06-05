@@ -1,6 +1,5 @@
 <?php
 
-import('de_brb_hvl_wur_stumml_Settings');
 import('de_brb_hvl_wur_stumml_io_File');
 
 final class BackupZipBundleCmd
@@ -14,9 +13,8 @@ final class BackupZipBundleCmd
      */
     public function __construct()
     {
-        $this->oDir = new File(Settings::uploadBaseDir());
-        $f = $this->oDir->getPathname()."/".self::$FILE_NAME;
-        $this->oTargetFile = new File($f.strftime("%F-%H%M").".zip");
+        $this->oDir = new File();
+        $this->oTargetFile = new File(self::$FILE_NAME.strftime("%F-%H%M").".zip");
         return $this;
     }
 
