@@ -3,6 +3,18 @@ defined('is_running') or die('Not an entry point...');
 
 if (version_compare(PHP_VERSION, '5.2.0', '<')) die('Addon requires at least PHP Version 5.2.0+');
 
+// extend allowed upload file extensions used in this plugin
+if (version_compare($GLOBALS['gpversion'], '3.6', '>=') && defined('gp_restrict_uploads'))
+{
+    define('gp_restrict_uploads', true);
+}
+global $upload_extensions_allow;
+$upload_extensions_allow = array_merge($upload_extensions_allow, array('jar','jnlp','dtd','css','xsl'));
+if (version_compare($GLOBALS['gpversion'], '3.6', '>=') && defined('gp_restrict_uploads'))
+{
+    define('gp_restrict_uploads', false);
+}
+
 /* Datei definiert die 'import' Funktion, die notwendig ist für das
  * gesamte Addon, da mittels dieser Funktion alle notwendigen Klassen
  * importiert werden, um aufgerufen werden zu können.

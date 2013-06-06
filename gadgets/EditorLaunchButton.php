@@ -8,10 +8,6 @@ class EditorLaunchButton
 {
     public function __construct()
     {
-        // TODO: Put this somewhere else!
-        // extend allowed upload file extensions used in this plugin
-        $GLOBALS['upload_extensions_allow'] = array_merge($GLOBALS['upload_extensions_allow'], array('jar','jnlp','dtd','css','xsl'));
-
         // check and repair jnlp file if necessary
         $cmd = new CheckJNLPVersionCmd("editor");
         if ($cmd->doCommand())
