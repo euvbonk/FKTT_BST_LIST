@@ -21,15 +21,6 @@ class AdminPageSettings extends Settings
     /**
      * @return String
      */
-    /*@Override*/
-    public function lastAddonChange()
-    {
-        return '05. Mai 2013 20:00:00';
-    }
-
-    /**
-     * @return String
-     */
     //@Override
     protected function getTemplateFileName()
     {

@@ -21,15 +21,6 @@ class StationDatasheetSettings extends Settings
     /**
      * @return String
      */
-    /*@Override*/
-    public function lastAddonChange()
-    {
-        return '05. April 2013 20:00:00';
-    }
-    
-    /**
-     * @return String
-     */
     protected function getTemplateFileName()
     {
         return 'datasheets_list.php';

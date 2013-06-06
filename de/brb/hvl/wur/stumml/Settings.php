@@ -17,9 +17,12 @@ abstract class Settings
         return self::$INSTANCE;
     }
 
-    public function lastAddonChange()
+    /**
+     * @return String
+     */
+    public final function lastAddonChange()
     {
-        return '05. Juni 2013 20:00:00';
+        return '06. Juni 2013 20:00:00';
     }
 
     // TODO auslagern in eigene FileSystemResolver- bzw. WebUtil-Klasse

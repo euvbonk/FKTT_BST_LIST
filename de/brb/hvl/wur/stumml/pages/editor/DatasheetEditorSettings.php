@@ -22,15 +22,6 @@ class DatasheetEditorSettings extends Settings
     /**
      * @return String
      */
-    /*@Override*/
-    public function lastAddonChange()
-    {
-        return '05. April 2013 20:00:00';
-    }
-
-    /**
-     * @return String
-     */
     //@Override
     protected function getTemplateFileName()
     {
@@ -42,6 +33,7 @@ class DatasheetEditorSettings extends Settings
      */
     public final function getCertificateUrl()
     {
+        // TODO resolve this by File to Url
         return QI::getDataDir()."/rgzm/rgzm.cert";
     }
 
