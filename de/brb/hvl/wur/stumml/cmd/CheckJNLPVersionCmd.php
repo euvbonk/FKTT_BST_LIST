@@ -24,6 +24,10 @@ class CheckJNLPVersionCmd
         self::$JNLP_FILE_NAME = $jnlpFileName.".jnlp";
         self::$JNLP_HTTP_URI = Settings::getHttpUriForFile('rgzm/'.self::$JNLP_FILE_NAME);
         self::$JNLP_FILE_URI = new File("rgzm/".self::$JNLP_FILE_NAME);
+        if (!self::$JNLP_FILE_URI->exists())
+        {
+            return $this;
+        }
 
         // einlesen der gewuenschten Versionen
         $allVersions = new GlobIterator(self::$JNLP_FILE_URI->getPath()."/versions/rgzm_*.jar");

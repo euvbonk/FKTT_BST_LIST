@@ -3,6 +3,8 @@
     * Alle anderen Dateien sind dementsprechend dem Datenverzeichnis zugeordnet, was sich dann auch in der noch zu
       implementierenden Dateiaufloesungs-Klasse widerspiegelt
     * Es gibt nur noch ein Datum, dass die letzten Aenderungen mitteilt.
+    * Dateihochladebeschraenkung ins import Skript verschoben
+    * Bugfix in CheckJNLPVersionCmd: Pruefung ob Datei existiert.
 2013-06-05 euvbonk v0.8alpha
     * Seite fuer gesamte Datensicherung umgestellt: Erstelltes Archiv wird als Download Link bereit gestellt und nicht
       mehr an den Browser gesandt.
