@@ -7,6 +7,7 @@ import('de_brb_hvl_wur_stumml_Settings');
 import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageSpreadsheetGenerator');
 import('de_brb_hvl_wur_stumml_beans_yellowPage_FkttYellowPage');
 import('de_brb_hvl_wur_stumml_io_File');
+import('de_brb_hvl_wur_stumml_io_TemplateFile');
 
 final class YellowPageCmd
 {
@@ -23,7 +24,7 @@ final class YellowPageCmd
     public function __construct(FileManager $fm)
     {
         $this->oFileManager = $fm;
-        $this->oTemplateFile = new File(Settings::addonTemplateBaseDir()."/yellow-page.ots");
+        $this->oTemplateFile = new TemplateFile("yellow-page.ots");
         $this->renameFile("IV");
         return $this;
     }

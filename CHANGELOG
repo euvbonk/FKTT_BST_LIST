@@ -1,3 +1,7 @@
+2013-06-06 euvbonk v0.8alpha
+    * Dateien aus dem Addon Vorlageverzeichnis werden ueber spezielle Klasse geladen
+    * Alle anderen Dateien sind dementsprechend dem Datenverzeichnis zugeordnet, was sich dann auch in der noch zu
+      implementierenden Dateiaufloesungs-Klasse widerspiegelt
 2013-06-05 euvbonk v0.8alpha
     * Seite fuer gesamte Datensicherung umgestellt: Erstelltes Archiv wird als Download Link bereit gestellt und nicht
       mehr an den Browser gesandt.

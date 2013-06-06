@@ -1,6 +1,6 @@
 <?php
 
-import('de_brb_hvl_wur_stumml_io_File');
+import('de_brb_hvl_wur_stumml_io_TemplateFile');
 import('de_brb_hvl_wur_stumml_util_QI');
 import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
 
@@ -20,34 +20,6 @@ abstract class Settings
     public function lastAddonChange()
     {
         return '05. Juni 2013 20:00:00';
-    }
-
-    /**
-     * @deprecated
-     * @return string
-     */
-    public final static function uploadBaseDir()
-    {
-        return QI::getDataDir();
-    }
-    
-    public final static function addonBaseDir()
-    {
-        return QI::getAddonPathCode();
-    }
-    
-    public final static function addonTemplateBaseDir()
-    {
-        return self::addonBaseDir().'/templates';
-    }
-
-    /**
-     * @deprecated
-     * @return string
-     */
-    public final static function uploadDir()
-    {
-        return self::uploadBaseDir().'/db';
     }
 
     // TODO auslagern in eigene FileSystemResolver- bzw. WebUtil-Klasse
@@ -99,7 +71,7 @@ abstract class Settings
      */
     public final function getTemplateFile()
     {
-        return new File(self::addonTemplateBaseDir()."/".self::getInstance()->getTemplateFileName());
+        return new TemplateFile(self::getInstance()->getTemplateFileName());
     }
 
     private function __construct(){}
