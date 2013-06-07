@@ -1,3 +1,9 @@
+2013-06-07 euvbonk v0.8alpha
+    * Dokumentation und Pruefung der Vergleichsfunktion zur Sortierung der Eintraege
+    * Mindestens PHP 5.3 fuer Addon erforderlich
+    * Workaround fuer GlobIterator: Pruefung mittels glob Funktion und falls keine Dateien gefunden werden den
+                                    GlobIterator nicht aufrufen
+    * Bugfix: Funktion listFiles in Klasse File: benoetigt einen validen sprich existenten Pfad im Dateisystem
 2013-06-06 euvbonk v0.8alpha
     * Dateien aus dem Addon Vorlageverzeichnis werden ueber spezielle Klasse geladen
     * Alle anderen Dateien sind dementsprechend dem Datenverzeichnis zugeordnet, was sich dann auch in der noch zu

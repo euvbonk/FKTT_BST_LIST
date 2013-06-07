@@ -84,6 +84,14 @@ class File extends SplFileInfo
     }
 
     /**
+     * Compares two files by their last modification time and returns
+     *  0 if and only if the times of both files are equal
+     * +1 if the time of the first given file is smaller
+     * -1 if the time of the first given file is greater
+     *
+     * The function is used for sorting files by last modification time in
+     * ascending order (last modified at the top) using php function usort.
+     *
      * @static
      * @param SplFileInfo $a
      * @param SplFileInfo $b
@@ -91,7 +99,6 @@ class File extends SplFileInfo
      */
     public static function compareLastModified(SplFileInfo $a, SplFileInfo $b)
     {
-        // TODO this function does not work as expected!
         $time_a = $a->getMTime();
         $time_b = $b->getMTime();
         if ($time_a == $time_b)
@@ -142,7 +149,7 @@ class File extends SplFileInfo
      */
     public function listFiles($filterClassName = null, $recursive = true)
     {
-        if ($recursive)
+        if ($recursive && $this->exists())
         {
             $it = null;
             if ($filterClassName != null && strlen($filterClassName) > 0)

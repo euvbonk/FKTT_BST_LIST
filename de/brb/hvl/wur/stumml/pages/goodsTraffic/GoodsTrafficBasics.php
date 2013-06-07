@@ -15,9 +15,9 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
     private static $availCommands = array('calculate', 'reset');
 
     // form default values
-    private $daysAWeek = 7;         
-    private $lengthPerCar = 10.0;       // unit is cm
-    private $stationFilter = array();   // contains all selected datasheets
+    private $daysAWeek = 7;
+    private $lengthPerCar = 10.0; // unit is cm
+    private $stationFilter = array(); // contains all selected datasheets
 
     // form/page output values
     // table values
@@ -31,9 +31,8 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
 
         $this->doCommand(QI::getCommand(), $_POST);
 
-        $this->oListTable = new GoodsTrafficList(
-            $this->getFileManager()->getFilesFromEpochWithFilter($this->getEpoch(), $this->stationFilter),
-            $this->daysAWeek);
+        $this->oListTable = new GoodsTrafficList($this->getFileManager()
+                ->getFilesFromEpochWithFilter($this->getEpoch(), $this->stationFilter), $this->daysAWeek);
 
         $this->getReportTable()->setRowSelectorEnabled(true);
         $this->getReportTable()->setTableHead($this->oListTable->getTableHeader());
@@ -50,7 +49,7 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
             {
                 if (isset($DATA['filterCSV']) && strlen($DATA['filterCSV']) > 0)
                 {
-                    $this->stationFilter = array_map('strtoupper', array_map('trim',explode(",", $DATA['filterCSV'])));
+                    $this->stationFilter = array_map('strtoupper', array_map('trim', explode(",", $DATA['filterCSV'])));
                 }
                 if (isset($DATA['check']))
                 {
@@ -93,7 +92,7 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
         }
         return $str;
     }
-    
+
     /**
      * @see Interface GoodsTrafficPageContent
      * @return String
@@ -118,7 +117,10 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
      */
     public final function getMinTrainCount()
     {
-        if (empty($this->stationFilter)) return "Kein Filter definiert!";
+        if (empty($this->stationFilter))
+        {
+            return "Kein Filter definiert!";
+        }
         return $this->oListTable->getTrainCount($this->lengthPerCar);
     }
 }

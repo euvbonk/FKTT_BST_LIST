@@ -23,18 +23,27 @@ final class AdminPage extends Frame implements FrameForm
             case 'export' : $b->doCommand();
                             break;
         }
-        $iterator = new GlobIterator($b->getFile()->getParentFile()->getPathname()."/*.zip");
+
         $this->oZipListEntries = "";
-        if ($iterator->count() == 0)
+        if (sizeof(glob($b->getFile()->getParentFile()->getPathname()."/*.zip")) > 0)
         {
-            $this->oZipListEntries .= "<li>--</li>";
+            $iterator = new GlobIterator($b->getFile()->getParentFile()->getPathname()."/*.zip");
+            if ($iterator->count() == 0)
+            {
+                $this->oZipListEntries .= "<li>--</li>";
+            }
+            /** @var $file File */
+            foreach ($iterator as $file)
+            {
+                $this->oZipListEntries .= "<li>".AdminPageSettings::getDownloadLinkForFile($file->getPathname(),
+                            $file->getBasename())."</li>";
+            }
         }
-        /** @var $file File */
-        foreach ($iterator as $file)
+        else
         {
-            $this->oZipListEntries .= "<li>".AdminPageSettings::getDownloadLinkForFile($file->getPathname(),
-                        $file->getBasename())."</li>";
+            $this->oZipListEntries .= "<li>Keine</li>";
         }
+
         return $this;
     }
 

@@ -31,16 +31,17 @@ class FileManagerImpl implements FileManager
      * @return File|null
      */
     public function getLatestFileFromEpoch($epoch)
-	{
-		// sollte die uebergebene Epoche nicht existieren
-        if (!in_array($epoch, self::$EPOCHS)) {
+    {
+        // sollte die uebergebene Epoche nicht existieren
+        if (!in_array($epoch, self::$EPOCHS))
+        {
             return null;
         }
-		$t = $this->getFilesFromEpochWithOrder($epoch, "ORDER_LAST");
-		// im Array steht dann an nullter Position die Datei in der die
-		// letzte Aenderung stattgefunden hat
-		return (!empty($t)) ? $t[0] : null;
-	}
+        $t = $this->getFilesFromEpochWithOrder($epoch, "ORDER_LAST");
+        // im Array steht dann an nullter Position die Datei in der die
+        // letzte Aenderung stattgefunden hat
+        return (!empty($t)) ? $t[0] : null;
+    }
 
     /**
      * @param iterator $in
@@ -122,7 +123,7 @@ class FileManagerImpl implements FileManager
 
     /**
      * @param array $filter [optional]
-     * @param array $in [optional]
+     * @param array $in     [optional]
      * @return array
      */
     protected function getFilteredDatasheets($filter = array(), $in = array())

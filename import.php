@@ -1,7 +1,7 @@
 <?php
 defined('is_running') or die('Not an entry point...');
 
-if (version_compare(PHP_VERSION, '5.2.0', '<')) die('Addon requires at least PHP Version 5.2.0+');
+if (version_compare(PHP_VERSION, '5.3.0', '<')) die('Addon requires at least PHP Version 5.3.0+');
 
 // extend allowed upload file extensions used in this plugin
 if (version_compare($GLOBALS['gpversion'], '3.6', '>=') && defined('gp_restrict_uploads'))
