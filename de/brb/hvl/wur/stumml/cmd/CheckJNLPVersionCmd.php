@@ -1,6 +1,6 @@
 <?php
 
-import('de_brb_hvl_wur_stumml_Settings');
+import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_util_logging_StdoutLogger');
 
 class CheckJNLPVersionCmd
@@ -22,8 +22,8 @@ class CheckJNLPVersionCmd
     {
         self::$log = new StdoutLogger(get_class($this));
         self::$JNLP_FILE_NAME = $jnlpFileName.".jnlp";
-        self::$JNLP_HTTP_URI = Settings::getHttpUriForFile('rgzm/'.self::$JNLP_FILE_NAME);
         self::$JNLP_FILE_URI = new File("rgzm/".self::$JNLP_FILE_NAME);
+        self::$JNLP_HTTP_URI = self::$JNLP_FILE_URI->toHttpUrl();
         if (!self::$JNLP_FILE_URI->exists())
         {
             return $this;
@@ -108,7 +108,7 @@ class CheckJNLPVersionCmd
         }
         else
         {
-            return Settings::getDownloadLinkForFile(self::$JNLP_FILE_URI->getPathname(), "<img src=\"".self::$WS_IMAGE_URL.
+            return self::$JNLP_FILE_URI->toDownloadLink("<img src=\"".self::$WS_IMAGE_URL.
                     "\"  style=\"position:relative;top:5px;\" alt=\"Java WS Launch Button\"/>", false);
         }
     }

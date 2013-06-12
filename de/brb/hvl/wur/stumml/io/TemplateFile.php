@@ -1,7 +1,6 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_io_File');
-import('de_brb_hvl_wur_stumml_util_QI');
 
 class TemplateFile extends File
 {
@@ -13,7 +12,7 @@ class TemplateFile extends File
      */
     public function __construct($fileName)
     {
-        parent::__construct(QI::getAddonPathCode().'/templates/'.$fileName);
+        parent::__construct(self::getAddonTemplateDirectory().$fileName);
         return $this;
     }
 }

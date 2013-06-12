@@ -80,7 +80,8 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
         $t->doCommand($this->getEpoch());
         if ($t->getFile()->exists())
         {
-            return StationDatasheetSettings::getDownloadLinkForFile($t->getFile()->getPathname(),
+            //return StationDatasheetSettings::getDownloadLinkForFile($t->getFile()->getPathname(),
+            return $t->getFile()->toDownloadLink(
                     "Gelbe Seiten für die Epoche ".$this->getEpoch());
         }
         else
@@ -98,7 +99,8 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
         $t->doCommand();
         if ($t->getFile()->exists())
         {
-            return StationDatasheetSettings::getDownloadLinkForFile($t->getFile()->getPathname(),
+            //return StationDatasheetSettings::getDownloadLinkForFile($t->getFile()->getPathname(),
+            return $t->getFile()->toDownloadLink(
                 "Liste mit Namen und Kürzel als CSV");
         }
         else
@@ -118,7 +120,8 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
             $t->doCommand();
             if ($t->getFile()->exists())
             {
-                return StationDatasheetSettings::getDownloadLinkForFile($t->getFile()->getPathname(),
+                //return StationDatasheetSettings::getDownloadLinkForFile($t->getFile()->getPathname(),
+                return $t->getFile()->toDownloadLink(
                     "Archiv mit allen Datenblättern und Gelben Seiten");
             }
             else

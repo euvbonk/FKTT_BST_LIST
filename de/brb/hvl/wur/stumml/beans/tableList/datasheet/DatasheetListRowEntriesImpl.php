@@ -3,6 +3,7 @@
 import('de_brb_hvl_wur_stumml_beans_tableList_AbstractListRowEntriesImpl');
 import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_DatasheetListRowEntries');
 import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
+import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_util_QI');
 
 class DatasheetListRowEntriesImpl extends AbstractListRowEntriesImpl implements DatasheetListRowEntries
@@ -15,12 +16,12 @@ class DatasheetListRowEntriesImpl extends AbstractListRowEntriesImpl implements 
      * @param string $name
      * @param string $short
      * @param int    $index
-     * @param string $url
+     * @param File $url
      * @param string $type
      * @param string $lastChange
      * @return DatasheetListRowEntriesImpl
      */
-    public function __construct($name, $short, $index, $url, $type, $lastChange)
+    public function __construct($name, $short, $index, File $url, $type, $lastChange)
     {
         parent::__construct($name, $short, $url);
         $this->setIndex($index);

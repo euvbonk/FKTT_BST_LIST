@@ -21,29 +21,6 @@ final class QI
         return common::WhichPage();
     }
 
-    public static function getRelativeDataDir()
-    {
-        return 'data/_uploaded/file/fktt';
-    }
-
-    public static function getDataDir()
-    {
-        global $dataDir;
-        return $dataDir.'/'.self::getRelativeDataDir();
-    }
-
-    public static function getAddonPathCode()
-    {
-        global $addonPathCode;
-        return $addonPathCode;
-    }
-    
-    public static function getRootDir()
-    {
-        global $rootDir;
-        return $rootDir;
-    }
-
     public static function buildAbsoluteLink($path, $label, $query = '')
     {
         return common::AbsoluteLink($path, $label, $query);

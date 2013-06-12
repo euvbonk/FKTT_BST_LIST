@@ -1,3 +1,8 @@
+2013-06-10/11 euvbonk v0.8alpha
+    * FileSystemResolver Klasse eingefuehrt um unabhaengiger zu gpEasy Variablen zu sein
+    * In diesem Zusammenhang File die Eigenschaft toUrl und toHttp implementiert
+    * Basispfade fuer die Aufloesung dem Objekt File in import Datei uebergeben
+    * Anpassen der entsprechenden Funktionen
 2013-06-07 euvbonk v0.8alpha
     * Dokumentation und Pruefung der Vergleichsfunktion zur Sortierung der Eintraege
     * Mindestens PHP 5.3 fuer Addon erforderlich

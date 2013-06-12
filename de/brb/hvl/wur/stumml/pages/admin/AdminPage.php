@@ -5,6 +5,7 @@ import('de_brb_hvl_wur_stumml_pages_FrameForm');
 import('de_brb_hvl_wur_stumml_pages_admin_AdminPageSettings');
 
 import('de_brb_hvl_wur_stumml_cmd_BackupZipBundleCmd');
+import('de_brb_hvl_wur_stumml_io_File');
 
 import('de_brb_hvl_wur_stumml_util_QI');
 
@@ -32,11 +33,11 @@ final class AdminPage extends Frame implements FrameForm
             {
                 $this->oZipListEntries .= "<li>--</li>";
             }
+            $iterator->setInfoClass('File');
             /** @var $file File */
             foreach ($iterator as $file)
             {
-                $this->oZipListEntries .= "<li>".AdminPageSettings::getDownloadLinkForFile($file->getPathname(),
-                            $file->getBasename())."</li>";
+                $this->oZipListEntries .= "<li>".$file->toDownloadLink($file->getBasename())."</li>";
             }
         }
         else

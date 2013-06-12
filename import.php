@@ -81,6 +81,8 @@ if (!function_exists('import'))
  * Die Hauptklasse wird importiert. 
  * Der Aufruf erfolgt über gpEasy (Anpassung der Startklasse in Addon.ini)
  */
+import('de_brb_hvl_wur_stumml_io_File');
+File::setPaths(getenv('HTTP_HOST'), getenv('DOCUMENT_ROOT'), getenv('SCRIPT_NAME'), __FILE__);
 
 import('de_brb_hvl_wur_stumml_Main');
 import('gadgets_*');

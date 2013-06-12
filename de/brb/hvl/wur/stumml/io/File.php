@@ -1,6 +1,88 @@
 <?php
 
-class File extends SplFileInfo
+import('de_brb_hvl_wur_stumml_util_QI');
+
+/**
+ * Class BstFileSystem is a package protected helper class for resolving file paths
+ * for this gpeasy plugin and should only be used by the File class below
+ */
+class BstFileSystem extends SplFileInfo
+{
+    private static $HTTP_HOST;
+    private static $DOCUMENT_ROOT;
+    private static $DIR_PREFIX;
+    private static $ADDON_DIR;
+    private static $DATA_DIR;
+
+    public function __construct($filePath)
+    {
+        parent::__construct(self::resolveToAbsolutePath($filePath));
+        return $this;
+    }
+
+    protected static function resolveToAbsolutePath($filePath)
+    {
+        if ($filePath == null)
+        {
+            $filePath = self::getDataDirectory();
+        }
+        else if (!file_exists($filePath) && (!is_dir($filePath) || is_file($filePath)))
+        {
+            // TODO check on ./ / . at beginning of filepath
+            $filePath = self::getDataDirectory()."/".$filePath;
+        }
+        return $filePath;
+    }
+
+    public function toHttpUrl()
+    {
+        return str_replace('index.php/', '',
+            QI::getUriFrom(str_replace(self::$DOCUMENT_ROOT.self::$DIR_PREFIX, '', $this->getPathname())));
+        //return "http://".self::$HTTP_HOST."/".str_replace($_SERVER['DOCUMENT_ROOT'], '', $this->getPathname());
+    }
+
+    public function toDownloadLink($label, $addLastChange = true)
+    {
+        $uri = $this->toHttpUrl(); //self::getHttpUriForFile($file);
+        if (strlen($uri) > 0 && file_exists($this->getPathname()))
+        {
+            $ret = HtmlUtil::toUtf8("<a href=\"".$uri."\" title=\"".strip_tags($label)."\">".$label."</a>");
+            if ($addLastChange && file_exists($this->getPathname()))
+            {
+                //$ret .= "&nbsp;(" . strftime("%a, %d. %b %Y %H:%M", filemtime($file)) . ")";
+                $ret .= "&nbsp;(".strftime("%a, %d. %b %Y %H:%M", $this->getMTime()).")";
+            }
+            return $ret;
+        }
+        else
+        {
+            return "<span style='font-weight: bold'>\"File does not exist!\"</span>";
+        }
+    }
+
+    public static function setPaths($httpHost, $documentRoot, $dirPrefix, $addonDir)
+    {
+        self::$HTTP_HOST = $httpHost;
+        self::$DOCUMENT_ROOT = realpath($documentRoot);
+        self::$DIR_PREFIX = dirname($dirPrefix);
+        self::$ADDON_DIR = realpath(dirname($addonDir));
+        self::$DATA_DIR = self::$DOCUMENT_ROOT.self::$DIR_PREFIX."/data/_uploaded/file/fktt";
+        //print "HTTP Host: ".self::$HTTP_HOST."<br/>Document root: ".self::$DOCUMENT_ROOT."<br> Dir prefix: ".
+        //        self::$DIR_PREFIX."<br> Addon dir: ".self::$ADDON_DIR."<br>Data dir: ".self::$DATA_DIR."<br>";
+    }
+
+    protected static function getAddonTemplateDirectory()
+    {
+        return self::$ADDON_DIR."/templates/";
+    }
+
+    protected static function getDataDirectory()
+    {
+        return self::$DATA_DIR;
+    }
+}
+
+class File extends BstFileSystem //SplFileInfo
 {
     /**
      * @param string $filePath
@@ -8,14 +90,6 @@ class File extends SplFileInfo
      */
     public function __construct($filePath = null)
     {
-        if ($filePath == null)
-        {
-            $filePath = QI::getDataDir();
-        }
-        else if (!file_exists($filePath) && (!is_dir($filePath) || is_file($filePath)))
-        {
-            $filePath = QI::getDataDir()."/".$filePath;
-        }
         parent::__construct($filePath);
         return $this;
     }
@@ -144,7 +218,7 @@ class File extends SplFileInfo
 
     /**
      * @param null|string $filterClassName [optional]
-     * @param bool $recursive [optional]
+     * @param bool        $recursive       [optional]
      * @return null|RecursiveIteratorIterator iterator for SplFileInfo-Objects
      */
     public function listFiles($filterClassName = null, $recursive = true)

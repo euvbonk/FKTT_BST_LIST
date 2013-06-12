@@ -1,6 +1,5 @@
 <?php
 
-import('de_brb_hvl_wur_stumml_Settings');
 import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_pages_datasheet_SingleDatasheetCommandPage');
 
@@ -35,7 +34,7 @@ class FplView extends SingleDatasheetCommandPage
             throw new Exception("&Ouml;ffnen der Datei fehlgeschlagen oder Datei existiert nicht!");
         }
         // Pfade fuer css und img anpassen!
-        $basePath = dirname(Settings::getHttpUriForFile($file->getPathname()));
+        $basePath = dirname($file->toHttpUrl());
         $this->content = str_replace("bahnhof.css", $basePath."/bahnhof.css", $this->content);
         $this->content = str_replace("img src=\"".$short, "img src=\"".$basePath."/".$short, $this->content);
         $this->showContent();

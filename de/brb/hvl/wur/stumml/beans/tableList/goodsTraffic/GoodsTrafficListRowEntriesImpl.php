@@ -2,6 +2,7 @@
 
 import('de_brb_hvl_wur_stumml_beans_tableList_AbstractListRowEntriesImpl');
 import('de_brb_hvl_wur_stumml_beans_tableList_goodsTraffic_GoodsTrafficListRowEntries');
+import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableList');
 
 class GoodsTrafficListRowEntriesImpl extends AbstractListRowEntriesImpl implements GoodsTrafficListRowEntries
@@ -16,7 +17,7 @@ class GoodsTrafficListRowEntriesImpl extends AbstractListRowEntriesImpl implemen
     /**
      * @param string $name
      * @param string $short
-     * @param string $url
+     * @param File $url
      * @param string $ident
      * @param float  $input
      * @param float  $output
@@ -25,7 +26,7 @@ class GoodsTrafficListRowEntriesImpl extends AbstractListRowEntriesImpl implemen
      * @param float|string $lt
      * @return GoodsTrafficListRowEntriesImpl
      */
-    public function __construct($name, $short, $url, $ident, $input, $output, $maxInOut, $st, $lt)
+    public function __construct($name, $short, File $url, $ident, $input, $output, $maxInOut, $st, $lt)
     {
         parent::__construct($name, $short, $url);
         $this->setIdentifier($ident);

@@ -2,13 +2,14 @@
 
 defined('is_running') or die('Not an entry point...');
 
-import('de_brb_hvl_wur_stumml_Settings');
+import('de_brb_hvl_wur_stumml_io_File');
 
 class DTDDocumentationPage
 {
     public function __construct()
     {
-        $URL = Settings::getHttpUriForFile('xml/dtd_docu/index.html');
+        $file = new File('xml/dtd_docu/index.html');
+        $URL = $file->toHttpUrl();
         // Irgendwas
         echo '<iframe scrolling="auto" height="550px" width="95%" src="'.$URL.'">';
         echo '<p>Ihr Browser kann leider keine eingebetteten Frames anzeigen:';

@@ -21,12 +21,14 @@ abstract class Frame
      */
     public function setTemplateFile(File $file)
     {
+        // TODO Klasse TemplateFile genau hier mit dem Dateinamen aufrufen
         $this->templateFileName = $file;
     }
 
     /**
      * @return File
      */
+    // TODO Return TemplateFile Objekt
     protected function getTemplateFile()
     {
         return $this->templateFileName;
@@ -48,5 +50,18 @@ abstract class Frame
      * @abstract
      * @return String
      */
+    //TODO Funktion als final deklarieren und Datum zurueckgeben
     public abstract function getLastChangeTimestamp();
+
+    // TODO abstrakte Funktion definieren, die die zu implementierenden Klassen
+    //      zwingen ein Array von Funktionsnamen zu definieren, die dann im Template
+    //      ueber eine spezielle Ausgabe Funktion aufgerufen werden koennen
+    /**
+     * Beispielaufruf in Template Datei: <?php $this->callF('FunktionName'); ?>
+     * public function callF($funcName)
+     * {
+     *      get_called_class if class has method $funcName print $this->$funcName;
+     *
+     * }
+     */
 }

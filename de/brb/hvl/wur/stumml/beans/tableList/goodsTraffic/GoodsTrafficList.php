@@ -71,7 +71,7 @@ class GoodsTrafficList
                 new GoodsTrafficListRowEntriesImpl(
                                                 $xml->getName(),
                                                 $xml->getShort(),
-                                                $value->getPathname(),
+                                                $value,
                                                 $xml->getShort(),
                                                 $xml->getCarsInput(),
                                                 $xml->getCarsOutput(),

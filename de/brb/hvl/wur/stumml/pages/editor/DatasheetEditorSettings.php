@@ -28,15 +28,6 @@ class DatasheetEditorSettings extends Settings
         return 'datasheet_editor.php';
     }
 
-    /**
-     * @return String
-     */
-    public final function getCertificateUrl()
-    {
-        // TODO resolve this by File to Url
-        return QI::getDataDir()."/rgzm/rgzm.cert";
-    }
-
     private function __construct(){}
     private function __clone(){}
 }

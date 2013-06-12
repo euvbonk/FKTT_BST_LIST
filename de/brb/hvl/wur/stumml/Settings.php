@@ -20,46 +20,10 @@ abstract class Settings
     /**
      * @return String
      */
+    // TODO Funktion in Klasse Frame konzentrieren und Klasse Settings beseitigen
     public final function lastAddonChange()
     {
         return '06. Juni 2013 20:00:00';
-    }
-
-    // TODO auslagern in eigene FileSystemResolver- bzw. WebUtil-Klasse
-    public final static function getHttpUriForFile($filePath)
-    {
-        $path = QI::getRelativeDataDir().'/'.$filePath;
-        if (!file_exists($path))
-        {
-            $path = substr($filePath, strlen(QI::getRootDir())+1);
-        }
-        return str_replace('index.php/', '', QI::getUriFrom($path));
-    }
-
-    /**
-     * @static
-     * @param      $file
-     * @param      $label
-     * @param bool $addLastChange [optional]
-     * @return string
-     */
-    // TODO auslagern in eigene FileSystemResolver- bzw. WebUtil-Klasse
-    public final static function getDownloadLinkForFile($file, $label, $addLastChange = true)
-    {
-        $uri = self::getHttpUriForFile($file);
-        if (strlen($uri) > 0 && file_exists($file))
-        {
-            $ret = HtmlUtil::toUtf8("<a href=\"".$uri."\" title=\"".strip_tags($label)."\">".$label."</a>");
-            if ($addLastChange && file_exists($file))
-            {
-                $ret .= "&nbsp;(" . strftime("%a, %d. %b %Y %H:%M", filemtime($file)) . ")";
-            }
-            return $ret;
-        }
-        else
-        {
-            return "<span style='font-weight: bold'>\"File does not exist!\"</span>";
-        }
     }
 
     /**
@@ -72,6 +36,7 @@ abstract class Settings
      * @abstract
      * @return File
      */
+    // TODO Funktion in Klasse Frame konzentrieren und Klasse Settings beseitigen
     public final function getTemplateFile()
     {
         return new TemplateFile(self::getInstance()->getTemplateFileName());

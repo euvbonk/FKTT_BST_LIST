@@ -2,6 +2,7 @@
 
 import('de_brb_hvl_wur_stumml_beans_tableList_AbstractListRowEntries');
 import('de_brb_hvl_wur_stumml_Settings');
+import('de_brb_hvl_wur_stumml_io_File');
 
 abstract class AbstractListRowEntriesImpl implements AbstractListRowEntries
 {
@@ -12,10 +13,10 @@ abstract class AbstractListRowEntriesImpl implements AbstractListRowEntries
     /**
      * @param string $name
      * @param string $short
-     * @param string $url
+     * @param File $url
      * @return AbstractListRowEntriesImpl
      */
-    public function __construct($name, $short, $url)
+    public function __construct($name, $short, File $url)
     {
         $this->setName($name);
         $this->setShort($short);
@@ -56,15 +57,15 @@ abstract class AbstractListRowEntriesImpl implements AbstractListRowEntries
     }
 
     /**
-     * @param string $u
+     * @param File $u
      */
-    public function setSheetUrl($u)
+    public function setSheetUrl(File $u)
     {
         $this->url = $u;
     }
 
     /**
-     * @return string
+     * @return File
      */
     public function getSheetUrl()
     {
@@ -76,7 +77,7 @@ abstract class AbstractListRowEntriesImpl implements AbstractListRowEntries
      */
     public function getNameWithReference()
     {
-        return Settings::getDownloadLinkForFile($this->getSheetUrl(), $this->getName(), false);
+        return $this->getSheetUrl()->toDownloadLink($this->getName(), false);
     }
 
     /**
@@ -84,6 +85,6 @@ abstract class AbstractListRowEntriesImpl implements AbstractListRowEntries
      */
     public function getShortWithReference()
     {
-        return Settings::getDownloadLinkForFile($this->getSheetUrl(), $this->getShort(), false);
+        return $this->getSheetUrl()->toDownloadLink($this->getShort(), false);
     }
 }
