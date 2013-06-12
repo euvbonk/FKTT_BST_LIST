@@ -12,7 +12,7 @@ final class DatasheetEditor extends Frame implements DatasheetEditorPageContent
 
     public function __construct()
     {
-        parent::__construct(DatasheetEditorSettings::getInstance()->getTemplateFile());
+        parent::__construct('datasheet_editor');
         $cmd = new CheckJNLPVersionCmd("editor");
         self::$JNLP_HTTP_URI = ($cmd->doCommand()) ? $cmd->getDeploy() : "";
         return $this;

@@ -15,7 +15,7 @@ final class AdminPage extends Frame implements FrameForm
 
     public function __construct()
     {
-        parent::__construct(AdminPageSettings::getInstance()->getTemplateFile());
+        parent::__construct('admin');
         /** @var $b BackupZipBundleCmd */
         $b = new BackupZipBundleCmd();
         $cmd = QI::getCommand();

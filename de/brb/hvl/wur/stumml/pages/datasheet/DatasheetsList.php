@@ -20,7 +20,7 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
 
     public function __construct()
     {
-        parent::__construct(StationDatasheetSettings::getInstance()->getTemplateFile());
+        parent::__construct('datasheets_list');
 
         $this->doCommand($_POST);
 

@@ -6,18 +6,13 @@ import('de_brb_hvl_wur_stumml_io_File');
 
 import('de_brb_hvl_wur_stumml_util_logging_StdoutLogger');
 
-interface DevelopPageContent
-{
-    public function content();
-}
-
-class Develop extends Frame implements DevelopPageContent
+class Develop extends Frame
 {
     private static $log;
 
     public function __construct()
     {
-        parent::__construct(new File(Settings::addonTemplateBaseDir()."/develop.php"));
+        parent::__construct("develop");
         self::$log = new StdoutLogger(get_class($this));
         return $this;
     }
@@ -31,7 +26,8 @@ class Develop extends Frame implements DevelopPageContent
         return $str;
     }
 
-    public function getLastChangeTimestamp()
+    protected function getCallableMethods()
     {
+        return array('content');
     }
 }

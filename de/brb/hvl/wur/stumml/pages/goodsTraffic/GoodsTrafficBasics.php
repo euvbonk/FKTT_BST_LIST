@@ -26,7 +26,7 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
     public function __construct()
     {
         // set template file
-        parent::__construct(GoodsTrafficSettings::getInstance()->getTemplateFile());
+        parent::__construct('goods_traffic_basics');
         $this->daysAWeek = self::$DAYS_OF_WEEK[2];
 
         $this->doCommand(QI::getCommand(), $_POST);

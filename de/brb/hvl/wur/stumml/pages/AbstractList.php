@@ -16,7 +16,7 @@ abstract class AbstractList extends Frame implements FrameForm
     private $oFileManager;
     private $oReportTable;
 
-    public function __construct(File $templateFile)
+    public function __construct($templateFile)
     {
         parent::__construct($templateFile);
         $this->setEpoch(FileManagerImpl::$EPOCHS[3]);

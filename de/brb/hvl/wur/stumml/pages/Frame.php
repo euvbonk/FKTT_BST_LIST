@@ -1,34 +1,33 @@
 <?php
-import('de_brb_hvl_wur_stumml_io_File');
+
+import('de_brb_hvl_wur_stumml_io_TemplateFile');
 
 abstract class Frame
 {
     private $templateFileName;
 
     /**
-     * @param File|null $file [optional]
+     * @param String|null $fileName [optional]
      */
-    public function __construct(File $file = null)
+    public function __construct($fileName = null)
     {
-        if ($file != null && $file instanceof File)
+        if ($fileName != null && is_string($fileName) && strlen($fileName) > 0)
         {
-            $this->setTemplateFile($file);
+            $this->setTemplateFile(new TemplateFile($fileName.".php"));
         }
     }
 
     /**
-     * @param File $file
+     * @param TemplateFile $file
      */
-    public function setTemplateFile(File $file)
+    public function setTemplateFile(TemplateFile $file)
     {
-        // TODO Klasse TemplateFile genau hier mit dem Dateinamen aufrufen
         $this->templateFileName = $file;
     }
 
     /**
-     * @return File
+     * @return TemplateFile
      */
-    // TODO Return TemplateFile Objekt
     protected function getTemplateFile()
     {
         return $this->templateFileName;
@@ -48,7 +47,7 @@ abstract class Frame
 
     public final function getLastChangeTimestamp()
     {
-        print '12. Juni 2013 20:00:00';
+        print '13. Juni 2013 20:00:00';
         return;
     }
 

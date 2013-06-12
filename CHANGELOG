@@ -1,6 +1,8 @@
 2013-06-12 euvbonk v0.8alpha
     * Weitere Refaktorierung der Frame und Settings-Klasse: Hier Angabe der letzten Aenderung
       und indirekter Aufruf von Klassenmethoden
+    * Frame-Klasse bekommt nur noch Dateinamen der Vorlagedatei uebergeben
+    * Saemtliche Settings Klassen entfernt da nicht mehr benoetigt
 2013-06-10/11 euvbonk v0.8alpha
     * FileSystemResolver Klasse eingefuehrt um unabhaengiger zu gpEasy Variablen zu sein
     * In diesem Zusammenhang File die Eigenschaft toUrl und toHttp implementiert

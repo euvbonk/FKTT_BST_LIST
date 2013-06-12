@@ -15,7 +15,7 @@ class ModuleList extends Frame implements FrameForm
     
     public function __construct()
     {
-        parent::__construct(ModuleListSettings::getInstance()->getTemplateFile());
+        parent::__construct('module_list');
         $this->content = (!empty($_POST['content'])) ? $_POST['content'] : "";
         
         if (!empty($this->content))
