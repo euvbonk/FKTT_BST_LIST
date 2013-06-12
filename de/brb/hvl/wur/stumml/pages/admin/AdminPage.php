@@ -48,6 +48,11 @@ final class AdminPage extends Frame implements FrameForm
         return $this;
     }
 
+    protected function getCallableMethods()
+    {
+        return array('getZipList','getFormActionUri');
+    }
+
     public function getZipList()
     {
         return $this->oZipListEntries;
@@ -59,13 +64,5 @@ final class AdminPage extends Frame implements FrameForm
     public function getFormActionUri()
     {
         return QI::getPageUri();
-    }
-
-    /**
-     * @see abstract class Frame
-     */    
-    public function getLastChangeTimestamp()
-    {
-        return AdminPageSettings::getInstance()->lastAddonChange();
     }
 }

@@ -46,22 +46,44 @@ abstract class Frame
         }
     }
 
+    public final function getLastChangeTimestamp()
+    {
+        print '12. Juni 2013 20:00:00';
+        return;
+    }
+
     /**
      * @abstract
-     * @return String
+     * @return array
      */
-    //TODO Funktion als final deklarieren und Datum zurueckgeben
-    public abstract function getLastChangeTimestamp();
+    protected abstract function getCallableMethods();
 
-    // TODO abstrakte Funktion definieren, die die zu implementierenden Klassen
-    //      zwingen ein Array von Funktionsnamen zu definieren, die dann im Template
-    //      ueber eine spezielle Ausgabe Funktion aufgerufen werden koennen
     /**
-     * Beispielaufruf in Template Datei: <?php $this->callF('FunktionName'); ?>
-     * public function callF($funcName)
-     * {
-     *      get_called_class if class has method $funcName print $this->$funcName;
-     *
-     * }
+     * @param string $methodName
+     * @param null   $args
+     * @return bool
      */
+    public final function printFunc($methodName, $args = null)
+    {
+        //print "Betroffene Klasse: ".get_called_class()."<br>";
+        //$func_array = get_class_methods(get_called_class());
+        //print "Funktionen: <pre>".print_r($func_array, true)."<pre>";
+        if (in_array($methodName, $this->getCallableMethods()))
+        {
+            $rf = new ReflectionMethod(get_called_class(), $methodName);
+            if ($rf->isPublic())
+            {
+                if ($args != null)
+                {
+                    print $rf->invoke($this, $args);
+                }
+                else
+                {
+                    print $rf->invoke($this);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
 }

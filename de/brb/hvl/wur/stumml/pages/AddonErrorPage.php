@@ -15,12 +15,9 @@ class AddonErrorPage extends Frame
         $this->cMessage = $message;
     }
 
-    /**
-     * @return String|void
-     */
-    //@Override
-    public function getLastChangeTimestamp()
+    protected function getCallableMethods()
     {
+        return array();
     }
 
     /**

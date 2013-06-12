@@ -69,14 +69,9 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
         }
     }
 
-    /**
-     * @see abstract class Frame
-     * @return String
-     */
-    //@Override
-    public final function getLastChangeTimestamp()
+    protected function getCallableMethods()
     {
-        return GoodsTrafficSettings::getInstance()->lastAddonChange();
+        return array_merge(parent::getCallableMethods(), array('getDaysOfWeekOptionsUI','getFilterCSV','getLengthPerCar','getMinTrainCount'));
     }
 
     /**

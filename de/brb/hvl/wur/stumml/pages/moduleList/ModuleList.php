@@ -35,19 +35,15 @@ class ModuleList extends Frame implements FrameForm
         }
         return $this;
     }
-    
+
+    protected function getCallableMethods()
+    {
+        return array('getPostContent','getFormActionUri');
+    }
+
     public function getPostContent()
     {
         return $this->content;
-    }
-
-    /**
-     * @return String
-     */
-    //@Override
-    public function getLastChangeTimestamp()
-    {
-        return ModuleListSettings::getInstance()->lastAddonChange();
     }
 
     /**

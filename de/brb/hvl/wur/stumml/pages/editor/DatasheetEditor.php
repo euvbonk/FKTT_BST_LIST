@@ -18,14 +18,9 @@ final class DatasheetEditor extends Frame implements DatasheetEditorPageContent
         return $this;
     }
 
-    /**
-     * @see abstract class Frame
-     * @return String
-     */
-    //@Override
-    public final function getLastChangeTimestamp()
+    protected function getCallableMethods()
     {
-        return DatasheetEditorSettings::getInstance()->lastAddonChange();
+        return array('getJNLPFileUrl','getCertificateFileUrl');
     }
 
     /**

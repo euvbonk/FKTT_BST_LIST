@@ -18,21 +18,14 @@ abstract class Settings
     }
 
     /**
-     * @return String
-     */
-    // TODO Funktion in Klasse Frame konzentrieren und Klasse Settings beseitigen
-    public final function lastAddonChange()
-    {
-        return '06. Juni 2013 20:00:00';
-    }
-
-    /**
+     * @deprecated
      * @abstract
      * @return String
      */
     protected abstract function getTemplateFileName();
 
     /**
+     * @deprecated
      * @abstract
      * @return File
      */

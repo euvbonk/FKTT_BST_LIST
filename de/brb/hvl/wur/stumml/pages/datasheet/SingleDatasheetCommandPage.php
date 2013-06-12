@@ -52,11 +52,9 @@ abstract class SingleDatasheetCommandPage extends Frame
         return $this;
     }
 
-    //@Override
-    public function getLastChangeTimestamp()
+    protected function getCallableMethods()
     {
-        // never used and reached!
-        return "";
+        return array();
     }
 
     /**

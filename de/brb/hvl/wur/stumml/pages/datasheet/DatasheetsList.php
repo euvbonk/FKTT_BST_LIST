@@ -49,12 +49,9 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
         }
     }
 
-    /**
-     * @see abstract class Frame
-     */
-    public final function getLastChangeTimestamp()
+    protected function getCallableMethods()
     {
-        return StationDatasheetSettings::getInstance()->lastAddonChange();
+        return array_merge(parent::getCallableMethods(), array('getOrderOptionsUI','getYellowPageLink','getCSVListLink','getZipBundleLink','getApplicationUrl'));
     }
 
     /**
@@ -80,9 +77,7 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
         $t->doCommand($this->getEpoch());
         if ($t->getFile()->exists())
         {
-            //return StationDatasheetSettings::getDownloadLinkForFile($t->getFile()->getPathname(),
-            return $t->getFile()->toDownloadLink(
-                    "Gelbe Seiten für die Epoche ".$this->getEpoch());
+            return $t->getFile()->toDownloadLink("Gelbe Seiten für die Epoche ".$this->getEpoch());
         }
         else
         {
@@ -99,9 +94,7 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
         $t->doCommand();
         if ($t->getFile()->exists())
         {
-            //return StationDatasheetSettings::getDownloadLinkForFile($t->getFile()->getPathname(),
-            return $t->getFile()->toDownloadLink(
-                "Liste mit Namen und Kürzel als CSV");
+            return $t->getFile()->toDownloadLink("Liste mit Namen und Kürzel als CSV");
         }
         else
         {
@@ -120,9 +113,7 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
             $t->doCommand();
             if ($t->getFile()->exists())
             {
-                //return StationDatasheetSettings::getDownloadLinkForFile($t->getFile()->getPathname(),
-                return $t->getFile()->toDownloadLink(
-                    "Archiv mit allen Datenblättern und Gelben Seiten");
+                return $t->getFile()->toDownloadLink("Archiv mit allen Datenblättern und Gelben Seiten");
             }
             else
             {

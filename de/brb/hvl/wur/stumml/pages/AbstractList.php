@@ -44,6 +44,10 @@ abstract class AbstractList extends Frame implements FrameForm
         return $this->oReportTable;
     }
 
+    protected function getCallableMethods()
+    {
+        return array('getFormActionUri', 'getEpochOptionsUI', 'getTable');
+    }
     /**
      * @see Interface FrameForm
      * @return String
