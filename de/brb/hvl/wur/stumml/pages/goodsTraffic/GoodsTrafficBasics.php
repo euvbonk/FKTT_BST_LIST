@@ -2,13 +2,11 @@
 
 import('de_brb_hvl_wur_stumml_pages_AbstractList');
 
-import('de_brb_hvl_wur_stumml_pages_goodsTraffic_GoodsTrafficPageContent');
-
 import('de_brb_hvl_wur_stumml_beans_tableList_goodsTraffic_GoodsTrafficList');
 
 import('de_brb_hvl_wur_stumml_util_QI');
 
-class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
+class GoodsTrafficBasics extends AbstractList
 {
     private static $DAYS_OF_WEEK = array(5, 5.5, 7);
     private static $availCommands = array('calculate', 'reset');
@@ -74,7 +72,6 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
     }
 
     /**
-     * @see Interface GoodsTrafficPageContent
      * @return String
      */
     public final function getDaysOfWeekOptionsUI()
@@ -88,7 +85,6 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
     }
 
     /**
-     * @see Interface GoodsTrafficPageContent
      * @return String
      */
     public final function getFilterCSV()
@@ -97,7 +93,6 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
     }
 
     /**
-     * @see Interface GoodsTrafficPageContent
      * @return float
      */
     public final function getLengthPerCar()
@@ -106,7 +101,6 @@ class GoodsTrafficBasics extends AbstractList implements GoodsTrafficPageContent
     }
 
     /**
-     * @see Interface GoodsTrafficPageContent
      * @return float|String
      */
     public final function getMinTrainCount()

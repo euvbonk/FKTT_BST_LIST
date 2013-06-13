@@ -3,9 +3,8 @@
 import('de_brb_hvl_wur_stumml_cmd_CheckJNLPVersionCmd');
 import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_pages_Frame');
-import('de_brb_hvl_wur_stumml_pages_editor_DatasheetEditorPageContent');
 
-final class DatasheetEditor extends Frame implements DatasheetEditorPageContent
+final class DatasheetEditor extends Frame
 {
     private static $JNLP_HTTP_URI;
 
@@ -23,7 +22,6 @@ final class DatasheetEditor extends Frame implements DatasheetEditorPageContent
     }
 
     /**
-     * @see Interface DatasheetEditorPageContent
      * @return String
      */
     public final function getJNLPFileUrl()
@@ -32,7 +30,6 @@ final class DatasheetEditor extends Frame implements DatasheetEditorPageContent
     }
 
     /**
-     * @see Interface DatasheetEditorPageContent
      * @param $label String
      * @return String
      */

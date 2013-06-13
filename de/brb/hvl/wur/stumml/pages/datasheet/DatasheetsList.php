@@ -2,14 +2,12 @@
 
 import('de_brb_hvl_wur_stumml_pages_AbstractList');
 
-import('de_brb_hvl_wur_stumml_pages_datasheet_DatasheetsPageContent');
-
 import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_StationDatasheetList');
 import('de_brb_hvl_wur_stumml_cmd_YellowPageCmd');
 import('de_brb_hvl_wur_stumml_cmd_CSVListCmd');
 import('de_brb_hvl_wur_stumml_cmd_ZipBundleCmd');
 
-final class DatasheetsList extends AbstractList implements DatasheetsPageContent
+final class DatasheetsList extends AbstractList
 {
     private static $ORDERS = array("ORDER_SHORT" => "K&uuml;rzel (aufsteigend)",
         "ORDER_LAST" => "letzte &Auml;nderung (absteigend)");
@@ -54,7 +52,7 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
     }
 
     /**
-     * @see Interface DatasheetsPageContent
+     * @return String
      */
     public final function getOrderOptionsUI()
     {
@@ -68,7 +66,7 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
     }
 
     /**
-     * @see Interface DatasheetsPageContent
+     * @return String
      */
     public final function getYellowPageLink()
     {
@@ -85,7 +83,7 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
     }
 
     /**
-     * @see Interface DatasheetsPageContent
+     * @return String
      */
     public final function getCSVListLink()
     {
@@ -102,7 +100,7 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
     }
 
     /**
-     * @see Interface DatasheetsPageContent
+     * @return String
      */
     public final function getZipBundleLink()
     {
@@ -126,7 +124,6 @@ final class DatasheetsList extends AbstractList implements DatasheetsPageContent
     }
 
     /**
-     * @see Interface DatasheetsPageContent
      * @return String Uri
      */
     public final function getApplicationUrl()

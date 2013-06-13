@@ -1,3 +1,6 @@
+2013-06-13 euvbonk v0.8alpha
+    * Code cleanup: Anpassung Import Anweisung
+                    Nicht mehr benoetigte Interfaces
 2013-06-12 euvbonk v0.8alpha
     * Weitere Refaktorierung der Frame und Settings-Klasse: Hier Angabe der letzten Aenderung
       und indirekter Aufruf von Klassenmethoden
