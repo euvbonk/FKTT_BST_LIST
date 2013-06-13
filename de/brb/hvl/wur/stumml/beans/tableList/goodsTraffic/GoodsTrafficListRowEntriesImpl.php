@@ -2,6 +2,7 @@
 
 import('de_brb_hvl_wur_stumml_beans_tableList_AbstractListRowEntriesImpl');
 import('de_brb_hvl_wur_stumml_beans_tableList_goodsTraffic_GoodsTrafficListRowEntries');
+import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
 import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableList');
 

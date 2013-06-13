@@ -1,5 +1,6 @@
 <?php
 
+import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
 import('de_brb_hvl_wur_stumml_util_QI');
 
 /**
@@ -38,18 +39,16 @@ class BstFileSystem extends SplFileInfo
     {
         return str_replace('index.php/', '',
             QI::getUriFrom(str_replace(self::$DOCUMENT_ROOT.self::$DIR_PREFIX, '', $this->getPathname())));
-        //return "http://".self::$HTTP_HOST."/".str_replace($_SERVER['DOCUMENT_ROOT'], '', $this->getPathname());
     }
 
     public function toDownloadLink($label, $addLastChange = true)
     {
-        $uri = $this->toHttpUrl(); //self::getHttpUriForFile($file);
+        $uri = $this->toHttpUrl();
         if (strlen($uri) > 0 && file_exists($this->getPathname()))
         {
             $ret = HtmlUtil::toUtf8("<a href=\"".$uri."\" title=\"".strip_tags($label)."\">".$label."</a>");
             if ($addLastChange && file_exists($this->getPathname()))
             {
-                //$ret .= "&nbsp;(" . strftime("%a, %d. %b %Y %H:%M", filemtime($file)) . ")";
                 $ret .= "&nbsp;(".strftime("%a, %d. %b %Y %H:%M", $this->getMTime()).")";
             }
             return $ret;
@@ -67,8 +66,6 @@ class BstFileSystem extends SplFileInfo
         self::$DIR_PREFIX = dirname($dirPrefix);
         self::$ADDON_DIR = realpath(dirname($addonDir));
         self::$DATA_DIR = self::$DOCUMENT_ROOT.self::$DIR_PREFIX."/data/_uploaded/file/fktt";
-        //print "HTTP Host: ".self::$HTTP_HOST."<br/>Document root: ".self::$DOCUMENT_ROOT."<br> Dir prefix: ".
-        //        self::$DIR_PREFIX."<br> Addon dir: ".self::$ADDON_DIR."<br>Data dir: ".self::$DATA_DIR."<br>";
     }
 
     protected static function getAddonTemplateDirectory()
@@ -82,7 +79,7 @@ class BstFileSystem extends SplFileInfo
     }
 }
 
-class File extends BstFileSystem //SplFileInfo
+class File extends BstFileSystem
 {
     /**
      * @param string $filePath
