@@ -1,7 +1,6 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_pages_Frame');
-import('de_brb_hvl_wur_stumml_Settings');
 import('de_brb_hvl_wur_stumml_io_File');
 
 import('de_brb_hvl_wur_stumml_util_logging_StdoutLogger');

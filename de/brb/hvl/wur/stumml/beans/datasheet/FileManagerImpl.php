@@ -1,7 +1,6 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_FileManager');
-import('de_brb_hvl_wur_stumml_Settings');
 import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_util_XmlListingFileFilter');
 

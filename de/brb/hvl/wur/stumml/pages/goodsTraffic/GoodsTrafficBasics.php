@@ -3,7 +3,6 @@
 import('de_brb_hvl_wur_stumml_pages_AbstractList');
 
 import('de_brb_hvl_wur_stumml_pages_goodsTraffic_GoodsTrafficPageContent');
-import('de_brb_hvl_wur_stumml_pages_goodsTraffic_GoodsTrafficSettings');
 
 import('de_brb_hvl_wur_stumml_beans_tableList_goodsTraffic_GoodsTrafficList');
 

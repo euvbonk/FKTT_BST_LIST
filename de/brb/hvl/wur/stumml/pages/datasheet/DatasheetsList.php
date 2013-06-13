@@ -3,7 +3,6 @@
 import('de_brb_hvl_wur_stumml_pages_AbstractList');
 
 import('de_brb_hvl_wur_stumml_pages_datasheet_DatasheetsPageContent');
-import('de_brb_hvl_wur_stumml_pages_datasheet_StationDatasheetSettings');
 
 import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_StationDatasheetList');
 import('de_brb_hvl_wur_stumml_cmd_YellowPageCmd');

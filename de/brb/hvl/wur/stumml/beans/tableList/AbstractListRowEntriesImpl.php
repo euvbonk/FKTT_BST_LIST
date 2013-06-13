@@ -1,7 +1,6 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_beans_tableList_AbstractListRowEntries');
-import('de_brb_hvl_wur_stumml_Settings');
 import('de_brb_hvl_wur_stumml_io_File');
 
 abstract class AbstractListRowEntriesImpl implements AbstractListRowEntries

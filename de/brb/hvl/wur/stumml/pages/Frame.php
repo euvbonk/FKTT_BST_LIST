@@ -64,23 +64,28 @@ abstract class Frame
      */
     public final function printFunc($methodName, $args = null)
     {
-        //print "Betroffene Klasse: ".get_called_class()."<br>";
-        //$func_array = get_class_methods(get_called_class());
-        //print "Funktionen: <pre>".print_r($func_array, true)."<pre>";
         if (in_array($methodName, $this->getCallableMethods()))
         {
-            $rf = new ReflectionMethod(get_called_class(), $methodName);
-            if ($rf->isPublic())
+            try
             {
-                if ($args != null)
+                $rf = new ReflectionMethod(get_called_class(), $methodName);
+                if ($rf->isPublic())
                 {
-                    print $rf->invoke($this, $args);
+                    if ($args != null)
+                    {
+                        print $rf->invoke($this, $args);
+                    }
+                    else
+                    {
+                        print $rf->invoke($this);
+                    }
+                    return true;
                 }
-                else
-                {
-                    print $rf->invoke($this);
-                }
-                return true;
+            }
+            catch (ReflectionException $e)
+            {
+                // do nothing
+                return false;
             }
         }
         return false;

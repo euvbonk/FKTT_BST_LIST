@@ -2,7 +2,6 @@
 
 import('de_brb_hvl_wur_stumml_pages_Frame');
 import('de_brb_hvl_wur_stumml_pages_FrameForm');
-import('de_brb_hvl_wur_stumml_pages_moduleList_ModuleListSettings');
 
 import('de_brb_hvl_wur_stumml_cmd_ListBuilderCmd');
 import('de_brb_hvl_wur_stumml_cmd_SendFileForDownloadCmd');

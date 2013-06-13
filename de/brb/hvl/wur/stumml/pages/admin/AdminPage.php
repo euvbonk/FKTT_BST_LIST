@@ -2,7 +2,6 @@
 
 import('de_brb_hvl_wur_stumml_pages_Frame');
 import('de_brb_hvl_wur_stumml_pages_FrameForm');
-import('de_brb_hvl_wur_stumml_pages_admin_AdminPageSettings');
 
 import('de_brb_hvl_wur_stumml_cmd_BackupZipBundleCmd');
 import('de_brb_hvl_wur_stumml_io_File');
