@@ -1,3 +1,5 @@
+2013-06-14 euvbonk v0.8alpha
+    * Quelltext aufraeumen: Nicht mehr benutzte auskommentierte Anweisungen und Klassen entfernt
 2013-06-13 euvbonk v0.8alpha
     * Code cleanup: Anpassung Import Anweisung
                     Nicht mehr benoetigte Interfaces

@@ -20,7 +20,7 @@ class ListBuilderCmd
     /**
      * @return bool
      */
-    public function doCommand() //buildCsvString()
+    public function doCommand()
     {
         $arr = $this->prepareArrayData();
         $num = 1;
@@ -106,7 +106,7 @@ class ListBuilderCmd
 
     /**
      * @param string $needle
-     * @param string $haystack
+     * @param array $haystack
      * @return bool|int
      */
     private function array_search_regexp($needle, $haystack)

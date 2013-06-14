@@ -37,10 +37,6 @@ final class CSVListCmd
                 (!$this->oTargetFile->exists() || $this->oTargetFile->getMTime() < $latest->getMTime())
         )
         {
-
-            //$page = new FkttYellowPage();
-            //$page->setDatasheetFileList($this->oFileManager->getFilesFromEpochWithOrder($epoch));
-            //$page->generate();
             $list = $this->oFileManager->getFilesFromEpochWithOrder(self::$EPOCH);
             // setDatasheetFileList && loadDatasheets && generate
             if (count($list) > 0)

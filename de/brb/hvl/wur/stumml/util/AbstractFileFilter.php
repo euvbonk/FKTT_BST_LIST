@@ -41,7 +41,6 @@ abstract class AbstractFileFilter extends RecursiveFilterIterator
         $ext = explode(".", $fileName);
         $l = count($ext);
         return strtolower($ext[$l-1]);
-        //return strtolower(substr($fileName, strrpos($fileName, '.') + 1))
     }
 
     /**
