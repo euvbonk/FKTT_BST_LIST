@@ -55,8 +55,10 @@ final class XmlHtmlTransformCmd
             $xmlDOMDocument = new DOMDocument();
             $xmlDOMDocument->load($xmlFile->getPathname());
 
+            // TODO find out where the warnings came from
             $this->oXSLTProcessor->transformToURI($xmlDOMDocument, 'file://'.$htmlFile->getPathname());
 
+            // TODO find out where the warnings came from
             $htmlFile->changeFileRights(0666);
             return true;
         }

@@ -15,6 +15,8 @@ class BstFileSystem extends SplFileInfo
     private static $ADDON_DIR;
     private static $DATA_DIR;
 
+    private static $NOTGUILTYPATHS = array('.','..','./','../','.//','..//','/','//');
+
     public function __construct($filePath)
     {
         parent::__construct(self::resolveToAbsolutePath($filePath));
@@ -23,16 +25,33 @@ class BstFileSystem extends SplFileInfo
 
     protected static function resolveToAbsolutePath($filePath)
     {
-        if ($filePath == null)
+        if ($filePath == null || in_array($filePath, self::$NOTGUILTYPATHS))
         {
             $filePath = self::getDataDirectory();
         }
         else if (!file_exists($filePath) && (!is_dir($filePath) || is_file($filePath)))
         {
-            // TODO check on ./ / . at beginning of filepath
-            $filePath = self::getDataDirectory()."/".$filePath;
+            $filePath = self::getDataDirectory().self::cleanPath($filePath);
         }
         return $filePath;
+    }
+
+    /**
+     * Checks given $path on "./", "/", "." at beginning and remove these occurrences
+     * @param string $path
+     * @return string
+     */
+    private static function cleanPath($path)
+    {
+        $retArray = array();
+        foreach (explode('/', $path) as $char)
+        {
+            if ((strlen($char) > 0) && ($char != '.' && $char != '..'))
+            {
+                $retArray[] = $char;
+            }
+        }
+        return "/".implode('/', $retArray);
     }
 
     public function toHttpUrl()
