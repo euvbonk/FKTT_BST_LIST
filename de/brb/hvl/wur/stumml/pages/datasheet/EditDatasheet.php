@@ -30,18 +30,21 @@ class EditDatasheet extends SingleDatasheetCommandPage
     protected function doIt(File $file, $short)
     {
         self::$JNLP_FILE = new File("rgzm/editor.jnlp");
-        /** @var $xml SimpleXMLElement */
-        $xml = simplexml_load_file(self::$JNLP_FILE->getPathname());
-        $foo = $xml->xpath("/jnlp/application-desc");
-        /** @var $foo SimpleXMLElement */
-        $foo = $foo[0];
-        // add argument child element with given http URI to remote file
-        $foo->addChild("argument", $file->toHttpUrl());
-        $s = new SendFileForDownloadCmd($xml->asXML(), "editor.jnlp");
-        // force local changed xml from jnlp to download aka open with
-        if ($s->doCommand())
+        if (self::$JNLP_FILE->exists())
         {
-            exit;
+            /** @var $xml SimpleXMLElement */
+            $xml = simplexml_load_file(self::$JNLP_FILE->getPathname());
+            $foo = $xml->xpath("/jnlp/application-desc");
+            /** @var $foo SimpleXMLElement */
+            $foo = $foo[0];
+            // add argument child element with given http URI to remote file
+            $foo->addChild("argument", $file->toHttpUrl());
+            $s = new SendFileForDownloadCmd($xml->asXML(), "editor.jnlp");
+            // force local changed xml from jnlp to download aka open with
+            if ($s->doCommand())
+            {
+                exit;
+            }
         }
     }
 }

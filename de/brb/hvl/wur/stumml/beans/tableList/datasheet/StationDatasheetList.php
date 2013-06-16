@@ -15,16 +15,17 @@ class StationDatasheetList
 
     /**
      * @param array  $fileList
+     * @param bool   $isEditorPresent
      * @param string $order [optional]
      * @return StationDatasheetList
      */
-    public function __construct(array $fileList, $order = "ORDER_SHORT")
+    public function __construct(array $fileList, $isEditorPresent, $order = "ORDER_SHORT")
     {
         $this->tableEntries = new ListRow();
 
         $this->setOrder($order);
 
-        $this->buildTableEntries($fileList);
+        $this->buildTableEntries($fileList, $isEditorPresent);
         return $this;
     }
 
@@ -57,8 +58,9 @@ class StationDatasheetList
 
     /**
      * @param $array
+     * @param $isEditorPresent
      */
-    private function buildTableEntries($array)
+    private function buildTableEntries($array, $isEditorPresent)
     {
         if (!empty($array))
         {
@@ -70,7 +72,7 @@ class StationDatasheetList
                 $xml = new BaseElement(new SimpleXMLElement($value->getPathname(), null, true));
                 $this->tableEntries->append(new DatasheetListRowEntriesImpl($xml->getValueForTag('name'),
                             $xml->getValueForTag('kuerzel'), ($key+1), $value, $xml->getValueForTag('typ'),
-                            strftime("%a, %d. %b %Y %H:%M", $value->getMTime())));
+                            strftime("%a, %d. %b %Y %H:%M", $value->getMTime()), $isEditorPresent));
                 $key++;
             }
         }

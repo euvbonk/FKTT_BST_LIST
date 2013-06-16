@@ -48,10 +48,18 @@ class CheckJNLPVersionCmd
     /**
      * @return bool
      */
+    public function isEditorPresent()
+    {
+        return self::$JNLP_FILE_URI->exists();
+    }
+
+    /**
+     * @return bool
+     */
     public function doCommand()
     {
         self::$log->debug("Current file: ".self::$JNLP_FILE_URI->getPathname());
-        if (!self::$JNLP_FILE_URI->exists())
+        if (!$this->isEditorPresent())
         {
             return false;
         }

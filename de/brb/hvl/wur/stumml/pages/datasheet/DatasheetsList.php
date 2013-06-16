@@ -14,6 +14,7 @@ final class DatasheetsList extends AbstractList
     private $order = "ORDER_SHORT";
 
     private $oList = null;
+    private $oEditor = null;
 
     public function __construct()
     {
@@ -21,8 +22,11 @@ final class DatasheetsList extends AbstractList
 
         $this->doCommand($_POST);
 
+        $this->oEditor = new CheckJNLPVersionCmd('editor');
+
         $this->oList = new StationDatasheetList($this->getFileManager()
-                ->getFilesFromEpochWithOrder($this->getEpoch(), $this->order), $this->order);
+                ->getFilesFromEpochWithOrder($this->getEpoch(), $this->order), $this->oEditor->isEditorPresent(),
+                $this->order);
 
         $this->getReportTable()->setTableHead($this->oList->getTableHeader());
         $this->getReportTable()->setTableBody($this->oList->getTableEntries());
@@ -128,7 +132,6 @@ final class DatasheetsList extends AbstractList
      */
     public final function getApplicationUrl()
     {
-        $cmd = new CheckJNLPVersionCmd("editor");
-        return ($cmd->doCommand()) ? $cmd->getDeploy() : "";
+        return ($this->oEditor->doCommand()) ? $this->oEditor->getDeploy() : "";
     }
 }

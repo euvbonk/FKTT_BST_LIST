@@ -11,6 +11,7 @@ class DatasheetListRowEntriesImpl extends AbstractListRowEntriesImpl implements 
     private $index;
     private $type;
     private $lastChange;
+    private $isEditorPresent;
 
     /**
      * @param string $name
@@ -19,14 +20,16 @@ class DatasheetListRowEntriesImpl extends AbstractListRowEntriesImpl implements 
      * @param File $url
      * @param string $type
      * @param string $lastChange
+     * @param bool $isEditorPresent
      * @return DatasheetListRowEntriesImpl
      */
-    public function __construct($name, $short, $index, File $url, $type, $lastChange)
+    public function __construct($name, $short, $index, File $url, $type, $lastChange, $isEditorPresent)
     {
         parent::__construct($name, $short, $url);
         $this->setIndex($index);
         $this->setType($type);
         $this->setLastChange($lastChange);
+        $this->isEditorPresent = $isEditorPresent;
         return $this;
     }
 
@@ -86,9 +89,9 @@ class DatasheetListRowEntriesImpl extends AbstractListRowEntriesImpl implements 
         return array((($this->getIndex() > 9) ? $this->getIndex() : "0".$this->getIndex()).".",
             $this->getNameWithReference(), $this->getShortWithReference(), HtmlUtil::toUtf8($this->getType()),
             $this->getLastChange(), $this->buildCommandLink("Fpl_View", $this->getShort(), $this->getSheetUrl()),
-            $this->buildCommandLink("Edit_Datasheet",
+            ($this->isEditorPresent) ? $this->buildCommandLink("Edit_Datasheet",
                 "<img src=\"http://www.java.com/js/webstart.png\"  alt=\"Java WS Launch Button\"/>",
-                $this->getSheetUrl()));
+                $this->getSheetUrl()) : "&nbsp;");
     }
 
     /**

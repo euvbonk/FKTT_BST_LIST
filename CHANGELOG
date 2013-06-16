@@ -1,3 +1,6 @@
+2013-06-16 euvbonk v0.8alpha
+    * Fehlerbeseitigung: Bearbeiten Knopf in Listenansicht wird nur angezeigt, wenn auch zugehoerige Applikation auf dem
+      Server vorhanden ist.
 2013-06-15 euvbonk v0.8alpha
     * Pruefung, ob Dateipfad mit bestimmten Zeichen beginnt bzw. enthaelt und entfernt diese
 2013-06-14 euvbonk v0.8alpha
