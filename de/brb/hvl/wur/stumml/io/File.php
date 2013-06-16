@@ -29,7 +29,10 @@ class BstFileSystem extends SplFileInfo
         {
             $filePath = self::getDataDirectory();
         }
-        else if (!file_exists($filePath) && (!is_dir($filePath) || is_file($filePath)))
+        // Wenn uebergebener Dateipfad weder den Pfad zum Datenverzeichnis oder Templateverzeichnis enthaelt dann
+        // muss das bereinigt werden
+        else if ((strpos($filePath, self::getDataDirectory()) === false) && (strpos($filePath, self::getAddonTemplateDirectory()) === false))
+        // && (!file_exists($filePath) && (!is_dir($filePath) || is_file($filePath))))
         {
             $filePath = self::getDataDirectory().self::cleanPath($filePath);
         }
