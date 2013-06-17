@@ -15,7 +15,7 @@ class BstFileSystem extends SplFileInfo
     private static $ADDON_DIR;
     private static $DATA_DIR;
 
-    private static $NOTGUILTYPATHS = array('.','..','./','../','.//','..//','/','//');
+    private static $NOTGUILTYPATHS = array('.', '..', './', '../', './/', '..//', '/', '//');
 
     public function __construct($filePath)
     {
@@ -31,8 +31,10 @@ class BstFileSystem extends SplFileInfo
         }
         // Wenn uebergebener Dateipfad weder den Pfad zum Datenverzeichnis oder Templateverzeichnis enthaelt dann
         // muss das bereinigt werden
-        else if ((strpos($filePath, self::getDataDirectory()) === false) && (strpos($filePath, self::getAddonTemplateDirectory()) === false))
-        // && (!file_exists($filePath) && (!is_dir($filePath) || is_file($filePath))))
+        else if ((strpos($filePath, self::getDataDirectory()) === false) &&
+                (strpos($filePath, self::getAddonTemplateDirectory()) === false)
+        )
+            // && (!file_exists($filePath) && (!is_dir($filePath) || is_file($filePath))))
         {
             $filePath = self::getDataDirectory().self::cleanPath($filePath);
         }
@@ -41,6 +43,7 @@ class BstFileSystem extends SplFileInfo
 
     /**
      * Checks given $path on "./", "/", "." at beginning and remove these occurrences
+     *
      * @param string $path
      * @return string
      */
@@ -110,6 +113,7 @@ class File extends BstFileSystem
     public function __construct($filePath = null)
     {
         parent::__construct($filePath);
+        $this->setInfoClass(get_class($this));
         return $this;
     }
 
@@ -256,7 +260,7 @@ class File extends BstFileSystem
             }
             $iit = $it->getInnerIterator();
             /** @var $iit RecursiveDirectoryIterator */
-            $iit->setInfoClass('File');
+            $iit->setInfoClass(get_class($this));
             return $it;
         }
         return null;

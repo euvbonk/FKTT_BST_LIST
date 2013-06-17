@@ -1,3 +1,5 @@
+2013-06-17 euvbonk v0.8alpha
+    * Eigene Implementierung des php GlobIterator
 2013-06-16 euvbonk v0.8alpha
     * Fehlerbeseitigung: Bearbeiten Knopf in Listenansicht wird nur angezeigt, wenn auch zugehoerige Applikation auf dem
       Server vorhanden ist.

@@ -1,6 +1,7 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_io_File');
+import('de_brb_hvl_wur_stumml_io_GlobIterator');
 import('de_brb_hvl_wur_stumml_util_logging_StdoutLogger');
 
 class CheckJNLPVersionCmd
@@ -30,7 +31,7 @@ class CheckJNLPVersionCmd
         }
 
         // einlesen der gewuenschten Versionen
-        $allVersions = new GlobIterator(self::$JNLP_FILE_URI->getPath()."/versions/rgzm_*.jar");
+        $allVersions = new MyGlobIterator(self::$JNLP_FILE_URI->getPath()."/versions/rgzm_*.jar");
         self::$log->debug($allVersions->count());
         if ($allVersions->count() > 0)
         {
@@ -50,7 +51,7 @@ class CheckJNLPVersionCmd
      */
     public function isEditorPresent()
     {
-        return self::$JNLP_FILE_URI->exists();
+        return (self::$JNLP_FILE_URI->exists() && (strlen(self::$LATEST_JAR) > 0));
     }
 
     /**
