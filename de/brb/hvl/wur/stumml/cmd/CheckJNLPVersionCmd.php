@@ -36,7 +36,9 @@ class CheckJNLPVersionCmd
         if ($allVersions->count() > 0)
         {
             $allVersions->seek($allVersions->count()-1);
-            self::$LATEST_JAR = $allVersions->getBasename();
+            $latest = $allVersions->current();
+            /** @var $latest File */
+            self::$LATEST_JAR = $latest->getBasename();
         }
         else
         {
