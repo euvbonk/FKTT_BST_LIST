@@ -98,6 +98,11 @@ class BstFileSystem extends SplFileInfo
         return self::$ADDON_DIR."/templates/";
     }
 
+    protected static function getAddonIni()
+    {
+        return self::$ADDON_DIR."/Addon.ini";
+    }
+
     protected static function getDataDirectory()
     {
         return self::$DATA_DIR;

@@ -1,3 +1,6 @@
+2013-06-22 euvbonk v0.8alpha
+    * Automatische Erstellung der Listen fuer die einzelnen Epochen, sowie Index-Ansicht, die im Archiv abgelegt werden
+      Wobei die Listeneintraege noch angepasst werden muessen.
 2013-06-20 euvbonk v0.8alpha
     * Fehlerbeseitigung bei der Erkennung der Webstart-Archive
 2013-06-17 euvbonk v0.8alpha

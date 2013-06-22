@@ -12,20 +12,19 @@ class StationDatasheetList
     private static $HEAD_ENTRIES = array("Lfd. Nr.", "Betriebsstellenname", "K&uuml;rzel", "Kategorie",
         "Letzte &Auml;nderung", "Spezial Ansicht", "Bearbeiten");
     private $headOrder = array("", "", "", "", "", "", "");
+    private $isEditorPresent;
 
     /**
-     * @param array  $fileList
      * @param bool   $isEditorPresent
      * @param string $order [optional]
      * @return StationDatasheetList
      */
-    public function __construct(array $fileList, $isEditorPresent, $order = "ORDER_SHORT")
+    public function __construct($isEditorPresent, $order = "ORDER_SHORT")
     {
-        $this->tableEntries = new ListRow();
-
+        //$this->tableEntries = new ListRow();
+        $this->isEditorPresent = $isEditorPresent;
         $this->setOrder($order);
 
-        $this->buildTableEntries($fileList, $isEditorPresent);
         return $this;
     }
 
@@ -58,21 +57,22 @@ class StationDatasheetList
 
     /**
      * @param $array
-     * @param $isEditorPresent
      */
-    private function buildTableEntries($array, $isEditorPresent)
+    public function buildTableEntries($array)
     {
         if (!empty($array))
         {
+            $this->tableEntries = new ListRow();
             $key = 0;
             /** @var $value File */
             foreach ($array as $value)
             {
                 // Die Datei ist mit Sicherheit vom Typ XML!
                 $xml = new BaseElement(new SimpleXMLElement($value->getPathname(), null, true));
+                // TODO Alternative Implementierung der Listeneintraege ermoeglichen
                 $this->tableEntries->append(new DatasheetListRowEntriesImpl($xml->getValueForTag('name'),
                             $xml->getValueForTag('kuerzel'), ($key+1), $value, $xml->getValueForTag('typ'),
-                            strftime("%a, %d. %b %Y %H:%M", $value->getMTime()), $isEditorPresent));
+                            strftime("%a, %d. %b %Y %H:%M", $value->getMTime()), $this->isEditorPresent));
                 $key++;
             }
         }

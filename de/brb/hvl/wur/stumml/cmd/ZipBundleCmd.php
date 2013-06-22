@@ -1,6 +1,8 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_FileManagerImpl');
+import('de_brb_hvl_wur_stumml_beans_tableList_htmlPage_HtmlIndexPageBuilder');
+import('de_brb_hvl_wur_stumml_beans_tableList_htmlPage_HtmlListPageBuilder');
 
 //import('de_brb_hvl_wur_stumml_cmd_CSVListCmd');
 import('de_brb_hvl_wur_stumml_cmd_XmlHtmlTransformCmd');
@@ -98,7 +100,7 @@ final class ZipBundleCmd
 
             // parent full directory path of $dirToArchive, to generate the
             // local path in the archive
-            $baseDir = new File();//Settings::uploadBaseDir();
+            $baseDir = new File();
 
             $zip = new ZipArchive();
             $zip->open($this->getFile()->getPathname(), ZipArchive::CREATE);
@@ -107,12 +109,19 @@ final class ZipBundleCmd
             {
                 if ($node->isFile() && $node->isReadable())
                 {
-                    $zip->addFile($node->getPathname(), str_replace($baseDir->getPathname()."/", "", $node->getPathname()));
+                    $zip->addFile($node->getPathname(),
+                        str_replace($baseDir->getPathname()."/", "", $node->getPathname()));
                 }
             }
-            // TODO: Update bstlist.html bzw. index.html which shows
-            //       a local view of all datasheets
-            //       create bstlist for all epochs and add them to archive
+            $indexBuilder = new HtmlIndexPageBuilder();
+            $zip->addFromString('db/index.html', $indexBuilder->doCommand());
+            $listBuilder = new HtmlListPageBuilder();
+            $listBuilder->setFileManager($this->oFileManager);
+            foreach (FileManagerImpl::$EPOCHS as $epoch)
+            {
+                $listBuilder->setEpoch($epoch);
+                $zip->addFromString('db/list-'.$epoch.'.html', $listBuilder->doCommand());
+            }
             $zip->close();
             $this->getFile()->changeFileRights(0666);
             return true;

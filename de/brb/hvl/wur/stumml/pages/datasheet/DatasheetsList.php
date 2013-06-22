@@ -24,9 +24,9 @@ final class DatasheetsList extends AbstractList
 
         $this->oEditor = new CheckJNLPVersionCmd('editor');
 
-        $this->oList = new StationDatasheetList($this->getFileManager()
-                ->getFilesFromEpochWithOrder($this->getEpoch(), $this->order), $this->oEditor->isEditorPresent(),
-                $this->order);
+        $this->oList = new StationDatasheetList($this->oEditor->isEditorPresent(), $this->order);
+        $this->oList->buildTableEntries($this->getFileManager()
+                ->getFilesFromEpochWithOrder($this->getEpoch(), $this->order));
 
         $this->getReportTable()->setTableHead($this->oList->getTableHeader());
         $this->getReportTable()->setTableBody($this->oList->getTableEntries());
@@ -52,7 +52,8 @@ final class DatasheetsList extends AbstractList
 
     protected function getCallableMethods()
     {
-        return array_merge(parent::getCallableMethods(), array('getOrderOptionsUI','getYellowPageLink','getCSVListLink','getZipBundleLink','getApplicationUrl'));
+        return array_merge(parent::getCallableMethods(),
+            array('getOrderOptionsUI', 'getYellowPageLink', 'getCSVListLink', 'getZipBundleLink', 'getApplicationUrl'));
     }
 
     /**
@@ -63,8 +64,8 @@ final class DatasheetsList extends AbstractList
         $str = "";
         foreach (self::$ORDERS as $key => $value)
         {
-            $str .= "<option value=\"".$key."\"".(($this->order == $key) ? " selected=\"selected\"" : "").">".$value.
-                    "</option>";
+            $str .= "<option value=\"".$key."\"".(($this->order == $key) ? " selected=\"selected\"" : "").">".
+                    $value."</option>";
         }
         return $str;
     }
