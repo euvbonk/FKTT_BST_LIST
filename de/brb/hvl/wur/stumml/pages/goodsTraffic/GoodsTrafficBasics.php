@@ -28,8 +28,9 @@ class GoodsTrafficBasics extends AbstractList
 
         $this->doCommand(QI::getCommand(), $_POST);
 
-        $this->oListTable = new GoodsTrafficList($this->getFileManager()
-                ->getFilesFromEpochWithFilter($this->getEpoch(), $this->stationFilter), $this->daysAWeek);
+        $this->oListTable = new GoodsTrafficList($this->daysAWeek);
+        $this->oListTable->buildTableEntries($this->getFileManager()
+                        ->getFilesFromEpochWithFilter($this->getEpoch(), $this->stationFilter));
 
         $this->getReportTable()->setRowSelectorEnabled(true);
         $this->getReportTable()->setTableHead($this->oListTable->getTableHeader());

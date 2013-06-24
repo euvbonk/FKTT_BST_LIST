@@ -1,3 +1,5 @@
+2013-06-24 euvbonk v0.8alpha
+    * Refaktorierung der Listengenerierung hier: abstrakte Tabellenliste
 2013-06-22 euvbonk v0.8alpha
     * Automatische Erstellung der Listen fuer die einzelnen Epochen, sowie Index-Ansicht, die im Archiv abgelegt werden
       Wobei die Listeneintraege noch angepasst werden muessen.

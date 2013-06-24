@@ -1,12 +1,14 @@
 <?php
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_xml_DatasheetElement');
-import('de_brb_hvl_wur_stumml_beans_tableList_goodsTraffic_GoodsTrafficListRowEntriesImpl');
+import('de_brb_hvl_wur_stumml_beans_tableList_AbstractTableList');
+import('de_brb_hvl_wur_stumml_beans_tableList_goodsTraffic_GoodsTrafficListRowDataImpl');
+import('de_brb_hvl_wur_stumml_beans_tableList_goodsTraffic_GoodsTrafficListRowEntry');
 
 import('de_brb_hvl_wur_stumml_util_reportTable_ListRow');
 import('de_brb_hvl_wur_stumml_util_reportTable_ListRowCellsImpl');
 
-class GoodsTrafficList
+class GoodsTrafficList extends AbstractTableList
 {
     // table footer variables    
     private $sumInput = 0;          /* sum of all cars input a day */
@@ -17,16 +19,16 @@ class GoodsTrafficList
 
     private $tableEntries;
 
+    private $oDaysPerWeek;
+
     /**
-     * @param array $fileList
      * @param float $dAW
      * @return GoodsTrafficList
      */
-    public function __construct(array $fileList, $dAW)
+    public function __construct($dAW)
     {
-        $this->tableEntries = new ListRow();
+        $this->oDaysPerWeek = $dAW;
 
-        $this->buildTableEntries($fileList, $dAW);
         return $this;
     }
 
@@ -59,28 +61,17 @@ class GoodsTrafficList
 
     /**
      * @param array $array
-     * @param float $dAW
      */
-    private function buildTableEntries($array, $dAW)
+    public function buildTableEntries($array)
     {
+        $this->tableEntries = new ListRow();
+
         /** @var $value File */
         foreach ($array as $value)
         {
-            $xml = new DatasheetElement(new SimpleXMLElement($value->getPathname(), null, true), $dAW);
-            $this->tableEntries->append(
-                new GoodsTrafficListRowEntriesImpl(
-                                                $xml->getName(),
-                                                $xml->getShort(),
-                                                $value,
-                                                $xml->getShort(),
-                                                $xml->getCarsInput(),
-                                                $xml->getCarsOutput(),
-                                                $xml->getCarsMax(),
-                                                $xml->getShortestMainTrackLength(),
-                                                $xml->getLongestMainTrackLength()
-                                                )
-                );
-            
+            $xml = new DatasheetElement(new SimpleXMLElement($value->getPathname(), null, true), $this->oDaysPerWeek);
+            $this->tableEntries->append(new GoodsTrafficListRowEntry(new GoodsTrafficListRowDataImpl($xml, $value)));
+
             $this->sumInput += $xml->getCarsInput();
             $this->sumOutput += $xml->getCarsOutput();
             $this->sumMaxInOut += $xml->getCarsMax();
