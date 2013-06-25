@@ -48,11 +48,18 @@ class HtmlListPageBuilder extends AbstractHtmlPageBuilder
 
     protected function getYellowPageLink()
     {
-        $file = $this->getYellowPage()->getFile();
-        $uri = $file->toHttpUrl();
-        $link = $this->getYellowPage()->getFile()->toDownloadLink("Gelbe Seiten für die Epoche ".
-        $this->getCurrentEpoch());
-        return str_replace($uri, $file->getBasename(), $link);
+        if ($this->getYellowPage()->getFile()->exists())
+        {
+            $file = $this->getYellowPage()->getFile();
+            $uri = $file->toHttpUrl();
+            $link = $this->getYellowPage()->getFile()->toDownloadLink("Gelbe Seiten für die Epoche ".
+            $this->getCurrentEpoch());
+            return str_replace($uri, $file->getBasename(), $link);
+        }
+        else
+        {
+            return "";
+        }
     }
 
     /**

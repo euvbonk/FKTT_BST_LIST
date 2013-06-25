@@ -1,6 +1,7 @@
 2013-06-25 euvbonk v0.8beta
     * Refaktorierung der Listengenerierung abgeschlossen
     * Plugin erreicht den Betastatus und darf jetzt ausfuehrlich auf Fehler getestet werden
+    * Fehlerbeseitigung: Gelbe Seiten fuer einzelne Epochen werden nur angezeigt, wenn auch wirklich vorhanden.
 2013-06-24 euvbonk v0.8alpha
     * Refaktorierung der Listengenerierung hier: abstrakte Tabellenliste
 2013-06-22 euvbonk v0.8alpha

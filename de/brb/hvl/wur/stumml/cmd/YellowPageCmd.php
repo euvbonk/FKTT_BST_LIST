@@ -37,13 +37,13 @@ final class YellowPageCmd
         {
             return false;
         }
+        $this->renameFile($epoch);
         /** @var $latest File */
         $latest = $this->oFileManager->getLatestFileFromEpoch($epoch);
         if ($latest == null)
         {
             return false;
         }
-        $this->renameFile($epoch);
         if (strlen($latest->getPathname()) > 0 &&
                 (!$this->getFile()->exists() || $this->getFile()->getMTime() < $latest->getMTime())
         )
