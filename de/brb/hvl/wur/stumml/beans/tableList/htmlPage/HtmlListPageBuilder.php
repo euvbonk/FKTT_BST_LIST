@@ -3,7 +3,7 @@
 import('de_brb_hvl_wur_stumml_beans_datasheet_FileManager');
 import('de_brb_hvl_wur_stumml_beans_tableList_htmlPage_AbstractHtmlPageBuilder');
 
-import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_StationDatasheetList');
+import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_HtmlPageDatasheetList');
 import('de_brb_hvl_wur_stumml_cmd_YellowPageCmd');
 import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableListImpl');
 
@@ -83,7 +83,7 @@ class HtmlListPageBuilder extends AbstractHtmlPageBuilder
     {
         if ($this->oList == null)
         {
-            $this->oList = new StationDatasheetList(false);
+            $this->oList = new HtmlPageDatasheetList(false);
         }
         $this->oList->buildTableEntries($this->getFileManager()->getFilesFromEpochWithOrder($this->getCurrentEpoch()));
         if ($this->oReportTable == null)

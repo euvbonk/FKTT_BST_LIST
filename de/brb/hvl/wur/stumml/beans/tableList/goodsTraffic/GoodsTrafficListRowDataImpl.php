@@ -1,6 +1,8 @@
 <?php
 
+import('de_brb_hvl_wur_stumml_beans_datasheet_xml_DatasheetElement');
 import('de_brb_hvl_wur_stumml_beans_tableList_goodsTraffic_GoodsTrafficListRowData');
+import('de_brb_hvl_wur_stumml_io_File');
 
 class GoodsTrafficListRowDataImpl implements GoodsTrafficListRowData
 {
