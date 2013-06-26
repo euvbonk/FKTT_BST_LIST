@@ -30,16 +30,16 @@
       </p>
       "); ?>
       <p>
-        Dr&uuml;cke <?php $this->printFunc('getJNLPFileUrl'); ?> um die Anwendung direkt zu starten.
+        Dr&uuml;cke <?php $this->printValue('getJNLPFileUrl'); ?> um die Anwendung direkt zu starten.
       </p>
       <p>
         Alle Pakete sind mit einem 
-        <?php $this->printFunc('getCertificateFileUrl', "öffentlichen Zertifikat"); ?>
+        <?php $this->printValue('getCertificateFileUrl', "öffentlichen Zertifikat"); ?>
         signiert, was bei Bedarf installiert werden kann.
       </p>
       <hr />
       <p class="klein">
-         zuletzt ge&auml;ndert: <?php $this->getLastChangeTimestamp(); ?><br/>
+         zuletzt ge&auml;ndert: <?php $this->printValue('LastChange'); ?><br/>
         <a href="&#109;&#97;&#105;&#108;&#116;&#111;:seiste&#064;yahoo.de">
         Fragen und Klagen an Stefan Seibt</a>
       </p>

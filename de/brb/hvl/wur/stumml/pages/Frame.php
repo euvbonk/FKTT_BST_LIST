@@ -45,10 +45,10 @@ abstract class Frame
         }
     }
 
-    public final function getLastChangeTimestamp()
+    public final function LastChange()
     {
-        print '13. Juni 2013 20:00:00';
-        return;
+        // TODO Adapt release Date
+        return '26. Juni 2013 20:00:00';
     }
 
     /**
@@ -62,9 +62,9 @@ abstract class Frame
      * @param null   $args
      * @return bool
      */
-    public final function printFunc($methodName, $args = null)
+    public final function printValue($methodName, $args = null)
     {
-        if (in_array($methodName, $this->getCallableMethods()))
+        if (in_array($methodName, array_merge(array('LastChange'), $this->getCallableMethods())))
         {
             try
             {

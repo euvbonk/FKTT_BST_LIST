@@ -1,3 +1,5 @@
+2013-06-26 euvbonk v0.8beta
+    * Anpassung der Ausgabefunktion in Klasse Frame
 2013-06-25 euvbonk v0.8beta
     * Refaktorierung der Listengenerierung abgeschlossen
     * Plugin erreicht den Betastatus und darf jetzt ausfuehrlich auf Fehler getestet werden

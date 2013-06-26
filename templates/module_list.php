@@ -2,8 +2,8 @@
     <h2>Modulreihungsliste erstellen</h2>
     <div style="position: absolute;">
         Daten hier einf&uuml;gen:
-        <form action="<?php $this->printFunc('getFormActionUri'); ?>" method="post">
-            <textarea name="content" cols="40" rows="20"><?php $this->printFunc('getPostContent'); ?></textarea>
+        <form action="<?php $this->printValue('getFormActionUri'); ?>" method="post">
+            <textarea name="content" cols="40" rows="20"><?php $this->printValue('getPostContent'); ?></textarea>
             <br/>
             <input type="hidden" name="cmd" value="create" />
             <input type="reset" value="Textfeld leeren" />
@@ -41,7 +41,7 @@
     <div style="position:relative; bottom:-10%; width:97%;">
       <hr />
       <p class="klein">
-         zuletzt ge&auml;ndert: <?php $this->getLastChangeTimestamp(); ?><br/>
+         zuletzt ge&auml;ndert: <?php $this->printValue('LastChange'); ?><br/>
         <a href="&#109;&#97;&#105;&#108;&#116;&#111;:seiste&#064;yahoo.de">
         Fragen und Klagen an Stefan Seibt</a>
       </p>
