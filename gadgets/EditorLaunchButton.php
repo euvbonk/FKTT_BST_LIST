@@ -8,6 +8,8 @@ class EditorLaunchButton
 {
     public function __construct()
     {
+        $cmd = new CheckJNLPVersionCmd("fmx");
+        $cmd->doCommand();
         // check and repair jnlp file if necessary
         $cmd = new CheckJNLPVersionCmd("editor");
         if ($cmd->doCommand())
