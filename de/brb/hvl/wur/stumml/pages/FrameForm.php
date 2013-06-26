@@ -2,5 +2,5 @@
 
 interface FrameForm
 {
-    public function getFormActionUri();
+    public function FormActionUri();
 }

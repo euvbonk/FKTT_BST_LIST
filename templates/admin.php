@@ -3,8 +3,8 @@
       <p>
         Folgende Archive sind vorhanden und werden
         <span style="text-decoration:underline;font-weight:bold;font-style: italic;">vor der Sicherung entfernt!</span>:
-        <ul><?php $this->printValue('getZipList'); ?></ul>
-        <form action="<?php $this->printValue('getFormActionUri'); ?>" method="post">
+        <ul><?php $this->printValue('ZipList'); ?></ul>
+        <form action="<?php $this->printValue('FormActionUri'); ?>" method="post">
             <input type="hidden" name="cmd" value="export" />
             <input type="submit" value="Sicherung starten" />
         </form>

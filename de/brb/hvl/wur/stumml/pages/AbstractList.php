@@ -46,18 +46,18 @@ abstract class AbstractList extends Frame implements FrameForm
 
     protected function getCallableMethods()
     {
-        return array('getFormActionUri', 'getEpochOptionsUI', 'getTable');
+        return array('FormActionUri', 'EpochOptionsUI', 'Table');
     }
     /**
      * @see Interface FrameForm
      * @return String
      */
-    public final function getFormActionUri()
+    public final function FormActionUri()
     {
         return QI::getPageUri();
     }
 
-    public final function getEpochOptionsUI()
+    public final function EpochOptionsUI()
     {
         $str = "";
         foreach (FileManagerImpl::$EPOCHS as $value)
@@ -67,7 +67,7 @@ abstract class AbstractList extends Frame implements FrameForm
         return $str;
     }
     
-    public final function getTable()
+    public final function Table()
     {
         return $this->getReportTable()->getHtml();
     }

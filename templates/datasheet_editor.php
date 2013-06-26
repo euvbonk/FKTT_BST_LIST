@@ -30,11 +30,11 @@
       </p>
       "); ?>
       <p>
-        Dr&uuml;cke <?php $this->printValue('getJNLPFileUrl'); ?> um die Anwendung direkt zu starten.
+        Dr&uuml;cke <?php $this->printValue('JNLPFileUrl'); ?> um die Anwendung direkt zu starten.
       </p>
       <p>
         Alle Pakete sind mit einem 
-        <?php $this->printValue('getCertificateFileUrl', "öffentlichen Zertifikat"); ?>
+        <?php $this->printValue('CertificateFileUrl', "öffentlichen Zertifikat"); ?>
         signiert, was bei Bedarf installiert werden kann.
       </p>
       <hr />

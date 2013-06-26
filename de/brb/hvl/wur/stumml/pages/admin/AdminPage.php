@@ -43,10 +43,10 @@ final class AdminPage extends Frame implements FrameForm
 
     protected function getCallableMethods()
     {
-        return array('getZipList', 'getFormActionUri');
+        return array('ZipList', 'FormActionUri');
     }
 
-    public function getZipList()
+    public final function ZipList()
     {
         return $this->oZipListEntries;
     }
@@ -54,7 +54,7 @@ final class AdminPage extends Frame implements FrameForm
     /**
      * @see Interface FrameForm
      */
-    public function getFormActionUri()
+    public final function FormActionUri()
     {
         return QI::getPageUri();
     }

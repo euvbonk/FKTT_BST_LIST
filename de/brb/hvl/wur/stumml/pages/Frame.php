@@ -48,7 +48,7 @@ abstract class Frame
     public final function LastChange()
     {
         // TODO Adapt release Date
-        return '26. Juni 2013 20:00:00';
+        return '26. Juni 2013 09:35:00';
     }
 
     /**

@@ -2,8 +2,8 @@
     <h2>Modulreihungsliste erstellen</h2>
     <div style="position: absolute;">
         Daten hier einf&uuml;gen:
-        <form action="<?php $this->printValue('getFormActionUri'); ?>" method="post">
-            <textarea name="content" cols="40" rows="20"><?php $this->printValue('getPostContent'); ?></textarea>
+        <form action="<?php $this->printValue('FormActionUri'); ?>" method="post">
+            <textarea name="content" cols="40" rows="20"><?php $this->printValue('PostContent'); ?></textarea>
             <br/>
             <input type="hidden" name="cmd" value="create" />
             <input type="reset" value="Textfeld leeren" />

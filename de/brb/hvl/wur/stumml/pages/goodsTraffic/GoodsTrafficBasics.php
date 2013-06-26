@@ -69,13 +69,13 @@ class GoodsTrafficBasics extends AbstractList
 
     protected function getCallableMethods()
     {
-        return array_merge(parent::getCallableMethods(), array('getDaysOfWeekOptionsUI','getFilterCSV','getLengthPerCar','getMinTrainCount'));
+        return array_merge(parent::getCallableMethods(), array('DaysOfWeekOptionsUI','FilterCSV','LengthPerCar','MinTrainCount'));
     }
 
     /**
      * @return String
      */
-    public final function getDaysOfWeekOptionsUI()
+    public final function DaysOfWeekOptionsUI()
     {
         $str = "";
         foreach (self::$DAYS_OF_WEEK as $value)
@@ -88,7 +88,7 @@ class GoodsTrafficBasics extends AbstractList
     /**
      * @return String
      */
-    public final function getFilterCSV()
+    public final function FilterCSV()
     {
         return implode(", ", $this->stationFilter);
     }
@@ -96,7 +96,7 @@ class GoodsTrafficBasics extends AbstractList
     /**
      * @return float
      */
-    public final function getLengthPerCar()
+    public final function LengthPerCar()
     {
         return $this->lengthPerCar;
     }
@@ -104,7 +104,7 @@ class GoodsTrafficBasics extends AbstractList
     /**
      * @return float|String
      */
-    public final function getMinTrainCount()
+    public final function MinTrainCount()
     {
         if (empty($this->stationFilter))
         {

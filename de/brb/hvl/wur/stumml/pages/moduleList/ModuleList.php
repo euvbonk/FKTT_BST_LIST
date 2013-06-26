@@ -37,10 +37,10 @@ class ModuleList extends Frame implements FrameForm
 
     protected function getCallableMethods()
     {
-        return array('getPostContent','getFormActionUri');
+        return array('PostContent','FormActionUri');
     }
 
-    public function getPostContent()
+    public final function PostContent()
     {
         return $this->content;
     }
@@ -49,7 +49,7 @@ class ModuleList extends Frame implements FrameForm
      * @see Interface FrameForm
      * @return String
      */
-    public function getFormActionUri()
+    public final function FormActionUri()
     {
         return QI::getPageUri();
     }

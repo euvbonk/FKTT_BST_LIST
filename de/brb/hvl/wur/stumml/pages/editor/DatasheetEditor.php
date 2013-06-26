@@ -18,13 +18,13 @@ final class DatasheetEditor extends Frame
 
     protected function getCallableMethods()
     {
-        return array('getJNLPFileUrl','getCertificateFileUrl');
+        return array('JNLPFileUrl','CertificateFileUrl');
     }
 
     /**
      * @return String
      */
-    public final function getJNLPFileUrl()
+    public final function JNLPFileUrl()
     {
         return self::$JNLP_HTTP_URI;
     }
@@ -33,7 +33,7 @@ final class DatasheetEditor extends Frame
      * @param $label String
      * @return String
      */
-    public final function getCertificateFileUrl($label)
+    public final function CertificateFileUrl($label)
     {
         $f = new File('rgzm/rgzm.cert');
         return $f->toDownloadLink($label);

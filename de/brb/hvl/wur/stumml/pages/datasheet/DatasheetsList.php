@@ -53,13 +53,13 @@ final class DatasheetsList extends AbstractList
     protected function getCallableMethods()
     {
         return array_merge(parent::getCallableMethods(),
-            array('getOrderOptionsUI', 'getYellowPageLink', 'getCSVListLink', 'getZipBundleLink', 'getApplicationUrl'));
+            array('OrderOptionsUI', 'YellowPageLink', 'CSVListLink', 'ZipBundleLink', 'ApplicationUrl'));
     }
 
     /**
      * @return String
      */
-    public final function getOrderOptionsUI()
+    public final function OrderOptionsUI()
     {
         $str = "";
         foreach (self::$ORDERS as $key => $value)
@@ -73,7 +73,7 @@ final class DatasheetsList extends AbstractList
     /**
      * @return String
      */
-    public final function getYellowPageLink()
+    public final function YellowPageLink()
     {
         $t = new YellowPageCmd($this->getFileManager());
         $t->doCommand($this->getEpoch());
@@ -90,7 +90,7 @@ final class DatasheetsList extends AbstractList
     /**
      * @return String
      */
-    public final function getCSVListLink()
+    public final function CSVListLink()
     {
         $t = new CSVListCmd($this->getFileManager());
         $t->doCommand();
@@ -107,7 +107,7 @@ final class DatasheetsList extends AbstractList
     /**
      * @return String
      */
-    public final function getZipBundleLink()
+    public final function ZipBundleLink()
     {
         $t = new ZipBundleCmd($this->getFileManager());
         try
@@ -131,7 +131,7 @@ final class DatasheetsList extends AbstractList
     /**
      * @return String Uri
      */
-    public final function getApplicationUrl()
+    public final function ApplicationUrl()
     {
         return ($this->oEditor->doCommand()) ? $this->oEditor->getDeploy() : "";
     }
