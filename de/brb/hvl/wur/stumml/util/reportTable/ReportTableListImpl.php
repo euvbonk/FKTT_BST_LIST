@@ -97,7 +97,7 @@ class ReportTableListImpl implements ReportTableList, Html
             {
                 $trowColor = $rowColor;
             }
-            $trow = new TableRow("bgcolor=\"".$trowColor."\"");
+            $trow = new TableRow("style=\"background-color:".$trowColor.";\"");
             if ($this->cSelector && $struct == "thead" && $ind == 0)
             {
                 $trow->addCell(new $cellForm("X", "rowspan=\"".$rows->count()."\""));
@@ -138,7 +138,7 @@ class ReportTableListImpl implements ReportTableList, Html
         $str .= ($this->cEntries != null) ? $this->getTableBody() : "";
         $str .= ($this->cFooter != null) ? $this->getTableFoot() : "";
         //return (strlen($str) > 0) ? "<table cellspacing=\"1\">\n".$str."</table>\n" : "Nothing to display!";
-        return (strlen($str) > 0) ? "<table cellspacing=\"1\">".$str."</table>" : "Nothing to display!";
+        return (strlen($str) > 0) ? "<table style=\"border-spacing:1px;border-collapse: separate;\">".$str."</table>" : "Nothing to display!";
     }
 
     /**

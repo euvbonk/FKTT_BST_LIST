@@ -1,3 +1,14 @@
+2014-02-27 euvbonk v0.9alpha
+    * Weitere Upload Tests: Superuser, Moduleigentuemer, Upload funktioniert
+2013-11-09-15 euvbonk v0.9alpha
+    * Upload von Datenblatt und Bild ermoeglicht automatische Abfrage in zentraler Liste
+      erforderlich falls Datenblatt noch nicht vorhanden
+    * Mindestens PHP 5.3.6 fuer Addon erforderlich
+2013-11-08 euvbonk v0.9alpha
+    * Auslagerung der Funktionalitaeten in Command Klassen (PostRequest, UploadFile)
+2013-11-07 euvbonk v0.9alpha
+    * Einfuehrung eines Skriptes zum fernggesteuerten Hochladen von
+      Datenblaettern durch den Datenblatt-Editor
 2013-06-28 euvbonk v0.8
     * Veroeffentlichung der Version 0.8 des gpEasy Plugins
 2013-06-26 euvbonk v0.8beta/v0.8RC1
@@ -81,7 +92,6 @@
       aufgebaut ist wie der Fpl_View. Dabei wird on the fly die jnlp Datei von
       Webstart derart geaendert, dass der Editor gleich mit der entsprechenden
       Datei startet.
-      TODO: passende Integrierung in die Tabelle
 2013-03-30 euvbonk v0.8alpha
     * FileFilter angepasst und um weitere Klasse fuer das XML Listing ergaenzt
     * File-Klasse nun mit Methode listFiles die ein iterator zurueckgibt
@@ -123,7 +133,6 @@
     * Ausserdem Fpl View so angepasst, dass schon erstellte Html Datei im
       Browser angezeigt wird.
     * Im Zip Bundle befinden sich nun auch die Html Dateien des Fpl View
-    * TODO:
 2013-03-17 euvbonk
     * Klasse File eingefuehrt und in den Commands eingebaut.
 2013-03-15 euvbonk

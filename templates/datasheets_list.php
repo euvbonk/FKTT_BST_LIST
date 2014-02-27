@@ -1,7 +1,7 @@
 
       <h1>Die Betriebstellen des FKTT und ihre Daten</h1>
       <form action="<?php $this->printValue('FormActionUri'); ?>" method="post">
-          <table border="0"><tr><td style="text-align: right;">Ordnen nach:&nbsp;</td><td><select name="order" size="1"><?php $this->printValue('OrderOptionsUI'); ?></select></td></tr><tr><td style="text-align: right;">Epoche:&nbsp;</td><td><select name="epoch" size="1" style="width:45px;"><?php $this->printValue('EpochOptionsUI'); ?></select></td></tr><tr><td style="text-align: right;"><input type="submit" name="startFilter" value="Start" /></td><td style="text-align: right;"><input type="submit" value="Filter l&ouml;schen" name="reset" /></td></tr></table>
+          <table><tr><td style="text-align: right;">Ordnen nach:&nbsp;</td><td><label><select name="order" size="1"><?php $this->printValue('OrderOptionsUI'); ?></select></label></td></tr><tr><td style="text-align: right;">Epoche:&nbsp;</td><td><label><select name="epoch" size="1" style="width:45px;"><?php $this->printValue('EpochOptionsUI'); ?></select></label></td></tr><tr><td style="text-align: right;"><input type="submit" name="startFilter" value="Start"></td><td style="text-align: right;"><input type="submit" value="Filter l&ouml;schen" name="reset"></td></tr></table>
           <!-- BSTLIST_ENTRY_FOR_FKTT_PORTAL --><?php $this->printValue('Table'); ?><!-- BSTLIST_FLUSH_FOR_FKTT_PORTAL -->
       </form>
       <p><?php $this->printValue('YellowPageLink'); ?></p>

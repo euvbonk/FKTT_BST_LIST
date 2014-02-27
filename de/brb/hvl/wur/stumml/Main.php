@@ -10,6 +10,7 @@ import('de_brb_hvl_wur_stumml_pages_goodsTraffic_GoodsTrafficBasics');
 import('de_brb_hvl_wur_stumml_pages_moduleList_ModuleList');
 import('de_brb_hvl_wur_stumml_pages_editor_DatasheetEditor');
 import('de_brb_hvl_wur_stumml_pages_admin_AdminPage');
+import('de_brb_hvl_wur_stumml_pages_remoteUpload_RemoteSheetUpload');
 
 class Main
 {
@@ -45,6 +46,9 @@ class Main
                     break;
                 case "edit_datasheet":
                     $sheet = new EditDatasheet(QI::getCommand());
+                    break;
+                case "remote_sheet_upload":
+                    $sheet = new RemoteSheetUpload();
                     break;
                 default :
                     // Never reached by gpEasy!
