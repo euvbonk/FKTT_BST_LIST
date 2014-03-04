@@ -1,3 +1,9 @@
+2014-03-04 euvbonk v0.9
+    * Neue Zertifizierungsdatei fuer Webstart-Anwendung
+    * Zeitstempel
+    * in globaler config (root) muss gp_restrict_uploads auf false gesetzt werden, da sonst Uploads nicht funktionieren
+      und aufgrund der Struktur zum gpFinder das globale Array auch nicht zur Laufzeit erweitert werden kann.
+    * stabile v0.9
 2014-02-27 euvbonk v0.9alpha
     * Weitere Upload Tests: Superuser, Moduleigentuemer, Upload funktioniert
 2013-11-09-15 euvbonk v0.9alpha

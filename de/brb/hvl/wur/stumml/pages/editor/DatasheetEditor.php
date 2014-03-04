@@ -35,7 +35,7 @@ final class DatasheetEditor extends Frame
      */
     public final function CertificateFileUrl($label)
     {
-        $f = new File('rgzm/rgzm.cert');
+        $f = new File('rgzm/RgZm.cert');
         return $f->toDownloadLink($label);
     }
 }
