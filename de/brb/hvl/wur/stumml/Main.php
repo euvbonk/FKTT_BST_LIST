@@ -4,7 +4,7 @@ import('de_brb_hvl_wur_stumml_pages_AddonErrorPage');
 import('de_brb_hvl_wur_stumml_util_QI');
 import('de_brb_hvl_wur_stumml_pages_datasheet_DatasheetsList');
 import('de_brb_hvl_wur_stumml_pages_datasheet_EditDatasheet');
-import('de_brb_hvl_wur_stumml_pages_datasheet_FplView');
+import('de_brb_hvl_wur_stumml_pages_datasheet_SheetView');
 import('de_brb_hvl_wur_stumml_pages_develop_Develop');
 import('de_brb_hvl_wur_stumml_pages_goodsTraffic_GoodsTrafficBasics');
 import('de_brb_hvl_wur_stumml_pages_moduleList_ModuleList');
@@ -42,13 +42,16 @@ class Main
                     $sheet = new AdminPage();
                     break;
                 case "fpl_view":
-                    $sheet = new FplView(QI::getCommand());
+                    $sheet = new SheetView(QI::getCommand(), "fpl");
                     break;
                 case "edit_datasheet":
                     $sheet = new EditDatasheet(QI::getCommand());
                     break;
                 case "remote_sheet_upload":
                     $sheet = new RemoteSheetUpload();
+                    break;
+                case "sheet_view" :
+                    $sheet = new SheetView(QI::getCommand(), "bahnhof", QI::getCommand('lang'));
                     break;
                 default :
                     // Never reached by gpEasy!

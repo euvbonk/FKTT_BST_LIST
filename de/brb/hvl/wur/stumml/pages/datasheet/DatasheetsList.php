@@ -53,7 +53,7 @@ final class DatasheetsList extends AbstractList
     protected function getCallableMethods()
     {
         return array_merge(parent::getCallableMethods(),
-            array('OrderOptionsUI', 'YellowPageLink', 'CSVListLink', 'ZipBundleLink', 'ApplicationUrl'));
+            array('OrderOptionsUI', 'YellowPageLink', 'CSVListLink', 'ZipBundleLink', 'ApplicationUrl', 'SheetViewUrl'));
     }
 
     /**
@@ -134,5 +134,13 @@ final class DatasheetsList extends AbstractList
     public final function ApplicationUrl()
     {
         return ($this->oEditor->doCommand()) ? $this->oEditor->getDeploy() : "";
+    }
+
+    /**
+     * @return String Uri
+     */
+    public final function SheetViewUrl()
+    {
+        return substr($this->FormActionUri(), 0, strrpos($this->FormActionUri(),"/") + 1)."Sheet_View?";
     }
 }

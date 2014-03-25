@@ -21,9 +21,10 @@ class HtmlPageDatasheetList extends AbstractDatasheetList
 
     /**
      * @param DatasheetListRowData $data
+     * @param array $lang
      * @return ListRowCells
      */
-    protected function getListRowImpl(DatasheetListRowData $data)
+    protected function getListRowImpl(DatasheetListRowData $data, array $lang = null)
     {
         return new HtmlPageListRowEntries($data);
     }

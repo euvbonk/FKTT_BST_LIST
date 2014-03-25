@@ -21,21 +21,24 @@ class StationDatasheetList extends AbstractDatasheetList
 
     /**
      * @param DatasheetListRowData $data
+     * @param array $lang
      * @return ListRowCells
      */
-    protected function getListRowImpl(DatasheetListRowData $data)
+    protected function getListRowImpl(DatasheetListRowData $data, array $lang = null)
     {
-        return new SheetListRowEntries($data);
+        return new SheetListRowEntries($data, $lang);
     }
 }
 
 class SheetListRowEntries implements ListRowCells
 {
     private $oListRowData;
+    private $oLang;
 
-    public function __construct(DatasheetListRowData $data)
+    public function __construct(DatasheetListRowData $data, array $lang)
     {
         $this->oListRowData = $data;
+        $this->oLang = $lang;
     }
 
     /**
@@ -56,7 +59,7 @@ class SheetListRowEntries implements ListRowCells
         $datei = $this->getData()->getFile();
         $nameRef = $datei->toDownloadLink($name, false);
         $kuerzel = $this->getData()->getBaseElement()->getValueForTag('kuerzel');
-        $kuerzelRef = $datei->toDownloadLink($kuerzel, false);
+        $kuerzelRef = $this->getLangSelect($kuerzel, $datei);
         $type = $this->getData()->getBaseElement()->getValueForTag('typ');
         $lastChange = strftime("%a, %d. %b %Y %H:%M", $datei->getMTime());
         return array($index, $nameRef, $kuerzelRef, HtmlUtil::toUtf8($type), $lastChange,
@@ -75,9 +78,22 @@ class SheetListRowEntries implements ListRowCells
             "", "style=\"text-align:center;\"", "style=\"text-align:center;\"");
     }
 
-    protected function buildCommandLink($pageName, $label, $url)
+    protected function buildCommandLink($pageName, $label, File $url)
     {
         return HtmlUtil::toUtf8(QI::buildAbsoluteLink($pageName, $label,
-                "cmd=".str_replace(".xml", "", basename($url))));
+                "cmd=".$url->getBasename(".xml")));
+    }
+
+    protected function getLangSelect($kuerzel, File $url)
+    {
+        $ret  = "<select size=\"1\" class=\"datasheet-lang-select\">";
+        $ret .= "<option value='#'>{$kuerzel}</option>";
+        foreach ($this->oLang as $lang)
+        {
+            $ck = $url->getBasename(".xml");
+            $ret .= "<option value='cmd={$ck}&lang={$lang}'>{$kuerzel} ({$lang})</option>";
+        }
+        $ret .= "</select>";
+        return $ret;
     }
 }

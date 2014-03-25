@@ -2,7 +2,7 @@
       <h1>Die Betriebstellen des FKTT und ihre Daten</h1>
       <form action="<?php $this->printValue('FormActionUri'); ?>" method="post">
           <table><tr><td style="text-align: right;">Ordnen nach:&nbsp;</td><td><label><select name="order" size="1"><?php $this->printValue('OrderOptionsUI'); ?></select></label></td></tr><tr><td style="text-align: right;">Epoche:&nbsp;</td><td><label><select name="epoch" size="1" style="width:45px;"><?php $this->printValue('EpochOptionsUI'); ?></select></label></td></tr><tr><td style="text-align: right;"><input type="submit" name="startFilter" value="Start"></td><td style="text-align: right;"><input type="submit" value="Filter l&ouml;schen" name="reset"></td></tr></table>
-          <!-- BSTLIST_ENTRY_FOR_FKTT_PORTAL --><?php $this->printValue('Table'); ?><!-- BSTLIST_FLUSH_FOR_FKTT_PORTAL -->
+          <!-- BSTLIST_ENTRY_FOR_FKTT_PORTAL --><?php $this->printValue('Table'); ?><script type="text/javascript">$(function(){$('select.datasheet-lang-select').change(function(){var tref=$(this).val();if(tref.length>0 && tref!='#'){parent.top.location.href='<?php $this->printValue('SheetViewUrl');?>'+tref;}})})</script><!-- BSTLIST_FLUSH_FOR_FKTT_PORTAL -->
       </form>
       <p><?php $this->printValue('YellowPageLink'); ?></p>
       <p>Achtung! Die Betriebsstellendateien sind XML-Dateien<br/>und nur mit folgenden Browsern ansehbar:<br />

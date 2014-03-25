@@ -4,6 +4,8 @@ import('de_brb_hvl_wur_stumml_beans_tableList_AbstractTableList');
 import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_DatasheetListRowDataImpl');
 import('de_brb_hvl_wur_stumml_beans_datasheet_xml_BaseElement');
 
+import('de_brb_hvl_wur_stumml_io_GlobIterator');
+
 import('de_brb_hvl_wur_stumml_util_reportTable_ListRow');
 import('de_brb_hvl_wur_stumml_util_reportTable_ListRowCellsImpl');
 
@@ -14,6 +16,7 @@ abstract class AbstractDatasheetList extends AbstractTableList
         "Letzte &Auml;nderung", "Spezial Ansicht", "Bearbeiten");
     private $headOrder = array("", "", "", "", "", "", "");
     private $isEditorPresent;
+    private $oLang;
 
     /**
      * @param bool   $isEditorPresent
@@ -65,15 +68,17 @@ abstract class AbstractDatasheetList extends AbstractTableList
 
     /**
      * @param DatasheetListRowData $data
+     * @param array $lang
      * @return ListRowCells
      */
-    protected abstract function getListRowImpl(DatasheetListRowData $data);
+    protected abstract function getListRowImpl(DatasheetListRowData $data, array $lang = null);
 
     /**
      * @param $array
      */
     public function buildTableEntries($array)
     {
+        $this->oLang = $this->getAvail();
         $this->tableEntries = new ListRow();
         if (!empty($array))
         {
@@ -83,7 +88,7 @@ abstract class AbstractDatasheetList extends AbstractTableList
             {
                 // Die Datei ist mit Sicherheit vom Typ XML!
                 $xml = new BaseElement(new SimpleXMLElement($value->getPathname(), null, true));
-                $this->tableEntries->append($this->getListRowImpl(new DatasheetListRowDataImpl(($key+1), $xml, $value, $this->isEditorPresent)));
+                $this->tableEntries->append($this->getListRowImpl(new DatasheetListRowDataImpl(($key+1), $xml, $value, $this->isEditorPresent), $this->oLang));
                 $key++;
             }
         }
@@ -130,5 +135,32 @@ abstract class AbstractDatasheetList extends AbstractTableList
             $sub = "&#8595;";
         }
         return "<span style='color:red;'>".$main."&nbsp;".$sub."</span>";
+    }
+
+    protected function getAvail()
+    {
+        $ret = array();
+        $f = new File("./db/bahnhof.xsl");
+        $it = new MyGlobIterator($f->getPath()."/bahnho*.xsl");
+        $it->setInfoClass('File');
+        /** @var $file File */
+        foreach ($it as $file)
+        {
+            $n = $file->getBasename(".xsl");
+            $a = explode("_", $n);
+            if (!isset($a[1]))
+            {
+                $a = "DE";
+            }
+            else if ($a[1] != 'tpl')
+            {
+                $a = strtoupper($a[1]);
+            }
+            if (is_string($a) && strlen($a) == 2)
+            {
+                $ret[] = $a;
+            }
+        }
+        return $ret;
     }
 }
