@@ -75,6 +75,7 @@ if (!function_exists('import'))
  * Der Aufruf erfolgt über gpEasy (Anpassung der Startklasse in Addon.ini)
  */
 import('de_brb_hvl_wur_stumml_io_File');
+use org\fktt\bstlist\io\File;
 File::setPaths(getenv('HTTP_HOST'), getenv('DOCUMENT_ROOT'), getenv('SCRIPT_NAME'), __FILE__);
 
 import('de_brb_hvl_wur_stumml_Main');

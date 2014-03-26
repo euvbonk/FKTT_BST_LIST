@@ -1,12 +1,14 @@
 <?php
+namespace org\fktt\bstlist\util\logging;
 
 import('de_brb_hvl_wur_stumml_io_File');
+use org\fktt\bstlist\io\File;
 
 /**
  * Class FileLogger
  * Writes a message to the given logfile
  */
-class FileLogger extends \File
+class FileLogger extends File
 {
     private static $DATE_FORMAT = "Y-m-d H:i:s";
     private $oHandle;
@@ -26,7 +28,7 @@ class FileLogger extends \File
      */
     public function open()
     {
-        $this->oHandle = fopen($this->getPathname(), "ab");
+        $this->oHandle = \fopen($this->getPathname(), "ab");
         return $this->oHandle;
     }
 
@@ -36,8 +38,8 @@ class FileLogger extends \File
      */
     public function write($message)
     {
-        $str = "[".date(self::$DATE_FORMAT)."] ".$message."\r\n";
-        return fwrite($this->oHandle, $str, strlen($str));
+        $str = "[".\date(self::$DATE_FORMAT)."] ".$message."\r\n";
+        return \fwrite($this->oHandle, $str, \strlen($str));
     }
 
     /**
@@ -45,6 +47,6 @@ class FileLogger extends \File
      */
     public function close()
     {
-        return fclose($this->oHandle);
+        return \fclose($this->oHandle);
     }
 }

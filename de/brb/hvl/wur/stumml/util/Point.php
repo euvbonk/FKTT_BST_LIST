@@ -1,4 +1,5 @@
 <?php
+namespace org\fktt\bstlist\util;
 
 class Point
 {

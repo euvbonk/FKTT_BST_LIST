@@ -1,8 +1,13 @@
 <?php
+namespace org\fktt\bstlist\beans\yellowpage;
 
 import('de_brb_hvl_wur_stumml_beans_yellowPage_AbstractYellowPage');
 import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageTableRowCellList');
 import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageTableRowCell');
+
+use org\fktt\bstlist\beans\datasheet\xml\StationElement;
+use org\fktt\bstlist\beans\datasheet\xml\ShipperElement;
+use org\fktt\bstlist\beans\datasheet\xml\CargoElement;
 
 class FkttYellowPage extends AbstractYellowPage
 {

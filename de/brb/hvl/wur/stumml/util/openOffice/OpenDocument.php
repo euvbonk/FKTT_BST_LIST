@@ -1,6 +1,12 @@
 <?php
+namespace org\fktt\bstlist\util\openOffice;
 
 import('de_brb_hvl_wur_stumml_io_File');
+
+use Exception;
+use SimpleXMLElement;
+use ZipArchive;
+use org\fktt\bstlist\io\File;
 
 abstract class OpenDocument
 {
@@ -52,16 +58,16 @@ abstract class OpenDocument
         {
             return;
         }
-        $charset = ini_get('default_charset');
-        ini_set('default_charset', 'UTF-8');
-        copy($this->oArchiveFileName, $file->getPathname());
+        $charset = \ini_get('default_charset');
+        \ini_set('default_charset', 'UTF-8');
+        \copy($this->oArchiveFileName, $file->getPathname());
         $zip = new ZipArchive();
         $zip->open($file->getPathname());
         $zip->deleteName('content.xml');
         $zip->addFromString('content.xml', $this->getDocument()->asXML());
         $zip->close();
         $file->changeFileRights(0666);
-        ini_set('default_charset', $charset);
+        \ini_set('default_charset', $charset);
     }
 
     /**
@@ -70,7 +76,7 @@ abstract class OpenDocument
     public function debug()
     {
         print "\n<pre>";
-        var_dump($this->getDocument()->asXML());
+        \var_dump($this->getDocument()->asXML());
         print "</pre>\n";
     }
 

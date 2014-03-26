@@ -1,4 +1,5 @@
 <?php
+namespace org\fktt\bstlist\beans\tableList\datasheet;
 
 import('de_brb_hvl_wur_stumml_beans_tableList_AbstractTableList');
 import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_DatasheetListRowDataImpl');
@@ -8,6 +9,15 @@ import('de_brb_hvl_wur_stumml_io_GlobIterator');
 
 import('de_brb_hvl_wur_stumml_util_reportTable_ListRow');
 import('de_brb_hvl_wur_stumml_util_reportTable_ListRowCellsImpl');
+
+use SimpleXMLElement;
+use org\fktt\bstlist\beans\datasheet\xml\BaseElement;
+use org\fktt\bstlist\beans\tableList\AbstractTableList;
+use org\fktt\bstlist\io\File;
+use org\fktt\bstlist\io\MyGlobIterator;
+use org\fktt\bstlist\util\reportTable\ListRow;
+use org\fktt\bstlist\util\reportTable\ListRowCells;
+use org\fktt\bstlist\util\reportTable\ListRowCellsImpl;
 
 abstract class AbstractDatasheetList extends AbstractTableList
 {
@@ -120,7 +130,7 @@ abstract class AbstractDatasheetList extends AbstractTableList
     private function buildCellContent($cmd, $main)
     {
         // wenn es für diesen Eintrag keine Order-Angabe gibt
-        if (strlen($this->headOrder[$cmd]) == 0)
+        if (\strlen($this->headOrder[$cmd]) == 0)
         {
             return $main;
         }
@@ -142,21 +152,21 @@ abstract class AbstractDatasheetList extends AbstractTableList
         $ret = array();
         $f = new File("./db/bahnhof.xsl");
         $it = new MyGlobIterator($f->getPath()."/bahnho*.xsl");
-        $it->setInfoClass('File');
+        $it->setInfoClass('org\fktt\bstlist\io\File');
         /** @var $file File */
         foreach ($it as $file)
         {
             $n = $file->getBasename(".xsl");
-            $a = explode("_", $n);
+            $a = \explode("_", $n);
             if (!isset($a[1]))
             {
                 $a = "DE";
             }
             else if ($a[1] != 'tpl')
             {
-                $a = strtoupper($a[1]);
+                $a = \strtoupper($a[1]);
             }
-            if (is_string($a) && strlen($a) == 2)
+            if (\is_string($a) && \strlen($a) == 2)
             {
                 $ret[] = $a;
             }

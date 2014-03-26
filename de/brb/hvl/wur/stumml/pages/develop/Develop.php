@@ -1,9 +1,10 @@
 <?php
+namespace org\fktt\bstlist\pages\develop;
 
 import('de_brb_hvl_wur_stumml_pages_Frame');
-import('de_brb_hvl_wur_stumml_io_File');
-
 import('de_brb_hvl_wur_stumml_util_logging_StdoutLogger');
+use org\fktt\bstlist\pages\Frame;
+use org\fktt\bstlist\util\logging\StdoutLogger;
 
 class Develop extends Frame
 {
@@ -18,10 +19,10 @@ class Develop extends Frame
 
     public function content()
     {
-        ob_start();
+        \ob_start();
         self::$log->debug("No Testing!");
-        $str = ob_get_contents();
-        ob_end_clean();
+        $str = \ob_get_contents();
+        \ob_end_clean();
         return $str;
     }
 

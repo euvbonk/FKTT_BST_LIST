@@ -1,11 +1,13 @@
 <?php
+namespace org\fktt\bstlist\beans\tableList\htmlPage;
 
 import('de_brb_hvl_wur_stumml_io_TemplateFile');
+use org\fktt\bstlist\io\TemplateFile;
 
 abstract class AbstractHtmlPageBuilder extends TemplateFile
 {
     private $oContents = null;
-    private static $BASE_ACTIONS = array("DATE" => 'strftime("%d. %B %Y", time())', "GP_VERSION" => 'gpversion',
+    private static $BASE_ACTIONS = array("DATE" => '\strftime("%d. %B %Y", time())', "GP_VERSION" => 'gpversion',
                 "BST_VERSION" => '$this->getAddonVersion()');
 
     public final function __construct()
@@ -16,7 +18,7 @@ abstract class AbstractHtmlPageBuilder extends TemplateFile
     public final function doCommand()
     {
         $this->doCommandBefore();
-        return $this->replaceValues($this->getFileContents(), array_merge(self::$BASE_ACTIONS, $this->getActions()));
+        return $this->replaceValues($this->getFileContents(), \array_merge(self::$BASE_ACTIONS, $this->getActions()));
     }
 
     protected abstract function doCommandBefore();
@@ -27,7 +29,7 @@ abstract class AbstractHtmlPageBuilder extends TemplateFile
 
     protected final function getAddonVersion()
     {
-        $array = parse_ini_file($this->getAddonIni());
+        $array = \parse_ini_file($this->getAddonIni());
         return $array['Addon_Version'];
     }
 
@@ -39,24 +41,24 @@ abstract class AbstractHtmlPageBuilder extends TemplateFile
         }
         if ($this->oContents == null)
         {
-            ob_start();
+            \ob_start();
             require_once($this->getPathname());
-            $this->oContents = ob_get_contents();
-            ob_end_clean();
+            $this->oContents = \ob_get_contents();
+            \ob_end_clean();
         }
         return $this->oContents;
     }
 
     protected final function replaceValues($string, $replaceArray)
     {
-        if (!is_array($replaceArray) || (strlen($string) == 0))
+        if (!\is_array($replaceArray) || (\strlen($string) == 0))
         {
             return $string;
         }
         $result = $string;
         foreach ($replaceArray as $key => $value)
         {
-            $result = str_replace('{'.$key.'}', eval("return ".$value.";"), $result);
+            $result = \str_replace('{'.$key.'}', eval("return ".$value.";"), $result);
         }
         return $result;
     }

@@ -1,8 +1,14 @@
 <?php
+namespace org\fktt\bstlist\pages\datasheet;
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_FileManagerImpl');
 import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_pages_Frame');
+use Exception;
+use InvalidArgumentException;
+use org\fktt\bstlist\pages\Frame;
+use org\fktt\bstlist\io\File;
+use org\fktt\bstlist\beans\datasheet\FileManagerImpl;
 
 /**
  * Base class who delegates the action of one datasheet to a special class
@@ -25,9 +31,9 @@ abstract class SingleDatasheetCommandPage extends Frame
         }
         else
         {
-            $values = explode("-", $station);
+            $values = \explode("-", $station);
             $short = $values[0];
-            if (sizeof($values) > 1)
+            if (\sizeof($values) > 1)
             {
                 $epoch = $values[1];
             }
@@ -40,7 +46,7 @@ abstract class SingleDatasheetCommandPage extends Frame
             $allFiles = $fm->getFilesFromEpochWithOrder($epoch);
             //print "<pre>".print_r($allFiles, true)."</pre>";
 
-            if (!array_key_exists($station, $allFiles))
+            if (!\array_key_exists($station, $allFiles))
             {
                 throw new Exception("Angegebenes Datenblatt existiert nicht!");
             }

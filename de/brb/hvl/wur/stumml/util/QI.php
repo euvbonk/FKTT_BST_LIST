@@ -1,4 +1,5 @@
 <?php
+namespace org\fktt\bstlist\util;
 
 /**
  * Class holds all functions as interface for gpEasy.
@@ -13,31 +14,31 @@ final class QI
 
     public static function isGpeasyDebugEnabled()
     {
-        return (defined('gpdebug') ? constant('gpdebug') : false);
+        return (\defined('gpdebug') ? \constant('gpdebug') : false);
     }
 
     public static function getPageName()
     {
-        return common::WhichPage();
+        return \common::WhichPage();
     }
 
     public static function buildAbsoluteLink($path, $label, $query = '')
     {
-        return common::AbsoluteLink($path, $label, $query);
+        return \common::AbsoluteLink($path, $label, $query);
     }
     
     public static function getPageUri()
     {
-        return common::AbsoluteUrl(common::WhichPage());
+        return \common::AbsoluteUrl(\common::WhichPage());
     }
 
     public static function getCommand($type='cmd')
     {
-        return common::GetCommand($type);
+        return \common::GetCommand($type);
     }
 
     public static function getUriFrom($path)
     {
-        return common::AbsoluteUrl($path);
+        return \common::AbsoluteUrl($path);
     }
 }

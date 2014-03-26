@@ -1,8 +1,12 @@
 <?php
+namespace org\fktt\bstlist\pages\editor;
 
 import('de_brb_hvl_wur_stumml_cmd_CheckJNLPVersionCmd');
 import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_pages_Frame');
+use org\fktt\bstlist\pages\Frame;
+use org\fktt\bstlist\cmd\CheckJNLPVersionCmd;
+use org\fktt\bstlist\io\File;
 
 final class DatasheetEditor extends Frame
 {

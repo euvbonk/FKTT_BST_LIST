@@ -1,3 +1,5 @@
+2014-03-26 euvbonk v0.96
+    * Umstellung auf PHP Namespaces
 2014-03-25 euvbonk v0.95
     * Sprachauswahl fuer die Anzeige der Datenblattinformationen
     * Interne Refaktorierung, so dass FPL und SheetView von gleicher Klasse abhaengen

@@ -1,4 +1,5 @@
 <?php
+namespace org\fktt\bstlist\beans\datasheet\tableList\goodsTraffic;
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_xml_DatasheetElement');
 import('de_brb_hvl_wur_stumml_beans_tableList_AbstractTableList');
@@ -7,6 +8,14 @@ import('de_brb_hvl_wur_stumml_beans_tableList_goodsTraffic_GoodsTrafficListRowEn
 
 import('de_brb_hvl_wur_stumml_util_reportTable_ListRow');
 import('de_brb_hvl_wur_stumml_util_reportTable_ListRowCellsImpl');
+import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableListProperties');
+use org\fktt\bstlist\beans\datasheet\xml\DatasheetElement;
+use org\fktt\bstlist\beans\tableList\AbstractTableList;
+use org\fktt\bstlist\util\reportTable\ListRow;
+use org\fktt\bstlist\util\reportTable\ListRowCellsImpl;
+use org\fktt\bstlist\util\reportTable\ReportTableListProperties;
+use org\fktt\bstlist\io\File;
+use SimpleXMLElement;
 
 class GoodsTrafficList extends AbstractTableList
 {
@@ -47,11 +56,11 @@ class GoodsTrafficList extends AbstractTableList
     {
         $l = new ListRow();
         $cells = array("&#8721;:&nbsp;",
-                       sprintf(ReportTableListProperties::FORMAT, $this->sumInput),
-                       sprintf(ReportTableListProperties::FORMAT, $this->sumOutput),
-                       sprintf(ReportTableListProperties::FORMAT, $this->sumMaxInOut),
-                       (!empty($this->minMinLength)) ? min($this->minMinLength) : 0,
-                       (!empty($this->minMaxLength)) ? min($this->minMaxLength) : 0
+                       \sprintf(ReportTableListProperties::FORMAT, $this->sumInput),
+                       \sprintf(ReportTableListProperties::FORMAT, $this->sumOutput),
+                       \sprintf(ReportTableListProperties::FORMAT, $this->sumMaxInOut),
+                       (!empty($this->minMinLength)) ? \min($this->minMinLength) : 0,
+                       (!empty($this->minMaxLength)) ? \min($this->minMaxLength) : 0
                       );
         $s = "style=\"text-align:center;\"";
         $l->append(new ListRowCellsImpl(
@@ -76,12 +85,12 @@ class GoodsTrafficList extends AbstractTableList
             $this->sumOutput += $xml->getCarsOutput();
             $this->sumMaxInOut += $xml->getCarsMax();
             $sml = $xml->getShortestMainTrackLength();
-            if (is_numeric($sml))
+            if (\is_numeric($sml))
             {
                 $this->minMinLength[] = $sml;
             }
             $lml = $xml->getLongestMainTrackLength();
-            if (is_numeric($lml))
+            if (\is_numeric($lml))
             {
                 $this->minMaxLength[] = $lml;
             }
@@ -114,7 +123,7 @@ class GoodsTrafficList extends AbstractTableList
      */
     public function getTrainCount($lengthPerCar)
     {
-        if (empty($this->minMaxLength) || min($this->minMaxLength) == 0) return "0.0";
-        return sprintf(ReportTableListProperties::FORMAT, $this->sumMaxInOut*$lengthPerCar/min($this->minMaxLength));
+        if (empty($this->minMaxLength) || \min($this->minMaxLength) == 0) return "0.0";
+        return \sprintf(ReportTableListProperties::FORMAT, $this->sumMaxInOut*$lengthPerCar/\min($this->minMaxLength));
     }
 }

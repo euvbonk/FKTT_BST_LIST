@@ -1,9 +1,15 @@
 <?php
+namespace org\fktt\bstlist\cmd;
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_FileManager');
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_xml_StationElement');
 import('de_brb_hvl_wur_stumml_io_File');
+
+use SimpleXMLElement;
+use org\fktt\bstlist\beans\datasheet\FileManager;
+use org\fktt\bstlist\beans\datasheet\xml\StationElement;
+use org\fktt\bstlist\io\File;
 
 final class CSVListCmd
 {
@@ -33,13 +39,13 @@ final class CSVListCmd
         {
             return false;
         }
-        if (strlen($latest->getPathname()) > 0 &&
+        if (\strlen($latest->getPathname()) > 0 &&
                 (!$this->oTargetFile->exists() || $this->oTargetFile->getMTime() < $latest->getMTime())
         )
         {
             $list = $this->oFileManager->getFilesFromEpochWithOrder(self::$EPOCH);
             // setDatasheetFileList && loadDatasheets && generate
-            if (count($list) > 0)
+            if (\count($list) > 0)
             {
                 $csvArray = array();
                 /** @var $value File */
@@ -55,14 +61,14 @@ final class CSVListCmd
                     $this->oTargetFile->delete();
                 }
 
-                $fp = fopen($this->oTargetFile->getPathname(), 'w');
+                $fp = \fopen($this->oTargetFile->getPathname(), 'w');
 
                 foreach ($csvArray as $fields)
                 {
-                    fputcsv($fp, $fields, ",", '"');
+                    \fputcsv($fp, $fields, ",", '"');
                 }
 
-                fclose($fp);
+                \fclose($fp);
             }
 
             //$calc = new YellowPageSpreadsheetGenerator();

@@ -1,4 +1,7 @@
 <?php
+namespace org\fktt\bstlist\beans\tableList;
+
+use org\fktt\bstlist\util\reportTable\ListRow;
 
 abstract class AbstractTableList
 {

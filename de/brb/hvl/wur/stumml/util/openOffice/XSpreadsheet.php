@@ -1,6 +1,9 @@
 <?php
+namespace org\fktt\bstlist\util\openOffice;
 
 import('de_brb_hvl_wur_stumml_util_openOffice_XCell');
+
+use SimpleXMLElement;
 
 /* class represents a spreadsheet table */
 class XSpreadsheet
@@ -47,10 +50,11 @@ class XSpreadsheet
     /**
      * @param string $str
      */
+    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function printDebug($str)
     {
         print "<pre>";
-        var_dump($str);
+        \var_dump($str);
         print "</pre>";
     }
 
@@ -62,11 +66,11 @@ class XSpreadsheet
     {
         $rowsInTable = $this->getXml()->xpath("table:table-row");
         $ns_table = $this->NameSpaces['table'];
-        if (!in_array($rowIndex, array_keys($rowsInTable)))
+        if (!\in_array($rowIndex, \array_keys($rowsInTable)))
         {
             // Die Tabellenzeile mit dem angegebenen Index existiert
             // nicht und wird angelegt.
-            $rowCount = count($rowsInTable);
+            $rowCount = \count($rowsInTable);
             //print "Die Tabellenzeile mit Index: ".$rowIndex." wird angelegt. (".($rowCount-1).")<br/>";
             for ($i = $rowCount; $i <= $rowIndex; $i++)
             {
@@ -84,11 +88,11 @@ class XSpreadsheet
         // erneute Abfrage erforderlich, da sich DOM Baum geändert hat!!!
         $rowsInTable = $this->getXml()->xpath("table:table-row");
         $cellsInRow = $rowsInTable[$rowIndex]->xpath("table:table-cell");
-        if (!in_array($cellIndex, array_keys($cellsInRow)))
+        if (!\in_array($cellIndex, \array_keys($cellsInRow)))
         {
             // Die Tabellenzelle mit dem angegebenen Index existiert
             // nicht und wird angelegt
-            $cellCount = count($cellsInRow);
+            $cellCount = \count($cellsInRow);
             //print "Die Tabellenzelle mit Index: ".$cellIndex." wird angelegt. (".($cellCount-1).")<br/>";
             for ($i = $cellCount; $i <= $cellIndex; $i++)
             {

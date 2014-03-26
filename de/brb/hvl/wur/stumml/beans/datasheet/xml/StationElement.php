@@ -1,7 +1,10 @@
 <?php
+namespace org\fktt\bstlist\beans\datasheet\xml;
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_xml_BaseElement');
 import('de_brb_hvl_wur_stumml_beans_datasheet_xml_FreightTrafficElement');
+
+use SimpleXMLElement;
 
 class StationElement extends BaseElement
 {
@@ -36,7 +39,7 @@ class StationElement extends BaseElement
      */
     public function hasFreightTraffic()
     {
-        return (count($this->getElement()->xpath("//bahnhof/gv")) > 0) ? true : false;
+        return (\count($this->getElement()->xpath("//bahnhof/gv")) > 0) ? true : false;
     }
 
     /**
@@ -45,6 +48,6 @@ class StationElement extends BaseElement
     public function getFreightTrafficElement()
     {
         $freight = $this->getElement()->xpath("//bahnhof/gv");
-        return (count($freight) > 0) ? new FreightTrafficElement($freight[0]) : null;
+        return (\count($freight) > 0) ? new FreightTrafficElement($freight[0]) : null;
     }
 }

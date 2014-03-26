@@ -1,9 +1,15 @@
 <?php
+namespace org\fktt\bstlist\beans\yellowpage;
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_xml_StationElement');
 import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageTableRowList');
 import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageTableRowCellList');
 import('de_brb_hvl_wur_stumml_util_openOffice_SpreadsheetXml');
+
+use SimpleXMLElement;
+use org\fktt\bstlist\io\File;
+use org\fktt\bstlist\beans\datasheet\xml\StationElement;
+use org\fktt\bstlist\util\openOffice\SpreadsheetXml;
 
 abstract class AbstractYellowPage implements SpreadsheetXml
 {
@@ -73,7 +79,7 @@ abstract class AbstractYellowPage implements SpreadsheetXml
      */
     private function loadDatasheets($list)
     {
-        if (count($list) > 0)
+        if (\count($list) > 0)
         {
             /** @var $value File */
             foreach ($list as $value)

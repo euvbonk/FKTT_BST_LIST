@@ -3,7 +3,10 @@ defined('is_running') or die('Not an entry point...');
 
 require_once('import.php');
 
-/* 
+import('de_brb_hvl_wur_stumml_io_File');
+use org\fktt\bstlist\io\File;
+
+/*
  * Install_Check() can be used to check the destination server for required features
  * 		This can be helpful for addons that require PEAR support or extra PHP Extensions
  * 		Install_Check() is called from step1 of the install/upgrade process
@@ -16,7 +19,6 @@ function Install_Check()
 		return false;
 	}*/
 
-    import('de_brb_hvl_wur_stumml_io_File');
     $dir = new File();
     if ($dir->isLink()) // Sollte wenn moeglich vermieden werden!
     {

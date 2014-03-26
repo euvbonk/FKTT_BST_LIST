@@ -1,4 +1,5 @@
 <?php
+namespace org\fktt\bstlist\beans\yellowpage;
 
 interface YellowPageConverter
 {

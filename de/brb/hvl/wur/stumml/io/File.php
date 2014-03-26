@@ -1,13 +1,18 @@
 <?php
+namespace org\fktt\bstlist\io;
 
 import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
 import('de_brb_hvl_wur_stumml_util_QI');
+
+use org\fktt\bstlist\html\util\HtmlUtil;
+use org\fktt\bstlist\util\QI;
+use SplFileInfo;
 
 /**
  * Class BstFileSystem is a package protected helper class for resolving file paths
  * for this gpeasy plugin and should only be used by the File class below
  */
-class BstFileSystem extends SplFileInfo
+class BstFileSystem extends \SplFileInfo
 {
     private static $HTTP_HOST;
     private static $DOCUMENT_ROOT;
@@ -25,14 +30,14 @@ class BstFileSystem extends SplFileInfo
 
     protected static function resolveToAbsolutePath($filePath)
     {
-        if ($filePath == null || in_array($filePath, self::$NOTGUILTYPATHS))
+        if ($filePath == null || \in_array($filePath, self::$NOTGUILTYPATHS))
         {
             $filePath = self::getDataDirectory();
         }
         // Wenn uebergebener Dateipfad weder den Pfad zum Datenverzeichnis oder Templateverzeichnis enthaelt dann
         // muss das bereinigt werden
-        else if ((strpos($filePath, self::getDataDirectory()) === false) &&
-                (strpos($filePath, self::getAddonTemplateDirectory()) === false)
+        else if ((\strpos($filePath, self::getDataDirectory()) === false) &&
+                (\strpos($filePath, self::getAddonTemplateDirectory()) === false)
         )
             // && (!file_exists($filePath) && (!is_dir($filePath) || is_file($filePath))))
         {
@@ -50,31 +55,31 @@ class BstFileSystem extends SplFileInfo
     private static function cleanPath($path)
     {
         $retArray = array();
-        foreach (explode('/', $path) as $char)
+        foreach (\explode('/', $path) as $char)
         {
-            if ((strlen($char) > 0) && ($char != '.' && $char != '..'))
+            if ((\strlen($char) > 0) && ($char != '.' && $char != '..'))
             {
                 $retArray[] = $char;
             }
         }
-        return "/".implode('/', $retArray);
+        return "/".\implode('/', $retArray);
     }
 
     public function toHttpUrl()
     {
-        return str_replace('index.php/', '',
-            QI::getUriFrom(str_replace(self::$DOCUMENT_ROOT.self::$DIR_PREFIX, '', $this->getPathname())));
+        return \str_replace('index.php/', '',
+            QI::getUriFrom(\str_replace(self::$DOCUMENT_ROOT.self::$DIR_PREFIX, '', $this->getPathname())));
     }
 
     public function toDownloadLink($label, $addLastChange = true)
     {
         $uri = $this->toHttpUrl();
-        if (strlen($uri) > 0 && file_exists($this->getPathname()))
+        if (\strlen($uri) > 0 && \file_exists($this->getPathname()))
         {
-            $ret = HtmlUtil::toUtf8("<a href=\"".$uri."\" title=\"".strip_tags($label)."\">".$label."</a>");
-            if ($addLastChange && file_exists($this->getPathname()))
+            $ret = HtmlUtil::toUtf8("<a href=\"".$uri."\" title=\"".\strip_tags($label)."\">".$label."</a>");
+            if ($addLastChange && \file_exists($this->getPathname()))
             {
-                $ret .= "&nbsp;(".strftime("%a, %d. %b %Y %H:%M", $this->getMTime()).")";
+                $ret .= "&nbsp;(".\strftime("%a, %d. %b %Y %H:%M", $this->getMTime()).")";
             }
             return $ret;
         }
@@ -87,9 +92,9 @@ class BstFileSystem extends SplFileInfo
     public static function setPaths($httpHost, $documentRoot, $dirPrefix, $addonDir)
     {
         self::$HTTP_HOST = $httpHost;
-        self::$DOCUMENT_ROOT = realpath($documentRoot);
-        self::$DIR_PREFIX = dirname($dirPrefix);
-        self::$ADDON_DIR = realpath(dirname($addonDir));
+        self::$DOCUMENT_ROOT = \realpath($documentRoot);
+        self::$DIR_PREFIX = \dirname($dirPrefix);
+        self::$ADDON_DIR = \realpath(dirname($addonDir));
         self::$DATA_DIR = self::$DOCUMENT_ROOT.self::$DIR_PREFIX."/data/_uploaded/file/fktt";
     }
 
@@ -109,6 +114,10 @@ class BstFileSystem extends SplFileInfo
     }
 }
 
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
+use FilesystemIterator;
+
 class File extends BstFileSystem
 {
     /**
@@ -118,7 +127,7 @@ class File extends BstFileSystem
     public function __construct($filePath = null)
     {
         parent::__construct($filePath);
-        $this->setInfoClass(get_class($this));
+        $this->setInfoClass(\get_class($this));
         return $this;
     }
 
@@ -127,7 +136,7 @@ class File extends BstFileSystem
      */
     public function getName()
     {
-        return basename($this->getPathname());
+        return \basename($this->getPathname());
     }
 
     /**
@@ -145,19 +154,19 @@ class File extends BstFileSystem
     {
         if ($this->isFile())
         {
-            return dirname($this->getPathname());
+            return \dirname($this->getPathname());
         }
         else
         {
-            $array = explode("/", $this->getPathname());
+            $array = \explode("/", $this->getPathname());
             // Falls im Dateipfad das letzte Element ein "/" war, so ist im Array das letzte
             // Element leer und es muss nochmals das letzte Element, was dann wirklich ein
             // Teil des Dateipfades ist entfernt werden
-            if (strlen(array_pop($array)) <= 0)
+            if (\strlen(\array_pop($array)) <= 0)
             {
-                array_pop($array);
+                \array_pop($array);
             }
-            return join("/", $array);
+            return \join("/", $array);
         }
     }
 
@@ -166,14 +175,14 @@ class File extends BstFileSystem
      */
     public function exists()
     {
-        return file_exists($this->getPathname());
+        return \file_exists($this->getPathname());
     }
 
     /**
      * @param SplFileInfo $b
      * @return int
      */
-    public function compareMTimeTo(SplFileInfo $b)
+    public function compareMTimeTo(\SplFileInfo $b)
     {
         /*$time_a = $this->getMTime();
         $time_b = $b->getMTime();
@@ -199,7 +208,7 @@ class File extends BstFileSystem
      * @param SplFileInfo $b
      * @return int
      */
-    public static function compareLastModified(SplFileInfo $a, SplFileInfo $b)
+    public static function compareLastModified(\SplFileInfo $a, \SplFileInfo $b)
     {
         $time_a = $a->getMTime();
         $time_b = $b->getMTime();
@@ -215,7 +224,7 @@ class File extends BstFileSystem
      */
     public function changeFileRights($int)
     {
-        chmod($this->getPathname(), $int);
+        \chmod($this->getPathname(), $int);
     }
 
     /**
@@ -223,7 +232,7 @@ class File extends BstFileSystem
      */
     public function delete()
     {
-        return unlink($this->getPathname());
+        return \unlink($this->getPathname());
     }
 
     /**
@@ -232,7 +241,7 @@ class File extends BstFileSystem
      */
     public function endsWith($string)
     {
-        return preg_match("/".preg_quote($string).'$/', $this->getPathname());
+        return \preg_match("/".\preg_quote($string).'$/', $this->getPathname());
     }
 
     /**
@@ -241,20 +250,20 @@ class File extends BstFileSystem
      */
     public function contains($string)
     {
-        return (strpos($this->getPathname(), $string) !== false) ? true : false;
+        return (\strpos($this->getPathname(), $string) !== false) ? true : false;
     }
 
     /**
      * @param null|string $filterClassName [optional]
      * @param bool        $recursive       [optional]
-     * @return null|RecursiveIteratorIterator iterator for SplFileInfo-Objects
+     * @return null|\RecursiveIteratorIterator iterator for SplFileInfo-Objects
      */
     public function listFiles($filterClassName = null, $recursive = true)
     {
         if ($recursive && $this->exists())
         {
             $it = null;
-            if ($filterClassName != null && strlen($filterClassName) > 0)
+            if ($filterClassName != null && \strlen($filterClassName) > 0)
             {
                 $it = new RecursiveIteratorIterator(new $filterClassName(new RecursiveDirectoryIterator($this->getPathname())));
             }
@@ -264,8 +273,8 @@ class File extends BstFileSystem
                 $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->getPathname(), FilesystemIterator::FOLLOW_SYMLINKS));
             }
             $iit = $it->getInnerIterator();
-            /** @var $iit RecursiveDirectoryIterator */
-            $iit->setInfoClass(get_class($this));
+            /** @var $iit \RecursiveDirectoryIterator */
+            $iit->setInfoClass(\get_class($this));
             return $it;
         }
         return null;

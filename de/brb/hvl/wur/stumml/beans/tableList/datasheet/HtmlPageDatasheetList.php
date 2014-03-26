@@ -1,9 +1,14 @@
 <?php
+namespace org\fktt\bstlist\beans\tableList\datasheet;
 
 import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_AbstractDatasheetList');
 import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_DatasheetListRowData');
 
 import('de_brb_hvl_wur_stumml_util_reportTable_ListRowCells');
+
+use org\fktt\bstlist\html\util\HtmlUtil;
+use org\fktt\bstlist\io\File;
+use org\fktt\bstlist\util\reportTable\ListRowCells;
 
 class HtmlPageDatasheetList extends AbstractDatasheetList
 {
@@ -63,7 +68,7 @@ class HtmlPageListRowEntries implements ListRowCells
         //$Pdf = $this->buildLink($datei, ".pdf", $kuerzel); spätere PDF Ansicht
 
         $type = $this->getData()->getBaseElement()->getValueForTag('typ');
-        $lastChange = strftime("%a, %d. %b %Y %H:%M", $datei->getMTime());
+        $lastChange = \strftime("%a, %d. %b %Y %H:%M", $datei->getMTime());
         return array($index, $name, $kuerzel, HtmlUtil::toUtf8($type), $lastChange, $Xml, $Html, $Fpl/*, $Pdf fuer spaetere PDF Ansicht */
         );
     }
@@ -97,6 +102,6 @@ class HtmlPageListRowEntries implements ListRowCells
         }
         $link = $newFile->toDownloadLink($label, false);
         $uri = $newFile->toHttpUrl();
-        return str_replace($uri, "./".$newFile->getParentFile()->getName()."/".$newFile->getBasename(), $link);
+        return \str_replace($uri, "./".$newFile->getParentFile()->getName()."/".$newFile->getBasename(), $link);
     }
 }

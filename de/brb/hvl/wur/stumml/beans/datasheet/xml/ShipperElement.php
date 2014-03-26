@@ -1,7 +1,10 @@
 <?php
+namespace org\fktt\bstlist\beans\datasheet\xml;
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_xml_BaseElement');
 import('de_brb_hvl_wur_stumml_beans_datasheet_xml_CargoElement');
+
+use SimpleXMLElement;
 
 class ShipperElement extends BaseElement
 {

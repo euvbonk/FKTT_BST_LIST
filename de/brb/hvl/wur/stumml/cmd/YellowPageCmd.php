@@ -1,4 +1,5 @@
 <?php
+namespace org\fktt\bstlist\cmd;
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_FileManager');
 
@@ -6,6 +7,14 @@ import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageSpreadsheetGenerator');
 import('de_brb_hvl_wur_stumml_beans_yellowPage_FkttYellowPage');
 import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_io_TemplateFile');
+
+use org\fktt\bstlist\beans\datasheet\FileManager;
+use /** @noinspection PhpUnusedAliasInspection */
+    org\fktt\bstlist\beans\yellowPage\FkttYellowPage;
+use /** @noinspection PhpUnusedAliasInspection */
+    org\fktt\bstlist\beans\yellowPage\YellowPageSpreadsheetGenerator;
+use org\fktt\bstlist\io\File;
+use org\fktt\bstlist\io\TemplateFile;
 
 final class YellowPageCmd
 {
@@ -33,7 +42,7 @@ final class YellowPageCmd
      */
     public function doCommand($epoch)
     {
-        if (strlen($epoch) == 0)
+        if (\strlen($epoch) == 0)
         {
             return false;
         }
@@ -44,7 +53,7 @@ final class YellowPageCmd
         {
             return false;
         }
-        if (strlen($latest->getPathname()) > 0 &&
+        if (\strlen($latest->getPathname()) > 0 &&
                 (!$this->getFile()->exists() || $this->getFile()->getMTime() < $latest->getMTime())
         )
         {

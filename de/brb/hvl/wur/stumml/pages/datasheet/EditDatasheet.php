@@ -1,8 +1,13 @@
 <?php
+namespace org\fktt\bstlist\pages\datasheet;
 
 import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_cmd_SendFileForDownloadCmd');
 import('de_brb_hvl_wur_stumml_pages_datasheet_SingleDatasheetCommandPage');
+use Exception;
+use SimpleXMLElement;
+use org\fktt\bstlist\io\File;
+use org\fktt\bstlist\cmd\SendFileForDownloadCmd;
 
 class EditDatasheet extends SingleDatasheetCommandPage
 {
@@ -33,7 +38,7 @@ class EditDatasheet extends SingleDatasheetCommandPage
         if (self::$JNLP_FILE->exists())
         {
             /** @var $xml SimpleXMLElement */
-            $xml = simplexml_load_file(self::$JNLP_FILE->getPathname());
+            $xml = \simplexml_load_file(self::$JNLP_FILE->getPathname());
             $foo = $xml->xpath("/jnlp/application-desc");
             /** @var $foo SimpleXMLElement */
             $foo = $foo[0];

@@ -11,6 +11,17 @@ import('de_brb_hvl_wur_stumml_pages_moduleList_ModuleList');
 import('de_brb_hvl_wur_stumml_pages_editor_DatasheetEditor');
 import('de_brb_hvl_wur_stumml_pages_admin_AdminPage');
 import('de_brb_hvl_wur_stumml_pages_remoteUpload_RemoteSheetUpload');
+use org\fktt\bstlist\pages\AddonErrorPage;
+use org\fktt\bstlist\pages\datasheet\DatasheetsList;
+use org\fktt\bstlist\pages\datasheet\EditDatasheet;
+use org\fktt\bstlist\pages\datasheet\SheetView;
+use org\fktt\bstlist\pages\develop\Develop;
+use org\fktt\bstlist\pages\goodsTraffic\GoodsTrafficBasics;
+use org\fktt\bstlist\pages\moduleList\ModuleList;
+use org\fktt\bstlist\pages\editor\DatasheetEditor;
+use org\fktt\bstlist\pages\admin\AdminPage;
+use org\fktt\bstlist\pages\remoteUpload\RemoteSheetUpload;
+use org\fktt\bstlist\util\QI;
 
 class Main
 {
@@ -19,9 +30,9 @@ class Main
         $sheet = new AddonErrorPage("No Module specified!");
         try
         {
-            setlocale(LC_TIME, "de_DE.utf8");
-            date_default_timezone_set("Europe/Berlin");
-            switch (strtolower(QI::getPageName()))
+            \setlocale(LC_TIME, "de_DE.utf8");
+            \date_default_timezone_set("Europe/Berlin");
+            switch (\strtolower(QI::getPageName()))
             {
                 case "datasheets_list" :
                     $sheet = new DatasheetsList();
@@ -58,7 +69,7 @@ class Main
                     break;
             }
         }
-        catch (Exception $e)
+        catch (\Exception $e)
         {
             $sheet = new AddonErrorPage($e->getMessage());
         }

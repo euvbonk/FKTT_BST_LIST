@@ -1,4 +1,7 @@
 <?php
+namespace org\fktt\bstlist\beans\datasheet\xml;
+
+use SimpleXMLElement;
 
 class BaseElement
 {

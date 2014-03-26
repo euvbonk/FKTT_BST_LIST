@@ -1,5 +1,11 @@
 <?php
+namespace org\fktt\bstlist\cmd;
+
 import('de_brb_hvl_wur_stumml_io_File');
+
+use DOMDocument;
+use XSLTProcessor;
+use org\fktt\bstlist\io\File;
 
 final class XmlHtmlTransformCmd
 {

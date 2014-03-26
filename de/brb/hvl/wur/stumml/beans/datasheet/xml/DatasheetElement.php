@@ -1,6 +1,8 @@
 <?php
+namespace org\fktt\bstlist\beans\datasheet\xml;
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_xml_BaseElement');
+use SimpleXMLElement;
 
 class DatasheetElement extends BaseElement
 {
@@ -69,7 +71,7 @@ class DatasheetElement extends BaseElement
      */
     public function getCarsMax()
     {
-        return max($this->getCarsInput(), $this->getCarsOutput());
+        return \max($this->getCarsInput(), $this->getCarsOutput());
     }
 
     /**
@@ -77,7 +79,7 @@ class DatasheetElement extends BaseElement
      */
     public function getLongestMainTrackLength()
     {
-        return (!empty($this->oMainTracks)) ? max($this->oMainTracks) : "kA";
+        return (!empty($this->oMainTracks)) ? \max($this->oMainTracks) : "kA";
     }
 
     /**
@@ -85,7 +87,7 @@ class DatasheetElement extends BaseElement
      */
     public function getShortestMainTrackLength()
     {
-        return (!empty($this->oMainTracks)) ? min($this->oMainTracks) : "kA";
+        return (!empty($this->oMainTracks)) ? \min($this->oMainTracks) : "kA";
     }
 
     /**
@@ -102,7 +104,7 @@ class DatasheetElement extends BaseElement
             foreach($array as $value)
             {
                 //print "<pre>".print_r($value, true)."</pre>";
-                $ret += floatval($value[0]);
+                $ret += \floatval($value[0]);
             }
         }
         return $ret;
@@ -120,7 +122,7 @@ class DatasheetElement extends BaseElement
         {
             //print "<pre>".print_r($value, true)."</pre>";
             //print $this->getName().": ".$value->getName()." => ".floatval($value[0])." ".(($value->attributes()=="cm") ? "cm" : "mm")."<br/>";
-            $v = floatval($value[0]);
+            $v = \floatval($value[0]);
             if ($v > 0.0)
             {
                 $ret[] = ($value->attributes()=="cm") ? $v : $v/10;

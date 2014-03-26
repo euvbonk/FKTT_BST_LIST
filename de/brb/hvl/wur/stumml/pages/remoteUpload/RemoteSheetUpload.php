@@ -1,9 +1,16 @@
 <?php
+namespace org\fktt\bstlist\pages\remoteUpload;
 
 import('de_brb_hvl_wur_stumml_cmd_PostRequestCmd');
 import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_pages_Frame');
 import('de_brb_hvl_wur_stumml_util_logging_FileLogger');
+use org\fktt\bstlist\pages\Frame;
+use org\fktt\bstlist\io\File;
+use org\fktt\bstlist\cmd\PostRequestCmd;
+use org\fktt\bstlist\util\logging\FileLogger;
+use InvalidArgumentException;
+use Exception;
 
 /**
  * class handles remote user check against FreDL DB and file upload from datasheet editor
@@ -23,7 +30,7 @@ class RemoteSheetUpload extends Frame
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_SERVER['HTTP_USER_AGENT'] == 'Datasheet-Editor')
         {
-            $user = json_decode($_POST['other'], true);
+            $user = \json_decode($_POST['other'], true);
 
             $log = new FileLogger("rauth.log");
             $log->open();
@@ -35,7 +42,7 @@ class RemoteSheetUpload extends Frame
             global $dataDir;
             include($dataDir.'/data/_site/users.php');
             /** @var $users array */
-            if (array_key_exists($user['name'], $users))
+            if (\array_key_exists($user['name'], $users))
             {
                 $superUser = true;
                 $log->write("Request user {$user['name']} is superuser");
@@ -53,7 +60,7 @@ class RemoteSheetUpload extends Frame
             if (!$superUser)
             {
                 $matches = array();
-                preg_match('/(?<Alpha>[a-zA-Z]+)(?<Numeric>[0-9]+)/', $user['modid'], $matches);
+                \preg_match('/(?<Alpha>[a-zA-Z]+)(?<Numeric>[0-9]+)/', $user['modid'], $matches);
                 // check user name e.g. MaMus to module identifier starting with the same initials
                 if ($matches[1] == $user['name'])
                 {
@@ -113,29 +120,29 @@ class RemoteSheetUpload extends Frame
                  *          Kopieren/Verschieben xml Datenblatt und Bilddatei (sofern vorhanden)
                  */
                 $sheet = $_FILES['sheet'];
-                if ($sheet['error'] == 0 && is_uploaded_file($sheet['tmp_name']))
+                if ($sheet['error'] == 0 && \is_uploaded_file($sheet['tmp_name']))
                 {
                     $path = "db/".$user['path']."/";
                     $f = new File($path.$sheet['name']);
                     if ($f->exists())
                     {
                         // check FKTT100? would be nice but there is not one at the moment
-                        if (sizeof($_FILES) == 2)
+                        if (\sizeof($_FILES) == 2)
                         {
                             $layout = $_FILES['layout'];
-                            if ($layout['error'] == 0 && is_uploaded_file($layout['tmp_name']))
+                            if ($layout['error'] == 0 && \is_uploaded_file($layout['tmp_name']))
                             {
                                 $l = new File($path.$layout['name']);
                                 // check file size? last mod?
                                 if ($l->exists() && $l->getSize() != $layout['size'])
                                 {
                                     $ext = $l->getExtension();
-                                    rename($l->getPathname(), $l->getParent()."/".$l->getBasename(".".$ext).date("YmdHi").$ext.".old");
+                                    \rename($l->getPathname(), $l->getParent()."/".$l->getBasename(".".$ext).\date("YmdHi").$ext.".old");
                                 }
                                 if (!$l->exists() || $l->getSize() != $layout['size'])
                                 {
                                     // if file exists it is overwritten by uploaded one!
-                                    move_uploaded_file($layout['tmp_name'], $l->getPathname());
+                                    \move_uploaded_file($layout['tmp_name'], $l->getPathname());
                                     $log->write("Update layout ".$layout['name']." successful");
                                 }
                                 else
@@ -145,8 +152,8 @@ class RemoteSheetUpload extends Frame
                             }
                         }
                         // file must be always a xml file
-                        rename($f->getPathname(), $f->getParent()."/".$f->getBasename(".xml").date("YmdHi")."xml.old");
-                        move_uploaded_file($sheet['tmp_name'], $f->getPathname());
+                        \rename($f->getPathname(), $f->getParent()."/".$f->getBasename(".xml").\date("YmdHi")."xml.old");
+                        \move_uploaded_file($sheet['tmp_name'], $f->getPathname());
                         $log->write("Update datasheet ".$sheet['name']." successful");
                         echo "Success";
                     }

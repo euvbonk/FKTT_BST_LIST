@@ -1,6 +1,11 @@
 <?php
+namespace org\fktt\bstlist\html\util;
+
 import('de_brb_hvl_wur_stumml_html_Html');
 import('de_brb_hvl_wur_stumml_html_charset_LocaleCharacter');
+
+use org\fktt\bstlist\html\charset\LocaleCharacter;
+use org\fktt\bstlist\html\Html;
 
 class HtmlUtil implements Html
 {
@@ -53,7 +58,7 @@ class HtmlUtil implements Html
         {
             self::$MAP = LocaleCharacter::getInstance()->MAP;
         }
-        return str_replace(array_keys(self::$MAP), array_values(self::$MAP), $string);
+        return \str_replace(\array_keys(self::$MAP), \array_values(self::$MAP), $string);
     }
 
     /**

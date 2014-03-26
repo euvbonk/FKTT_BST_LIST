@@ -1,4 +1,7 @@
 <?php
+namespace org\fktt\bstlist\cmd;
+
+use InvalidArgumentException;
 
 /**
  * Class PostRequestCmd
@@ -20,7 +23,7 @@ final class PostRequestCmd
     {
         $this->cUrl = $file;
         // check if this is a real http/https url
-        if (filter_var($this->cUrl, FILTER_VALIDATE_URL) === false || strpos($this->cUrl, "http") === false)
+        if (\filter_var($this->cUrl, FILTER_VALIDATE_URL) === false || \strpos($this->cUrl, "http") === false)
         {
             throw new InvalidArgumentException("Argument \"url\" is not valid!");
         }
@@ -48,7 +51,7 @@ final class PostRequestCmd
         $this->cHeader  = "";
         $this->cHeader .= "User-Agent: ".$this->cHttpUserAgent."\r\n";
         $this->cHeader .= "Content-Type: application/x-www-form-urlencoded\r\n";
-        $this->cHeader .= "Content-Length: ".strlen($this->cBody)."\r\n";
+        $this->cHeader .= "Content-Length: ".\strlen($this->cBody)."\r\n";
         $this->cHeader .= "Connection: Close\r\n\r\n";
         #$this->cHeader .= "{$this->cBody}\r\n";
     }
@@ -68,7 +71,7 @@ final class PostRequestCmd
        		)
        	);
 
-       	$context = stream_context_create($opts);
-       	return file_get_contents($this->cUrl, false, $context);
+       	$context = \stream_context_create($opts);
+       	return \file_get_contents($this->cUrl, false, $context);
     }
 }

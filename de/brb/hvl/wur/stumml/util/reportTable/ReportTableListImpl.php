@@ -1,4 +1,5 @@
 <?php
+namespace org\fktt\bstlist\util\reportTable;
 
 import('de_brb_hvl_wur_stumml_html_Html');
 import('de_brb_hvl_wur_stumml_html_table_Table');
@@ -8,6 +9,14 @@ import('de_brb_hvl_wur_stumml_html_table_TableHeadCell');
 
 import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableList');
 import('de_brb_hvl_wur_stumml_util_reportTable_ListRow');
+use org\fktt\bstlist\html\Html;
+use /** @noinspection PhpUnusedAliasInspection */
+    org\fktt\bstlist\html\table\Table;
+use org\fktt\bstlist\html\table\TableRow;
+use /** @noinspection PhpUnusedAliasInspection */
+    org\fktt\bstlist\html\table\TableCell;
+use /** @noinspection PhpUnusedAliasInspection */
+    org\fktt\bstlist\html\table\TableHeadCell;
 
 class ReportTableListImpl implements ReportTableList, Html
 {
@@ -19,7 +28,7 @@ class ReportTableListImpl implements ReportTableList, Html
     /**
      * @param bool $bool [optional]
      */
-    public function setRowSelectorEnabled($bool=false)
+    public function setRowSelectorEnabled($bool = false)
     {
         $this->cSelector = $bool;
     }
@@ -53,7 +62,7 @@ class ReportTableListImpl implements ReportTableList, Html
      */
     public function getTableHead()
     {
-        return $this->buildRows("thead", $this->cHeader, ReportTableListProperties::HEAD_ROW_COLOR, "TableHeadCell");
+        return $this->buildRows("thead", $this->cHeader, ReportTableListProperties::HEAD_ROW_COLOR, "org\\fktt\\bstlist\\html\\table\\TableHeadCell");
     }
 
     /**
@@ -79,7 +88,7 @@ class ReportTableListImpl implements ReportTableList, Html
      * @param string       $cellForm [optional]
      * @return string
      */
-    protected function buildRows($struct, ListRow $rows = null, $rowColor, $cellForm = "TableCell")
+    protected function buildRows($struct, ListRow $rows = null, $rowColor, $cellForm = "org\\fktt\\bstlist\\html\\table\\TableCell")
     {
         //$str = "<".$struct.">\n";
         $str = "<".$struct.">";
@@ -88,7 +97,7 @@ class ReportTableListImpl implements ReportTableList, Html
         foreach ($rows as $ind => $row)
         {
             //print "<pre>".print_r($row, true)."</pre>";
-            if (is_array($rowColor))
+            if (\is_array($rowColor))
             {
                 //print ($ind %2)."<br/>";
                 $trowColor = $rowColor[($ind %2)];
@@ -112,7 +121,7 @@ class ReportTableListImpl implements ReportTableList, Html
                 else
                 {
                     $attr = "";
-                    if (array_key_exists($key, $row->getCellsStyle()))
+                    if (\array_key_exists($key, $row->getCellsStyle()))
                     {
                         $t = $row->getCellsStyle();
                         $attr = $t[$key];
@@ -138,7 +147,7 @@ class ReportTableListImpl implements ReportTableList, Html
         $str .= ($this->cEntries != null) ? $this->getTableBody() : "";
         $str .= ($this->cFooter != null) ? $this->getTableFoot() : "";
         //return (strlen($str) > 0) ? "<table cellspacing=\"1\">\n".$str."</table>\n" : "Nothing to display!";
-        return (strlen($str) > 0) ? "<table style=\"border-spacing:1px;border-collapse: separate;\">".$str."</table>" : "Nothing to display!";
+        return (\strlen($str) > 0) ? "<table style=\"border-spacing:1px;border-collapse: separate;\">".$str."</table>" : "Nothing to display!";
     }
 
     /**

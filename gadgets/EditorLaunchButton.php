@@ -3,6 +3,7 @@
 defined('is_running') or die('Not an entry point...');
 
 import('de_brb_hvl_wur_stumml_cmd_CheckJNLPVersionCmd');
+use org\fktt\bstlist\cmd\CheckJNLPVersionCmd;
 
 class EditorLaunchButton
 {

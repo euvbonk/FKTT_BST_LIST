@@ -3,6 +3,7 @@
 defined('is_running') or die('Not an entry point...');
 
 import('de_brb_hvl_wur_stumml_io_File');
+use org\fktt\bstlist\io\File;
 
 class DTDDocumentationPage
 {

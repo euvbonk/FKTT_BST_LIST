@@ -1,5 +1,8 @@
 <?php
+namespace org\fktt\bstlist\util\logging;
+
 import('de_brb_hvl_wur_stumml_util_QI');
+use org\fktt\bstlist\util\QI;
 
 abstract class AbstractLogger
 {
@@ -42,7 +45,7 @@ abstract class AbstractLogger
      */
     protected function buildMessageString($level, $message)
     {
-        $this->writeMessage(date(self::$oDateFormat)." ".$level." ".$this->oClassName." - ".$message);
+        $this->writeMessage(\date(self::$oDateFormat)." ".$level." ".$this->oClassName." - ".$message);
     }
 
     /**

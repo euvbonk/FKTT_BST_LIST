@@ -1,5 +1,8 @@
 <?php
+namespace org\fktt\bstlist\html\table;
+
 import('de_brb_hvl_wur_stumml_html_Html');
+use org\fktt\bstlist\html\Html;
 
 /**
  *
@@ -16,9 +19,9 @@ class TableRow implements Html
     public function __construct()
     {
         $this->cells = array();
-        if (func_num_args() == 1)
+        if (\func_num_args() == 1)
         {
-            $argv = func_get_args();
+            $argv = \func_get_args();
             $this->attribute = $argv[0];
         }
         return $this;
@@ -38,7 +41,7 @@ class TableRow implements Html
     public function getHtml()
     {
         //$ret = "<tr".((strlen($this->attribute)>0) ? " ".$this->attribute : "").">\n";
-        $ret = "<tr".((strlen($this->attribute)>0) ? " ".$this->attribute : "").">";
+        $ret = "<tr".((\strlen($this->attribute) > 0) ? " ".$this->attribute : "").">";
         /** @var $cell Html */
         foreach ($this->cells as $cell)
         {

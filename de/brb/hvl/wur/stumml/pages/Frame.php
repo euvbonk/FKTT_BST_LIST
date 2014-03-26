@@ -1,6 +1,10 @@
 <?php
+namespace org\fktt\bstlist\pages;
 
 import('de_brb_hvl_wur_stumml_io_TemplateFile');
+use org\fktt\bstlist\io\TemplateFile;
+use ReflectionMethod;
+use ReflectionException;
 
 abstract class Frame
 {
@@ -11,7 +15,7 @@ abstract class Frame
      */
     public function __construct($fileName = null)
     {
-        if ($fileName != null && is_string($fileName) && strlen($fileName) > 0)
+        if ($fileName != null && \is_string($fileName) && \strlen($fileName) > 0)
         {
             $this->setTemplateFile(new TemplateFile($fileName.".php"));
         }
@@ -63,11 +67,11 @@ abstract class Frame
      */
     public final function printValue($methodName, $args = null)
     {
-        if (in_array($methodName, array_merge(array('LastChange'), $this->getCallableMethods())))
+        if (\in_array($methodName, \array_merge(array('LastChange'), $this->getCallableMethods())))
         {
             try
             {
-                $rf = new ReflectionMethod(get_called_class(), $methodName);
+                $rf = new ReflectionMethod(\get_called_class(), $methodName);
                 if ($rf->isPublic())
                 {
                     if ($args != null)

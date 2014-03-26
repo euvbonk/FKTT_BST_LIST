@@ -1,4 +1,5 @@
 <?php
+namespace org\fktt\bstlist\pages\moduleList;
 
 import('de_brb_hvl_wur_stumml_pages_Frame');
 import('de_brb_hvl_wur_stumml_pages_FrameForm');
@@ -7,6 +8,11 @@ import('de_brb_hvl_wur_stumml_cmd_ListBuilderCmd');
 import('de_brb_hvl_wur_stumml_cmd_SendFileForDownloadCmd');
 
 import('de_brb_hvl_wur_stumml_util_QI');
+use org\fktt\bstlist\pages\Frame;
+use org\fktt\bstlist\pages\FrameForm;
+use org\fktt\bstlist\cmd\ListBuilderCmd;
+use org\fktt\bstlist\cmd\SendFileForDownloadCmd;
+use org\fktt\bstlist\util\QI;
 
 class ModuleList extends Frame implements FrameForm
 {

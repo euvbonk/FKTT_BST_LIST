@@ -1,4 +1,8 @@
 <?php
+namespace org\fktt\bstlist\util;
+
+use RecursiveFilterIterator;
+use org\fktt\bstlist\io\File;
 
 abstract class AbstractFileFilter extends RecursiveFilterIterator
 {
@@ -25,7 +29,7 @@ abstract class AbstractFileFilter extends RecursiveFilterIterator
     }
 
     /**
-     * @return SplFileInfo
+     * @return File
      */
     protected final function getCurrent()
     {

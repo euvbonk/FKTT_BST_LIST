@@ -1,6 +1,10 @@
 <?php
+namespace org\fktt\bstlist\beans\tableList\htmlPage;
 
+import('de_brb_hvl_wur_stumml_beans_datasheet_FileManagerImpl');
 import('de_brb_hvl_wur_stumml_beans_tableList_htmlPage_AbstractHtmlPageBuilder');
+
+use org\fktt\bstlist\beans\datasheet\FileManagerImpl;
 
 class HtmlIndexPageBuilder extends AbstractHtmlPageBuilder
 {

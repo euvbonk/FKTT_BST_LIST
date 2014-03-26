@@ -1,7 +1,12 @@
 <?php
+namespace org\fktt\bstlist\pages\datasheet;
 
 import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_pages_datasheet_SingleDatasheetCommandPage');
+use Exception;
+use org\fktt\bstlist\io\File;
+use DOMDocument;
+use XSLTProcessor;
 
 class SheetView extends SingleDatasheetCommandPage
 {
@@ -25,9 +30,9 @@ class SheetView extends SingleDatasheetCommandPage
         if (!$XslFileDefault->exists()) throw new Exception("Given XSL file does not exist!");
 
         $XslFile = null;
-        if ($lang != null && is_string($lang) && strlen($lang) >= 2 && strtolower($lang) != 'de')
+        if ($lang != null && \is_string($lang) && \strlen($lang) >= 2 && \strtolower($lang) != 'de')
         {
-            $XslFile = new File("db/".$defaultXsl."_".strtolower($lang).".xsl");
+            $XslFile = new File("db/".$defaultXsl."_".\strtolower($lang).".xsl");
             // catch non existing files to default
             if (!$XslFile->exists()) $XslFile = null;
         }
@@ -55,15 +60,15 @@ class SheetView extends SingleDatasheetCommandPage
         $xmlDOMDocument = new DOMDocument();
         $xmlDOMDocument->load($file->getPathname());
 
-        ob_start();
+        \ob_start();
         $XSLTProcessor->transformToURI($xmlDOMDocument, 'php://output');
-        $this->content = ob_get_contents();
-        ob_end_clean();
+        $this->content = \ob_get_contents();
+        \ob_end_clean();
 
         // Adapt css and img file paths!
-        $basePath = dirname($file->toHttpUrl());
-        $this->content = str_replace("bahnhof.css", $basePath."/bahnhof.css", $this->content);
-        $this->content = str_replace("img src=\"".$short, "img src=\"".$basePath."/".$short, $this->content);
+        $basePath = \dirname($file->toHttpUrl());
+        $this->content = \str_replace("bahnhof.css", $basePath."/bahnhof.css", $this->content);
+        $this->content = \str_replace("img src=\"".$short, "img src=\"".$basePath."/".$short, $this->content);
     }
 
     //@Override

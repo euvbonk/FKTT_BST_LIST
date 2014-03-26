@@ -1,4 +1,5 @@
 <?php
+namespace org\fktt\bstlist\pages\admin;
 
 import('de_brb_hvl_wur_stumml_pages_Frame');
 import('de_brb_hvl_wur_stumml_pages_FrameForm');
@@ -7,6 +8,12 @@ import('de_brb_hvl_wur_stumml_cmd_BackupZipBundleCmd');
 import('de_brb_hvl_wur_stumml_io_GlobIterator');
 
 import('de_brb_hvl_wur_stumml_util_QI');
+use org\fktt\bstlist\pages\Frame;
+use org\fktt\bstlist\pages\FrameForm;
+use org\fktt\bstlist\util\QI;
+use org\fktt\bstlist\cmd\BackupZipBundleCmd;
+use org\fktt\bstlist\io\File;
+use org\fktt\bstlist\io\MyGlobIterator;
 
 final class AdminPage extends Frame implements FrameForm
 {
@@ -27,7 +34,7 @@ final class AdminPage extends Frame implements FrameForm
 
         $this->oZipListEntries = "";
         $iterator = new MyGlobIterator($b->getFile()->getParentFile()->getPathname()."/*.zip");
-        $iterator->setInfoClass('File');
+        $iterator->setInfoClass('org\fktt\bstlist\io\File');
         if ($iterator->count() == 0)
         {
             $this->oZipListEntries .= "<li>Keine</li>";

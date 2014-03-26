@@ -1,9 +1,13 @@
 <?php
+namespace org\fktt\bstlist\beans\datasheet\tableList\goodsTraffic;
 
 import('de_brb_hvl_wur_stumml_beans_tableList_goodsTraffic_GoodsTrafficListRowData');
 import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
 import('de_brb_hvl_wur_stumml_util_reportTable_ListRowCells');
-import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableList');
+import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableListProperties');
+use org\fktt\bstlist\html\util\HtmlUtil;
+use org\fktt\bstlist\util\reportTable\ListRowCells;
+use org\fktt\bstlist\util\reportTable\ReportTableListProperties;
 
 class GoodsTrafficListRowEntry implements ListRowCells
 {
@@ -41,9 +45,9 @@ class GoodsTrafficListRowEntry implements ListRowCells
                      HtmlUtil::toUtf8($short),
                      $shortRef,
                      $nameRef,
-                     sprintf(ReportTableListProperties::FORMAT, $xml->getCarsInput()),
-                     sprintf(ReportTableListProperties::FORMAT, $xml->getCarsOutput()),
-                     sprintf(ReportTableListProperties::FORMAT, $xml->getCarsMax()),
+                     \sprintf(ReportTableListProperties::FORMAT, $xml->getCarsInput()),
+                     \sprintf(ReportTableListProperties::FORMAT, $xml->getCarsOutput()),
+                     \sprintf(ReportTableListProperties::FORMAT, $xml->getCarsMax()),
                      $xml->getShortestMainTrackLength(),
                      $xml->getLongestMainTrackLength()
                     );

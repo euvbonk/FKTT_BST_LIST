@@ -1,8 +1,12 @@
 <?php
+namespace org\fktt\bstlist\cmd;
 
 import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_io_GlobIterator');
 import('de_brb_hvl_wur_stumml_util_logging_StdoutLogger');
+use org\fktt\bstlist\io\File;
+use org\fktt\bstlist\io\MyGlobIterator;
+use org\fktt\bstlist\util\logging\StdoutLogger;
 
 class CheckJNLPVersionCmd
 {
@@ -53,7 +57,7 @@ class CheckJNLPVersionCmd
      */
     public function isEditorPresent()
     {
-        return (self::$JNLP_FILE_URI->exists() && (strlen(self::$LATEST_JAR) > 0));
+        return (self::$JNLP_FILE_URI->exists() && (\strlen(self::$LATEST_JAR) > 0));
     }
 
     /**
@@ -66,17 +70,19 @@ class CheckJNLPVersionCmd
         {
             return false;
         }
-        /** @var $xml SimpleXMLElement */
-        $xml = simplexml_load_file(self::$JNLP_FILE_URI->getPathname());
+        /** @var $xml \SimpleXMLElement */
+        $xml = \simplexml_load_file(self::$JNLP_FILE_URI->getPathname());
         //self::$log->debug("<pre>".print_r($xml, true)."</pre>");
         //$result = $xml->xpath("/jnlp/resources/jar[starts-with(@href,'versions/rgzm') or starts-with(@href,'v*/rgzm')]");
         //self::$log->debug("<pre>".print_r($result, true)."</pre>");
+        /** @noinspection PhpUndefinedFieldInspection */
         $jarLink = $xml->resources->jar[0]['href'];
         self::$log->debug($jarLink);
         $hasChanges = false;
-        if (basename($jarLink) != self::$LATEST_JAR)
+        if (\basename($jarLink) != self::$LATEST_JAR)
         {
             self::$log->debug("Erneuere Jar-Link...");
+            /** @noinspection PhpUndefinedFieldInspection */
             $xml->resources->jar[0]['href'] = "versions/".self::$LATEST_JAR;
             $hasChanges = true;
         }
@@ -93,7 +99,7 @@ class CheckJNLPVersionCmd
             self::$log->debug("Aenderungen in Datei sichern!");
             self::$log->debug($xml->asXML());
             // Dieses neue XML muss jetzt in die Datei zurueckgeschrieben werden!
-            @file_put_contents(self::$JNLP_FILE_URI->getPathname(), $xml->asXML());
+            @\file_put_contents(self::$JNLP_FILE_URI->getPathname(), $xml->asXML());
         }
         return true;
     }
@@ -110,7 +116,7 @@ class CheckJNLPVersionCmd
             $ret .= "<!-- following script shows javaws launch application button -->\n";
             $ret .= "<script type=\"text/javascript\">\n";
             $ret .= "   /* <![CDATA[ */";
-            $ret .= "     deployJava.createWebStartLaunchButton('".self::$JNLP_HTTP_URI."', '1.6.0+');\n";
+            $ret .= "     deployJava.createWebStartLaunchButton('".self::$JNLP_HTTP_URI."', '1.7.0+');\n";
             //$ret .= "     /* alternatively launch application if page is loaded \n";
             //$ret .= "      deployJava.launch('".self::$JNLP_HTTP_URI."');*/\n";
             $ret .= "   /* ]]> */";

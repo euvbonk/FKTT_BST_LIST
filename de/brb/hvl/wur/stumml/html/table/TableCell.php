@@ -1,5 +1,8 @@
 <?php
+namespace org\fktt\bstlist\html\table;
+
 import('de_brb_hvl_wur_stumml_html_Html');
+use org\fktt\bstlist\html\Html;
 
 class TableCell implements Html
 {
@@ -14,9 +17,9 @@ class TableCell implements Html
     public function __construct($content)
     {
         $this->content = $content;
-        if (func_num_args() == 2)
+        if (\func_num_args() == 2)
         {
-            $argv = func_get_args();
+            $argv = \func_get_args();
             $this->attribute = $argv[1];
         }
         return $this;

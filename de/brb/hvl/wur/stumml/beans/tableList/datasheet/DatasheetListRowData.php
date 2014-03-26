@@ -1,4 +1,8 @@
 <?php
+namespace org\fktt\bstlist\beans\tableList\datasheet;
+
+use org\fktt\bstlist\beans\datasheet\xml\BaseElement;
+use org\fktt\bstlist\io\File;
 
 interface DatasheetListRowData
 {

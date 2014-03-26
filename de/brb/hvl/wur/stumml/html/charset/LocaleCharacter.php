@@ -1,4 +1,6 @@
 <?php
+namespace org\fktt\bstlist\html\charset;
+
 class LocaleCharacter
 {
     static $DE = array("ä" => "&auml;",
@@ -65,11 +67,12 @@ class LocaleCharacter
 
     private function __construct()
     {
-        foreach (get_class_vars(__CLASS__) as $key => $value)
+        /** @noinspection PhpUnusedLocalVariableInspection */
+        foreach (\get_class_vars(__CLASS__) as $key => $value)
         {
-            if (is_array($value) && !empty($value))
+            if (\is_array($value) && !empty($value))
             {
-                $this->MAP = array_merge($this->MAP, $value);
+                $this->MAP = \array_merge($this->MAP, $value);
             }
         }
     }

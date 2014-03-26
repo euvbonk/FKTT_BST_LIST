@@ -1,4 +1,7 @@
 <?php
+namespace org\fktt\bstlist\util\openOffice;
+
+use SimpleXMLElement;
 
 /* represents a spreadsheet cell */
 class XCell
@@ -31,7 +34,7 @@ class XCell
      */
     public function setFormula($text)
     {
-        if (strlen($text)>0)
+        if (\strlen($text) > 0)
         {
             $this->getXml()->addAttribute("office:value-type", "string", $this->NameSpaces['office']);
             $this->getXml()->addChild("text:p", $text, $this->NameSpaces['text']);

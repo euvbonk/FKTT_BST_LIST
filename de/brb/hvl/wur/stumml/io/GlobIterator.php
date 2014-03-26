@@ -1,4 +1,5 @@
 <?php
+namespace org\fktt\bstlist\io;
 
 import('de_brb_hvl_wur_stumml_io_File');
 
@@ -9,9 +10,9 @@ class MyGlobIterator extends \FilesystemIterator implements \Traversable, \Itera
 
     public function __construct($path)
     {
-        foreach (glob($path) as $file)
+        foreach (\glob($path) as $file)
         {
-            $this->oArray[] = new \File($file);
+            $this->oArray[] = new File($file);
             $this->next();
         }
     }

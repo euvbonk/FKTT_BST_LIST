@@ -1,8 +1,12 @@
 <?php
+namespace org\fktt\bstlist\beans\datasheet;
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_FileManager');
-import('de_brb_hvl_wur_stumml_io_File');
 import('de_brb_hvl_wur_stumml_util_XmlListingFileFilter');
+use /** @noinspection PhpUnusedAliasInspection */
+    org\fktt\bstlist\util\XmlListingFileFilter;
+import('de_brb_hvl_wur_stumml_io_File');
+use org\fktt\bstlist\io\File;
 
 class FileManagerImpl implements FileManager
 {
@@ -16,7 +20,7 @@ class FileManagerImpl implements FileManager
     {
         // grab all datasheets for all epochs
         $f = new File('db');
-        $all = $f->listFiles('XmlListingFileFilter');
+        $all = $f->listFiles('org\fktt\bstlist\util\XmlListingFileFilter');
         foreach (self::$EPOCHS as $epoch)
         {
             $this->allDatasheets[$epoch] = $this->getFilesFromEpoch($all, $epoch);
@@ -32,7 +36,7 @@ class FileManagerImpl implements FileManager
     public function getLatestFileFromEpoch($epoch)
     {
         // sollte die uebergebene Epoche nicht existieren
-        if (!in_array($epoch, self::$EPOCHS))
+        if (!\in_array($epoch, self::$EPOCHS))
         {
             return null;
         }
@@ -43,7 +47,7 @@ class FileManagerImpl implements FileManager
     }
 
     /**
-     * @param iterator $in
+     * @param \iterator $in
      * @param string   $epoch [optional]
      * @return array
      */
@@ -59,7 +63,7 @@ class FileManagerImpl implements FileManager
             }
         }
         // iterator result is not ordered! Ordering by short means sort by key
-        ksort($ret);
+        \ksort($ret);
         return $ret;
     }
 
@@ -77,7 +81,7 @@ class FileManagerImpl implements FileManager
         }
         else if ($order == "ORDER_LAST")
         {
-            usort($test, array("File", "compareLastModified"));
+            \usort($test, array("org\\fktt\\bstlist\\io\\File", "compareLastModified"));
             return $test;
         }
         else
@@ -102,7 +106,7 @@ class FileManagerImpl implements FileManager
         {
             // Falls spezielle Epoche gewünscht, dann wenn vorhanden nutzen
             // anderenfalls die Default-Epoche 4 anzeigen
-            if (($epoch != self::$EPOCHS[3]) && array_key_exists($short."-".$epoch, $this->allDatasheets[$epoch]))
+            if (($epoch != self::$EPOCHS[3]) && \array_key_exists($short."-".$epoch, $this->allDatasheets[$epoch]))
             {
                 $ret[$short] = $this->allDatasheets[$epoch][$short."-".$epoch];
             }
@@ -112,7 +116,7 @@ class FileManagerImpl implements FileManager
             }
             // ist der Filter nicht leer, dann entsprechenden Wert aus
             // dem Array wieder entfernen, falls nicht im Filter
-            if (!empty($filter) && !in_array(strtoupper($short), $filter))
+            if (!empty($filter) && !\in_array(\strtoupper($short), $filter))
             {
                 unset($ret[$short]);
             }
@@ -139,7 +143,7 @@ class FileManagerImpl implements FileManager
             {
                 $needle = substr($needle, 0, strpos($needle, "-"));
             }*/
-            if (in_array(strtoupper($short), $filter))
+            if (\in_array(\strtoupper($short), $filter))
             {
                 $ret[$short] = $url;
             }

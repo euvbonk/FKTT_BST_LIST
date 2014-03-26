@@ -1,6 +1,9 @@
 <?php
+namespace org\fktt\bstlist\cmd;
 
 import('de_brb_hvl_wur_stumml_io_File');
+use org\fktt\bstlist\io\File;
+use ZipArchive;
 
 final class BackupZipBundleCmd
 {
@@ -14,13 +17,13 @@ final class BackupZipBundleCmd
     public function __construct()
     {
         $this->oDir = new File();
-        $this->oTargetFile = new File(self::$FILE_NAME.strftime("%F-%H%M").".zip");
+        $this->oTargetFile = new File(self::$FILE_NAME.\strftime("%F-%H%M").".zip");
         return $this;
     }
 
     /**
      * @return bool true
-     * @throws Exception if directory has no write permissions
+     * @throws \Exception if directory has no write permissions
      */
     public function doCommand()
     {
@@ -29,19 +32,19 @@ final class BackupZipBundleCmd
         {
             $message = "Directory -".$this->oDir->getPathname()."- has no write ";
             $message .= "permission for php script!";
-            throw new Exception($message);
+            throw new \Exception($message);
         }
 
         // Alle bisherigen Dateien löschen
         $b = $this->oDir->getPathname()."/".self::$FILE_NAME."*.zip";
-        foreach (glob($b) as $file)
+        foreach (\glob($b) as $file)
         {
-            unlink($file);
+            \unlink($file);
         }
 
         // parent full directory path of $dirToArchive, to generate the
         // local path in the archive
-        $baseDir = substr($this->oDir->getPathname(), 0, strrpos($this->oDir->getPathname(), "/"));
+        $baseDir = \substr($this->oDir->getPathname(), 0, \strrpos($this->oDir->getPathname(), "/"));
 
         $iterator = $this->oDir->listFiles();
 
@@ -52,7 +55,7 @@ final class BackupZipBundleCmd
         {
             if ($node->isFile() && $node->isReadable())
             {
-                $node_new = str_replace($baseDir."/", "", $node->getPathname());
+                $node_new = \str_replace($baseDir."/", "", $node->getPathname());
                 $zip->addFile($node->getPathname(), $node_new);
             }
         }

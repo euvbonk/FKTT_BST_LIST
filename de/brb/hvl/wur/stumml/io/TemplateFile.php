@@ -1,4 +1,5 @@
 <?php
+namespace org\fktt\bstlist\io;
 
 import('de_brb_hvl_wur_stumml_io_File');
 

@@ -1,8 +1,10 @@
 <?php
+namespace org\fktt\bstlist\beans\datasheet\xml;
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_xml_BaseElement');
 import('de_brb_hvl_wur_stumml_beans_datasheet_xml_ShipperElement');
 
+use SimpleXMLElement;
 class FreightTrafficElement extends BaseElement
 {
     private $oShippers = array();
@@ -36,7 +38,7 @@ class FreightTrafficElement extends BaseElement
     public function getLoadingPlaceNameById($ids)
     {
         $str = "";
-        foreach (explode(" ", $ids) as $id)
+        foreach (\explode(" ", $ids) as $id)
         {
             /** @var $lp SimpleXMLElement */
             foreach ($this->getElement()->xpath("ladestelle") as $lp)
@@ -46,7 +48,7 @@ class FreightTrafficElement extends BaseElement
                 {
                     if ($value == $id)
                     {
-                        if (strlen($str) > 0)
+                        if (\strlen($str) > 0)
                         {
                             $str .= ", ";
                         }

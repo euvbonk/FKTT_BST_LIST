@@ -1,4 +1,5 @@
 <?php
+namespace org\fktt\bstlist\beans\tableList\htmlPage;
 
 import('de_brb_hvl_wur_stumml_beans_datasheet_FileManager');
 import('de_brb_hvl_wur_stumml_beans_tableList_htmlPage_AbstractHtmlPageBuilder');
@@ -6,6 +7,12 @@ import('de_brb_hvl_wur_stumml_beans_tableList_htmlPage_AbstractHtmlPageBuilder')
 import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_HtmlPageDatasheetList');
 import('de_brb_hvl_wur_stumml_cmd_YellowPageCmd');
 import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableListImpl');
+
+use org\fktt\bstlist\beans\datasheet\FileManager;
+use org\fktt\bstlist\beans\tableList\datasheet\HtmlPageDatasheetList;
+use org\fktt\bstlist\cmd\YellowPageCmd;
+use org\fktt\bstlist\util\reportTable\ReportTableList;
+use org\fktt\bstlist\util\reportTable\ReportTableListImpl;
 
 class HtmlListPageBuilder extends AbstractHtmlPageBuilder
 {
@@ -54,7 +61,7 @@ class HtmlListPageBuilder extends AbstractHtmlPageBuilder
             $uri = $file->toHttpUrl();
             $link = $this->getYellowPage()->getFile()->toDownloadLink("Gelbe Seiten für die Epoche ".
             $this->getCurrentEpoch());
-            return str_replace($uri, $file->getBasename(), $link);
+            return \str_replace($uri, $file->getBasename(), $link);
         }
         else
         {
