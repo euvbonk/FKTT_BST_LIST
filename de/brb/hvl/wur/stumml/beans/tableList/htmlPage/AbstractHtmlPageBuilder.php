@@ -11,7 +11,7 @@ abstract class AbstractHtmlPageBuilder extends TemplateFile
     private static $BASE_ACTIONS = array("DATE" => '\strftime("%d. %B %Y", time())', "GP_VERSION" => 'gpversion',
                 "BST_VERSION" => '$this->getAddonVersion()');
 
-    public final function __construct()
+    public function __construct()
     {
         parent::__construct($this->getTemplateFileName());
     }

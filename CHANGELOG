@@ -1,3 +1,8 @@
+2014-03-27 euvbonk v0.97
+    * Html Seiten werden jetzt immer on the fly erzeugt
+    * zusaetzlich werden in ZipBundle nun alle Sprachen hinterlegt
+    * Anpassung der Darstellung mit Dropdown
+    * Zur Darstellung der Datei in anderer Sprache (SheetView) aus Liste wird nun entsprechendes Command verwendet
 2014-03-26 euvbonk v0.96
     * Umstellung auf PHP Namespaces
 2014-03-25 euvbonk v0.95

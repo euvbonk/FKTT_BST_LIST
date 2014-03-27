@@ -71,10 +71,11 @@ class BstFileSystem extends SplFileInfo
             QI::getUriFrom(\str_replace(self::$DOCUMENT_ROOT.self::$DIR_PREFIX, '', $this->getPathname())));
     }
 
-    public function toDownloadLink($label, $addLastChange = true)
+    public function toDownloadLink($label, $addLastChange = true, $checkExistence = true)
     {
         $uri = $this->toHttpUrl();
-        if (\strlen($uri) > 0 && \file_exists($this->getPathname()))
+        $checkExistence = $checkExistence ? \file_exists($this->getPathname()) : true;
+        if (\strlen($uri) > 0 && $checkExistence)
         {
             $ret = HtmlUtil::toUtf8("<a href=\"".$uri."\" title=\"".\strip_tags($label)."\">".$label."</a>");
             if ($addLastChange && \file_exists($this->getPathname()))

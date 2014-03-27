@@ -134,7 +134,7 @@ final class ZipBundleCmd
             }
             $indexBuilder = new HtmlIndexPageBuilder();
             $zip->addFromString('db/index.html', $indexBuilder->doCommand());
-            $listBuilder = new HtmlListPageBuilder();
+            $listBuilder = new HtmlListPageBuilder($xslHtml);
             $listBuilder->setFileManager($this->oFileManager);
             foreach (FileManagerImpl::$EPOCHS as $epoch)
             {

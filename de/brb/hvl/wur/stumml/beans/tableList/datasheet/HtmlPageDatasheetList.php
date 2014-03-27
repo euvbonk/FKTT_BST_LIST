@@ -12,15 +12,15 @@ use org\fktt\bstlist\util\reportTable\ListRowCells;
 
 class HtmlPageDatasheetList extends AbstractDatasheetList
 {
+    private $oXslFiles;
     /**
-     * @param bool   $isEditorPresent
-     * @param string $order [optional]
+     * @param array $xslFiles
      * @return HtmlPageDatasheetList
      */
-    public function __construct($isEditorPresent, $order = "ORDER_SHORT")
+    public function __construct(array $xslFiles)
     {
-        parent::__construct($isEditorPresent, $order);
-
+        parent::__construct(false);
+        $this->oXslFiles = $xslFiles;
         return $this;
     }
 
@@ -31,17 +31,19 @@ class HtmlPageDatasheetList extends AbstractDatasheetList
      */
     protected function getListRowImpl(DatasheetListRowData $data, array $lang = null)
     {
-        return new HtmlPageListRowEntries($data);
+        return new HtmlPageListRowEntries($data, $this->oXslFiles);
     }
 }
 
 class HtmlPageListRowEntries implements ListRowCells
 {
     private $oListRowData;
+    private $oXslFiles;
 
-    public function __construct(DatasheetListRowData $data)
+    public function __construct(DatasheetListRowData $data, array $xslFiles)
     {
         $this->oListRowData = $data;
+        $this->oXslFiles = $xslFiles;
     }
 
     /**
@@ -63,7 +65,7 @@ class HtmlPageListRowEntries implements ListRowCells
         $kuerzel = $this->getData()->getBaseElement()->getValueForTag('kuerzel');
 
         $Xml = $this->buildLink($datei, null, $kuerzel);
-        $Html = $this->buildLink($datei, ".html", $kuerzel);
+        $Html = $this->buildSelect($datei, $kuerzel);
         $Fpl = $this->buildLink($datei, "_fpl.html", $kuerzel);
         //$Pdf = $this->buildLink($datei, ".pdf", $kuerzel); spätere PDF Ansicht
 
@@ -100,8 +102,42 @@ class HtmlPageListRowEntries implements ListRowCells
         {
             $newFile = $file;
         }
-        $link = $newFile->toDownloadLink($label, false);
         $uri = $newFile->toHttpUrl();
-        return \str_replace($uri, "./".$newFile->getParentFile()->getName()."/".$newFile->getBasename(), $link);
+        if ($label != null && \strlen($label) > 0)
+        {
+            $subject = $newFile->toDownloadLink($label, false, false);
+        }
+        else
+        {
+            $subject = $uri;
+        }
+        return \str_replace($uri, "./".$newFile->getParentFile()->getName()."/".$newFile->getBasename(), $subject);
+    }
+
+    protected function buildSelect(File $datei, $kuerzel)
+    {
+        $ret = "<select size='1' onChange='run(this);'>";
+        $ret .= "<option value='#'>{$kuerzel}</option>";
+        foreach ($this->oXslFiles as $key => $value)
+        {
+            $s = "";
+            $newSuffix = ".html";
+            if (\strlen($key) == 0) //DE
+            {
+                $s = " (DE)";
+            }
+            else if ($key != "_fpl")
+            {
+                $s = " (".\strtoupper(\substr($key, 1)).")";
+                $newSuffix = $key.$newSuffix;
+            }
+            if ($s != "")
+            {
+                $url = $this->buildLink($datei, $newSuffix, null);
+                $ret .= "<option value='{$url}'>{$kuerzel}{$s}</option>";
+            }
+        }
+        $ret .= "</select>";
+        return $ret;
     }
 }

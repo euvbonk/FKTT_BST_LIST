@@ -16,11 +16,18 @@ use org\fktt\bstlist\util\reportTable\ReportTableListImpl;
 
 class HtmlListPageBuilder extends AbstractHtmlPageBuilder
 {
+    private $oXslFiles;
     private $oCurrentEpoch;
     private $oReportTable = null;
     private $oList = null;
     private $oYellowPage = null;
     private $oFileManager;
+
+    public function __construct(array $xslFiles)
+    {
+        parent::__construct();
+        $this->oXslFiles = $xslFiles;
+    }
 
     protected function getTemplateFileName()
     {
@@ -97,7 +104,7 @@ class HtmlListPageBuilder extends AbstractHtmlPageBuilder
     {
         if ($this->oList == null)
         {
-            $this->oList = new HtmlPageDatasheetList(false);
+            $this->oList = new HtmlPageDatasheetList($this->oXslFiles);
         }
         $this->oList->buildTableEntries($this->getFileManager()->getFilesFromEpochWithOrder($this->getCurrentEpoch()));
         if ($this->oReportTable == null)

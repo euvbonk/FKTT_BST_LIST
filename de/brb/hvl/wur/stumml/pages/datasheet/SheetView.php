@@ -3,11 +3,11 @@ namespace org\fktt\bstlist\pages\datasheet;
 
 \import('de_brb_hvl_wur_stumml_io_File');
 \import('de_brb_hvl_wur_stumml_pages_datasheet_SingleDatasheetCommandPage');
+\import('de_brb_hvl_wur_stumml_cmd_XmlHtmlTransformCmd');
 
 use Exception;
+use org\fktt\bstlist\cmd\XmlHtmlTransformCmd;
 use org\fktt\bstlist\io\File;
-use DOMDocument;
-use XSLTProcessor;
 
 class SheetView extends SingleDatasheetCommandPage
 {
@@ -52,19 +52,8 @@ class SheetView extends SingleDatasheetCommandPage
     //@Override
     protected function doIt(File $file, $short)
     {
-        $xslDOMDocument = new DOMDocument();
-        $xslDOMDocument->load($this->oXslFile->getPathname());
-
-        $XSLTProcessor = new XSLTProcessor();
-        $XSLTProcessor->importStylesheet($xslDOMDocument);
-
-        $xmlDOMDocument = new DOMDocument();
-        $xmlDOMDocument->load($file->getPathname());
-
-        \ob_start();
-        $XSLTProcessor->transformToURI($xmlDOMDocument, 'php://output');
-        $this->content = \ob_get_contents();
-        \ob_end_clean();
+        $cmd = new XmlHtmlTransformCmd();
+        $this->content = $cmd->doCommand($this->oXslFile, $file);
 
         // Adapt css and img file paths!
         $basePath = \dirname($file->toHttpUrl());
