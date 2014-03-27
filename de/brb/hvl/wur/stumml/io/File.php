@@ -4,15 +4,15 @@ namespace org\fktt\bstlist\io;
 \import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
 \import('de_brb_hvl_wur_stumml_util_QI');
 
+use SplFileInfo;
 use org\fktt\bstlist\html\util\HtmlUtil;
 use org\fktt\bstlist\util\QI;
-use SplFileInfo;
 
 /**
  * Class BstFileSystem is a package protected helper class for resolving file paths
  * for this gpeasy plugin and should only be used by the File class below
  */
-class BstFileSystem extends \SplFileInfo
+class BstFileSystem extends SplFileInfo
 {
     private static $HTTP_HOST;
     private static $DOCUMENT_ROOT;
@@ -256,7 +256,7 @@ class File extends BstFileSystem
     /**
      * @param null|string $filterClassName [optional]
      * @param bool        $recursive       [optional]
-     * @return null|\RecursiveIteratorIterator iterator for SplFileInfo-Objects
+     * @return null|RecursiveIteratorIterator iterator for SplFileInfo-Objects
      */
     public function listFiles($filterClassName = null, $recursive = true)
     {
@@ -273,7 +273,7 @@ class File extends BstFileSystem
                 $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->getPathname(), FilesystemIterator::FOLLOW_SYMLINKS));
             }
             $iit = $it->getInnerIterator();
-            /** @var $iit \RecursiveDirectoryIterator */
+            /** @var $iit RecursiveDirectoryIterator */
             $iit->setInfoClass(\get_class($this));
             return $it;
         }

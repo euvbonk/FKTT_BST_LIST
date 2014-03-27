@@ -27,4 +27,12 @@ class ZipBundleFileFilter extends AbstractFileFilter
         // drop "unsorted" directory which contains files just for testing purposes
         return array("unsorted");
     }
+
+    /**
+     * @return array string
+     */
+    protected function getDropFileFilter()
+    {
+        return array("bahnhof_tpl.xsl");
+    }
 }

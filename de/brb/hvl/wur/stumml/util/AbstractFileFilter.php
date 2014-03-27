@@ -20,7 +20,9 @@ abstract class AbstractFileFilter extends RecursiveFilterIterator
         }
         else if ($this->getCurrent()->isFile())
         {
-            return \in_array($this->getFileExtension($this->getCurrent()->getFilename()), $this->getFileFilter(), true);
+            return
+                \in_array($this->getFileExtension($this->getCurrent()->getFilename()), $this->getFileFilter(), true) &&
+                !\in_array($this->getCurrent()->getFilename(), $this->getDropFileFilter(), true);
         }
         else
         {
@@ -58,4 +60,10 @@ abstract class AbstractFileFilter extends RecursiveFilterIterator
      * @return array string
      */
     abstract protected function getDropDirFilter();
+
+    /**
+     * @abstract
+     * @return array string
+     */
+    abstract protected function getDropFileFilter();
 }

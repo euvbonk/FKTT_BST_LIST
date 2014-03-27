@@ -2,6 +2,7 @@
 namespace org\fktt\bstlist\cmd;
 
 \import('de_brb_hvl_wur_stumml_beans_datasheet_FileManagerImpl');
+\import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_AbstractDatasheetList');
 \import('de_brb_hvl_wur_stumml_beans_tableList_htmlPage_HtmlIndexPageBuilder');
 \import('de_brb_hvl_wur_stumml_beans_tableList_htmlPage_HtmlListPageBuilder');
 
@@ -9,6 +10,7 @@ namespace org\fktt\bstlist\cmd;
 \import('de_brb_hvl_wur_stumml_cmd_XmlHtmlTransformCmd');
 \import('de_brb_hvl_wur_stumml_cmd_YellowPageCmd');
 \import('de_brb_hvl_wur_stumml_io_File');
+\import('de_brb_hvl_wur_stumml_io_GlobIterator');
 \import('de_brb_hvl_wur_stumml_util_ZipBundleFileFilter');
 
 use Exception;
@@ -19,6 +21,7 @@ use org\fktt\bstlist\beans\datasheet\FileManagerImpl;
 use org\fktt\bstlist\beans\tableList\htmlPage\HtmlIndexPageBuilder;
 use org\fktt\bstlist\beans\tableList\htmlPage\HtmlListPageBuilder;
 use org\fktt\bstlist\io\File;
+use org\fktt\bstlist\io\GlobIterator;
 
 final class ZipBundleCmd
 {
@@ -56,27 +59,18 @@ final class ZipBundleCmd
         $CSVListCmd->doCommand();*/
 
         $yellowPageCmd = new YellowPageCmd($this->oFileManager);
-        // Zwei Transformer Commands
-        $transformNormal = new XmlHtmlTransformCmd(new File($dirToArchive->getPathname()."/bahnhof.xsl"));
-        $transformFpl = new XmlHtmlTransformCmd(new File($dirToArchive->getPathname()."/fpl.xsl"));
 
         foreach (FileManagerImpl::$EPOCHS as $epoch)
         {
             // falls Aenderungen am Datenblatt, dann muessen zwingend gelbe Seiten ebenfalls aktualisiert werden.
             $yellowPageCmd->doCommand($epoch);
-            // pruefe jetzt fuer alle Datenblaetter, ob die entsprechenden HTML Dateien aktuell sind und aktualisiere
-            // sie falls notwendig.
-            /** @var $file File */
-            foreach ($this->oFileManager->getFilesFromEpochWithOrder($epoch) as $file)
-            {
-                $transformNormal->doCommand($file);
-                $transformFpl->doCommand($file, new File(\str_replace(".xml", "_fpl.html", $file->getPathname())));
-            }
         }
 
         $allFiles = array();
         $iterator = $dirToArchive->listFiles('org\fktt\bstlist\util\ZipBundleFileFilter');
         // sammle jetzt alle Dateien, die fuer das Zip-Bundle in Frage kommen, in einem Array
+        // enthaelt reine xml und nur alles was fuer deren direkte Anzeige in Frage kommt (CSS, XSL, DTD, Bilder),
+        //der Rest wird spaeter automatisch generiert
         /** @var $file File */
         foreach ($iterator as $file)
         {
@@ -113,6 +107,10 @@ final class ZipBundleCmd
             // local path in the archive
             $baseDir = new File();
 
+            $xslHtml = $this->prepareXsl(); // array with all lang xsl and fpl.xsl files
+            // Transformer factory command for XML to HTML conversion
+            $transform = new XmlHtmlTransformCmd();
+
             $zip = new ZipArchive();
             $zip->open($this->getFile()->getPathname(), ZipArchive::CREATE);
             /** @var $node File */
@@ -120,8 +118,18 @@ final class ZipBundleCmd
             {
                 if ($node->isFile() && $node->isReadable())
                 {
-                    $zip->addFile($node->getPathname(),
-                        \str_replace($baseDir->getPathname()."/", "", $node->getPathname()));
+                    $localXmlPath = \str_replace($baseDir->getPathname()."/", "", $node->getPathname());
+                    $zip->addFile($node->getPathname(), $localXmlPath);
+                    // pruefe ob aktuelle Datei ein Datenblaett ist und erstelle je vorhandener Sprache und Fpl-View
+                    // die dazuegoerige HTML Datei und lege diese ebenfalls im zip ab
+                    if ($node->endsWith("xml"))
+                    {
+                        $localHtmlPath = \explode(".", $localXmlPath);
+                        foreach ($xslHtml as $key => $xslFile)
+                        {
+                            $zip->addFromString($localHtmlPath[0].$key.".html", $transform->doCommand($xslFile, $node));
+                        }
+                    }
                 }
             }
             $indexBuilder = new HtmlIndexPageBuilder();
@@ -146,5 +154,29 @@ final class ZipBundleCmd
     public function getFile()
     {
         return $this->oTargetFile;
+    }
+
+    protected function prepareXsl()
+    {
+        $ret = array();
+        $f = new File("db");
+        $it = new GlobIterator($f->getPathname()."/bahnhof*.xsl");
+        $it->setInfoClass('org\fktt\bstlist\io\File');
+        /** @var $file File */
+        foreach ($it as $file)
+        {
+            $n = $file->getBasename(".xsl");
+            $a = \explode("_", $n);
+            if (!isset($a[1])) // DE
+            {
+                $ret[""] = $file;
+            }
+            else if ($a[1] != 'tpl') // for all other than template file
+            {
+                $ret["_".\strtolower($a[1])] = $file;
+            }
+        }
+        $ret["_fpl"] = new File($f->getPathname()."/fpl.xsl");
+        return $ret;
     }
 }

@@ -9,71 +9,42 @@ use org\fktt\bstlist\io\File;
 
 final class XmlHtmlTransformCmd
 {
-    private $oHtmlFile;
+    private $oXmlDOMDocument;
+    private $oXslDOMDocument;
     private $oXSLTProcessor;
 
     /**
-     * @param File $xslFile
      * @return XmlHtmlTransformCmd
      */
-    public function __construct(File $xslFile)
+    public function __construct()
     {
-        $this->oHtmlFile = null;
-
-        $xslDOMDocument = new DOMDocument();
-        $xslDOMDocument->load($xslFile->getPathname());
+        $this->oXmlDOMDocument = new DOMDocument();
+        $this->oXslDOMDocument = new DOMDocument();
 
         $this->oXSLTProcessor = new XSLTProcessor();
-        $this->oXSLTProcessor->importStylesheet($xslDOMDocument);
         return $this;
     }
 
-
     /**
-     * @param File      $xmlFile
-     * @param File $htmlFile [optional]
-     * @return bool
+     * @param File $xslFile
+     * @param File $xmlFile
+     * @return bool|string
      */
-    public function doCommand(File $xmlFile, File $htmlFile = null)
+    public function doCommand(File $xslFile, File $xmlFile)
     {
-        // Umwandlung nur fuer xml Dateien sinnvoll und wenn Verzeichnis beschreibbar ist
-        if (!$xmlFile->endsWith("xml") || !$xmlFile->getParentFile()->isWritable())
+        // Umwandlung nur fuer xml Dateien sinnvoll
+        if (!$xmlFile->endsWith("xml"))
         {
             return false;
         }
 
-        if ($htmlFile == null)
-        {
-            $htmlFile = new File($xmlFile->getParent()."/".$xmlFile->getBasename("xml")."html");
-        }
-        else
-        {
-            $this->oHtmlFile = $htmlFile;
-        }
-        if (!$htmlFile->exists() || $htmlFile->getMTime() < $xmlFile->getMTime())
-        {
-            // Datei muss vor neuem Anlegen entfernt werden, sonst meckert
-            // transformToUri!
-            if ($htmlFile->exists())
-            {
-                $htmlFile->delete();
-            }
-            $xmlDOMDocument = new DOMDocument();
-            $xmlDOMDocument->load($xmlFile->getPathname());
-
-            $this->oXSLTProcessor->transformToURI($xmlDOMDocument, 'file://'.$htmlFile->getPathname());
-
-            $htmlFile->changeFileRights(0666);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * @return File
-     */
-    public function getHtmlFile()
-    {
-        return $this->oHtmlFile;
+        // XML Datei laden
+        $this->oXmlDOMDocument->load($xmlFile->getPathname());
+        // XSL Datei laden
+        $this->oXslDOMDocument->load($xslFile->getPathname());
+        // XSL Datei in Prozessor laden
+        $this->oXSLTProcessor->importStylesheet($this->oXslDOMDocument);
+        // Umwandlung durchfuehren und HTML String zurueckliefern
+        return $this->oXSLTProcessor->transformToDoc($this->oXmlDOMDocument)->saveHTML();
     }
 }
