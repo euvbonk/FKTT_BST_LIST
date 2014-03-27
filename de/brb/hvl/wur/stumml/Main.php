@@ -1,16 +1,16 @@
 <?php
 
-import('de_brb_hvl_wur_stumml_pages_AddonErrorPage');
-import('de_brb_hvl_wur_stumml_util_QI');
-import('de_brb_hvl_wur_stumml_pages_datasheet_DatasheetsList');
-import('de_brb_hvl_wur_stumml_pages_datasheet_EditDatasheet');
-import('de_brb_hvl_wur_stumml_pages_datasheet_SheetView');
-import('de_brb_hvl_wur_stumml_pages_develop_Develop');
-import('de_brb_hvl_wur_stumml_pages_goodsTraffic_GoodsTrafficBasics');
-import('de_brb_hvl_wur_stumml_pages_moduleList_ModuleList');
-import('de_brb_hvl_wur_stumml_pages_editor_DatasheetEditor');
-import('de_brb_hvl_wur_stumml_pages_admin_AdminPage');
-import('de_brb_hvl_wur_stumml_pages_remoteUpload_RemoteSheetUpload');
+\import('de_brb_hvl_wur_stumml_pages_AddonErrorPage');
+\import('de_brb_hvl_wur_stumml_util_QI');
+\import('de_brb_hvl_wur_stumml_pages_datasheet_DatasheetsList');
+\import('de_brb_hvl_wur_stumml_pages_datasheet_EditDatasheet');
+\import('de_brb_hvl_wur_stumml_pages_datasheet_SheetView');
+\import('de_brb_hvl_wur_stumml_pages_develop_Develop');
+\import('de_brb_hvl_wur_stumml_pages_goodsTraffic_GoodsTrafficBasics');
+\import('de_brb_hvl_wur_stumml_pages_moduleList_ModuleList');
+\import('de_brb_hvl_wur_stumml_pages_editor_DatasheetEditor');
+\import('de_brb_hvl_wur_stumml_pages_admin_AdminPage');
+\import('de_brb_hvl_wur_stumml_pages_remoteUpload_RemoteSheetUpload');
 use org\fktt\bstlist\pages\AddonErrorPage;
 use org\fktt\bstlist\pages\datasheet\DatasheetsList;
 use org\fktt\bstlist\pages\datasheet\EditDatasheet;

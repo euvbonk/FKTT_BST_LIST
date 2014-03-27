@@ -1,9 +1,9 @@
 <?php
 namespace org\fktt\bstlist\cmd;
 
-import('de_brb_hvl_wur_stumml_io_File');
-import('de_brb_hvl_wur_stumml_io_GlobIterator');
-import('de_brb_hvl_wur_stumml_util_logging_StdoutLogger');
+\import('de_brb_hvl_wur_stumml_io_File');
+\import('de_brb_hvl_wur_stumml_io_GlobIterator');
+\import('de_brb_hvl_wur_stumml_util_logging_StdoutLogger');
 use org\fktt\bstlist\io\File;
 use org\fktt\bstlist\io\MyGlobIterator;
 use org\fktt\bstlist\util\logging\StdoutLogger;
@@ -39,7 +39,7 @@ class CheckJNLPVersionCmd
         self::$log->debug($allVersions->count());
         if ($allVersions->count() > 0)
         {
-            $allVersions->seek($allVersions->count()-1);
+            $allVersions->seek($allVersions->count() - 1);
             $latest = $allVersions->current();
             /** @var $latest File */
             self::$LATEST_JAR = $latest->getBasename();

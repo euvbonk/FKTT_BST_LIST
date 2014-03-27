@@ -1,7 +1,7 @@
 <?php
 namespace org\fktt\bstlist\util\logging;
 
-import('de_brb_hvl_wur_stumml_util_QI');
+\import('de_brb_hvl_wur_stumml_util_QI');
 use org\fktt\bstlist\util\QI;
 
 abstract class AbstractLogger

@@ -1,7 +1,7 @@
 <?php
 namespace org\fktt\bstlist\io;
 
-import('de_brb_hvl_wur_stumml_io_File');
+\import('de_brb_hvl_wur_stumml_io_File');
 
 class TemplateFile extends File
 {

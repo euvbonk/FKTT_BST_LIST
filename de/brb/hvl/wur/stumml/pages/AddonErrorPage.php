@@ -1,7 +1,7 @@
 <?php
 namespace org\fktt\bstlist\pages;
 
-import('de_brb_hvl_wur_stumml_pages_Frame');
+\import('de_brb_hvl_wur_stumml_pages_Frame');
 
 class AddonErrorPage extends Frame
 {

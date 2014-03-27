@@ -1,11 +1,12 @@
 <?php
 namespace org\fktt\bstlist\pages\goodsTraffic;
 
-import('de_brb_hvl_wur_stumml_pages_AbstractList');
+\import('de_brb_hvl_wur_stumml_pages_AbstractList');
 
-import('de_brb_hvl_wur_stumml_beans_tableList_goodsTraffic_GoodsTrafficList');
+\import('de_brb_hvl_wur_stumml_beans_tableList_goodsTraffic_GoodsTrafficList');
 
-import('de_brb_hvl_wur_stumml_util_QI');
+\import('de_brb_hvl_wur_stumml_util_QI');
+
 use org\fktt\bstlist\pages\AbstractList;
 use org\fktt\bstlist\util\QI;
 use org\fktt\bstlist\beans\datasheet\tableList\goodsTraffic\GoodsTrafficList;

@@ -1,12 +1,12 @@
 <?php
 namespace org\fktt\bstlist\pages\datasheet;
 
-import('de_brb_hvl_wur_stumml_pages_AbstractList');
+\import('de_brb_hvl_wur_stumml_pages_AbstractList');
 
-import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_StationDatasheetList');
-import('de_brb_hvl_wur_stumml_cmd_YellowPageCmd');
-import('de_brb_hvl_wur_stumml_cmd_CSVListCmd');
-import('de_brb_hvl_wur_stumml_cmd_ZipBundleCmd');
+\import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_StationDatasheetList');
+\import('de_brb_hvl_wur_stumml_cmd_YellowPageCmd');
+\import('de_brb_hvl_wur_stumml_cmd_CSVListCmd');
+\import('de_brb_hvl_wur_stumml_cmd_ZipBundleCmd');
 
 use Exception;
 use org\fktt\bstlist\pages\AbstractList;

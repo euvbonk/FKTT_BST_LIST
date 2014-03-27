@@ -1,13 +1,14 @@
 <?php
 namespace org\fktt\bstlist\pages\admin;
 
-import('de_brb_hvl_wur_stumml_pages_Frame');
-import('de_brb_hvl_wur_stumml_pages_FrameForm');
+\import('de_brb_hvl_wur_stumml_pages_Frame');
+\import('de_brb_hvl_wur_stumml_pages_FrameForm');
 
-import('de_brb_hvl_wur_stumml_cmd_BackupZipBundleCmd');
-import('de_brb_hvl_wur_stumml_io_GlobIterator');
+\import('de_brb_hvl_wur_stumml_cmd_BackupZipBundleCmd');
+\import('de_brb_hvl_wur_stumml_io_GlobIterator');
 
-import('de_brb_hvl_wur_stumml_util_QI');
+\import('de_brb_hvl_wur_stumml_util_QI');
+
 use org\fktt\bstlist\pages\Frame;
 use org\fktt\bstlist\pages\FrameForm;
 use org\fktt\bstlist\util\QI;

@@ -1,8 +1,9 @@
 <?php
 namespace org\fktt\bstlist\pages\datasheet;
 
-import('de_brb_hvl_wur_stumml_io_File');
-import('de_brb_hvl_wur_stumml_pages_datasheet_SingleDatasheetCommandPage');
+\import('de_brb_hvl_wur_stumml_io_File');
+\import('de_brb_hvl_wur_stumml_pages_datasheet_SingleDatasheetCommandPage');
+
 use Exception;
 use org\fktt\bstlist\io\File;
 use DOMDocument;

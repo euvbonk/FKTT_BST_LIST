@@ -1,9 +1,9 @@
 <?php
-defined('is_running') or die('Not an entry point...');
+\defined('is_running') or die('Not an entry point...');
 
 require_once('import.php');
 
-import('de_brb_hvl_wur_stumml_io_File');
+\import('de_brb_hvl_wur_stumml_io_File');
 use org\fktt\bstlist\io\File;
 
 /*
@@ -24,7 +24,7 @@ function Install_Check()
     {
         $dir = new File(realpath($dir->getPathname()));
     }
-    if (!gpFiles::CheckDir($dir->getPathname())) // !!!Funktion legt bei nicht vorhanden sein des Ordners diesen an!!!
+    if (!\gpFiles::CheckDir($dir->getPathname())) // !!!Funktion legt bei nicht vorhanden sein des Ordners diesen an!!!
     {
         echo '<p style="color:red">Addon kann nicht installiert werden, '.
              'der Ordner "'.$dir->getName().'" existiert '.

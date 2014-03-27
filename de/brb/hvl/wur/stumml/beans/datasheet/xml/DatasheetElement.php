@@ -1,7 +1,7 @@
 <?php
 namespace org\fktt\bstlist\beans\datasheet\xml;
 
-import('de_brb_hvl_wur_stumml_beans_datasheet_xml_BaseElement');
+\import('de_brb_hvl_wur_stumml_beans_datasheet_xml_BaseElement');
 use SimpleXMLElement;
 
 class DatasheetElement extends BaseElement
@@ -125,7 +125,7 @@ class DatasheetElement extends BaseElement
             $v = \floatval($value[0]);
             if ($v > 0.0)
             {
-                $ret[] = ($value->attributes()=="cm") ? $v : $v/10;
+                $ret[] = ($value->attributes() == "cm") ? $v : $v/10;
             }
         }
         return $ret;

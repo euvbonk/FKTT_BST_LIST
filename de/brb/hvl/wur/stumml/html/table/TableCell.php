@@ -1,7 +1,7 @@
 <?php
 namespace org\fktt\bstlist\html\table;
 
-import('de_brb_hvl_wur_stumml_html_Html');
+\import('de_brb_hvl_wur_stumml_html_Html');
 use org\fktt\bstlist\html\Html;
 
 class TableCell implements Html

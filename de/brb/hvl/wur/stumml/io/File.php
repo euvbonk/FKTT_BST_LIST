@@ -1,8 +1,8 @@
 <?php
 namespace org\fktt\bstlist\io;
 
-import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
-import('de_brb_hvl_wur_stumml_util_QI');
+\import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
+\import('de_brb_hvl_wur_stumml_util_QI');
 
 use org\fktt\bstlist\html\util\HtmlUtil;
 use org\fktt\bstlist\util\QI;

@@ -1,10 +1,10 @@
 <?php
 namespace org\fktt\bstlist\cmd;
 
-import('de_brb_hvl_wur_stumml_beans_datasheet_FileManager');
+\import('de_brb_hvl_wur_stumml_beans_datasheet_FileManager');
 
-import('de_brb_hvl_wur_stumml_beans_datasheet_xml_StationElement');
-import('de_brb_hvl_wur_stumml_io_File');
+\import('de_brb_hvl_wur_stumml_beans_datasheet_xml_StationElement');
+\import('de_brb_hvl_wur_stumml_io_File');
 
 use SimpleXMLElement;
 use org\fktt\bstlist\beans\datasheet\FileManager;

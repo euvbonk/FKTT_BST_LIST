@@ -1,8 +1,8 @@
 <?php
 namespace org\fktt\bstlist\beans\yellowpage;
 
-import('de_brb_hvl_wur_stumml_util_openOffice_SpreadsheetDocument');
-import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageConverter');
+\import('de_brb_hvl_wur_stumml_util_openOffice_SpreadsheetDocument');
+\import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageConverter');
 
 use SimpleXMLElement;
 use org\fktt\bstlist\util\openOffice\SpreadsheetDocument;

@@ -1,14 +1,14 @@
 <?php
 namespace org\fktt\bstlist\beans\tableList\datasheet;
 
-import('de_brb_hvl_wur_stumml_beans_tableList_AbstractTableList');
-import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_DatasheetListRowDataImpl');
-import('de_brb_hvl_wur_stumml_beans_datasheet_xml_BaseElement');
+\import('de_brb_hvl_wur_stumml_beans_tableList_AbstractTableList');
+\import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_DatasheetListRowDataImpl');
+\import('de_brb_hvl_wur_stumml_beans_datasheet_xml_BaseElement');
 
-import('de_brb_hvl_wur_stumml_io_GlobIterator');
+\import('de_brb_hvl_wur_stumml_io_GlobIterator');
 
-import('de_brb_hvl_wur_stumml_util_reportTable_ListRow');
-import('de_brb_hvl_wur_stumml_util_reportTable_ListRowCellsImpl');
+\import('de_brb_hvl_wur_stumml_util_reportTable_ListRow');
+\import('de_brb_hvl_wur_stumml_util_reportTable_ListRowCellsImpl');
 
 use SimpleXMLElement;
 use org\fktt\bstlist\beans\datasheet\xml\BaseElement;

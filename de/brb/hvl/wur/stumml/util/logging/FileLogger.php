@@ -1,7 +1,7 @@
 <?php
 namespace org\fktt\bstlist\util\logging;
 
-import('de_brb_hvl_wur_stumml_io_File');
+\import('de_brb_hvl_wur_stumml_io_File');
 use org\fktt\bstlist\io\File;
 
 /**

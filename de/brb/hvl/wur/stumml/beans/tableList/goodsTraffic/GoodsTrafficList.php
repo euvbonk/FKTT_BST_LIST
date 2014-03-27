@@ -1,14 +1,14 @@
 <?php
 namespace org\fktt\bstlist\beans\datasheet\tableList\goodsTraffic;
 
-import('de_brb_hvl_wur_stumml_beans_datasheet_xml_DatasheetElement');
-import('de_brb_hvl_wur_stumml_beans_tableList_AbstractTableList');
-import('de_brb_hvl_wur_stumml_beans_tableList_goodsTraffic_GoodsTrafficListRowDataImpl');
-import('de_brb_hvl_wur_stumml_beans_tableList_goodsTraffic_GoodsTrafficListRowEntry');
+\import('de_brb_hvl_wur_stumml_beans_datasheet_xml_DatasheetElement');
+\import('de_brb_hvl_wur_stumml_beans_tableList_AbstractTableList');
+\import('de_brb_hvl_wur_stumml_beans_tableList_goodsTraffic_GoodsTrafficListRowDataImpl');
+\import('de_brb_hvl_wur_stumml_beans_tableList_goodsTraffic_GoodsTrafficListRowEntry');
 
-import('de_brb_hvl_wur_stumml_util_reportTable_ListRow');
-import('de_brb_hvl_wur_stumml_util_reportTable_ListRowCellsImpl');
-import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableListProperties');
+\import('de_brb_hvl_wur_stumml_util_reportTable_ListRow');
+\import('de_brb_hvl_wur_stumml_util_reportTable_ListRowCellsImpl');
+\import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableListProperties');
 use org\fktt\bstlist\beans\datasheet\xml\DatasheetElement;
 use org\fktt\bstlist\beans\tableList\AbstractTableList;
 use org\fktt\bstlist\util\reportTable\ListRow;

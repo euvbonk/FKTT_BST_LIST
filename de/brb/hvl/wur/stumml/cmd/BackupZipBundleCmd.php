@@ -1,9 +1,11 @@
 <?php
 namespace org\fktt\bstlist\cmd;
 
-import('de_brb_hvl_wur_stumml_io_File');
-use org\fktt\bstlist\io\File;
+\import('de_brb_hvl_wur_stumml_io_File');
+
+use Exception;
 use ZipArchive;
+use org\fktt\bstlist\io\File;
 
 final class BackupZipBundleCmd
 {
@@ -32,7 +34,7 @@ final class BackupZipBundleCmd
         {
             $message = "Directory -".$this->oDir->getPathname()."- has no write ";
             $message .= "permission for php script!";
-            throw new \Exception($message);
+            throw new Exception($message);
         }
 
         // Alle bisherigen Dateien löschen

@@ -1,8 +1,8 @@
 <?php
 namespace org\fktt\bstlist\beans\datasheet\xml;
 
-import('de_brb_hvl_wur_stumml_beans_datasheet_xml_BaseElement');
-import('de_brb_hvl_wur_stumml_beans_datasheet_xml_ShipperElement');
+\import('de_brb_hvl_wur_stumml_beans_datasheet_xml_BaseElement');
+\import('de_brb_hvl_wur_stumml_beans_datasheet_xml_ShipperElement');
 
 use SimpleXMLElement;
 class FreightTrafficElement extends BaseElement

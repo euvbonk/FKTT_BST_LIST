@@ -1,9 +1,16 @@
 <?php
 namespace org\fktt\bstlist\io;
 
-import('de_brb_hvl_wur_stumml_io_File');
+\import('de_brb_hvl_wur_stumml_io_File');
 
-class MyGlobIterator extends \FilesystemIterator implements \Traversable, \Iterator, \SeekableIterator, \Countable
+use OutOfBoundsException;
+use FilesystemIterator;
+use Countable;
+use Iterator;
+use SeekableIterator;
+use Traversable;
+
+class MyGlobIterator extends FilesystemIterator implements Traversable, Iterator, SeekableIterator, Countable
 {
     private $oCount = 0;
     private $oArray = array();
@@ -51,7 +58,7 @@ class MyGlobIterator extends \FilesystemIterator implements \Traversable, \Itera
     {
         if (!isset($this->oArray[$position]))
         {
-            throw new \OutOfBoundsException("invalid seek position ($position)");
+            throw new OutOfBoundsException("invalid seek position ($position)");
         }
         $this->oCount = $position;
     }

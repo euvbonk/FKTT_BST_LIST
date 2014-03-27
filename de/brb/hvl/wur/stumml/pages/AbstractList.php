@@ -1,16 +1,16 @@
 <?php
 namespace org\fktt\bstlist\pages;
 
-import('de_brb_hvl_wur_stumml_pages_Frame');
-import('de_brb_hvl_wur_stumml_pages_FrameForm');
+\import('de_brb_hvl_wur_stumml_pages_Frame');
+\import('de_brb_hvl_wur_stumml_pages_FrameForm');
 
-import('de_brb_hvl_wur_stumml_beans_datasheet_FileManagerImpl');
+\import('de_brb_hvl_wur_stumml_beans_datasheet_FileManagerImpl');
 use org\fktt\bstlist\beans\datasheet\FileManagerImpl;
 
-import('de_brb_hvl_wur_stumml_util_QI');
+\import('de_brb_hvl_wur_stumml_util_QI');
 use org\fktt\bstlist\util\QI;
 
-import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableListImpl');
+\import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableListImpl');
 use org\fktt\bstlist\util\reportTable\ReportTableListImpl;
 
 abstract class AbstractList extends Frame implements FrameForm

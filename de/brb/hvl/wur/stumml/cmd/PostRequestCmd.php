@@ -23,7 +23,7 @@ final class PostRequestCmd
     {
         $this->cUrl = $file;
         // check if this is a real http/https url
-        if (\filter_var($this->cUrl, FILTER_VALIDATE_URL) === false || \strpos($this->cUrl, "http") === false)
+        if (\filter_var($this->cUrl, \FILTER_VALIDATE_URL) === false || \strpos($this->cUrl, "http") === false)
         {
             throw new InvalidArgumentException("Argument \"url\" is not valid!");
         }
@@ -63,8 +63,8 @@ final class PostRequestCmd
     {
         $this->buildHeader();
 
-        $opts = Array(
-       		'http' => Array(
+        $opts = array(
+       		'http' => array(
        			'method' => "POST",
        			'header' => $this->cHeader,
        			'content' => $this->cBody

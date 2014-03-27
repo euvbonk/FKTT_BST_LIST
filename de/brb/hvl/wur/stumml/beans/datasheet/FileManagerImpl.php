@@ -1,11 +1,11 @@
 <?php
 namespace org\fktt\bstlist\beans\datasheet;
 
-import('de_brb_hvl_wur_stumml_beans_datasheet_FileManager');
-import('de_brb_hvl_wur_stumml_util_XmlListingFileFilter');
+\import('de_brb_hvl_wur_stumml_beans_datasheet_FileManager');
+\import('de_brb_hvl_wur_stumml_util_XmlListingFileFilter');
 use /** @noinspection PhpUnusedAliasInspection */
     org\fktt\bstlist\util\XmlListingFileFilter;
-import('de_brb_hvl_wur_stumml_io_File');
+\import('de_brb_hvl_wur_stumml_io_File');
 use org\fktt\bstlist\io\File;
 
 class FileManagerImpl implements FileManager

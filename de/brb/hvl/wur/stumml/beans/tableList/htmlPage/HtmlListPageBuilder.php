@@ -1,12 +1,12 @@
 <?php
 namespace org\fktt\bstlist\beans\tableList\htmlPage;
 
-import('de_brb_hvl_wur_stumml_beans_datasheet_FileManager');
-import('de_brb_hvl_wur_stumml_beans_tableList_htmlPage_AbstractHtmlPageBuilder');
+\import('de_brb_hvl_wur_stumml_beans_datasheet_FileManager');
+\import('de_brb_hvl_wur_stumml_beans_tableList_htmlPage_AbstractHtmlPageBuilder');
 
-import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_HtmlPageDatasheetList');
-import('de_brb_hvl_wur_stumml_cmd_YellowPageCmd');
-import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableListImpl');
+\import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_HtmlPageDatasheetList');
+\import('de_brb_hvl_wur_stumml_cmd_YellowPageCmd');
+\import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableListImpl');
 
 use org\fktt\bstlist\beans\datasheet\FileManager;
 use org\fktt\bstlist\beans\tableList\datasheet\HtmlPageDatasheetList;

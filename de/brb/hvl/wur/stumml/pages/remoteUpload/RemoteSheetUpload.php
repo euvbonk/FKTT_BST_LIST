@@ -1,10 +1,11 @@
 <?php
 namespace org\fktt\bstlist\pages\remoteUpload;
 
-import('de_brb_hvl_wur_stumml_cmd_PostRequestCmd');
-import('de_brb_hvl_wur_stumml_io_File');
-import('de_brb_hvl_wur_stumml_pages_Frame');
-import('de_brb_hvl_wur_stumml_util_logging_FileLogger');
+\import('de_brb_hvl_wur_stumml_cmd_PostRequestCmd');
+\import('de_brb_hvl_wur_stumml_io_File');
+\import('de_brb_hvl_wur_stumml_pages_Frame');
+\import('de_brb_hvl_wur_stumml_util_logging_FileLogger');
+
 use org\fktt\bstlist\pages\Frame;
 use org\fktt\bstlist\io\File;
 use org\fktt\bstlist\cmd\PostRequestCmd;

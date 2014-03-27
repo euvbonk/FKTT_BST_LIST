@@ -132,7 +132,7 @@ class ListBuilderCmd
         // Konvertiert umlaute,
         // explodiert den String in ein Array unter entfernung von Leereintraegen
         // durchlaeuft Array und entfernt Leerzeichen vor und hinter den einzelnen Eintraegen
-        return $this->trimArray(\preg_split("/\r\n/", $this->convert($str, 1), -1, PREG_SPLIT_NO_EMPTY));
+        return $this->trimArray(\preg_split("/\r\n/", $this->convert($str, 1), -1, \PREG_SPLIT_NO_EMPTY));
     }
 
     /**
@@ -144,7 +144,7 @@ class ListBuilderCmd
         /** @noinspection PhpUnusedLocalVariableInspection */
         foreach ($one as $key => $value)
         {
-            $two[] = trim($value);
+            $two[] = \trim($value);
         }
         /** @noinspection PhpUndefinedVariableInspection */
         return $two;

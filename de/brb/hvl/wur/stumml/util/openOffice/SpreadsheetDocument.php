@@ -1,10 +1,10 @@
 <?php
 namespace org\fktt\bstlist\util\openOffice;
 
-import('de_brb_hvl_wur_stumml_io_File');
-import('de_brb_hvl_wur_stumml_util_openOffice_OpenDocument');
-import('de_brb_hvl_wur_stumml_util_Point');
-import('de_brb_hvl_wur_stumml_util_openOffice_XSpreadsheet');
+\import('de_brb_hvl_wur_stumml_io_File');
+\import('de_brb_hvl_wur_stumml_util_openOffice_OpenDocument');
+\import('de_brb_hvl_wur_stumml_util_Point');
+\import('de_brb_hvl_wur_stumml_util_openOffice_XSpreadsheet');
 
 use Exception;
 use org\fktt\bstlist\io\File;

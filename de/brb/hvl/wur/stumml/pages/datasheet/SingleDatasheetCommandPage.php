@@ -1,9 +1,10 @@
 <?php
 namespace org\fktt\bstlist\pages\datasheet;
 
-import('de_brb_hvl_wur_stumml_beans_datasheet_FileManagerImpl');
-import('de_brb_hvl_wur_stumml_io_File');
-import('de_brb_hvl_wur_stumml_pages_Frame');
+\import('de_brb_hvl_wur_stumml_beans_datasheet_FileManagerImpl');
+\import('de_brb_hvl_wur_stumml_io_File');
+\import('de_brb_hvl_wur_stumml_pages_Frame');
+
 use Exception;
 use InvalidArgumentException;
 use org\fktt\bstlist\pages\Frame;

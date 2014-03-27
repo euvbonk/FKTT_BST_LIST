@@ -1,8 +1,8 @@
 <?php
 namespace org\fktt\bstlist\html\util;
 
-import('de_brb_hvl_wur_stumml_html_Html');
-import('de_brb_hvl_wur_stumml_html_charset_LocaleCharacter');
+\import('de_brb_hvl_wur_stumml_html_Html');
+\import('de_brb_hvl_wur_stumml_html_charset_LocaleCharacter');
 
 use org\fktt\bstlist\html\charset\LocaleCharacter;
 use org\fktt\bstlist\html\Html;

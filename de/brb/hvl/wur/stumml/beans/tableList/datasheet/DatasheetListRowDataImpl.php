@@ -1,9 +1,9 @@
 <?php
 namespace org\fktt\bstlist\beans\tableList\datasheet;
 
-import('de_brb_hvl_wur_stumml_beans_datasheet_xml_BaseElement');
-import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_DatasheetListRowData');
-import('de_brb_hvl_wur_stumml_io_File');
+\import('de_brb_hvl_wur_stumml_beans_datasheet_xml_BaseElement');
+\import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_DatasheetListRowData');
+\import('de_brb_hvl_wur_stumml_io_File');
 
 use org\fktt\bstlist\beans\datasheet\xml\BaseElement;
 use org\fktt\bstlist\io\File;

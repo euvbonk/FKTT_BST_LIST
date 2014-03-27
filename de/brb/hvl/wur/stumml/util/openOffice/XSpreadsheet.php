@@ -1,7 +1,7 @@
 <?php
 namespace org\fktt\bstlist\util\openOffice;
 
-import('de_brb_hvl_wur_stumml_util_openOffice_XCell');
+\import('de_brb_hvl_wur_stumml_util_openOffice_XCell');
 
 use SimpleXMLElement;
 

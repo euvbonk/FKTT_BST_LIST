@@ -1,7 +1,8 @@
 <?php
 namespace org\fktt\bstlist\beans\tableList\htmlPage;
 
-import('de_brb_hvl_wur_stumml_io_TemplateFile');
+\import('de_brb_hvl_wur_stumml_io_TemplateFile');
+
 use org\fktt\bstlist\io\TemplateFile;
 
 abstract class AbstractHtmlPageBuilder extends TemplateFile

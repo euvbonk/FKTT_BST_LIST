@@ -1,14 +1,14 @@
 <?php
 namespace org\fktt\bstlist\util\reportTable;
 
-import('de_brb_hvl_wur_stumml_html_Html');
-import('de_brb_hvl_wur_stumml_html_table_Table');
-import('de_brb_hvl_wur_stumml_html_table_TableRow');
-import('de_brb_hvl_wur_stumml_html_table_TableCell');
-import('de_brb_hvl_wur_stumml_html_table_TableHeadCell');
+\import('de_brb_hvl_wur_stumml_html_Html');
+\import('de_brb_hvl_wur_stumml_html_table_Table');
+\import('de_brb_hvl_wur_stumml_html_table_TableRow');
+\import('de_brb_hvl_wur_stumml_html_table_TableCell');
+\import('de_brb_hvl_wur_stumml_html_table_TableHeadCell');
 
-import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableList');
-import('de_brb_hvl_wur_stumml_util_reportTable_ListRow');
+\import('de_brb_hvl_wur_stumml_util_reportTable_ReportTableList');
+\import('de_brb_hvl_wur_stumml_util_reportTable_ListRow');
 use org\fktt\bstlist\html\Html;
 use /** @noinspection PhpUnusedAliasInspection */
     org\fktt\bstlist\html\table\Table;

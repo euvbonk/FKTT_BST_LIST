@@ -1,8 +1,9 @@
 <?php
 namespace org\fktt\bstlist\pages\develop;
 
-import('de_brb_hvl_wur_stumml_pages_Frame');
-import('de_brb_hvl_wur_stumml_util_logging_StdoutLogger');
+\import('de_brb_hvl_wur_stumml_pages_Frame');
+\import('de_brb_hvl_wur_stumml_util_logging_StdoutLogger');
+
 use org\fktt\bstlist\pages\Frame;
 use org\fktt\bstlist\util\logging\StdoutLogger;
 
@@ -13,7 +14,7 @@ class Develop extends Frame
     public function __construct()
     {
         parent::__construct("develop");
-        self::$log = new StdoutLogger(get_class($this));
+        self::$log = new StdoutLogger(\get_class($this));
         return $this;
     }
 

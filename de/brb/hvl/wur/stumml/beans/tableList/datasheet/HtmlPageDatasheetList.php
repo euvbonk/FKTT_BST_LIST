@@ -1,10 +1,10 @@
 <?php
 namespace org\fktt\bstlist\beans\tableList\datasheet;
 
-import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_AbstractDatasheetList');
-import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_DatasheetListRowData');
+\import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_AbstractDatasheetList');
+\import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_DatasheetListRowData');
 
-import('de_brb_hvl_wur_stumml_util_reportTable_ListRowCells');
+\import('de_brb_hvl_wur_stumml_util_reportTable_ListRowCells');
 
 use org\fktt\bstlist\html\util\HtmlUtil;
 use org\fktt\bstlist\io\File;
@@ -91,7 +91,7 @@ class HtmlPageListRowEntries implements ListRowCells
 
     protected function buildLink(File $file, $newSuffix, $label)
     {
-        if ($newSuffix != null && strlen($newSuffix) > 0)
+        if ($newSuffix != null && \strlen($newSuffix) > 0)
         {
             $base = $file->getParent()."/".$file->getBasename(".xml");
             $newFile = new File($base.$newSuffix);

@@ -1,7 +1,7 @@
 <?php
 namespace org\fktt\bstlist\util;
 
-import('de_brb_hvl_wur_stumml_util_AbstractFileFilter');
+\import('de_brb_hvl_wur_stumml_util_AbstractFileFilter');
 
 /**
  * Uses this class to get all Datasheets and their current data additional

@@ -1,12 +1,12 @@
 <?php
 namespace org\fktt\bstlist\beans\tableList\datasheet;
 
-import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_AbstractDatasheetList');
-import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_DatasheetListRowData');
+\import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_AbstractDatasheetList');
+\import('de_brb_hvl_wur_stumml_beans_tableList_datasheet_DatasheetListRowData');
 
-import('de_brb_hvl_wur_stumml_util_reportTable_ListRowCells');
-import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
-import('de_brb_hvl_wur_stumml_util_QI');
+\import('de_brb_hvl_wur_stumml_util_reportTable_ListRowCells');
+\import('de_brb_hvl_wur_stumml_html_util_HtmlUtil');
+\import('de_brb_hvl_wur_stumml_util_QI');
 
 use org\fktt\bstlist\util\reportTable\ListRowCells;
 use org\fktt\bstlist\io\File;

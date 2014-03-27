@@ -1,7 +1,7 @@
 <?php
 namespace org\fktt\bstlist\beans\yellowpage;
 
-import('de_brb_hvl_wur_stumml_util_openOffice_SpreadsheetXml');
+\import('de_brb_hvl_wur_stumml_util_openOffice_SpreadsheetXml');
 
 use org\fktt\bstlist\util\openOffice\SpreadsheetXml;
 

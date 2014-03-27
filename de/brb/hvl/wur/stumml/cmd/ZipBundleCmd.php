@@ -1,15 +1,15 @@
 <?php
 namespace org\fktt\bstlist\cmd;
 
-import('de_brb_hvl_wur_stumml_beans_datasheet_FileManagerImpl');
-import('de_brb_hvl_wur_stumml_beans_tableList_htmlPage_HtmlIndexPageBuilder');
-import('de_brb_hvl_wur_stumml_beans_tableList_htmlPage_HtmlListPageBuilder');
+\import('de_brb_hvl_wur_stumml_beans_datasheet_FileManagerImpl');
+\import('de_brb_hvl_wur_stumml_beans_tableList_htmlPage_HtmlIndexPageBuilder');
+\import('de_brb_hvl_wur_stumml_beans_tableList_htmlPage_HtmlListPageBuilder');
 
-//import('de_brb_hvl_wur_stumml_cmd_CSVListCmd');
-import('de_brb_hvl_wur_stumml_cmd_XmlHtmlTransformCmd');
-import('de_brb_hvl_wur_stumml_cmd_YellowPageCmd');
-import('de_brb_hvl_wur_stumml_io_File');
-import('de_brb_hvl_wur_stumml_util_ZipBundleFileFilter');
+//\import('de_brb_hvl_wur_stumml_cmd_CSVListCmd');
+\import('de_brb_hvl_wur_stumml_cmd_XmlHtmlTransformCmd');
+\import('de_brb_hvl_wur_stumml_cmd_YellowPageCmd');
+\import('de_brb_hvl_wur_stumml_io_File');
+\import('de_brb_hvl_wur_stumml_util_ZipBundleFileFilter');
 
 use Exception;
 use SplFileInfo;

@@ -1,10 +1,10 @@
 <?php
 namespace org\fktt\bstlist\beans\yellowpage;
 
-import('de_brb_hvl_wur_stumml_beans_datasheet_xml_StationElement');
-import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageTableRowList');
-import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageTableRowCellList');
-import('de_brb_hvl_wur_stumml_util_openOffice_SpreadsheetXml');
+\import('de_brb_hvl_wur_stumml_beans_datasheet_xml_StationElement');
+\import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageTableRowList');
+\import('de_brb_hvl_wur_stumml_beans_yellowPage_YellowPageTableRowCellList');
+\import('de_brb_hvl_wur_stumml_util_openOffice_SpreadsheetXml');
 
 use SimpleXMLElement;
 use org\fktt\bstlist\io\File;
