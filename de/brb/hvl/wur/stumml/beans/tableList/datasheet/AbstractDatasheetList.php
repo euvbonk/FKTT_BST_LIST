@@ -14,7 +14,7 @@ use SimpleXMLElement;
 use org\fktt\bstlist\beans\datasheet\xml\BaseElement;
 use org\fktt\bstlist\beans\tableList\AbstractTableList;
 use org\fktt\bstlist\io\File;
-use org\fktt\bstlist\io\MyGlobIterator;
+use org\fktt\bstlist\io\GlobIterator;
 use org\fktt\bstlist\util\reportTable\ListRow;
 use org\fktt\bstlist\util\reportTable\ListRowCells;
 use org\fktt\bstlist\util\reportTable\ListRowCellsImpl;
@@ -151,7 +151,7 @@ abstract class AbstractDatasheetList extends AbstractTableList
     {
         $ret = array();
         $f = new File("./db/bahnhof.xsl");
-        $it = new MyGlobIterator($f->getPath()."/bahnho*.xsl");
+        $it = new GlobIterator($f->getPath()."/bahnho*.xsl");
         $it->setInfoClass('org\fktt\bstlist\io\File');
         /** @var $file File */
         foreach ($it as $file)

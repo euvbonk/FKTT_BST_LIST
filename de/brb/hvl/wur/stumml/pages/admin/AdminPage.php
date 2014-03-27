@@ -14,7 +14,7 @@ use org\fktt\bstlist\pages\FrameForm;
 use org\fktt\bstlist\util\QI;
 use org\fktt\bstlist\cmd\BackupZipBundleCmd;
 use org\fktt\bstlist\io\File;
-use org\fktt\bstlist\io\MyGlobIterator;
+use org\fktt\bstlist\io\GlobIterator;
 
 final class AdminPage extends Frame implements FrameForm
 {
@@ -34,7 +34,7 @@ final class AdminPage extends Frame implements FrameForm
         }
 
         $this->oZipListEntries = "";
-        $iterator = new MyGlobIterator($b->getFile()->getParentFile()->getPathname()."/*.zip");
+        $iterator = new GlobIterator($b->getFile()->getParentFile()->getPathname()."/*.zip");
         $iterator->setInfoClass('org\fktt\bstlist\io\File');
         if ($iterator->count() == 0)
         {

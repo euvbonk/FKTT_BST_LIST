@@ -4,8 +4,9 @@ namespace org\fktt\bstlist\cmd;
 \import('de_brb_hvl_wur_stumml_io_File');
 \import('de_brb_hvl_wur_stumml_io_GlobIterator');
 \import('de_brb_hvl_wur_stumml_util_logging_StdoutLogger');
+
 use org\fktt\bstlist\io\File;
-use org\fktt\bstlist\io\MyGlobIterator;
+use org\fktt\bstlist\io\GlobIterator;
 use org\fktt\bstlist\util\logging\StdoutLogger;
 
 class CheckJNLPVersionCmd
@@ -35,7 +36,7 @@ class CheckJNLPVersionCmd
         }
 
         // einlesen der gewuenschten Versionen
-        $allVersions = new MyGlobIterator(self::$JNLP_FILE_URI->getPath()."/versions/rgzm_*.jar");
+        $allVersions = new GlobIterator(self::$JNLP_FILE_URI->getPath()."/versions/rgzm_*.jar");
         self::$log->debug($allVersions->count());
         if ($allVersions->count() > 0)
         {

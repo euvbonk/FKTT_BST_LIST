@@ -10,7 +10,7 @@ use Iterator;
 use SeekableIterator;
 use Traversable;
 
-class MyGlobIterator extends FilesystemIterator implements Traversable, Iterator, SeekableIterator, Countable
+class GlobIterator extends FilesystemIterator implements Traversable, Iterator, SeekableIterator, Countable
 {
     private $oCount = 0;
     private $oArray = array();
