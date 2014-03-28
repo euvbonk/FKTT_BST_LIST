@@ -1,3 +1,7 @@
+2014-03.28 euvbonk v0.98
+    * Alte obsolete Dateistruktur entfernt und Hierarchie deutlich verflacht.
+    * Alle PHP-Klassen, bis auf die gpEasy gadgets liegen nun unterhalb von 'classes'
+    * Daher nochmalige Anpassung des import Skriptes notwendig
 2014-03-27 euvbonk v0.97
     * Html Seiten werden jetzt immer on the fly erzeugt
     * zusaetzlich werden in ZipBundle nun alle Sprachen hinterlegt

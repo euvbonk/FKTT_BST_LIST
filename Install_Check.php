@@ -3,7 +3,7 @@
 
 require_once('import.php');
 
-\import('de_brb_hvl_wur_stumml_io_File');
+\import('io_File');
 use org\fktt\bstlist\io\File;
 
 /*

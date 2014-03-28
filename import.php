@@ -49,9 +49,22 @@ if (!\function_exists('import'))
         }
         else
         {
-            if (include_once($path.".php"))
+            if (@include_once($path.".php"))
             {
                 return;
+            }
+            else
+            {
+                $path .= ".php";
+                foreach ($directories as $directory)
+                {
+                    $ipath = dirname(__FILE__)."/".$directory.$path;
+                    if (\file_exists($ipath) || \is_file($ipath))
+                    {
+                        require_once($ipath);
+                        return;
+                    }
+                }
             }
         }
 
@@ -74,9 +87,9 @@ if (!\function_exists('import'))
  * Die Hauptklasse wird importiert. 
  * Der Aufruf erfolgt über gpEasy (Anpassung der Startklasse in Addon.ini)
  */
-\import('de_brb_hvl_wur_stumml_io_File');
+\import('io_File');
 use org\fktt\bstlist\io\File;
-File::setPaths(getenv('HTTP_HOST'), getenv('DOCUMENT_ROOT'), getenv('SCRIPT_NAME'), __FILE__);
+File::setPaths(\getenv('HTTP_HOST'), \getenv('DOCUMENT_ROOT'), \getenv('SCRIPT_NAME'), __FILE__);
 
-\import('de_brb_hvl_wur_stumml_Main');
+\import('Main');
 \import('gadgets_*');
