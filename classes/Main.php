@@ -2,6 +2,7 @@
 
 \import('pages_AddonErrorPage');
 \import('pages_admin_AdminPage');
+\import('pages_admin_SyncFormatFiles');
 \import('pages_editor_DatasheetEditor');
 \import('pages_datasheet_DatasheetsList');
 \import('pages_datasheet_EditDatasheet');
@@ -14,6 +15,7 @@
 
 use org\fktt\bstlist\pages\AddonErrorPage;
 use org\fktt\bstlist\pages\admin\AdminPage;
+use org\fktt\bstlist\pages\admin\SyncFormatFiles;
 use org\fktt\bstlist\pages\datasheet\DatasheetsList;
 use org\fktt\bstlist\pages\datasheet\EditDatasheet;
 use org\fktt\bstlist\pages\datasheet\SheetView;
@@ -50,9 +52,6 @@ class Main
                 case "datasheet_editor" :
                     $sheet = new DatasheetEditor();
                     break;
-                case "admin_export_data" :
-                    $sheet = new AdminPage();
-                    break;
                 case "fpl_view":
                     $sheet = new SheetView(QI::getCommand(), "fpl");
                     break;
@@ -64,6 +63,12 @@ class Main
                     break;
                 case "sheet_view" :
                     $sheet = new SheetView(QI::getCommand(), "bahnhof", QI::getCommand('lang'));
+                    break;
+                case "admin_export_data" :
+                    $sheet = new AdminPage();
+                    break;
+                case "admin_sync_format_files" :
+                    $sheet = new SyncFormatFiles();
                     break;
                 default :
                     // Never reached by gpEasy!

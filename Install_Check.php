@@ -22,7 +22,7 @@ function Install_Check()
     $dir = new File();
     if ($dir->isLink()) // Sollte wenn moeglich vermieden werden!
     {
-        $dir = new File(realpath($dir->getPathname()));
+        $dir = new File(\realpath($dir->getPathname()));
     }
     if (!\gpFiles::CheckDir($dir->getPathname())) // !!!Funktion legt bei nicht vorhanden sein des Ordners diesen an!!!
     {
