@@ -3,6 +3,7 @@
 \import('pages_AddonErrorPage');
 \import('pages_admin_AdminPage');
 \import('pages_admin_SyncFormatFiles');
+\import('pages_admin_LatestSheetChangesList');
 \import('pages_editor_DatasheetEditor');
 \import('pages_datasheet_DatasheetsList');
 \import('pages_datasheet_EditDatasheet');
@@ -15,6 +16,7 @@
 
 use org\fktt\bstlist\pages\AddonErrorPage;
 use org\fktt\bstlist\pages\admin\AdminPage;
+use \org\fktt\bstlist\pages\LatestSheetChangesList;
 use org\fktt\bstlist\pages\admin\SyncFormatFiles;
 use org\fktt\bstlist\pages\datasheet\DatasheetsList;
 use org\fktt\bstlist\pages\datasheet\EditDatasheet;
@@ -69,6 +71,9 @@ class Main
                     break;
                 case "admin_sync_format_files" :
                     $sheet = new SyncFormatFiles();
+                    break;
+                case "admin_latest_sheet_changes_list" :
+                    $sheet = new LatestSheetChangesList();
                     break;
                 default :
                     // Never reached by gpEasy!

@@ -1,5 +1,6 @@
 2014-04-03 euvbonk v0.99
     * Admin Funktion zur Synchronisierung der Formatierungsdateien (DTD, XSL, CSS)
+    * Admin Funktion zur Anzeige der geaenderten Dateien nach Epochen geordnet
 2014-03.28 euvbonk v0.98
     * Alte obsolete Dateistruktur entfernt und Hierarchie deutlich verflacht.
     * Alle PHP-Klassen, bis auf die gpEasy gadgets liegen nun unterhalb von 'classes'
