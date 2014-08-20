@@ -38,7 +38,7 @@ class BaseElement
             //print $child->getName()." => ".$tagName."<br>";
             if ($child->getName() == $tagName)
             {
-                return $child[0];
+                return (string)$child[0];
             }
         }
         return "";

@@ -4,6 +4,7 @@ namespace org\fktt\bstlist\pages\datasheet;
 \import('beans_tableList_datasheet_StationDatasheetList');
 \import('cmd_YellowPageCmd');
 \import('cmd_CSVListCmd');
+\import('cmd_JsonListCmd');
 \import('cmd_ZipBundleCmd');
 \import('pages_AbstractList');
 
@@ -11,6 +12,7 @@ use Exception;
 use org\fktt\bstlist\beans\tableList\datasheet\StationDatasheetList;
 use org\fktt\bstlist\cmd\CheckJNLPVersionCmd;
 use org\fktt\bstlist\cmd\CSVListCmd;
+use org\fktt\bstlist\cmd\JsonListCmd;
 use org\fktt\bstlist\cmd\YellowPageCmd;
 use org\fktt\bstlist\cmd\ZipBundleCmd;
 use org\fktt\bstlist\pages\AbstractList;
@@ -100,6 +102,8 @@ final class DatasheetsList extends AbstractList
      */
     public final function CSVListLink()
     {
+        $f = new JsonListCmd($this->getFileManager());
+        $f->doCommand();
         $t = new CSVListCmd($this->getFileManager());
         $t->doCommand();
         if ($t->getFile()->exists())
