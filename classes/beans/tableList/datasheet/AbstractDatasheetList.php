@@ -21,19 +21,16 @@ abstract class AbstractDatasheetList extends AbstractTableList
 {
     private $tableEntries;
     private static $HEAD_ENTRIES = array("Lfd. Nr.", "Betriebsstellenname", "K&uuml;rzel", "Kategorie",
-        "Letzte &Auml;nderung", "Spezial Ansicht", "Bearbeiten");
-    private $headOrder = array("", "", "", "", "", "", "");
-    private $isEditorPresent;
+        "Letzte &Auml;nderung", "Spezial Ansicht");
+    private $headOrder = array("", "", "", "", "", "");
     private $oLang;
 
     /**
-     * @param bool   $isEditorPresent
      * @param string $order [optional]
      * @return AbstractDatasheetList
      */
-    public function __construct($isEditorPresent, $order = "ORDER_SHORT")
+    public function __construct($order = "ORDER_SHORT")
     {
-        $this->isEditorPresent = $isEditorPresent;
         $this->setOrder($order);
 
         return $this;
@@ -96,7 +93,7 @@ abstract class AbstractDatasheetList extends AbstractTableList
             {
                 // Die Datei ist mit Sicherheit vom Typ XML!
                 $xml = new BaseElement(new SimpleXMLElement($value->getPathname(), null, true));
-                $this->tableEntries->append($this->getListRowImpl(new DatasheetListRowDataImpl(($key+1), $xml, $value, $this->isEditorPresent), $this->oLang));
+                $this->tableEntries->append($this->getListRowImpl(new DatasheetListRowDataImpl(($key+1), $xml, $value), $this->oLang));
                 $key++;
             }
         }

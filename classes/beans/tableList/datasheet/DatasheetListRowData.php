@@ -20,9 +20,4 @@ interface DatasheetListRowData
      * @return File
      */
     function getFile();
-
-    /**
-     * @return bool
-     */
-    function isEditorPresent();
 }

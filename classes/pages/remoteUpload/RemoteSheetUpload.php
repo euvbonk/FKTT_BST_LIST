@@ -123,9 +123,10 @@ class RemoteSheetUpload extends Frame
                 $sheet = $_FILES['sheet'];
                 if ($sheet['error'] == 0 && \is_uploaded_file($sheet['tmp_name']))
                 {
-                    $path = "db/".$user['path']."/";
-                    $f = new File($path.$sheet['name']);
-                    if ($f->exists())
+                    $p = \explode("-", \basename($sheet['name'], ".xml"));
+                    $relPath = "db/".$p[0]."/";
+                    $f = new File($relPath.$sheet['name']);
+                    if ($f->exists() && $this->check($user['station'], $user['mshort'], $p[0]."/".$sheet['name']))
                     {
                         // check FKTT100? would be nice but there is not one at the moment
                         if (\sizeof($_FILES) == 2)
@@ -133,7 +134,7 @@ class RemoteSheetUpload extends Frame
                             $layout = $_FILES['layout'];
                             if ($layout['error'] == 0 && \is_uploaded_file($layout['tmp_name']))
                             {
-                                $l = new File($path.$layout['name']);
+                                $l = new File($relPath.$layout['name']);
                                 // check file size? last mod?
                                 if ($l->exists() && $l->getSize() != $layout['size'])
                                 {
@@ -193,6 +194,29 @@ class RemoteSheetUpload extends Frame
     protected function getCallableMethods()
     {
         return array();
+    }
+
+    /**
+     * Checks if given parameter are in stored json string and returns true if and only if all
+     * are in json otherwise false
+     *
+     * @param $station (string) Name of the station
+     * @param $mshort (string) Stations abbreviation
+     * @param $path (string) relative path to stored place
+     * @return bool
+     */
+    private function check($station, $mshort, $path)
+    {
+        $f = new File("db/bst_list.json");
+        $json = \json_decode(\file_get_contents($f->getRealPath()));
+        foreach ($json as $value)
+        {
+            if ($value->name == $station && $value->abb == $mshort && \in_array($path, $value->epochs))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

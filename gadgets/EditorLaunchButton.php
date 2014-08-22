@@ -15,7 +15,7 @@ class EditorLaunchButton
         $cmd = new CheckJNLPVersionCmd("editor");
         if ($cmd->doCommand())
         {
-            echo '<div style="padding:0 0 5px 0;">';
+            echo '<div style="padding:0 0 5px 0;" title="Datenblatt anlegen oder bearbeiten">';
             echo $cmd->getDeploy();
             echo '&nbsp;<span style="color:blue;">Editor</span>';
             echo '</div> ';

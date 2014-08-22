@@ -6,7 +6,7 @@
 \import('pages_admin_LatestSheetChangesList');
 \import('pages_editor_DatasheetEditor');
 \import('pages_datasheet_DatasheetsList');
-\import('pages_datasheet_EditDatasheet');
+//\import('pages_datasheet_EditDatasheet');
 \import('pages_datasheet_SheetView');
 \import('pages_develop_Develop');
 \import('pages_goodsTraffic_GoodsTrafficBasics');
@@ -19,7 +19,7 @@ use org\fktt\bstlist\pages\admin\AdminPage;
 use \org\fktt\bstlist\pages\LatestSheetChangesList;
 use org\fktt\bstlist\pages\admin\SyncFormatFiles;
 use org\fktt\bstlist\pages\datasheet\DatasheetsList;
-use org\fktt\bstlist\pages\datasheet\EditDatasheet;
+//use org\fktt\bstlist\pages\datasheet\EditDatasheet;
 use org\fktt\bstlist\pages\datasheet\SheetView;
 use org\fktt\bstlist\pages\develop\Develop;
 use org\fktt\bstlist\pages\editor\DatasheetEditor;
@@ -57,9 +57,9 @@ class Main
                 case "fpl_view":
                     $sheet = new SheetView(QI::getCommand(), "fpl");
                     break;
-                case "edit_datasheet":
+                /*case "edit_datasheet":
                     $sheet = new EditDatasheet(QI::getCommand());
-                    break;
+                    break;*/
                 case "remote_sheet_upload":
                     $sheet = new RemoteSheetUpload();
                     break;

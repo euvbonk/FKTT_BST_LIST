@@ -34,7 +34,7 @@ final class DatasheetsList extends AbstractList
 
         $this->oEditor = new CheckJNLPVersionCmd('editor');
 
-        $this->oList = new StationDatasheetList($this->oEditor->isEditorPresent(), $this->order);
+        $this->oList = new StationDatasheetList($this->order);
         $this->oList->buildTableEntries($this->getFileManager()
                 ->getFilesFromEpochWithOrder($this->getEpoch(), $this->order));
 

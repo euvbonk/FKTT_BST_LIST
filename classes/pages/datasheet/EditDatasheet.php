@@ -10,6 +10,12 @@ use SimpleXMLElement;
 use org\fktt\bstlist\cmd\SendFileForDownloadCmd;
 use org\fktt\bstlist\io\File;
 
+/**
+ * Class EditDatasheet
+ *
+ * @package org\fktt\bstlist\pages\datasheet
+ * @deprecated because of editor function calling several datasheets
+ */
 class EditDatasheet extends SingleDatasheetCommandPage
 {
     private static $JNLP_FILE = null;

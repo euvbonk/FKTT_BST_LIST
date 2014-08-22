@@ -7,7 +7,7 @@
       <p><?php $this->printValue('YellowPageLink'); ?></p>
       <p>Achtung! Die Betriebsstellendateien sind XML-Dateien<br/>und nur mit folgenden Browsern ansehbar:<br />
          Internet Explorer ab Version 5, Opera ab Version 5.12,<br/>Netscape ab Version 6, Mozilla Firefox ab Version 1.0</p>
-      <p>Neues Datenblatt anlegen: <?php $this->printValue('ApplicationUrl'); ?> Editor</p>
+      <p>Datenblatt anlegen oder bearbeiten: <?php $this->printValue('ApplicationUrl'); ?> Editor</p>
       <p>F&uuml;r die Zukunft ist geplant, die Seiten auch als HTML<br/>bzw. XHTML abzulegen und die Fahrplaner und BFO<br/>
          Ersteller werden das ganze auch noch im pdf Format<br/> bekommen.</p>
       <p><?php $this->printValue('CSVListLink'); ?></p>

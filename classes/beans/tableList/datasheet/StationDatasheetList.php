@@ -15,13 +15,12 @@ use org\fktt\bstlist\util\reportTable\ListRowCells;
 class StationDatasheetList extends AbstractDatasheetList
 {
     /**
-     * @param bool   $isEditorPresent
      * @param string $order [optional]
      * @return StationDatasheetList
      */
-    public function __construct($isEditorPresent, $order = "ORDER_SHORT")
+    public function __construct($order = "ORDER_SHORT")
     {
-        parent::__construct($isEditorPresent, $order);
+        parent::__construct($order);
 
         return $this;
     }
@@ -70,10 +69,7 @@ class SheetListRowEntries implements ListRowCells
         $type = $this->getData()->getBaseElement()->getValueForTag('typ');
         $lastChange = \strftime("%a, %d. %b %Y %H:%M", $datei->getMTime());
         return array($index, $nameRef, $kuerzelRef, HtmlUtil::toUtf8($type), $lastChange,
-            $this->buildCommandLink("Fpl_View", $kuerzel, $datei),
-            ($this->getData()->isEditorPresent()) ? $this->buildCommandLink("Edit_Datasheet",
-                "<img src=\"http://www.java.com/js/webstart.png\"  alt=\"Java WS Launch Button\"/>",
-                $datei) : "&nbsp;");
+            $this->buildCommandLink("Fpl_View", $kuerzel, $datei));
     }
 
     /**
@@ -82,7 +78,7 @@ class SheetListRowEntries implements ListRowCells
     public function getCellsStyle()
     {
         return array("style=\"text-align:center;\"", "", "style=\"text-align:center;\"", "style=\"text-align:center;\"",
-            "", "style=\"text-align:center;\"", "style=\"text-align:center;\"");
+            "", "style=\"text-align:center;\"");
     }
 
     protected function buildCommandLink($pageName, $label, File $url)

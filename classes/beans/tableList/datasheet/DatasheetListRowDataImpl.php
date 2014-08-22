@@ -13,14 +13,12 @@ class DatasheetListRowDataImpl implements DatasheetListRowData
     private $oIndex;
     private $oBaseElement;
     private $oFile;
-    private $isEditorPresent;
 
-    public function __construct($index, BaseElement $xml, File $file, $isEditorPresent)
+    public function __construct($index, BaseElement $xml, File $file)
     {
         $this->oIndex = $index;
         $this->oBaseElement = $xml;
         $this->oFile = $file;
-        $this->isEditorPresent = $isEditorPresent;
     }
 
     /**
@@ -45,13 +43,5 @@ class DatasheetListRowDataImpl implements DatasheetListRowData
     public function getFile()
     {
         return $this->oFile;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEditorPresent()
-    {
-        return $this->isEditorPresent;
     }
 }
