@@ -86,8 +86,7 @@ final class JsonListCmd
                 }
             }
             \ksort($csvArray);
-            //echo "<pre>".print_r($csvArray, true)."</pre>";
-            //echo "<pre>".json_encode($csvArray,JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)."</pre>";
+
             $json = "[";
             foreach ($csvArray as $key => $value)
             {
@@ -97,11 +96,10 @@ final class JsonListCmd
                     {
                         $json .= ",";
                     }
-                    $json .= \json_encode($value);//ab PHP 5.4, \JSON_UNESCAPED_UNICODE|\JSON_UNESCAPED_SLASHES);
+                    $json .= \json_encode($value, \JSON_UNESCAPED_UNICODE|\JSON_UNESCAPED_SLASHES);
                 }
             }
             $json .= "]";
-            //echo "<pre>".$json."</pre>";
 
             if ($this->oTargetFile->exists())
             {
