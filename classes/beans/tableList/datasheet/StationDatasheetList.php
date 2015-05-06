@@ -94,7 +94,7 @@ class SheetListRowEntries implements ListRowCells
         foreach ($this->oLang as $lang)
         {
             $ck = $url->getBasename(".xml");
-            $ret .= "<option value='cmd={$ck}&lang={$lang}'>{$kuerzel} ({$lang})</option>";
+            $ret .= "<option value='cmd={$ck}&amp;lang={$lang}'>{$kuerzel} ({$lang})</option>";
         }
         $ret .= "</select>";
         return $ret;
