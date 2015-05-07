@@ -2,6 +2,7 @@
 namespace org\fktt\bstlist\pages\remoteUpload;
 
 \import('cmd_PostRequestCmd');
+\import('cmd_RilConfigCmd');
 \import('io_File');
 \import('pages_Frame');
 \import('util_logging_FileLogger');
@@ -9,6 +10,7 @@ namespace org\fktt\bstlist\pages\remoteUpload;
 use Exception;
 use InvalidArgumentException;
 use org\fktt\bstlist\cmd\PostRequestCmd;
+use org\fktt\bstlist\cmd\RilConfigCmd;
 use org\fktt\bstlist\io\File;
 use org\fktt\bstlist\pages\Frame;
 use org\fktt\bstlist\util\logging\FileLogger;
@@ -29,6 +31,12 @@ class RemoteSheetUpload extends Frame
     {
         parent::__construct();
 
+        $c = new RilConfigCmd();
+        ## check on updating RilFKTT.100, this is done always after the first day of a new month
+        if ($c->checkUpdate())
+        {
+            $c->runUpdate();
+        }
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_SERVER['HTTP_USER_AGENT'] == 'Datasheet-Editor')
         {
             $user = \json_decode($_POST['other'], true);

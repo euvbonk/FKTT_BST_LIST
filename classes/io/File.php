@@ -95,7 +95,7 @@ class BstFileSystem extends SplFileInfo
         self::$HTTP_HOST = $httpHost;
         self::$DOCUMENT_ROOT = \realpath($documentRoot);
         self::$DIR_PREFIX = \dirname($dirPrefix);
-        self::$ADDON_DIR = \realpath(dirname($addonDir));
+        self::$ADDON_DIR = \realpath(\dirname($addonDir));
         self::$DATA_DIR = self::$DOCUMENT_ROOT.self::$DIR_PREFIX."/data/_uploaded/file/fktt";
     }
 
