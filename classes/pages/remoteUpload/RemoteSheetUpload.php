@@ -5,14 +5,14 @@ namespace org\fktt\bstlist\pages\remoteUpload;
 \import('cmd_RilConfigCmd');
 \import('io_File');
 \import('pages_Frame');
+\import('util_PhpConfigFileUtils');
 \import('util_logging_FileLogger');
 
-use Exception;
-use InvalidArgumentException;
 use org\fktt\bstlist\cmd\PostRequestCmd;
 use org\fktt\bstlist\cmd\RilConfigCmd;
 use org\fktt\bstlist\io\File;
 use org\fktt\bstlist\pages\Frame;
+use org\fktt\bstlist\util\PhpConfigFileUtils;
 use org\fktt\bstlist\util\logging\FileLogger;
 
 /**
@@ -20,16 +20,18 @@ use org\fktt\bstlist\util\logging\FileLogger;
  */
 class RemoteSheetUpload extends Frame
 {
-    private static $URL = "http://grischan.org/fredl/misc/rauth.php";
+    private static $URL = null;
+    private static $CONFIG_FILE = "FreDLConfig.php";
 
     /**
-     * @throws InvalidArgumentException
-     * @throws Exception
+     * @throws \Exception
      * @return RemoteSheetUpload
      */
     public function __construct()
     {
         parent::__construct();
+
+        self::$URL = PhpConfigFileUtils::getArrayFromFile(new File(self::$CONFIG_FILE))['url'];
 
         $c = new RilConfigCmd();
         ## check on updating RilFKTT.100, this is done always after the first day of a new month
@@ -64,25 +66,8 @@ class RemoteSheetUpload extends Frame
                     $response = 'false';
                 }
             }
-            // Check request user is module owner only if not superuser
-            $userIsOwner = false;
+            // Check request user is module owner or representative against FreDL only if not superuser
             if (!$superUser)
-            {
-                $matches = array();
-                \preg_match('/(?<Alpha>[a-zA-Z]+)(?<Numeric>[0-9]+)/', $user['modid'], $matches);
-                // check user name e.g. MaMus to module identifier starting with the same initials
-                if ($matches[1] == $user['name'])
-                {
-                    $userIsOwner = true;
-                    $log->write("Request user {$user['name']} is module owner of {$user['modid']}");
-                }
-                else
-                {
-                    $response = "Error: Not owner of module!";
-                }
-            }
-            // Check request user authentication against FreDL only if not superuser and if module owner
-            if (!$superUser && $userIsOwner)
             {
                 $log->write("Try connection to ".self::$URL);
                 try
@@ -92,14 +77,36 @@ class RemoteSheetUpload extends Frame
                     $pr->setBody("auth_data=".$_POST['check']);
                     $response = $pr->doCommand();
                 }
-                catch (Exception $e) // Invalid URL
+                catch (\Exception $e) // Invalid URL?
                 {
                     $response = $e->getMessage();
+                }
+                switch ($response)
+                {
+                    case 'wrongPassAndOrId' :
+                        $response = "false";
+                        break;
+                    case 'true' :
+                        $matches = array();
+                        \preg_match('/(?<Alpha>[a-zA-Z]+)(?<Numeric>[0-9]+)/', $user['modid'], $matches);
+                        if ($matches[1] == $user['name'])
+                        {
+                            $log->write("Request user {$user['name']} is module owner of {$user['modid']}");
+                        }
+                        else if ($matches[1] != $user['name'])
+                        {
+                            $log->write("Request user {$user['name']} is module representative of {$user['modid']}");
+                        }
+                        break;
+                    case 'false' :
+                        $response = "Error: Not owner or representative of module!";
+                        $log->write("Request user {$user['name']} is not owner or representative of module {$user['modid']}");
+                        break;
                 }
             }
             if ($response == 'true')
             {
-                $log->write("Authentication successful for user ".$user['name']);
+                $log->write("Authentication successful for user or representative ".$user['name']);
                 /* Aktionen duerfen ausgefuehrt werden
                  *
                  * Es koennen maximal zwei Dateien hochgeladen werden:

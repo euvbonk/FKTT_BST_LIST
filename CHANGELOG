@@ -1,3 +1,7 @@
+2015-05-08 euvbonk v1.02
+    * Anpassung automatisches Hochladeskript, so dass auch Vertreter von Betriebsstellen
+      Datenblaetter bearbeiten koennen.
+    * Abspeicherung der FreDL-URL in separater Konfigurationsdatei
 2015-05-07 euvbonk v1.02
     * Abfrage und Sicherung der FKTT.100 zur Auswertung beim automatischen Hochladen durch
       Datenblatt Editor
