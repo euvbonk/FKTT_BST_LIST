@@ -49,6 +49,9 @@ abstract class AbstractDatasheetList extends AbstractTableList
             case "ORDER_LAST"  :
                 $this->headOrder[4] = "DESC";
                 break;
+            case "ORDER_NAME" :
+                $this->headOrder[1] = "ASC";
+                break;
             default            :
                 $this->headOrder[2] = "ASC";
                 break;

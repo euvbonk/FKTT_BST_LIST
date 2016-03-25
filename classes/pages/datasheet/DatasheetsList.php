@@ -20,7 +20,8 @@ use org\fktt\bstlist\pages\AbstractList;
 final class DatasheetsList extends AbstractList
 {
     private static $ORDERS = array("ORDER_SHORT" => "K&uuml;rzel (aufsteigend)",
-        "ORDER_LAST" => "letzte &Auml;nderung (absteigend)");
+        "ORDER_LAST" => "letzte &Auml;nderung (absteigend)",
+        "ORDER_NAME" => "Betriebsstellenname (aufsteigend)");
     private $order = "ORDER_SHORT";
 
     private $oList = null;
@@ -30,7 +31,7 @@ final class DatasheetsList extends AbstractList
     {
         parent::__construct('datasheets_list');
 
-        $this->doCommand($_POST);
+        $this->doCommand($_REQUEST);
 
         $this->oEditor = new CheckJNLPVersionCmd('editor');
 
@@ -56,6 +57,13 @@ final class DatasheetsList extends AbstractList
             {
                 unset($DATA['epoch']);
                 unset($DATA['order']);
+            }
+        }
+        else if ($_SERVER['REQUEST_METHOD'] == 'GET')
+        {
+            if (\array_key_exists('order', $DATA))
+            {
+                $this->order = "ORDER_NAME"; //$DATA['order'];
             }
         }
     }

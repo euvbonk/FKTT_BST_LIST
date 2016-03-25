@@ -3,11 +3,14 @@ namespace org\fktt\bstlist\beans\datasheet;
 
 \import('beans_datasheet_FileManager');
 \import('io_File');
+\import('util_SorterFactory');
 \import('util_XmlListingFileFilter');
 
 use org\fktt\bstlist\io\File;
 use /** @noinspection PhpUnusedAliasInspection */
     org\fktt\bstlist\util\XmlListingFileFilter;
+use /** @noinspection PhpUnusedAliasInspection */
+    org\fktt\bstlist\util\SorterFactory;
 
 class FileManagerImpl implements FileManager
 {
@@ -76,18 +79,18 @@ class FileManagerImpl implements FileManager
     public function getFilesFromEpochWithOrder($epoch = "IV", $order = "ORDER_SHORT")
     {
         $test = $this->allDatasheets[$epoch];
-        if ($order == "ORDER_SHORT")
+        switch ($order)
         {
-            return $test;
-        }
-        else if ($order == "ORDER_LAST")
-        {
-            \usort($test, array("org\\fktt\\bstlist\\io\\File", "compareLastModified"));
-            return $test;
-        }
-        else
-        {
-            return null;
+            case "ORDER_SHORT" :
+                return $test;
+            case "ORDER_LAST" :
+                \usort($test, array("org\\fktt\\bstlist\\io\\File", "compareLastModified"));
+                return $test;
+            case "ORDER_NAME":
+                \usort($test, array("org\\fktt\\bstlist\\util\\SorterFactory", "compareStationName"));
+                return $test;
+            default :
+                return null;
         }
     }
 

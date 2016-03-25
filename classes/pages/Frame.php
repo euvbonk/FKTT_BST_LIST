@@ -52,7 +52,7 @@ abstract class Frame
 
     public final function LastChange()
     {
-        return '08. Mai 2015 11:15:00';
+        return '25. M&auml;rz 2016 12:00:00';
     }
 
     /**
