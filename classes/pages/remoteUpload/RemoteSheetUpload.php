@@ -8,6 +8,7 @@ namespace org\fktt\bstlist\pages\remoteUpload;
 \import('util_PhpConfigFileUtils');
 \import('util_logging_FileLogger');
 
+use org\fktt\bstlist\beans\datasheet\FileManagerImpl;
 use org\fktt\bstlist\cmd\PostRequestCmd;
 use org\fktt\bstlist\cmd\RilConfigCmd;
 use org\fktt\bstlist\io\File;
@@ -97,6 +98,7 @@ class RemoteSheetUpload extends Frame
                         {
                             $log->write("Request user {$user['name']} is module representative of {$user['modid']}");
                         }
+                        $log->write(\print_r($matches, true));
                         break;
                     case 'false' :
                         $response = "Error: Not owner or representative of module!";
@@ -174,8 +176,26 @@ class RemoteSheetUpload extends Frame
                         $log->write("Update datasheet ".$sheet['name']." successful");
                         echo "Success";
                     }
-                    else
+                    // For an existing datasheet of epoch four add datasheet for a new epoch which is one to six
+                    else if (\sizeof($p) > 1 && !$f->exists() &&
+                        $this->check($user['station'], $user['mshort'], $p[0]."/".$p[0].".xml") &&
+                        \in_array($p[1], FileManagerImpl::$EPOCHS)
+                    )
                     {
+                        // Wie soll das mit den Bildern gehandhabt werden? Eines fuer alle Epochen oder
+                        // je Epoche eines benamt wie die Datenblaetter selbst?
+                    }
+                    else if (\array_key_exists(\strtolower($user['mshort']), $c->getAsArray()))
+                    {
+                        // Unterscheidung:
+                        // Wenn ein neues Epochendatenblatt hochgeladen werden soll, dann muss wenigstens
+                        // das fuer die Epoche VI vorhanden sein
+                        // da braucht dann auch nichts weiter geprueft werden, weil alles bereits an Ort
+                        // und Stelle ist und nur das Blatt hochgeschoben werden muss
+                        //
+                        // Andererseits muss bei voelliger Neuanlage auch ein Verzeichnis sowie die
+                        // benoetigten XSL, DTD, CSS Dateien kopiert werden
+                        //
                         // check FKTT100 on short
                         // The FKTT100 does not exist at the point of writing this code
                         // that's why this must fail in any case
