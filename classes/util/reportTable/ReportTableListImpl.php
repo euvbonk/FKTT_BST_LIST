@@ -116,15 +116,15 @@ class ReportTableListImpl implements ReportTableList, Html
             {
                 if ($this->cSelector && $key == 0 && $struct == "tbody")
                 {
-                    $trow->addCell(new $cellForm("<input type=\"checkbox\" name=\"check[]\" value=\"".$cell."\"/>", "style=\"text-align:center;\"")); //".(($this->checkBox) ? " checked=\"checked\" " : "")."
+                    $trow->addCell(new $cellForm("<input type=\"checkbox\" name=\"check[]\" value=\"".$cell."\"/>", "class=\"bst-list-table-col".$key."\" style=\"text-align:center;\"")); //".(($this->checkBox) ? " checked=\"checked\" " : "")."
                 }
                 else
                 {
-                    $attr = "";
+                    $attr = "class=\"bst-list-table-col".$key."\"";
                     if (\array_key_exists($key, $row->getCellsStyle()))
                     {
                         $t = $row->getCellsStyle();
-                        $attr = $t[$key];
+                        $attr .= " ".$t[$key];
                     }
                     //print "<pre>".print_r($cell, true)."</pre>";
                     $trow->addCell(new $cellForm($cell, $attr));

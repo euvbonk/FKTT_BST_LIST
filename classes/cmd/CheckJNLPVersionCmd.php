@@ -18,7 +18,7 @@ class CheckJNLPVersionCmd
     private static $JNLP_FILE_URI;
 
     private static $LATEST_JAR;
-    private static $WS_IMAGE_URL = "http://www.java.com/js/webstart.png";
+    private static $WS_IMAGE_URL = "https://www.java.com/js/webstart.png";
 
     /**
      * @param string $jnlpFileName
@@ -113,21 +113,26 @@ class CheckJNLPVersionCmd
     {
         if ($useDeployScript)
         {
+            // add javascript import to page head
+            global $page;
+            $page->head .= '<script src="https://www.java.com/js/deployJava.js"></script>';
             $ret = "";
             $ret .= "<!-- following script shows javaws launch application button -->\n";
             $ret .= "<script type=\"text/javascript\">\n";
-            $ret .= "   /* <![CDATA[ */";
             $ret .= "     deployJava.createWebStartLaunchButton('".self::$JNLP_HTTP_URI."', '1.7.0+');\n";
             //$ret .= "     /* alternatively launch application if page is loaded \n";
             //$ret .= "      deployJava.launch('".self::$JNLP_HTTP_URI."');*/\n";
-            $ret .= "   /* ]]> */";
             $ret .= "</script>";
+            $ret .= "<noscript>";
+            $ret .= self::$JNLP_FILE_URI->toDownloadLink("<img src=\"".self::$WS_IMAGE_URL.
+                            "\" alt=\"Launch\"/>", false);
+            $ret .= "</noscript>";
             return $ret;
         }
         else
         {
             return self::$JNLP_FILE_URI->toDownloadLink("<img src=\"".self::$WS_IMAGE_URL.
-                    "\"  style=\"position:relative;top:5px;\" alt=\"Java WS Launch Button\"/>", false);
+                    "\" alt=\"Java WS Launch Button\"/>", false);
         }
     }
 }

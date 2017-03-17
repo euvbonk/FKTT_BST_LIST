@@ -66,13 +66,13 @@ final class JsonListCmd
                     {
                         // load as file url
                         $station = new StationElement(new SimpleXMLElement($value->getPathname(), null, true));
-                        $path = explode("-", $value->getBasename(".xml"));
+                        $path = $value->getParentFile()->getName();
                         if (!\array_key_exists($station->getShort(), $csvArray))
                         {
                             $csvArray[$station->getShort()] = array(
                                 "name" => $station->getName(),
                                 "abb" => $station->getShort(),
-                                "epochs" => array($path[0]."/".$value->getName()));
+                                "epochs" => array($path."/".$value->getName()));
                         }
                         else
                         {
@@ -80,7 +80,7 @@ final class JsonListCmd
                             {
                                 $csvArray[$station->getShort()]["name"] = $station->getName();
                             }
-                            $csvArray[$station->getShort()]["epochs"][] = $path[0]."/".$value->getName();
+                            $csvArray[$station->getShort()]["epochs"][] = $path."/".$value->getName();
                         }
                     }
                 }

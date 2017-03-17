@@ -22,7 +22,7 @@ use org\fktt\bstlist\util\logging\FileLogger;
 class RemoteSheetUpload extends Frame
 {
     private static $URL = null;
-    private static $CONFIG_FILE = "FreDLConfig.php";
+    private static $CONFIG_FILE_NAME = "FreDLConfig.php";
 
     /**
      * @throws \Exception
@@ -32,7 +32,12 @@ class RemoteSheetUpload extends Frame
     {
         parent::__construct();
 
-        self::$URL = PhpConfigFileUtils::getArrayFromFile(new File(self::$CONFIG_FILE))['url'];
+        $cf = new File(self::$CONFIG_FILE_NAME);
+        if (!$cf->exists())
+        {
+           throw new \Exception("File not found (".$cf->getName().")");
+        }
+        self::$URL = PhpConfigFileUtils::getArrayFromFile(new File(self::$CONFIG_FILE_NAME))['url'];
 
         $c = new RilConfigCmd();
         ## check on updating RilFKTT.100, this is done always after the first day of a new month
@@ -140,6 +145,9 @@ class RemoteSheetUpload extends Frame
                 $sheet = $_FILES['sheet'];
                 if ($sheet['error'] == 0 && \is_uploaded_file($sheet['tmp_name']))
                 {
+                    // das ist auch irgendwie problematisch!, denn hier gilt auch dasselbe wie für
+                    // die JSON Datei und den Dateipfad, kann man nicht so einfach aus dem Namen
+                    // ableiten
                     $p = \explode("-", \basename($sheet['name'], ".xml"));
                     $relPath = "db/".$p[0]."/";
                     $f = new File($relPath.$sheet['name']);

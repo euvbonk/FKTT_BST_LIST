@@ -1,3 +1,12 @@
+2016-10-16 euvbonk v1.04
+    * Anpassungen in den Template Dateien: valides HTML5, CSS, JS aufgrund
+      Typesetter Version 5.0.3 Update
+    * Umstellung auf HTTPS Verweise sofern moeglich
+    * Minimale Typesetter Version muss 5.0 fuer das gesamte Addon sein
+    * Klassenselektor fuer Tabellenzellen je Spalte; Vorgriff zum Ausblenden ganzer Spalten.
+    * Benutzung von Konfigurationsdateien z.B. fuer Verbindungsurls und andere Daten
+    * Bugfix: Inkorrekter Dateipfad in JSON Auflistung, wenn mehrere XML-Dateien in einem
+              Verzeichnis
 2016-03-25 euvbonk v1.03
     * Tabellarische Auflistung durch Namenssortierung erweitert, vor allem durch GET Parameter
       so dass von einem Remote Server entsprechend einfach gesetzt werden kann
