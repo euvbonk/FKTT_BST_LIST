@@ -106,13 +106,13 @@ class FileManagerImpl implements FileManager
         switch ($order)
         {
             case "ORDER_SHORT" :
-                \usort($test, array("org\\fktt\\bstlist\\util\\SorterFactory", "compareStationShort"));
+                \uasort($test, array("org\\fktt\\bstlist\\util\\SorterFactory", "compareStationShort"));
                 return $test;
             case "ORDER_LAST" :
-                \usort($test, array("org\\fktt\\bstlist\\io\\File", "compareLastModified"));
+                \uasort($test, array("org\\fktt\\bstlist\\io\\File", "compareLastModified"));
                 return $test;
             case "ORDER_NAME":
-                \usort($test, array("org\\fktt\\bstlist\\util\\SorterFactory", "compareStationName"));
+                \uasort($test, array("org\\fktt\\bstlist\\util\\SorterFactory", "compareStationName"));
                 return $test;
             default :
                 return null;

@@ -84,7 +84,7 @@ class SheetListRowEntries implements ListRowCells
     protected function buildCommandLink($pageName, $label, File $url)
     {
         return HtmlUtil::toUtf8(QI::buildAbsoluteLink($pageName, $label,
-                "cmd=".$url->getBasename(".xml")));
+                "cmd=".$url->getParentFile()->getName()."-".$url->getBasename(".xml")));
     }
 
     protected function getLangSelect($kuerzel, File $url)

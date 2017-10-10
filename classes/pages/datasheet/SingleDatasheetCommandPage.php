@@ -33,10 +33,10 @@ abstract class SingleDatasheetCommandPage extends Frame
         else
         {
             $values = \explode("-", $station);
-            $short = $values[0];
-            if (\sizeof($values) > 1)
+            $short = $values[1];
+            if (\sizeof($values) > 2)
             {
-                $epoch = $values[1];
+                $epoch = $values[2];
             }
             else
             {
@@ -44,7 +44,7 @@ abstract class SingleDatasheetCommandPage extends Frame
             }
 
             $fm = new FileManagerImpl();
-            $allFiles = $fm->getFilesFromEpochWithOrder($epoch);
+            $allFiles = $fm->getFilesFromEpochWithOrder($epoch, "ORDER_SHORT", $values[0]);
             //print "<pre>".print_r($allFiles, true)."</pre>";
 
             if (!\array_key_exists($station, $allFiles))
