@@ -5,7 +5,8 @@
     * Neue Sortierart nach Laendern
     * Synchronisierung der Formatierungsdateien (DTD, XSL und CSS) an neue Struktur
       angepasst
-    * Fahrplaneransichtkommando an neue Strukturlayout angepasst
+    * Fahrplaneransichtkommando an neues Strukturlayout angepasst
+    * Ansicht nach Sprachauswahl an neues Strukturlayout angepasst
     * TODO: Uploadmethode entsprechend umaendern
 2016-10-16 euvbonk v1.04
     * Anpassungen in den Template Dateien: valides HTML5, CSS, JS aufgrund
