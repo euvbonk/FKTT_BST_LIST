@@ -33,4 +33,26 @@ class SorterFactory
         $station_b = new BaseElement(new SimpleXMLElement($b->getPathname(), null, true));
         return \strcmp($station_a->getValueForTag('name'), $station_b->getValueForTag('name'));
     }
+
+    /**
+     * Compares two station datasheets by their short and returns
+     *  0 if and only if the times of both files are equal
+     * +1 if the time of the first given file is smaller
+     * -1 if the time of the first given file is greater
+     *
+     * The function is used for sorting station datasheet files by short
+     * ascending order (last modified at the top) using php function usort.
+     *
+     * @static
+     * @param File $a
+     * @param File $b
+     * @return int
+     */
+    public static function compareStationShort(File $a, File $b)
+    {
+        // Die Datei ist mit Sicherheit vom Typ XML!
+        $station_a = new BaseElement(new SimpleXMLElement($a->getPathname(), null, true));
+        $station_b = new BaseElement(new SimpleXMLElement($b->getPathname(), null, true));
+        return \strcasecmp($station_a->getValueForTag('kuerzel'), $station_b->getValueForTag('kuerzel'));
+    }
 }

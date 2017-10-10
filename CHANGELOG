@@ -1,3 +1,8 @@
+2017-10-10 euvbonk v2.0alpha
+    * Einfuehrung von ISO_639-2 Laenderkuerzeln als Unterordner fuer die jeweiligen
+      Datenblaetter => Gleiche Kuerzel in unterschiedlichen Laendern moeglich
+    * Damit einhergehend andere Kuerzelsortierungsmethode erforderlich und umgesetzt
+    * TODO: Einfuehrung neuer Sortierart nach Ländern, Uploadmethode entsprechend umaendern
 2016-10-16 euvbonk v1.04
     * Anpassungen in den Template Dateien: valides HTML5, CSS, JS aufgrund
       Typesetter Version 5.0.3 Update

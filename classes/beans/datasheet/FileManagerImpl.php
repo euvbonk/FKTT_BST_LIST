@@ -63,7 +63,7 @@ class FileManagerImpl implements FileManager
         {
             if ($fileUrl->endsWith("-".$epoch.".xml") || ($epoch == "IV" && !$fileUrl->contains("-")))
             {
-                $ret[$fileUrl->getBasename(".xml")] = $fileUrl;
+                $ret[$fileUrl->getParentFile()->getName()."-".$fileUrl->getBasename(".xml")] = $fileUrl;
             }
         }
         // iterator result is not ordered! Ordering by short means sort by key
@@ -82,6 +82,7 @@ class FileManagerImpl implements FileManager
         switch ($order)
         {
             case "ORDER_SHORT" :
+                \usort($test, array("org\\fktt\\bstlist\\util\\SorterFactory", "compareStationShort"));
                 return $test;
             case "ORDER_LAST" :
                 \usort($test, array("org\\fktt\\bstlist\\io\\File", "compareLastModified"));
