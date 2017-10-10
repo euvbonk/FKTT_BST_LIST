@@ -49,17 +49,18 @@ final class SyncFormatFiles extends Frame implements FrameForm
             /** @var $file File */
             foreach ($files as $file)
             {
-                $sheets = $fmg->getFilesFromEpochWithOrder();
+                $cc = $fmg->getAllCountryCodes();
                 $success = 0;
-                /** @var $xml File */
-                foreach ($sheets as $xml)
+                /** @var $countrySubFolder File */
+                foreach ($cc as $countrySubFolder)
                 {
-                    if (\copy($file->getPathname(), $xml->getParent()."/".$file->getBasename()))
+                    $targetFile = new File("db/".$countrySubFolder."/".$file->getBasename());
+                    if (\copy($file->getPathname(), $targetFile->getPathname()))
                     {
                         $success++;
                     }
                 }
-                $msg[$file->getBasename()] = array($success, sizeof($sheets));
+                $msg[$file->getBasename()] = array($success, sizeof($cc));
             }
             $this->buildMessage($msg);
             // update zip format_files.zip
