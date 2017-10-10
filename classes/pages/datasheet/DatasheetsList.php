@@ -23,6 +23,7 @@ final class DatasheetsList extends AbstractList
         "ORDER_LAST" => "letzte &Auml;nderung (absteigend)",
         "ORDER_NAME" => "Betriebsstellenname (aufsteigend)");
     private $order = "ORDER_SHORT";
+    private $country = null;
 
     private $oList = null;
     private $oEditor = null;
@@ -37,7 +38,7 @@ final class DatasheetsList extends AbstractList
 
         $this->oList = new StationDatasheetList($this->order);
         $this->oList->buildTableEntries($this->getFileManager()
-                ->getFilesFromEpochWithOrder($this->getEpoch(), $this->order));
+                ->getFilesFromEpochWithOrder($this->getEpoch(), $this->order, $this->country));
 
         $this->getReportTable()->setTableHead($this->oList->getTableHeader());
         $this->getReportTable()->setTableBody($this->oList->getTableEntries());
@@ -52,11 +53,13 @@ final class DatasheetsList extends AbstractList
             {
                 $this->setEpoch($DATA['epoch']);
                 $this->order = $DATA['order'];
+                $this->country = $DATA['country'] == "all" ? null : $DATA['country'];
             }
             else if (!\array_key_exists('startFilter', $DATA) && \array_key_exists('reset', $DATA))
             {
                 unset($DATA['epoch']);
                 unset($DATA['order']);
+                unset($DATA['country']);
             }
         }
         else if ($_SERVER['REQUEST_METHOD'] == 'GET')
@@ -71,7 +74,7 @@ final class DatasheetsList extends AbstractList
     protected function getCallableMethods()
     {
         return \array_merge(parent::getCallableMethods(),
-            array('OrderOptionsUI', 'YellowPageLink', 'CSVListLink', 'ZipBundleLink', 'ApplicationUrl', 'SheetViewUrl'));
+            array('CountryOptionsUI', 'OrderOptionsUI', 'YellowPageLink', 'CSVListLink', 'ZipBundleLink', 'ApplicationUrl', 'SheetViewUrl'));
     }
 
     /**
@@ -84,6 +87,21 @@ final class DatasheetsList extends AbstractList
         {
             $str .= "<option value=\"".$key."\"".(($this->order == $key) ? " selected=\"selected\"" : "").">".
                     $value."</option>";
+        }
+        return $str;
+    }
+
+    /**
+     * @return String
+     */
+    public final function CountryOptionsUI()
+    {
+        $str = "";
+        $countries = $this->getFileManager()->getAllCountryCodes();
+        $str .= "<option value=\"all\">".\implode(", ", \array_map(function($val) {return \strtoupper($val);}, $countries))."</option>";
+        foreach ($countries as $country)
+        {
+            $str .= "<option value=\"".$country."\"".(($this->country == $country) ? " selected=\"selected\"" : "").">".\strtoupper($country)."</option>";
         }
         return $str;
     }

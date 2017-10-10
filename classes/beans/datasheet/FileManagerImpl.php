@@ -16,6 +16,7 @@ class FileManagerImpl implements FileManager
 {
     public static $EPOCHS = array('I', 'II', 'III', 'IV', 'V', 'VI');
     private $allDatasheets = array();
+    private $allCountryCodes = array();
 
     /**
      * @return FileManagerImpl
@@ -63,7 +64,13 @@ class FileManagerImpl implements FileManager
         {
             if ($fileUrl->endsWith("-".$epoch.".xml") || ($epoch == "IV" && !$fileUrl->contains("-")))
             {
-                $ret[$fileUrl->getParentFile()->getName()."-".$fileUrl->getBasename(".xml")] = $fileUrl;
+                $countryCode = $fileUrl->getParentFile()->getName();
+                $ret[$countryCode."-".$fileUrl->getBasename(".xml")] = $fileUrl;
+                // save the iso country code for internal use
+                if (!\in_array($countryCode, $this->allCountryCodes))
+                {
+                    \array_push($this->allCountryCodes, $countryCode);
+                }
             }
         }
         // iterator result is not ordered! Ordering by short means sort by key
@@ -74,11 +81,28 @@ class FileManagerImpl implements FileManager
     /**
      * @param string $epoch
      * @param string $order
+     * @param string $country
      * @return array Files|null
      */
-    public function getFilesFromEpochWithOrder($epoch = "IV", $order = "ORDER_SHORT")
+    public function getFilesFromEpochWithOrder($epoch = "IV", $order = "ORDER_SHORT", $country = null)
     {
         $test = $this->allDatasheets[$epoch];
+        //print "<pre>".\print_r($test, true)."</pre>";
+        if ($country != null)
+        {
+            //print "<pre>".$country."</pre>";
+            //print "<pre>".\print_r(\array_filter($test, function($item) use (&$test, $country) { $key = \explode("-", \key($test)); print $item."=>".($key[0] == $country)."<br>"; \next($test); return $key[0] == $country;}), true)."</pre>";
+            $test = \array_filter($test, function() use (&$test, $country)
+            {
+                // the key always is of form: ISO_COUNTRY_CODE-STATION_SHORT-EPOCH
+                // so split the key at "-"...
+                $key = \explode("-", \key($test));
+                // ...move on to the next key in the array...
+                \next($test);
+                // ...and use the first element in key array for comparison
+                return $key[0] == $country;
+            });
+        }
         switch ($order)
         {
             case "ORDER_SHORT" :
@@ -127,6 +151,11 @@ class FileManagerImpl implements FileManager
             }
         }
         return $ret;
+    }
+
+    public function getAllCountryCodes()
+    {
+        return $this->allCountryCodes;
     }
 
     /**
