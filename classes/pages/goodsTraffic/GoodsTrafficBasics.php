@@ -33,7 +33,7 @@ class GoodsTrafficBasics extends AbstractList
 
         $this->oListTable = new GoodsTrafficList($this->daysAWeek);
         $this->oListTable->buildTableEntries($this->getFileManager()
-                        ->getFilesFromEpochWithFilter($this->getEpoch(), $this->stationFilter));
+                        ->getFilesFromEpochWithFilter($this->getEpoch(), $this->stationFilter, $this->getCountryCodes()));
 
         $this->getReportTable()->setRowSelectorEnabled(true);
         $this->getReportTable()->setTableHead($this->oListTable->getTableHeader());
@@ -61,6 +61,7 @@ class GoodsTrafficBasics extends AbstractList
                 $this->daysAWeek = $DATA['daysOfWeek'];
                 $this->lengthPerCar = $DATA['lengthPerCar'];
                 $this->setEpoch($DATA['epoch']);
+                $this->setCountryCodes(\array_values($DATA['countryCodes']));
             }
             else if (!\array_key_exists('calculate', $DATA) && \array_key_exists('reset', $DATA))
             {

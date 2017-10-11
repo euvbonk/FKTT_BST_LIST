@@ -43,7 +43,7 @@ class GoodsTrafficListRowEntry implements ListRowCells
         $short = $xml->getShort();
         $shortRef = $this->getData()->getFile()->toDownloadLink($short, false);
         return array(
-                     HtmlUtil::toUtf8($short),
+                     HtmlUtil::toUtf8(strtolower($this->getData()->getFile()->getParentFile()->getName()."-".$short)),
                      $shortRef,
                      $nameRef,
                      \sprintf(ReportTableListProperties::FORMAT, $xml->getCarsInput()),

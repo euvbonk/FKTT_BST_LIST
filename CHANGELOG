@@ -1,3 +1,9 @@
+2017-10-11 euvbonk v2.0alpha
+    * Landauswahl in Gueterverkehrsansicht an neues Strukturlayout angepasst
+    * Refaktorierung der Landauswahl in abstrakte Basisklasse
+    * TODO: Uploadmethode entsprechend umaendern
+    * TODO: Adminfunktion zur Anlage eines Dummydatenblattes mit Namen im entsprechenden
+    *       Unterverzeichnis
 2017-10-10 euvbonk v2.0alpha
     * Einfuehrung von ISO_639-2 Laenderkuerzeln als Unterordner fuer die jeweiligen
       Datenblaetter => Gleiche Kuerzel in unterschiedlichen Laendern moeglich
@@ -7,7 +13,6 @@
       angepasst
     * Fahrplaneransichtkommando an neues Strukturlayout angepasst
     * Ansicht nach Sprachauswahl an neues Strukturlayout angepasst
-    * TODO: Uploadmethode entsprechend umaendern
 2016-10-16 euvbonk v1.04
     * Anpassungen in den Template Dateien: valides HTML5, CSS, JS aufgrund
       Typesetter Version 5.0.3 Update

@@ -48,7 +48,7 @@ class FileManagerImpl implements FileManager
         $t = $this->getFilesFromEpochWithOrder($epoch, "ORDER_LAST");
         // im Array steht dann an nullter Position die Datei in der die
         // letzte Aenderung stattgefunden hat
-        return (!empty($t)) ? $t[0] : null;
+        return (!empty($t)) ? \array_shift($t) : null;
     }
 
     /**
@@ -122,13 +122,31 @@ class FileManagerImpl implements FileManager
     /**
      * @param string $epoch
      * @param array  $filter
+     * @param array  $country
      * @return array Files
      */
-    public function getFilesFromEpochWithFilter($epoch = "IV", $filter = array())
+    public function getFilesFromEpochWithFilter($epoch = "IV", $filter = array(), $country = null)
     {
         if (empty($filter) && ($epoch == self::$EPOCHS[3]))
         {
-            return $this->allDatasheets[$epoch];
+            $test = $this->allDatasheets[$epoch];
+            //print "<pre>".\print_r($test, true)."</pre>";
+            if ($country != null && \is_array($country))
+            {
+                //print "<pre>".$country."</pre>";
+                //print "<pre>".\print_r(\array_filter($test, function($item) use (&$test, $country) { $key = \explode("-", \key($test)); print $item."=>".($key[0] == $country)."<br>"; \next($test); return $key[0] == $country;}), true)."</pre>";
+                $test = \array_filter($test, function() use (&$test, $country)
+                {
+                    // the key always is of form: ISO_COUNTRY_CODE-STATION_SHORT-EPOCH
+                    // so split the key at "-"...
+                    $key = \explode("-", \key($test));
+                    // ...move on to the next key in the array...
+                    \next($test);
+                    // ...and use the first element in key array for comparison
+                    return \in_array($key[0], $country);
+                });
+            }
+            return $test;
         }
         $ret = array();
         foreach ($this->allDatasheets[self::$EPOCHS[3]] as $short => $url)
@@ -145,7 +163,7 @@ class FileManagerImpl implements FileManager
             }
             // ist der Filter nicht leer, dann entsprechenden Wert aus
             // dem Array wieder entfernen, falls nicht im Filter
-            if (!empty($filter) && !\in_array(\strtoupper($short), $filter))
+            if ((!empty($filter) && !\in_array($short, $filter)) || ($country != null && \is_array($country) && !\in_array(\explode("-", $short)[0], $country)))
             {
                 unset($ret[$short]);
             }

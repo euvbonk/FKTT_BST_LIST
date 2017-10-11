@@ -17,9 +17,13 @@
             <td><label><select name="epoch" size="1" style="width:45px;"><?php $this->printValue('EpochOptionsUI'); ?></select></label></td>
             <td rowspan="1"><input type="hidden" name="cmd" value="calculate" /></td>
         </tr>
-        <tr>
+        <!--<tr>
             <td style="text-align:right;">Filter f&uuml;r Betriebsstellen:&nbsp;</td>
             <td colspan="2"><input type="text" name="filterCSV" size="45" maxlength="50" value="<?php $this->printValue('FilterCSV'); ?>"/></td>
+        </tr>-->
+        <tr>
+            <td style="text-align:right;">Filter f&uuml;r L&auml;nder:&nbsp;</td>
+            <td colspan="2"><?php $this->printValue('CountryCodesUI'); ?></td>
         </tr>
     </table>
     <?php $this->printValue('Table'); ?>

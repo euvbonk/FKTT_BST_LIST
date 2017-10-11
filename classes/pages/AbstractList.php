@@ -14,6 +14,7 @@ use org\fktt\bstlist\util\reportTable\ReportTableListImpl;
 abstract class AbstractList extends Frame implements FrameForm
 {
     private $epoch = "IV";
+    private $countryCodes = null;
 
     private $oFileManager;
     private $oReportTable;
@@ -23,6 +24,7 @@ abstract class AbstractList extends Frame implements FrameForm
         parent::__construct($templateFile);
         $this->setEpoch(FileManagerImpl::$EPOCHS[3]);
         $this->oFileManager = new FileManagerImpl();
+        $this->setCountryCodes($this->getFileManager()->getAllCountryCodes());
         $this->oReportTable = new ReportTableListImpl();
     }
 
@@ -34,6 +36,16 @@ abstract class AbstractList extends Frame implements FrameForm
     protected final function getEpoch()
     {
         return $this->epoch;
+    }
+
+    protected final function setCountryCodes($countryCodes = array())
+    {
+        $this->countryCodes = $countryCodes;
+    }
+
+    protected final function getCountryCodes()
+    {
+        return $this->countryCodes;
     }
 
     protected final function getFileManager()
@@ -48,8 +60,9 @@ abstract class AbstractList extends Frame implements FrameForm
 
     protected function getCallableMethods()
     {
-        return array('FormActionUri', 'EpochOptionsUI', 'Table');
+        return array('FormActionUri', 'EpochOptionsUI', 'Table', 'CountryCodesUI');
     }
+
     /**
      * @see Interface FrameForm
      * @return String
@@ -68,7 +81,19 @@ abstract class AbstractList extends Frame implements FrameForm
         }
         return $str;
     }
-    
+
+    public final function CountryCodesUI()
+    {
+        $str = "";
+        $countries = $this->getFileManager()->getAllCountryCodes();
+        foreach ($countries as $country)
+        {
+            $str .= "<label><input type=\"checkbox\" name=\"countryCodes[]\" value=\"".$country."\"".((\in_array($country, $this->countryCodes)) ? " checked=\"checked\"" : "")." style=\"vertical-align:middle;\"/>";
+            $str .= "&thinsp;<span style=\"vertical-align:bottom;\">".\strtoupper($country)."</span></label>&emsp;";
+        }
+        return $str;
+    }
+
     public final function Table()
     {
         return $this->getReportTable()->getHtml();
