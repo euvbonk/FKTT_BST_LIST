@@ -1,6 +1,7 @@
 2017-10-11 euvbonk v2.0alpha
     * Landauswahl in Gueterverkehrsansicht an neues Strukturlayout angepasst
     * Refaktorierung der Landauswahl in abstrakte Basisklasse
+    * Landauswahl per Checkbox ebenfalls in Listenansicht (aus abstrakter Basisklasse)
     * TODO: Uploadmethode entsprechend umaendern
     * TODO: Adminfunktion zur Anlage eines Dummydatenblattes mit Namen im entsprechenden
     *       Unterverzeichnis

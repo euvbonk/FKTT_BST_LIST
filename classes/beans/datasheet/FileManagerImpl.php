@@ -88,7 +88,7 @@ class FileManagerImpl implements FileManager
     {
         $test = $this->allDatasheets[$epoch];
         //print "<pre>".\print_r($test, true)."</pre>";
-        if ($country != null)
+        if ($country != null && \is_array($country))
         {
             //print "<pre>".$country."</pre>";
             //print "<pre>".\print_r(\array_filter($test, function($item) use (&$test, $country) { $key = \explode("-", \key($test)); print $item."=>".($key[0] == $country)."<br>"; \next($test); return $key[0] == $country;}), true)."</pre>";
@@ -100,7 +100,7 @@ class FileManagerImpl implements FileManager
                 // ...move on to the next key in the array...
                 \next($test);
                 // ...and use the first element in key array for comparison
-                return $key[0] == $country;
+                return \in_array($key[0], $country);
             });
         }
         switch ($order)
@@ -127,6 +127,7 @@ class FileManagerImpl implements FileManager
      */
     public function getFilesFromEpochWithFilter($epoch = "IV", $filter = array(), $country = null)
     {
+        // TODO implement also here ORDER_SHORT?
         if (empty($filter) && ($epoch == self::$EPOCHS[3]))
         {
             $test = $this->allDatasheets[$epoch];
