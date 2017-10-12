@@ -134,13 +134,17 @@ class RemoteSheetUpload extends Frame
                  *      Datenblatt ersetzen
                  *
                  * Datenblatt existiert nicht auf dem Server
-                 *      nachsehen in FKTT100, ob Kuerzel existiert
-                 *      Nein
-                 *          Abbruch mit Fehlermeldung => ohne gueltiges Kuerzel kein automatisches hochladen!
+                 *      Ist es ein Epochendatenblatt eines bereits bestehenden Datenblattes?
                  *      Ja
-                 *          Anlegen neues Verzeichnis mit gueltigem Kuerzel aus FKTT100
-                 *          Kopieren aller notwendigen Basisdateien (dtd,css,xsl)
-                 *          Kopieren/Verschieben xml Datenblatt und Bilddatei (sofern vorhanden)
+                 *          Kopieren/Verschieben xml Datenblatt und Bilddatei (sofern vorhanden) in entsprechendes
+                 *          Unterverzeichnis!
+                 *      Nein
+                 *          nachsehen in FKTT100, ob Kuerzel existiert
+                 *          Nein
+                 *              Abbruch mit Fehlermeldung => ohne gueltiges Kuerzel kein automatisches hochladen!
+                 *          Ja
+                 *              Kopieren/Verschieben xml Datenblatt und Bilddatei (sofern vorhanden) in entsprechendes
+                 *              Unterverzeichnis!
                  */
                 $sheet = $_FILES['sheet'];
                 if ($sheet['error'] == 0 && \is_uploaded_file($sheet['tmp_name']))
@@ -148,10 +152,8 @@ class RemoteSheetUpload extends Frame
                     // das ist auch irgendwie problematisch!, denn hier gilt auch dasselbe wie für
                     // die JSON Datei und den Dateipfad, kann man nicht so einfach aus dem Namen
                     // ableiten
-                    $p = \explode("-", \basename($sheet['name'], ".xml"));
-                    $relPath = "db/".$p[0]."/";
-                    $f = new File($relPath.$sheet['name']);
-                    if ($f->exists() && $this->check($user['station'], $user['mshort'], $p[0]."/".$sheet['name']))
+                    $f = $this->check($user['station'], $user['mshort'], $sheet['name']);
+                    if ($f != null)
                     {
                         // check FKTT100? would be nice but there is not one at the moment
                         if (\sizeof($_FILES) == 2)
@@ -159,7 +161,10 @@ class RemoteSheetUpload extends Frame
                             $layout = $_FILES['layout'];
                             if ($layout['error'] == 0 && \is_uploaded_file($layout['tmp_name']))
                             {
-                                $l = new File($relPath.$layout['name']);
+                                // Wie soll das mit den Bildern gehandhabt werden? Eines fuer alle Epochen oder
+                                // je Epoche eines benamt wie die Datenblaetter selbst?
+                                // => Muessen die Besitzer selbst entscheiden, denn es geht hier nach Dateinamen
+                                $l = new File($f->getParentFile()->getPathname()."/".$layout['name']);
                                 // check file size? last mod?
                                 if ($l->exists() && $l->getSize() != $layout['size'])
                                 {
@@ -178,20 +183,13 @@ class RemoteSheetUpload extends Frame
                                 }
                             }
                         }
-                        // file must be always a xml file
-                        \rename($f->getPathname(), $f->getParent()."/".$f->getBasename(".xml").\date("YmdHi")."xml.old");
+                        if ($f->exists())
+                        { // file must be always a xml file
+                            \rename($f->getPathname(), $f->getParent()."/".$f->getBasename(".xml").\date("YmdHi")."xml.old");
+                        }
                         \move_uploaded_file($sheet['tmp_name'], $f->getPathname());
                         $log->write("Update datasheet ".$sheet['name']." successful");
                         echo "Success";
-                    }
-                    // For an existing datasheet of epoch four add datasheet for a new epoch which is one to six
-                    else if (\sizeof($p) > 1 && !$f->exists() &&
-                        $this->check($user['station'], $user['mshort'], $p[0]."/".$p[0].".xml") &&
-                        \in_array($p[1], FileManagerImpl::$EPOCHS)
-                    )
-                    {
-                        // Wie soll das mit den Bildern gehandhabt werden? Eines fuer alle Epochen oder
-                        // je Epoche eines benamt wie die Datenblaetter selbst?
                     }
                     else if (\array_key_exists(\strtolower($user['mshort']), $c->getAsArray()))
                     {
@@ -243,23 +241,40 @@ class RemoteSheetUpload extends Frame
      * Checks if given parameter are in stored json string and returns true if and only if all
      * are in json otherwise false
      *
-     * @param $station (string) Name of the station
-     * @param $mshort (string) Stations abbreviation
-     * @param $path (string) relative path to stored place
-     * @return bool
+     * @param $stationName  (string) Name of the station
+     * @param $stationShort (string) Stations abbreviation
+     * @param $xmlFileName  (string) relative path to stored place
+     * @return File|null
      */
-    private function check($station, $mshort, $path)
+    private function check($stationName, $stationShort, $xmlFileName)
     {
         $f = new File("db/bst_list.json");
         $json = \json_decode(\file_get_contents($f->getRealPath()));
         foreach ($json as $value)
         {
-            if ($value->name == $station && $value->abb == $mshort && \in_array($path, $value->epochs))
+            // check whether file name is directly in the list of existing datasheets
+            // if so the value is returned in $tf
+            $tf = \array_filter($value->epochs, function($val) use($xmlFileName)
             {
-                return true;
+                return \strstr($val, $xmlFileName);
+            });
+            $p = \explode("-", \basename($xmlFileName, ".xml"));
+            // the datasheet file exists at the server
+            if ($value->name == $stationName && $value->abb == $stationShort && sizeof($tf) > 0)
+            {
+                return new File("db/".\array_shift($tf));
+            }
+            // For an existing datasheet of epoch four add datasheet for a new epoch which is one to six
+            // the datasheet file is an epoch datasheet which does not exists, but the base datasheet (epoch 4) exists
+            elseif ($value->name == $stationName && $value->abb == $stationShort && sizeof($tf) == 0
+                && \sizeof($value->epochs) > 0 && \in_array($p[1], FileManagerImpl::$EPOCHS))
+            {
+                // determine the correct file path
+                $fp = \explode("/", $value->epochs[0]);
+                return new File("db/".$fp[0]."/".$xmlFileName);
             }
         }
-        return false;
+        return null;
     }
 }
 
