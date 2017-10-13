@@ -17,27 +17,16 @@ use org\fktt\bstlist\util\QI;
 
 final class SyncFormatFiles extends Frame implements FrameForm
 {
-    private static $availCommands = array('sync');
-
-    private $oListEntries = "";
-    private $oMessage = "&nbsp;";
+    private $oMessage = null;
 
     public function __construct()
     {
-        parent::__construct('sync_format_files');
+        parent::__construct();
 
-        $this->doCommand(QI::getCommand(), $_POST);
-        $this->buildList();
-
-        return $this;
-    }
-
-    protected function doCommand($cmd, $DATA = array())
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && \in_array($cmd, self::$availCommands) && \sizeof($DATA) > 2)
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && QI::getCommand() == "sync" && \sizeof($_POST) > 2)
         {
             $files = array();
-            foreach ($DATA as $key => $value)
+            foreach ($_POST as $key => $value)
             {
                 if ($this->startsWith($key, "bahnhof"))
                 {
@@ -86,22 +75,18 @@ final class SyncFormatFiles extends Frame implements FrameForm
             $zipF->changeFileRights(0666);
             $this->oMessage .= "Archiv \"{$zipF->getBasename()}\" erfolgreich aktualisiert.";
         }
+
+        return $this;
     }
 
-    protected function buildMessage($msgs)
+    public final function showContent()
     {
-        if (sizeof($msgs) > 0)
-        {
-            $this->oMessage = "";
-            foreach ($msgs as $key => $value)
-            {
-                $this->oMessage .= "Synchronisation von \"{$key}\" f&uuml;r {$value[0]}/{$value[1]} erfolgreich.<br>";
-            }
-        }
-    }
-
-    protected function buildList()
-    {
+        print "<h3>Synchronizes format files (DTD, XSL, CSS):</h3>";
+        print "<h4><span style=\"font-weight:bold;text-decoration:underline;\">Attention:</span> Action replaces the selected file(s) without backup!</h4>";
+        print "<p>";
+        print "Following files are available for synchronization:";
+        print "<form action=\"".$this->FormActionUri()."\" method=\"post\">";
+        print "<ul style=\"list-style-type:none;\">";
         $ret = array();
         $f = new File("db");
         $it = new GlobIterator($f->getPathname()."/bahnhof*.*");
@@ -118,8 +103,29 @@ final class SyncFormatFiles extends Frame implements FrameForm
 
         foreach ($ret as $key => $value)
         {
-            $this->oListEntries .= "<li><input type=\"checkbox\" id=\"{$key}\" name=\"{$key}\" value=\"{$value}\">";
-            $this->oListEntries .= "<label for=\"{$key}\">{$key}</label></li>";
+            print "<li><input type=\"checkbox\" id=\"{$key}\" name=\"{$key}\" value=\"{$value}\">";
+            print "<label for=\"{$key}\">{$key}</label></li>";
+        }
+        print "</ul>";
+        print "<input type=\"hidden\" name=\"cmd\" value=\"sync\" />";
+        print "<input type=\"submit\" value=\"Start synchronization\" />";
+        print "</form>";
+        print "</p>";
+        if ($this->oMessage != null)
+        {
+            print "<p style=\"color: red\">".$this->oMessage."</p>";
+        }
+    }
+
+    protected function buildMessage($msgs)
+    {
+        if (sizeof($msgs) > 0)
+        {
+            $this->oMessage = "";
+            foreach ($msgs as $key => $value)
+            {
+                $this->oMessage .= "Synchronisation von \"{$key}\" f&uuml;r {$value[0]}/{$value[1]} erfolgreich.<br>";
+            }
         }
     }
 
@@ -130,17 +136,7 @@ final class SyncFormatFiles extends Frame implements FrameForm
 
     protected function getCallableMethods()
     {
-        return array('ListEntries', 'FormActionUri', 'CmdMessages');
-    }
-
-    public final function CmdMessages()
-    {
-        return $this->oMessage;
-    }
-
-    public final function ListEntries()
-    {
-        return $this->oListEntries;
+        return array();
     }
 
     /**

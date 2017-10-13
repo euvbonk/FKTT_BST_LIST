@@ -1,6 +1,8 @@
 2017-10-13 euvbonk v2.0beta
     * Adminfunktion zur Anlage eines Dummydatenblattes mit Namen im entsprechenden
       Unterverzeichnis
+    * Admin Seiten und deren Funktionen basieren jetzt nicht mehr auf Template Dateien
+    * Die Entwicklungsseite basiert ebenfalls nicht mehr auf einer Template Datei
 2017-10-12 euvbonk v2.0alpha
     * Uploadmethode an neues Strukturlayout angepasst
 2017-10-11 euvbonk v2.0alpha

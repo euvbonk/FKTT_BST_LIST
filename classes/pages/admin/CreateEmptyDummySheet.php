@@ -16,36 +16,27 @@ use org\fktt\bstlist\pages\Frame;
 use org\fktt\bstlist\pages\FrameForm;
 use org\fktt\bstlist\util\QI;
 
-class CreateEmptyDummySheet extends Frame implements FrameForm
+final class CreateEmptyDummySheet extends Frame implements FrameForm
 {
-    private static $availCommands = array('create_dummy');
-    private $oMessage = "";
+    private $oMessage = null;
 
     public function __construct()
     {
         parent::__construct();
-
-        $this->doCommand(QI::getCommand(), $_POST);
-        $this->showForm();
-
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && QI::getCommand() == "create_dummy" && \sizeof($_POST) > 3)
+        {
+            $sheet = new File("db/".\array_shift($_POST['countryCodes'])."/".\strtolower($_POST['sheet_short']).".xml");
+            $dummy = new File("db/dummy.tpl");
+            $el = new BaseElement(new SimpleXMLElement($dummy->getPathname(), null, true));
+            $el->setValueForTag("name", $_POST['sheet_name']);
+            $el->setValueForTag("kuerzel", $_POST['sheet_short']);
+            $el->getElement()->asXML($sheet->getPathname());
+            $this->oMessage .= "Station Data Sheet \"{$_POST['sheet_name']} ({$_POST['sheet_short']})\" successful created.";
+        }
         return $this;
     }
 
-    protected function doCommand($cmd, $DATA = array())
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && \in_array($cmd, self::$availCommands) && \sizeof($DATA) > 3)
-        {
-            $sheet = new File("db/".\array_shift($DATA['countryCodes'])."/".\strtolower($DATA['sheet_short']).".xml");
-            $dummy = new File("db/dummy.tpl");
-            $el = new BaseElement(new SimpleXMLElement($dummy->getPathname(), null, true));
-            $el->setValueForTag("name", $DATA['sheet_name']);
-            $el->setValueForTag("kuerzel", $DATA['sheet_short']);
-            $el->getElement()->asXML($sheet->getPathname());
-            $this->oMessage .= "Station Data Sheet \"{$DATA['sheet_name']} ({$DATA['sheet_short']})\" successful created.";
-        }
-    }
-
-    protected function showForm()
+    public function showContent()
     {
         $str = "<h3>Creates an empty dummy station data sheet:</h3>";
         $str .= "<h4><span style=\"font-weight:bold;text-decoration:underline;\">Attention:</span> This method does not perform any checks!</h4>";
@@ -66,24 +57,16 @@ class CreateEmptyDummySheet extends Frame implements FrameForm
         $str .= "</table>";
         $str .= "</form>";
         $str .= "</p>";
-        $str .= "<p>".$this->CmdMessages()."</p>";
-        $str .= "<hr />";
-        $str .= "<p class=\"klein\">";
-        $str .= "zuletzt ge&auml;ndert: ".$this->LastChange()."<br/>";
-        $str .= "<a href=\"&#109;&#97;&#105;&#108;&#116;&#111;:seiste&#064;yahoo.de\">";
-        $str .= "Fragen und Klagen an Stefan Seibt</a>";
-        $str .= "</p>";
+        if ($this->oMessage != null)
+        {
+            $str .= "<p style=\"color: red\">".$this->oMessage."</p>";
+        }
         echo $str;
     }
 
     protected function getCallableMethods()
     {
         return array();
-    }
-
-    public final function CmdMessages()
-    {
-        return $this->oMessage;
     }
 
     /**
