@@ -2,6 +2,7 @@
 
 \import('pages_AddonErrorPage');
 \import('pages_admin_AdminPage');
+\import('pages_admin_CreateEmptyDummySheet');
 \import('pages_admin_SyncFormatFiles');
 \import('pages_admin_LatestSheetChangesList');
 \import('pages_editor_DatasheetEditor');
@@ -16,6 +17,7 @@
 
 use org\fktt\bstlist\pages\AddonErrorPage;
 use org\fktt\bstlist\pages\admin\AdminPage;
+use org\fktt\bstlist\pages\admin\CreateEmptyDummySheet;
 use \org\fktt\bstlist\pages\LatestSheetChangesList;
 use org\fktt\bstlist\pages\admin\SyncFormatFiles;
 use org\fktt\bstlist\pages\datasheet\DatasheetsList;
@@ -74,6 +76,9 @@ class Main
                     break;
                 case "admin_latest_sheet_changes_list" :
                     $sheet = new LatestSheetChangesList();
+                    break;
+                case "admin_create_empty_dummy_sheet" :
+                    $sheet = new CreateEmptyDummySheet();
                     break;
                 default :
                     // Never reached by gpEasy!

@@ -59,4 +59,20 @@ class BaseElement
         }
         return "";
     }
+
+    /**
+     * @param $tagName
+     * @param $tagValue
+     */
+    public function setValueForTag($tagName, $tagValue)
+    {
+        /** @var $child SimpleXMLElement */
+        foreach ($this->getElement()->children() as $child)
+        {
+            if ($child->getName() == $tagName)
+            {
+                $child[0] = $tagValue;
+            }
+        }
+    }
 }
